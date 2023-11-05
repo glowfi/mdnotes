@@ -1,0 +1,4870 @@
+<!DOCTYPE HTML>
+<html lang="en" class="light" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Fundamentals of Web Development</title>
+        <meta name="robots" content="noindex">
+
+
+        <!-- Custom HTML head -->
+        
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="favicon.svg">
+        <link rel="shortcut icon" href="favicon.png">
+        <link rel="stylesheet" href="css/variables.css">
+        <link rel="stylesheet" href="css/general.css">
+        <link rel="stylesheet" href="css/chrome.css">
+        <link rel="stylesheet" href="css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="highlight.css">
+        <link rel="stylesheet" href="tomorrow-night.css">
+        <link rel="stylesheet" href="ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+
+    </head>
+    <body class="sidebar-visible no-js">
+    <div id="body-container">
+        <!-- Provide site root to javascript -->
+        <script>
+            var path_to_root = "";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('light')
+            html.classList.add(theme);
+            var body = document.querySelector('body');
+            body.classList.remove('no-js')
+            body.classList.add('js');
+        </script>
+
+        <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            var body = document.querySelector('body');
+            var sidebar = null;
+            var sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+            }
+            sidebar_toggle.checked = sidebar === 'visible';
+            body.classList.remove('sidebar-visible');
+            body.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded "><a href="1_react_i_fundamentals.html"><strong aria-hidden="true">1.</strong> 1_react_i_fundamentals</a></li><li class="chapter-item expanded "><a href="2_react_ii_advanced.html"><strong aria-hidden="true">2.</strong> 2_react_ii_advanced</a></li><li class="chapter-item expanded "><a href="3_react_iii_axios.html"><strong aria-hidden="true">3.</strong> 3_react_iii_axios</a></li><li class="chapter-item expanded "><a href="4_react_iv_router_dom.html"><strong aria-hidden="true">4.</strong> 4_react_iv_router_dom</a></li><li class="chapter-item expanded "><a href="5_react_v_redux_tookit.html"><strong aria-hidden="true">5.</strong> 5_react_v_redux_tookit</a></li><li class="chapter-item expanded "><a href="6_node_i_fundamentals.html"><strong aria-hidden="true">6.</strong> 6_node_i_fundamentals</a></li><li class="chapter-item expanded "><a href="7_node_ii_advanced.html"><strong aria-hidden="true">7.</strong> 7_node_ii_advanced</a></li><li class="chapter-item expanded "><a href="8_sql.html"><strong aria-hidden="true">8.</strong> 8_sql</a></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+        </nav>
+
+        <!-- Track and set sidebar scroll position -->
+        <script>
+            var sidebarScrollbox = document.querySelector('#sidebar .sidebar-scrollbox');
+            sidebarScrollbox.addEventListener('click', function(e) {
+                if (e.target.tagName === 'A') {
+                    sessionStorage.setItem('sidebar-scroll', sidebarScrollbox.scrollTop);
+                }
+            }, { passive: true });
+            var sidebarScrollTop = sessionStorage.getItem('sidebar-scroll');
+            sessionStorage.removeItem('sidebar-scroll');
+            if (sidebarScrollTop) {
+                // preserve sidebar scroll position when navigating via links within sidebar
+                sidebarScrollbox.scrollTop = sidebarScrollTop;
+            } else {
+                // scroll sidebar to current active section when navigating via "next/previous chapter" buttons
+                var activeSection = document.querySelector('#sidebar .active');
+                if (activeSection) {
+                    activeSection.scrollIntoView({ block: 'center' });
+                }
+            }
+        </script>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </label>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">Fundamentals of Web Development</h1>
+
+                    <div class="right-buttons">
+                        <a href="print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1 id="react-i"><a class="header" href="#react-i">React I</a></h1>
+<blockquote>
+<p>What is React and some of its advantages.</p>
+</blockquote>
+<ul>
+<li>
+<p>React is a <strong>Javascript library for creating user interfaces</strong>.</p>
+</li>
+<li>
+<p>React is all about <strong>components</strong>. Components are <strong>idependent chunks
+of user interfaces</strong> ,which can be pieced up together like lego
+blocks and as a result we will be able to create a complex app.</p>
+</li>
+<li>
+<p>Components are <strong>independent , isolated &amp; resuable</strong> and once they are ready they can
+be used anywhere. So if we want to change a logic in one of the components
+we have do it only in one place and all the instances where we are
+using it will be updated with the new logic.</p>
+</li>
+<li>
+<p>Basically we can <strong>update the logic of components without
+breaking our whole app</strong> ,if we are making an app which is divided
+into multiple isolated components.</p>
+</li>
+<li>
+<p>Under the hood React is very <strong>fast</strong> as it uses something called
+<strong>Virtual DOM</strong> which only updates the components which requires
+updating and without re-rendering our whole app.</p>
+</li>
+</ul>
+<h3 id="npx"><a class="header" href="#npx">NPX</a></h3>
+<p>NPX will only execute the package and will not install the package
+globally</p>
+<h3 id="popluar-options-to-get-setup-reactjs"><a class="header" href="#popluar-options-to-get-setup-reactjs">Popluar options to get setup ReactJS</a></h3>
+<ul>
+<li>Vite (Pronounced as Veet) [https://create-react-app.dev/docs/getting-started]</li>
+<li>create-react-app [https://vitejs.dev/]</li>
+</ul>
+<p><b>Snippet to setup react with create-react-app</b></p>
+<p>Will craete a folder a named myapp</p>
+<pre><code class="language-sh">npx create-react-app myapp
+cd myapp
+npm audit fix --force
+</code></pre>
+<h3 id="what-is-webpack"><a class="header" href="#what-is-webpack">What is webpack?</a></h3>
+<p>Webpack is a tool that helps developers bundle and manage their JavaScript code.
+It takes all the different files (assets,scripts,iamges) and dependencies in a project and combines them into a single file,
+making it easier to load and run in a web browser. It also optimizes the code by removing
+any unnecessary parts.</p>
+<h3 id="what-is-babel"><a class="header" href="#what-is-babel">What is Babel?</a></h3>
+<p>Babel is a JavaScript compiler
+Babel is a tool that helps developers write modern
+JavaScript code and convert it into a version that can
+be understood by older browsers.</p>
+<h3 id="babel-vs-webpack"><a class="header" href="#babel-vs-webpack">Babel vs Webpack</a></h3>
+<p>Babel helps with making modern JavaScript code compatible with older browsers,
+while webpack is a tool for bundling and managing JavaScript code
+for web development</p>
+<h3 id="folder-structure"><a class="header" href="#folder-structure">Folder Structure</a></h3>
+<ul>
+<li>
+<p><strong>node_modules</strong> : Contains all dependencies required by our app.</p>
+</li>
+<li>
+<p><strong>public</strong> : Contains static assests including index.html</p>
+<pre><code> index.html
+    - title
+    - fonts
+    - css
+    - favicon
+    - id=&quot;root&quot; - our entire app
+</code></pre>
+</li>
+<li>
+<p><strong>src</strong> : Contains all our javascript files . We do all our work here.
+Brain of our app.src/index.js is the JavaScript entry point.</p>
+</li>
+<li>
+<p><strong>package.json</strong> : Contains info about our projects like name,version,scripts,
+dependencies</p>
+</li>
+<li>
+<p><strong>package.json.lock</strong> : Contains a snapshot of our dependency tree. Automatically
+generated when installing or updating packages in a JavaScript project.
+It keeps track of the exact versions of all the dependencies
+installed in the project.</p>
+</li>
+</ul>
+<hr />
+<h2 id="react-fundamentals"><a class="header" href="#react-fundamentals">React Fundamentals</a></h2>
+<p><strong>export vs export default</strong></p>
+<div class="table-wrapper"><table><thead><tr><th>export (named export)</th><th>export default</th></tr></thead><tbody>
+<tr><td>Can have muliple export in a single file</td><td>Can have only single</td></tr>
+<tr><td>Imported module should have the same name as the exported module</td><td>Imported module can have any name</td></tr>
+</tbody></table>
+</div>
+<blockquote>
+<p>Boiler Plate</p>
+</blockquote>
+<ul>
+<li>Delete the src created and recreate the folder</li>
+<li>Inside src create index.js (entrypoint of our react app)</li>
+</ul>
+<p><strong>Rules for writing components</strong></p>
+<ul>
+<li>Always start name with capital letter</li>
+<li>Must return JSX element.</li>
+<li>Must self close the component wherever you use it you use it. <br>
+Example : &lt;/Hello&gt;</li>
+</ul>
+<p><strong>What is JSX</strong></p>
+<p>JSX stands for JavaScript XML.
+JSX is a syntax extension for JavaScript that allows you to
+write HTML-like code in your JavaScript files. It's used
+in popular frameworks like React and Vue.js.
+JSX code is transpiled into regular JavaScript
+code before being executed by the browser.</p>
+<p><strong>Rules for JSX</strong></p>
+<ul>
+<li>
+<p><strong>Must return one single parent element</strong>. Either enclose the JSX
+return entire with inbuilt html tags or react Fragments.
+React Fragments helps us to let's us to group elements without
+adding extra node</p>
+<pre><code class="language-js">// One way
+return &lt;React.Fragment&gt;...rest of the return&lt;/React.Fragment&gt;;
+
+// Another way
+return &lt;&gt;...rest of the return&lt;/&gt;;
+</code></pre>
+</li>
+<li>
+<p><strong>camelCase for defininig property names</strong></p>
+</li>
+</ul>
+<pre><code class="language-js">return (
+  &lt;div tabIndex={1}&gt;
+    &lt;button onClick={myFunction}&gt;click me&lt;/button&gt;
+    &lt;label htmlFor='name'&gt;Name&lt;/label&gt;
+    &lt;input readOnly={true} id='name' /&gt;
+  &lt;/div&gt;
+)
+// in html
+&lt;div tabindex=&quot;1&quot;&gt;
+    &lt;button onclick=&quot;myFunction()&quot;&gt;click me&lt;/button&gt;
+    &lt;label for='name'&gt;Name&lt;/label&gt;
+    &lt;input readonly id='name' /&gt;
+&lt;/div&gt;
+</code></pre>
+<ul>
+<li><strong>Close every element</strong></li>
+</ul>
+<p>Close every tag that does not even supports closing in HTML5</p>
+<pre><code class="language-js">return &lt;img /&gt;;
+// or
+return &lt;input /&gt;;
+</code></pre>
+<ul>
+<li><strong>Formatting</strong></li>
+</ul>
+<p>Use () to enclose return statements when returning some
+nested elements.We can ignore () when returning just 1
+single element.</p>
+<pre><code class="language-js">function Hello() {
+    return (
+        &lt;&gt;
+            &lt;div className=&quot;someValue&quot;&gt;
+                &lt;h3&gt;hello world&lt;/h3&gt;
+                &lt;ul&gt;
+                    &lt;li&gt;
+                        &lt;a href=&quot;#&quot;&gt;hello world&lt;/a&gt;
+                    &lt;/li&gt;
+                &lt;/ul&gt;
+            &lt;/div&gt;
+            &lt;h2&gt;hello world&lt;/h2&gt;
+            &lt;input type=&quot;text&quot; name=&quot;&quot; id=&quot;&quot; /&gt;
+        &lt;/&gt;
+    );
+}
+</code></pre>
+<p><strong>Basic React APP</strong></p>
+<blockquote>
+<p>index.js</p>
+</blockquote>
+<pre><code class="language-js">import React from 'react';
+import ReactDOM from 'react-dom/client';
+
+const Hello = () =&gt; {
+    return &lt;h1&gt;Hello World&lt;/h1&gt;;
+};
+
+const root = ReactDOM.createRoot(document.getElementById('root'));
+
+root.render(&lt;Hello /&gt;);
+</code></pre>
+<p><strong>Create element in react</strong></p>
+<blockquote>
+<p>Using JSX is easier to read than using react's createElement</p>
+</blockquote>
+<pre><code class="language-js">import React from 'react';
+import ReactDOM from 'react-dom/client';
+
+// With JSX
+const Hello = () =&gt; {
+    return &lt;h1&gt;Hello&lt;/h1&gt;;
+};
+
+// With React craete element
+const Hello = () =&gt; {
+    return React.createElement('h1', {}, 'Hello');
+};
+
+// Nested React createElement
+const Hello = () =&gt; {
+    return React.createElement(
+        'div',
+        {},
+        React.createElement('h1', {}, 'Hello')
+    );
+};
+
+const root = ReactDOM.createRoot(document.getElementById('root'));
+root.render(&lt;Hello /&gt;);
+</code></pre>
+<hr />
+<h3 id="simple-booklist-app"><a class="header" href="#simple-booklist-app">Simple Booklist App</a></h3>
+<ul>
+<li><strong>1. First Steps</strong></li>
+</ul>
+<pre><code class="language-js">import React from 'react';
+import ReactDOM from 'react-dom/client';
+
+// Booklist
+const Booklist = () =&gt; {
+    return (
+        &lt;&gt;
+            &lt;Book /&gt;
+            &lt;Book /&gt;
+            &lt;Book /&gt;
+        &lt;/&gt;
+    );
+};
+
+// Book
+const Book = () =&gt; {
+    return (
+        &lt;&gt;
+            &lt;Image /&gt;
+            &lt;Title /&gt;
+            &lt;Author /&gt;
+        &lt;/&gt;
+    );
+};
+
+// Items in Book
+const Image = () =&gt; {
+    return (
+        &lt;img
+            src=&quot;https://m.media-amazon.com/images/I/51TrWpIwMfL.jpg&quot;
+            alt=&quot;IMG&quot;
+        /&gt;
+    );
+};
+
+const Title = () =&gt; {
+    return &lt;h3&gt;David Copperfield&lt;/h3&gt;;
+};
+
+const Author = () =&gt; {
+    return &lt;p&gt;Charles Dickens&lt;/p&gt;;
+};
+
+// Render
+const root = ReactDOM.createRoot(document.getElementById('root'));
+root.render(&lt;Booklist /&gt;);
+</code></pre>
+<ul>
+<li><strong>2. Adding CSS</strong></li>
+</ul>
+<p>Create an index.css in src</p>
+<blockquote>
+<p>index.css</p>
+</blockquote>
+<pre><code class="language-css">/* Reset CSS */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family:
+        system-ui,
+        -apple-system,
+        BlinkMacSystemFont,
+        'Segoe UI',
+        Roboto,
+        Oxygen,
+        Ubuntu,
+        Cantarell,
+        'Open Sans',
+        'Helvetica Neue',
+        sans-serif;
+    background: #f1f5f8;
+    color: #222;
+}
+
+/* CSS */
+
+.booklist {
+    width: 90vw;
+    max-width: 1170px;
+    margin: 3rem 3rem;
+    display: grid;
+    gap: 2rem;
+}
+
+.book {
+    background: #fff;
+    border-radius: 1rem;
+    padding: 2rem;
+    text-align: center;
+}
+.book img {
+    width: 100%;
+    object-fit: cover;
+}
+.book h3 {
+    margin-top: 1rem;
+    font-size: 1rem;
+}
+
+/* Media Query */
+
+@media screen and (min-width: 768px) {
+    .booklist {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+</code></pre>
+<blockquote>
+<p>index.js</p>
+</blockquote>
+<p>Import the css by mentioning the path at the top of js file</p>
+<pre><code class="language-js">import './index.css';
+</code></pre>
+<h3 id="local-images"><a class="header" href="#local-images">Local Images</a></h3>
+<ul>
+<li>
+<p>local images (public folder) - less performant</p>
+</li>
+<li>
+<p>local images (src folder) - better solution for assets, since under the hood they get optimized.</p>
+</li>
+</ul>
+<p>Note :<b> Whenever using public folder images and writing an URL,
+Imagine that u are in public folder and write the image path as
+below.I Know its not logical why ./ is used but assume you are
+in public folder.You can type in the browser the url
+http://localhost:3000/images/&lt;imgname.ext&gt; and see the image will
+appear that you have placed in the public/image folder.</b></p>
+<pre><code class="language-js">const Image = () =&gt; (
+    &lt;img
+        src=&quot;./images/book-1.jpg&quot;
+        alt=&quot;Interesting Facts For Curious Minds&quot;
+        alt=&quot;IMG&quot;
+    /&gt;
+);
+</code></pre>
+<h3 id="jsx-css"><a class="header" href="#jsx-css">JSX CSS</a></h3>
+<ul>
+<li>{} in JSX means going back to JS Land</li>
+<li>value is an object with key/value pairs - capitalized and with ''</li>
+<li>property names should be in camel case</li>
+</ul>
+<blockquote>
+<p>Example (Inline CSS)</p>
+</blockquote>
+<pre><code class="language-js">const Author = () =&gt; (
+    &lt;h4 style={{ color: '#617d98', fontSize: '0.75rem', marginTop: '0.5rem' }}&gt;
+        Jordan Moore
+    &lt;/h4&gt;
+);
+</code></pre>
+<blockquote>
+<p>Alternative option using variables</p>
+</blockquote>
+<pre><code class="language-js">const Author = () =&gt; {
+    const inlineHeadingStyles = {
+        color: '#617d98',
+        fontSize: '0.75rem',
+        marginTop: '0.5rem'
+    };
+    return &lt;h4 style={inlineHeadingStyles}&gt;Jordan Moore &lt;/h4&gt;;
+};
+</code></pre>
+<h3 id="jsx-js"><a class="header" href="#jsx-js">JSX JS</a></h3>
+<ul>
+<li>{} in JSX means going back to JS Land</li>
+<li>value inside must be an expression (return value), can't be a statement</li>
+</ul>
+<pre><code class="language-js">import React from 'react';
+import ReactDOM from 'react-dom/client';
+import './index.css';
+
+// Booklist
+const Booklist = () =&gt; {
+    return (
+        &lt;section className=&quot;booklist&quot;&gt;
+            &lt;Book /&gt;
+            &lt;Book /&gt;
+            &lt;Book /&gt;
+        &lt;/section&gt;
+    );
+};
+
+// Book
+const author = 'Charles Dickens'; // variable can be outside
+const Book = () =&gt; {
+    const title = 'David Copperfield'; // variable can be inside
+    return (
+        &lt;article className=&quot;book&quot;&gt;
+            &lt;img
+                src=&quot;https://m.media-amazon.com/images/I/51TrWpIwMfL.jpg&quot;
+                alt=&quot;IMG&quot;
+            /&gt;
+            &lt;h3&gt;{title}&lt;/h3&gt;
+            &lt;p&gt;{author.toUpperCase()}&lt;/p&gt;
+            {/* &lt;p&gt;{let x = 6}&lt;/p&gt; */}
+            &lt;p&gt;${6 + 6}&lt;/p&gt;
+        &lt;/article&gt;
+    );
+};
+
+// Render
+const root = ReactDOM.createRoot(document.getElementById('root'));
+root.render(&lt;Booklist /&gt;);
+</code></pre>
+<h3 id="props-basics"><a class="header" href="#props-basics">Props Basics</a></h3>
+<ul>
+<li>Props, short for properties, are a way to pass data from one component to another in React.</li>
+<li>Props can be named anything like xyz</li>
+</ul>
+<pre><code class="language-js">import React from 'react';
+import ReactDOM from 'react-dom/client';
+import './index.css';
+
+const author = 'Charles Dickens';
+const title = 'David Copperfield';
+const img = 'https://m.media-amazon.com/images/I/51TrWpIwMfL.jpg';
+
+// Booklist
+const Booklist = () =&gt; {
+    return (
+        &lt;section className=&quot;booklist&quot;&gt;
+            &lt;Book img={img} title={title} author={author} /&gt;
+            &lt;Book img={img} title={title} author={author} /&gt;
+        &lt;/section&gt;
+    );
+};
+
+// Book [Destructuring inside body]
+
+const Book = (props) =&gt; {
+    const { img, title, author } = props;
+    return (
+        &lt;article className=&quot;book&quot;&gt;
+            &lt;img src={img} alt={title} /&gt;
+            &lt;h3&gt;{title}&lt;/h3&gt;
+            &lt;p&gt;{author.toUpperCase()}&lt;/p&gt;
+        &lt;/article&gt;
+    );
+};
+
+// Book [Destructuring in the parameter itself]
+const Book = ({ img, title, author }) =&gt; {
+    return (
+        &lt;article className=&quot;book&quot;&gt;
+            &lt;img src={img} alt={title} /&gt;
+            &lt;h3&gt;{title}&lt;/h3&gt;
+            &lt;p&gt;{author.toUpperCase()}&lt;/p&gt;
+        &lt;/article&gt;
+    );
+};
+
+// Render
+const root = ReactDOM.createRoot(document.getElementById('root'));
+root.render(&lt;Booklist /&gt;);
+</code></pre>
+<h3 id="children-props"><a class="header" href="#children-props">Children props</a></h3>
+<ul>
+<li>everything we render between component tags</li>
+<li>mostly use it in Context API</li>
+<li>special prop, has to be named &quot;children&quot;</li>
+<li>can place anywhere in JSX</li>
+</ul>
+<pre><code class="language-js">import React from 'react';
+import ReactDOM from 'react-dom/client';
+import './index.css';
+
+const author = 'Charles Dickens';
+const title = 'David Copperfield';
+const img = 'https://m.media-amazon.com/images/I/51TrWpIwMfL.jpg';
+
+// Booklist
+const Booklist = () =&gt; {
+    return (
+        &lt;section className=&quot;booklist&quot;&gt;
+            &lt;Book img={img} title={title} author={author}&gt;
+                &lt;p&gt;
+                    Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+                    Eligendi, repellat.
+                &lt;/p&gt;
+                &lt;button type=&quot;button&quot;&gt;click me&lt;/button&gt;
+            &lt;/Book&gt;
+            &lt;Book img={img} title={title} author={author} /&gt;
+        &lt;/section&gt;
+    );
+};
+
+// Book
+const Book = ({ img, title, author, children }) =&gt; {
+    return (
+        &lt;article className=&quot;book&quot;&gt;
+            &lt;img src={img} alt={title} /&gt;
+            &lt;h3&gt;{title}&lt;/h3&gt;
+            &lt;p&gt;{author.toUpperCase()}&lt;/p&gt;
+            {children}
+        &lt;/article&gt;
+    );
+};
+
+// Render
+const root = ReactDOM.createRoot(document.getElementById('root'));
+root.render(&lt;Booklist /&gt;);
+</code></pre>
+<h3 id="simple-list"><a class="header" href="#simple-list">Simple List</a></h3>
+<p>Note : <strong>map - creates a new array from calling a function for every array element.</strong> <br/></p>
+<p>Note: <strong>Use Keyprop to assign unique value.The key prop in React is used to uniquely identify
+each element in a list of elements that have the same type. This is necessary because React
+needs a way to keep track of which elements have changed so that it can efficiently update the UI.</strong></p>
+<pre><code class="language-js">import React from 'react';
+import ReactDOM from 'react-dom/client';
+import './index.css';
+
+const data = [
+    {
+        author: 'Charles Dickens',
+        title: 'David Copperfield',
+        img: 'https://m.media-amazon.com/images/I/51TrWpIwMfL.jpg',
+        id: 1
+    },
+    {
+        author: 'Charles Dickens',
+        title: 'Oliver Twist',
+        img: 'https://m.media-amazon.com/images/I/81QGqaKWjXL._AC_UF1000,1000_QL80_.jpg',
+        id: 2
+    }
+];
+
+// const obj = {
+//     author: 'Charles Dickens',
+//     title: 'Oliver Twist',
+//     img: 'https://m.media-amazon.com/images/I/81QGqaKWjXL._AC_UF1000,1000_QL80_.jpg'
+// };
+
+const Booklist = () =&gt; {
+    return (
+        &lt;&gt;
+            &lt;section className=&quot;booklist&quot;&gt;
+                {data.map(({ author, title, img }, index) =&gt; {
+                    return (
+                        &lt;Book
+                            author={author}
+                            title={title}
+                            img={img}
+                            key={index}
+                        /&gt;
+                    );
+                })}
+            &lt;/section&gt;
+        &lt;/&gt;
+    );
+};
+
+const Book = (props) =&gt; {
+    const { author, title, img } = props;
+    return (
+        &lt;article className=&quot;book&quot;&gt;
+            &lt;img src={img} alt={title} /&gt;
+            &lt;h3&gt;{title}&lt;/h3&gt;
+            &lt;p&gt;{author}&lt;/p&gt;
+        &lt;/article&gt;
+    );
+};
+
+const root = ReactDOM.createRoot(document.getElementById('root'));
+root.render(&lt;Booklist /&gt;);
+</code></pre>
+<h3 id="spread-operator"><a class="header" href="#spread-operator">Spread Operator</a></h3>
+<pre><code class="language-js">import React from 'react';
+import ReactDOM from 'react-dom/client';
+import './index.css';
+
+const data = [
+    {
+        author: 'Charles Dickens',
+        title: 'David Copperfield',
+        img: 'https://m.media-amazon.com/images/I/51TrWpIwMfL.jpg',
+        id: 1
+    },
+    {
+        author: 'Charles Dickens',
+        title: 'Oliver Twist',
+        img: 'https://m.media-amazon.com/images/I/81QGqaKWjXL._AC_UF1000,1000_QL80_.jpg',
+        id: 2
+    }
+];
+
+const Booklist = () =&gt; {
+    return (
+        &lt;&gt;
+            &lt;section className=&quot;booklist&quot;&gt;
+                {data.map((book, index) =&gt; {
+                    return &lt;Book {...book} key={index} /&gt;;
+                })}
+            &lt;/section&gt;
+        &lt;/&gt;
+    );
+};
+
+const Book = (props) =&gt; {
+    const { author, title, img } = props;
+    return (
+        &lt;article className=&quot;book&quot;&gt;
+            &lt;img src={img} alt={title} /&gt;
+            &lt;h3&gt;{title}&lt;/h3&gt;
+            &lt;p&gt;{author}&lt;/p&gt;
+        &lt;/article&gt;
+    );
+};
+
+const root = ReactDOM.createRoot(document.getElementById('root'));
+root.render(&lt;Booklist /&gt;);
+</code></pre>
+<h3 id="event-basics"><a class="header" href="#event-basics">Event Basics</a></h3>
+<pre><code class="language-js">import React from 'react';
+import ReactDOM from 'react-dom/client';
+import './index.css';
+
+const Booklist = () =&gt; {
+    return (
+        &lt;&gt;
+            &lt;section className=&quot;booklist&quot;&gt;
+                &lt;EventBasics /&gt;
+            &lt;/section&gt;
+        &lt;/&gt;
+    );
+};
+
+// e can be any name , e signifies event , every event handler function (like onClick,onSubmit) has access to event object
+const handleSubmit = (e) =&gt; {
+    e.preventDefault();
+    console.log('submit');
+    console.log(e);
+};
+
+const handleClick = (e) =&gt; {
+    console.log('click');
+};
+const handleChange = (e) =&gt; {
+    console.log('change');
+    console.log(e);
+    console.log(e.target.value);
+    console.log(e.target.name);
+};
+
+// Arrow Functions too have access to event object
+const EventBasics = () =&gt; {
+    return (
+        &lt;form onSubmit={handleSubmit}&gt;
+            &lt;input type=&quot;text&quot; name=&quot;txt&quot; onChange={handleChange} /&gt;
+            &lt;br /&gt;
+            &lt;button
+                type=&quot;button&quot;
+                onClick={(e) =&gt; {
+                    console.log(e);
+                }}
+            &gt;
+                Submit
+            &lt;/button&gt;
+        &lt;/form&gt;
+    );
+};
+
+const root = ReactDOM.createRoot(document.getElementById('root'));
+root.render(&lt;Booklist /&gt;);
+</code></pre>
+<h3 id="prop-drilling"><a class="header" href="#prop-drilling">Prop Drilling</a></h3>
+<ul>
+<li>react data flow - can only pass props down from parent component to child</li>
+<li>alternatives Context API, redux, other state libraries</li>
+</ul>
+<h3 id="drilling-by-passing-a-function-down"><a class="header" href="#drilling-by-passing-a-function-down">Drilling by passing a function down</a></h3>
+<pre><code class="language-js">import React from 'react';
+import ReactDOM from 'react-dom/client';
+import './index.css';
+
+const data = [
+    {
+        author: 'Charles Dickens',
+        title: 'David Copperfield',
+        img: 'https://m.media-amazon.com/images/I/51TrWpIwMfL.jpg',
+        id: 1
+    },
+    {
+        author: 'Charles Dickens',
+        title: 'Oliver Twist',
+        img: 'https://m.media-amazon.com/images/I/81QGqaKWjXL._AC_UF1000,1000_QL80_.jpg',
+        id: 2
+    }
+];
+
+const Booklist = () =&gt; {
+    const getBook = (id) =&gt; {
+        const k = data.filter((item) =&gt; item.id == id);
+        return k;
+    };
+    return (
+        &lt;&gt;
+            &lt;section className=&quot;booklist&quot;&gt;
+                {data.map((book, index) =&gt; {
+                    return (
+                        &lt;Book
+                            newitem=&quot;sd&quot;
+                            {...book}
+                            key={index}
+                            getBook={getBook}
+                        /&gt;
+                    );
+                })}
+            &lt;/section&gt;
+        &lt;/&gt;
+    );
+};
+
+const Book = (props) =&gt; {
+    // console.log(props);
+    const { author, title, img, id, getBook } = props;
+    return (
+        &lt;article className=&quot;book&quot;&gt;
+            &lt;img src={img} alt={title} /&gt;
+            &lt;h3&gt;{title}&lt;/h3&gt;
+            &lt;p&gt;{author}&lt;/p&gt;
+            &lt;button
+                type=&quot;button&quot;
+                onClick={() =&gt; {
+                    console.log(getBook(id));
+                }}
+            &gt;
+                click
+            &lt;/button&gt;
+        &lt;/article&gt;
+    );
+};
+
+const root = ReactDOM.createRoot(document.getElementById('root'));
+root.render(&lt;Booklist /&gt;);
+</code></pre>
+<h3 id="local-images-src"><a class="header" href="#local-images-src">Local Images (src)</a></h3>
+<ul>
+<li>better performance because optimized</li>
+</ul>
+<pre><code class="language-js">import img1 from './images/book-1.jpg';
+import img2 from './images/book-2.jpg';
+import img3 from './images/book-3.jpg';
+</code></pre>
+<h3 id="vite-setup"><a class="header" href="#vite-setup">Vite Setup</a></h3>
+<ul>
+<li>need to use .jsx extension</li>
+<li>index.html in the source instead of public</li>
+<li>assets still in public</li>
+<li>instead of index.js, need to use main.jsx</li>
+<li>to spin up dev server - &quot;npm run dev&quot;</li>
+<li>rest the same - imports/exports, deployment, assets, etc...</li>
+</ul>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="react-ii"><a class="header" href="#react-ii">React II</a></h1>
+<p><strong>Note : When a state value changes in a React component, the component will
+re-render to reflect the new changes. This includes both unmounting
+and mounting the component.</strong></p>
+<h3 id="react-hooks"><a class="header" href="#react-hooks">React Hooks</a></h3>
+<h4 id="usestate"><a class="header" href="#usestate">useState</a></h4>
+<p>It returns an array with 2 elements first element is the current
+state value and second element is the function to update the state.</p>
+<p>State is used to store and manage data that can change over time,
+such as user input, API responses, or the current state of a component.</p>
+<p>Note : <strong>We need to use state to trigger re-render ,otherwise
+suppose we are doing the samething using pure js we had to
+come up with our own logic to trigger re-render.</strong></p>
+<blockquote>
+<p>Triggering re-render manually using vanilla js</p>
+</blockquote>
+<pre><code class="language-js">const App = () =&gt; {
+    let count = 0;
+
+    const handleClick = () =&gt; {
+        count += 1;
+        console.log(count);
+        let k = document.getElementById('changeme');
+        k.innerHTML = `${count}`;
+    };
+    return (
+        &lt;&gt;
+            &lt;h1 id=&quot;changeme&quot;&gt;{count}&lt;/h1&gt;
+            &lt;button type=&quot;button&quot; onClick={handleClick}&gt;
+                click
+            &lt;/button&gt;
+        &lt;/&gt;
+    );
+};
+
+export default App;
+</code></pre>
+<blockquote>
+<p>Basic useState example using counter</p>
+</blockquote>
+<pre><code class="language-js">import { useState } from 'react';
+
+const App = () =&gt; {
+    const [count, setCount] = useState(0);
+    const handleClick = () =&gt; {
+        // We trigger re-render on updates and value is preserved
+        setCount((c) =&gt; c + 1); // Can pass any values and any name
+    };
+
+    return (
+        &lt;&gt;
+            &lt;h1&gt;{count}&lt;/h1&gt;
+            &lt;button type=&quot;button&quot; onClick={handleClick}&gt;
+                click
+            &lt;/button&gt;
+        &lt;/&gt;
+    );
+};
+
+export default App;
+</code></pre>
+<p><strong>Intial render and re-render</strong></p>
+<ul>
+<li>
+<p>In a React application, the initial render is the first
+time that the component tree is rendered to the DOM. It
+happens when the application first loads, or when the root
+component is first rendered. This is also known as
+&quot;mounting&quot; the components.</p>
+</li>
+<li>
+<p>Re-renders, on the other hand, happen when the component's
+state or props change, and the component needs to be
+updated in the DOM to reflect these changes. React uses a
+virtual DOM to optimize the process of updating the actual
+DOM, so that only the necessary changes are made.</p>
+</li>
+</ul>
+<p>There are a few ways that you can trigger a re-render in a
+React component:</p>
+<ul>
+<li>
+<p>By changing the component's state or props. When the
+component's state or props change, React will re-render
+the component to reflect these changes.</p>
+</li>
+<li>
+<p>When the parent element re-renders, even if the
+component's state or props have not changed.</p>
+</li>
+</ul>
+<p><strong>Hooks rules</strong></p>
+<ul>
+<li><strong>starts with &quot;use&quot; (both custom and react inbuilt hooks)</strong></li>
+<li><strong>must be invoked inside a component</strong></li>
+<li><strong>dont call hooks conditionally</strong></li>
+<li><strong>set function do not update immediately. Do not expect synchronous behaviour.</strong>
+<strong>use the count function above log the value in handleClick function to verify.</strong></li>
+</ul>
+<blockquote>
+<p>Basic array clearAll and clearOne example with useState</p>
+</blockquote>
+<pre><code class="language-js">import { useState } from 'react';
+
+const App = () =&gt; {
+    const data = [
+        { name: 'abc', id: 1 },
+        { name: 'def', id: 2 },
+        { name: 'hello', id: 3 }
+    ];
+    const [people, setPeople] = useState(data);
+
+    const clearAll = () =&gt; {
+        setPeople([]);
+    };
+    const clearOne = (id) =&gt; {
+        const newData = people.filter((p) =&gt; {
+            return p.id != id;
+        });
+
+        setPeople(newData);
+    };
+
+    return (
+        &lt;&gt;
+            {people.map(({ name, id }, idx) =&gt; {
+                return (
+                    &lt;div key={id}&gt;
+                        &lt;h1&gt;{name}&lt;/h1&gt;
+                        &lt;button
+                            type=&quot;button&quot;
+                            onClick={() =&gt; {
+                                clearOne(id);
+                            }}
+                        &gt;
+                            Delete
+                        &lt;/button&gt;
+                    &lt;/div&gt;
+                );
+            })}
+            &lt;br /&gt;
+            &lt;button type=&quot;button&quot; onClick={clearAll}&gt;
+                Delete all
+            &lt;/button&gt;
+        &lt;/&gt;
+    );
+};
+
+export default App;
+</code></pre>
+<h4 id="automatic-batching"><a class="header" href="#automatic-batching">Automatic Batching</a></h4>
+<p>In React, &quot;batching&quot; refers to the process of grouping
+multiple state updates into a single update. This can be
+useful in certain cases because it allows React to
+optimize the rendering of your components by minimizing
+the number of DOM updates that it has to perform.</p>
+<p>By default, React uses a technique called &quot;auto-batching&quot;
+to group state updates that occur within the same event
+loop into a single update. This means that if you call the
+state update function multiple times in a short period of
+time, React will only perform a single re-render for all
+of the updates.</p>
+<p>React v18 ensures that state updates invoked from any
+location will be batched by default. This will batch state
+updates, including native event handlers, asynchronous
+operations, timeouts, and intervals.</p>
+<h4 id="cyclic-behaviour-with-objects"><a class="header" href="#cyclic-behaviour-with-objects">Cyclic behaviour with objects</a></h4>
+<pre><code class="language-js">import { useState } from 'react';
+
+const App = () =&gt; {
+    const data = [
+        { name: 'abc', id: 1 },
+        { name: 'def', id: 2 },
+        { name: 'hello', id: 3 }
+    ];
+    const [idx, setIdx] = useState(0);
+    const [people, setPeople] = useState(data[idx]);
+
+    const length = data.length;
+
+    return (
+        &lt;div&gt;
+            &lt;h1&gt;{people.name}&lt;/h1&gt;
+            &lt;button
+                type=&quot;button&quot;
+                onClick={() =&gt; {
+                    let newIdx = (idx + 1) % length;
+                    setIdx(newIdx);
+                    setPeople(data[newIdx]);
+                }}
+            &gt;
+                Show {data[(idx + 1) % length].name}
+            &lt;/button&gt;
+        &lt;/div&gt;
+    );
+};
+
+export default App;
+</code></pre>
+<h4 id="getting-old-values"><a class="header" href="#getting-old-values">Getting old values</a></h4>
+<ul>
+<li>By default react will grab old values and increase it by 1 in
+the setTimeout function. Because in the 3 seconds timespan the
+setvalue function is still referencing the old value i.e. 0
+so to fix it we use a callback.We typically use this callback
+if we have some functionality which dependes on latest value.
+To simulate that synchronous beahviour we do as it is below.
+To preserve the value we use the callback , the value does not
+gets preserved if no callback is used.</li>
+</ul>
+<ul>
+<li>The reason why in your code the log function logs an outdated value is
+because of closure - the count value is a const, and it is set when
+the component is first rendered. So when you click the button, the value
+of count is not the new value, but the one it was when it was
+first rendered (i.e. -&gt; always going to be one less than you expect).</li>
+</ul>
+<p><strong>[When inside function it will have the same value as it had in its first render]</strong><br/>
+<strong>Refer closures</strong>
+<a href="https://github.com/facebook/react/issues/14010">Issue</a></p>
+<ul>
+<li>In this code, log happens on every re-render. Since clicking the button
+calls setCount, the state changes, and a re-render occurs. When that
+happens, the log is executed, and you get the latest value</li>
+</ul>
+<p><strong>React hooks do not update value immediately</strong></p>
+<p>React hooks do not update values immediately because of the way they are designed
+to work. When a state value is updated using hooks, React schedules a
+re-render of the component. During this re-render, the updated value
+is applied to the component and any subsequent code that
+relies on the updated value is executed.
+If you need to perform some action immediately after a state update,
+you can use the useEffect hook to run side effects after the
+component has rendered with the updated values.</p>
+<blockquote>
+<p>fixed</p>
+</blockquote>
+<pre><code class="language-js">import { useState, useEffect } from 'react';
+
+const App = () =&gt; {
+    const [count, setCount] = useState(0);
+    const handleCLick = () =&gt; {
+        setCount((oldval) =&gt; oldval + 1); // this will work and get the latest value
+        console.log(count); // will not work still
+    };
+    console.log(count); // will work
+    return (
+        &lt;&gt;
+            &lt;div&gt;
+                &lt;h1&gt;{count}&lt;/h1&gt;
+                &lt;button type=&quot;button&quot; onClick={handleCLick}&gt;
+                    click
+                &lt;/button&gt;
+            &lt;/div&gt;
+        &lt;/&gt;
+    );
+};
+
+export default App;
+</code></pre>
+<blockquote>
+<p>Example with setTimeout</p>
+</blockquote>
+<pre><code class="language-js">import { useState } from 'react';
+
+const App = () =&gt; {
+    const [count, setCount] = useState(0);
+
+    const handleClick = () =&gt; {
+        setTimeout(() =&gt; {
+            // will reference old value
+            // setCount(count + 1);
+
+            // will reference latest value and preserve value between renders
+            // must use return statement
+            setCount(oldval =&gt;
+                oldval + 1;
+            );
+        }, 3000);
+    };
+
+    return (
+        &lt;&gt;
+            &lt;h1&gt;{count}&lt;/h1&gt;
+            &lt;button type=&quot;button&quot; onClick={handleClick}&gt;
+                click
+            &lt;/button&gt;
+        &lt;/&gt;
+    );
+};
+
+export default App;
+</code></pre>
+<h4 id="useeffect"><a class="header" href="#useeffect">useEffect</a></h4>
+<p>useEffect is a hook in React that allows you to perform side
+effects in function components.There is no need for urban
+dictionary - basically any work outside of the component. Some</p>
+<p>Its a way of telling react what to do on component re-render.
+Perform side-effects i.e actions that occur outside the DOM.
+examples of side effects are: subscriptions, fetching data,
+directly updating the DOM, re-registering and de-registering
+event listeners, timers, etc.</p>
+<p>Note : <strong>If you a noramal JS function and calling it inside a component
+it will re-run after every re-render</strong></p>
+<pre><code class="language-js">import { useState, useEffect } from 'react';
+
+const App = () =&gt; {
+    const [count, setCount] = useState(0);
+    const handleCLick = () =&gt; {
+        setCount((oldval) =&gt; oldval + 1);
+        console.log(count);
+    };
+
+    const hello = () =&gt; {
+        console.log('hello');
+        //setCount(count + 1); // cause inifinite re-reender
+    };
+
+    // will get called after re-renders
+    hello();
+
+    return (
+        &lt;&gt;
+            &lt;div&gt;
+                &lt;h1&gt;{count}&lt;/h1&gt;
+                &lt;button type=&quot;button&quot; onClick={handleCLick}&gt;
+                    click
+                &lt;/button&gt;
+            &lt;/div&gt;
+        &lt;/&gt;
+    );
+};
+
+export default App;
+</code></pre>
+<ul>
+<li>accepts two arguments (second optional)</li>
+<li>first argument - callback function</li>
+<li>second argument — dependency array</li>
+<li><strong>by default runs on each render (initial and re-render)
+cb can't return promise (so can't make it async)</strong></li>
+<li><strong>dont make the callback of useEffect async ever</strong></li>
+<li>if dependency array empty [I runs only on initial render]</li>
+</ul>
+<blockquote>
+<p>Why use it</p>
+</blockquote>
+<p>useEffect is used in React to perform side effects in functional components. Side effects
+are actions that occur outside of the component, such as fetching data from
+an API, subscribing to events, or manipulating the DOM.</p>
+<p>The useEffect hook allows you to specify a function that will be
+executed after every render of the component. This function can perform any
+necessary side effects. It can also return a cleanup function that will be
+executed before the component is unmounted or before the next render.</p>
+<p>By using useEffect, you can ensure that side effects are only performed when
+necessary and avoid unnecessary re-renders. It helps to keep the component's
+logic organized and separate from the rendering logic.</p>
+<blockquote>
+<p>Why useEffect runs twice {You will see this behaviour while fetching and logging data from API}?</p>
+</blockquote>
+<ul>
+<li>component appears more than once in a page</li>
+<li>somehting higher up the tree is unmounting and remounting</li>
+<li>reaact strictmode is on</li>
+</ul>
+<blockquote>
+<p>useEffect fetch data from an API</p>
+</blockquote>
+<pre><code class="language-js">import { useState, useEffect } from 'react';
+
+const App = () =&gt; {
+    const URL = 'https://api.github.com/users';
+    const [people, setPeople] = useState([]);
+
+    useEffect(() =&gt; {
+        const getData = async () =&gt; {
+            const data = await fetch(URL);
+            const resp = await data.json();
+            return resp;
+        };
+
+        getData().then((data) =&gt; {
+            console.log(data);
+            setPeople(data);
+        });
+    }, []);
+
+    return (
+        &lt;&gt;
+            &lt;div&gt;
+                {people.map(({ login, avatar_url }, idx) =&gt; {
+                    return (
+                        &lt;div key={idx}&gt;
+                            &lt;img src={avatar_url} alt={login} width={'100px'} /&gt;
+                            &lt;h1 key={idx}&gt;{login}&lt;/h1&gt;
+                        &lt;/div&gt;
+                    );
+                })}
+            &lt;/div&gt;
+        &lt;/&gt;
+    );
+};
+
+export default App;
+</code></pre>
+<h3 id="multiple-returns"><a class="header" href="#multiple-returns">Multiple returns</a></h3>
+<pre><code class="language-js">import { useEffect, useState } from 'react';
+
+const App = () =&gt; {
+    const URL = 'https://api.github.com/users/QuincyLarson';
+    const [iserror, setisError] = useState(false);
+    const [isloading, setisLoading] = useState(true);
+    const [people, setPeople] = useState([]);
+
+    // Making Useeffect run on initial render only otherwise it will keep hitting the api on each re-render
+    useEffect(() =&gt; {
+        const getData = async () =&gt; {
+            try {
+                const response = await fetch(URL);
+                const json = await response.json();
+                console.log(response);
+
+                // By default fetch api does not take HTTP code in range of 4xx-5xx as errors
+                // Instead it considers status code to be indicative of success
+                if (!response.ok) {
+                    setisLoading(false);
+                    setisError(true);
+                    return;
+                }
+                setPeople(json);
+                setisLoading(false);
+            } catch (err) {
+                setisError(true);
+                setisLoading(false);
+            }
+        };
+
+        getData();
+    }, []);
+
+    // If is loading show loading
+
+    if (isloading) {
+        return (
+            &lt;&gt;
+                &lt;h1&gt;Loading ...&lt;/h1&gt;
+            &lt;/&gt;
+        );
+    }
+
+    // If Error show error
+
+    if (iserror) {
+        return (
+            &lt;&gt;
+                &lt;h1&gt;Error&lt;/h1&gt;
+            &lt;/&gt;
+        );
+    }
+
+    // show data
+
+    return (
+        &lt;&gt;
+            &lt;h1&gt;{JSON.stringify(people, null, 8)}&lt;/h1&gt;
+        &lt;/&gt;
+    );
+};
+
+export default App;
+</code></pre>
+<h3 id="order-matters"><a class="header" href="#order-matters">Order matters</a></h3>
+<ul>
+<li>
+<p>Order matters : We should not destructure any user properties
+before getting the results.</p>
+</li>
+<li>
+<p>Use optional chaining to spit back an empty value if not present</p>
+</li>
+</ul>
+<h3 id="location-of-fetch-function"><a class="header" href="#location-of-fetch-function">Location of fetch function</a></h3>
+<p>if we are placing the fetch function outside the Useeffect
+don not place the fetch function name into the dependency
+array because on re-render fetch function will be recreated
+and we will encounter an inifinite loop.</p>
+<h3 id="toggling-a-component-using-ternary-operator"><a class="header" href="#toggling-a-component-using-ternary-operator">Toggling a component using ternary operator</a></h3>
+<pre><code class="language-js">import { useState } from 'react';
+
+const Hello = () =&gt; {
+    return &lt;h1&gt;Hello&lt;/h1&gt;;
+};
+
+const App = () =&gt; {
+    const [isvisible, setIsvisible] = useState(false);
+    return (
+        &lt;&gt;
+            {isvisible ? &lt;Hello /&gt; : ''}
+            &lt;button
+                type=&quot;button&quot;
+                onClick={() =&gt; {
+                    setIsvisible(!isvisible);
+                }}
+            &gt;
+                click
+            &lt;/button&gt;
+        &lt;/&gt;
+    );
+};
+
+export default App;
+</code></pre>
+<h3 id="login-logout-with-ternary"><a class="header" href="#login-logout-with-ternary">login logout with ternary</a></h3>
+<pre><code class="language-js">import { useState } from 'react';
+
+const App = () =&gt; {
+    const [user, setUser] = useState(null);
+    return (
+        &lt;&gt;
+            {user ? (
+                &lt;Loggedin {...user} setUser={setUser} /&gt;
+            ) : (
+                &lt;Loggedout setUser={setUser} /&gt;
+            )}
+        &lt;/&gt;
+    );
+};
+
+const Loggedin = ({ name, setUser }) =&gt; {
+    return (
+        &lt;&gt;
+            &lt;button
+                type=&quot;button&quot;
+                onClick={() =&gt; {
+                    setUser(null);
+                }}
+            &gt;
+                Logout
+            &lt;/button&gt;
+            &lt;h1&gt;Hello {name}&lt;/h1&gt;
+        &lt;/&gt;
+    );
+};
+
+const Loggedout = ({ setUser }) =&gt; {
+    return (
+        &lt;&gt;
+            &lt;button
+                type=&quot;button&quot;
+                onClick={() =&gt; {
+                    setUser({ name: 'johndoe' });
+                }}
+            &gt;
+                Login
+            &lt;/button&gt;
+            &lt;h1&gt;Logged out&lt;/h1&gt;
+        &lt;/&gt;
+    );
+};
+
+export default App;
+</code></pre>
+<h3 id="cleanup-function"><a class="header" href="#cleanup-function">Cleanup Function</a></h3>
+<p>In the below code since we are re-rendering the component conditionally
+what we are doing is we are mounting and unmounting the component.One
+thing to note is that useEffect runs on inital render and on every
+re-render.But in the below code we have setup useEffect to run
+on inital load but since we are <strong>Toggling the component conditionally
+we are repeating the initial render process everytime we specially mount,
+as a result useEffect will executed</strong>.</p>
+<blockquote>
+<p>Example showing useEffect will run on remounting the components as it repeats the initial re-render process</p>
+</blockquote>
+<pre><code class="language-js">import { useEffect, useState } from 'react';
+
+const Hello = () =&gt; {
+    // will run everytime we remount the component as its the initial render
+    useEffect(() =&gt; {
+        console.log('useefect ran..');
+    }, []);
+    return &lt;h3&gt;hello&lt;/h3&gt;;
+};
+
+const App = () =&gt; {
+    const [toggle, setisToggled] = useState(false);
+    return (
+        &lt;&gt;
+            {toggle ? &lt;Hello /&gt; : ''}
+            &lt;button
+                type=&quot;button&quot;
+                onClick={() =&gt; {
+                    setisToggled(!toggle);
+                }}
+            &gt;
+                toggle
+            &lt;/button&gt;
+        &lt;/&gt;
+    );
+};
+
+export default App;
+</code></pre>
+<h3 id="cleanup-function-setinterval-example-to-tun-somehting-on-mount-and-unmount"><a class="header" href="#cleanup-function-setinterval-example-to-tun-somehting-on-mount-and-unmount">Cleanup function setInterval example to tun somehting on mount and unmount</a></h3>
+<pre><code class="language-js">import { useEffect, useState } from 'react';
+
+const Hello = () =&gt; {
+    // Do not make the useEffect callback async as it expects only a function to reurn in our case its cleanup function
+    useEffect(() =&gt; {
+        // will run on component mount
+        const id = setInterval(() =&gt; {
+            console.log('useefect ran..');
+        }, 1000);
+
+        // will run on component unmount
+        return () =&gt; {
+            console.log('cleanup');
+            clearInterval(id);
+        };
+    }, []);
+    return &lt;h3&gt;hello&lt;/h3&gt;;
+};
+
+const App = () =&gt; {
+    const [toggle, setisToggled] = useState(false);
+    console.log('render');
+    return (
+        &lt;&gt;
+            {toggle ? &lt;Hello /&gt; : ''}
+            &lt;button
+                type=&quot;button&quot;
+                onClick={() =&gt; {
+                    setisToggled(!toggle);
+                }}
+            &gt;
+                toggle
+            &lt;/button&gt;
+        &lt;/&gt;
+    );
+};
+
+export default App;
+</code></pre>
+<h4 id="folder-structure-and-named-export"><a class="header" href="#folder-structure-and-named-export">Folder structure and named export</a></h4>
+<p>When working with react we can use index.js to group export all components needed</p>
+<pre><code>   Navbar (Folder)
+      - index.css
+      - index.js -&gt; [import first from first;import second from second ]and then [export {first,second}]
+      - first component
+      - second component
+</code></pre>
+<p>Now from App.jsx we just now import components like<br/>
+<code>import {first,second} from ./Navbar</code><br/>
+No need to mention any file name as index.js is entrypoint</p>
+<h4 id="leverage-everything-known-till-now"><a class="header" href="#leverage-everything-known-till-now">Leverage everything known till now</a></h4>
+<blockquote>
+<p>List.jsx [Iterates over all People]</p>
+</blockquote>
+<pre><code class="language-js">import React from 'react';
+import Person from './Person';
+
+const List = (props) =&gt; {
+    const { data } = props;
+    return (
+        &lt;div&gt;
+            {data.map((p, idx) =&gt; {
+                return (
+                    &lt;div key={idx}&gt;
+                        &lt;Person {...p} /&gt;
+                    &lt;/div&gt;
+                );
+            })}
+        &lt;/div&gt;
+    );
+};
+
+export default List;
+</code></pre>
+<blockquote>
+<p>Person.jsx [Component to show only one person and details like name]</p>
+</blockquote>
+<p>Uses optional chaining</p>
+<pre><code class="language-js">import React from 'react';
+
+const Person = (props) =&gt; {
+    // const { name, nickName } = props;
+    const { level } = props;
+    // const lev = level &amp;&amp; level[0] &amp;&amp; level[0].count;
+    const lev = level?.[0].count || 0;
+
+    return (
+        &lt;div style={{ border: '2px solid black' }}&gt;
+            &lt;h1&gt; {props.name}&lt;/h1&gt;
+            &lt;p&gt; {props.nickName}&lt;/p&gt;
+            &lt;p&gt; {lev}&lt;/p&gt;
+        &lt;/div&gt;
+    );
+};
+
+export default Person;
+</code></pre>
+<blockquote>
+<p>App.jsx [Show the list]</p>
+</blockquote>
+<pre><code class="language-js">import List from './List';
+
+const data = [
+    { id: 1, name: 'bob', nickName: 'Stud Muffin' },
+    { id: 2, name: 'peter', nickName: 'Hello World', level: [{ count: 3 }] }
+];
+
+const App = () =&gt; {
+    return (
+        &lt;&gt;
+            &lt;List data={data} /&gt;
+        &lt;/&gt;
+    );
+};
+
+export default App;
+</code></pre>
+<h3 id="controlled-input"><a class="header" href="#controlled-input">Controlled Input</a></h3>
+<blockquote>
+<p>App.jsx [Displays the form and previous list of people]</p>
+</blockquote>
+<pre><code class="language-js">import { useState } from 'react';
+import List from './List';
+
+const data = [
+    { id: 1, name: 'bob', nickName: 'Stud Muffin' },
+    { id: 2, name: 'peter', nickName: 'Hello World', level: [{ count: 3 }] }
+];
+
+const ControlledInput = ({ setPeople, people }) =&gt; {
+    const [name, setName] = useState('');
+    const [nickName, setNickname] = useState('');
+    return (
+        &lt;&gt;
+            &lt;form&gt;
+                &lt;div&gt;
+                    &lt;p&gt;Name&lt;/p&gt;
+                    &lt;input
+                        type=&quot;text&quot;
+                        name=&quot;&quot;
+                        value={name}
+                        onChange={(e) =&gt; {
+                            setName(e.target.value);
+                        }}
+                    /&gt;
+                &lt;/div&gt;
+                &lt;div&gt;
+                    &lt;p&gt;nickName&lt;/p&gt;
+                    &lt;input
+                        type=&quot;text&quot;
+                        name=&quot;&quot;
+                        value={nickName}
+                        onChange={(e) =&gt; {
+                            setNickname(e.target.value);
+                        }}
+                    /&gt;
+                &lt;/div&gt;
+                &lt;button
+                    type=&quot;button&quot;
+                    onClick={() =&gt; {
+                        console.log(name);
+                        console.log(nickName);
+                        setPeople((people) =&gt; {
+                            return [
+                                ...people,
+                                {
+                                    name: name,
+                                    nickName: nickName,
+                                    id: new Date()
+                                }
+                            ];
+                        });
+                    }}
+                &gt;
+                    SUbmit
+                &lt;/button&gt;
+            &lt;/form&gt;
+        &lt;/&gt;
+    );
+};
+
+const App = () =&gt; {
+    const [people, setPeople] = useState(data);
+    return (
+        &lt;&gt;
+            &lt;ControlledInput setPeople={setPeople} people={people} /&gt;
+            &lt;List data={people} setPeople={setPeople} people={people} /&gt;
+        &lt;/&gt;
+    );
+};
+
+export default App;
+</code></pre>
+<blockquote>
+<p>List.jsx [Iterates over all people]</p>
+</blockquote>
+<pre><code class="language-js">import React from 'react';
+import Person from './Person';
+
+const List = (props) =&gt; {
+    const { data, setPeople, people } = props;
+    return (
+        &lt;div&gt;
+            {data.map((p, idx) =&gt; {
+                return (
+                    &lt;div key={idx}&gt;
+                        &lt;Person {...p} setPeople={setPeople} people={people} /&gt;
+                    &lt;/div&gt;
+                );
+            })}
+        &lt;/div&gt;
+    );
+};
+
+export default List;
+</code></pre>
+<blockquote>
+<p>People.jsx [Remove functionality on click based on id]</p>
+</blockquote>
+<pre><code class="language-js">import React from 'react';
+
+const Person = (props) =&gt; {
+    // const { name, nickName } = props;
+    const { level, setPeople, people, id } = props;
+    // const lev = level &amp;&amp; level[0] &amp;&amp; level[0].count;
+    const lev = level?.[0].count || 0;
+
+    const handleRemove = () =&gt; {
+        // const newData = people.filter((p) =&gt; p.id != id);
+        const newData = people.filter((p) =&gt; {
+            if (id != p.id) {
+                return p;
+            }
+        });
+        setPeople(newData);
+    };
+
+    return (
+        &lt;div style={{ border: '2px solid black' }}&gt;
+            &lt;h1&gt; {props.name}&lt;/h1&gt;
+            &lt;p&gt; {props.nickName}&lt;/p&gt;
+            &lt;p&gt; {lev}&lt;/p&gt;
+            &lt;button type=&quot;button&quot; onClick={handleRemove}&gt;
+                Remove
+            &lt;/button&gt;
+        &lt;/div&gt;
+    );
+};
+
+export default Person;
+</code></pre>
+<h3 id="multiple-inputs"><a class="header" href="#multiple-inputs">Multiple inputs</a></h3>
+<p>For multiple inputs use square bracket notation to use the Javascript's
+inbuilt dynamic object key feature.</p>
+<h3 id="checkbox"><a class="header" href="#checkbox">Checkbox</a></h3>
+<p>To access checkbox make checked = the state value and
+onChange make the e.target.checked = current state value</p>
+<h3 id="select-statement-example"><a class="header" href="#select-statement-example">Select statement example</a></h3>
+<pre><code class="language-js">&lt;select
+    value={val}
+    onChange={(e) =&gt; {
+        console.log(e.target.value);
+    }}
+&gt;
+    &lt;option&gt;1&lt;/option&gt;
+    &lt;option&gt;2&lt;/option&gt;
+&lt;/select&gt;
+</code></pre>
+<h3 id="form-data-api"><a class="header" href="#form-data-api">Form Data API</a></h3>
+<blockquote>
+<p>Difference b/w e.target &amp; e.currentTarget</p>
+</blockquote>
+<ul>
+<li><strong>e.target</strong> refers to the element that triggered the event,<br/></li>
+<li><strong>e.currentTarget</strong> refers to the element that the event listener is attached to.</li>
+</ul>
+<pre><code class="language-js">const handleSubmit = (e) =&gt; {
+    e.preventDefault();
+
+    const formData = new FormData(e.currentTarget);
+
+    // get values one by one
+    const name = formData.get('name');
+    console.log(name);
+
+    // get all of them
+    const newUser = Object.fromEntries(formData);
+
+    // do something (post request, add to list, etc)
+    console.log(newUser);
+
+    // Gotcha - re-render won't clear out the values
+    setValue(value + 1);
+    // reset values
+    e.currentTarget.reset();
+};
+</code></pre>
+<h4 id="useref"><a class="header" href="#useref">useRef</a></h4>
+<p>useRef is a hook in React that allows you to create a
+reference to a DOM element or a value that persists
+across re-renders.</p>
+<p>It returns a mutable ref object which contains the reference
+to a particular element or value in a react component . We
+can use this to modify or read the value.</p>
+<p>It can be used to access and modify the properties of
+a DOM element, store a value that needs to be
+accessed by multiple components, or to store
+a value that needs to persist between renders
+without triggering a re-render.</p>
+<ul>
+<li>useRef does not trigger re-render</li>
+<li>initial value is an object with its key as current. {current:value you have set}</li>
+</ul>
+<blockquote>
+<p>Plain use ref example with an input</p>
+</blockquote>
+<pre><code class="language-js">import { useRef } from 'react';
+
+const App = () =&gt; {
+    // It is initaited in form of an object {current:null} in this case
+    const refCont = useRef(null);
+
+    const handleChange = () =&gt; {
+        // It is nothing but the input element as refCont is assocaited with ref
+        console.log(refCont);
+    };
+
+    return (
+        &lt;div&gt;
+            &lt;input
+                type=&quot;text&quot;
+                name=&quot;name&quot;
+                ref={refCont}
+                onChange={handleChange}
+            /&gt;
+        &lt;/div&gt;
+    );
+};
+
+export default App;
+</code></pre>
+<blockquote>
+<p>Making useEffect not run on initial render but on value change</p>
+</blockquote>
+<pre><code class="language-js">import React, { useEffect, useRef, useState } from 'react';
+
+const App = () =&gt; {
+    const [val, setVal] = useState(0);
+    const isMounted = useRef(false);
+
+    useEffect(() =&gt; {
+        // ran every re-render and initial render preventing
+        // Clenaup -&gt; Re-render
+        if (!isMounted.current) {
+            isMounted.current = true;
+            return;
+        }
+        console.log('ran useEffect');
+
+        // unomunt test
+        return () =&gt; {
+            console.log('cleanup');
+        };
+    });
+
+    return (
+        &lt;div&gt;
+            &lt;h3&gt;{val}&lt;/h3&gt;
+            &lt;button
+                type=&quot;button&quot;
+                onClick={() =&gt; {
+                    setVal(val + 1);
+                }}
+            &gt;
+                click
+            &lt;/button&gt;
+        &lt;/div&gt;
+    );
+};
+
+export default App;
+</code></pre>
+<h3 id="custom-hooks"><a class="header" href="#custom-hooks">Custom Hooks</a></h3>
+<blockquote>
+<p>useFetch.js</p>
+</blockquote>
+<pre><code class="language-js">import React, { useEffect, useState } from 'react';
+
+const useFetch = (URL) =&gt; {
+    const [isloading, setIsloading] = useState(true);
+    const [iserror, setIserror] = useState(false);
+    const [data, setData] = useState(null);
+
+    useEffect(() =&gt; {
+        const getData = async () =&gt; {
+            const resp = await fetch(URL);
+            if (!resp.ok) {
+                setIserror(true);
+                setIsloading(false);
+            }
+            const json = await resp.json();
+            setData(json);
+            setIsloading(false);
+        };
+        console.log('start');
+        setTimeout(() =&gt; {
+            getData();
+        }, 3000);
+        console.log('end');
+    }, []);
+
+    console.log('mid');
+    return { iserror, isloading, data };
+};
+
+export default useFetch;
+</code></pre>
+<blockquote>
+<p>App.jsx</p>
+</blockquote>
+<pre><code class="language-js">import React from 'react';
+import useFetch from './useFetch';
+
+const App = () =&gt; {
+    const URL = 'https://api.github.com/users/QuincyLarson';
+
+    const { isloading, iserror, data } = useFetch(URL);
+    console.log(isloading); //will be called 2 times
+
+    if (isloading) {
+        return &lt;h3&gt;Loading ....&lt;/h3&gt;;
+    }
+    if (iserror) {
+        return &lt;h3&gt;Error ....&lt;/h3&gt;;
+    }
+
+    return &lt;div&gt;{JSON.stringify(data)}&lt;/div&gt;;
+};
+
+export default App;
+</code></pre>
+<h3 id="context-api"><a class="header" href="#context-api">Context API</a></h3>
+<ul>
+<li><strong>create a context using createContext</strong></li>
+<li><strong>Must wrap the component in Context.Provider</strong></li>
+<li><strong>Pass any properties using the <code>value</code> prop</strong></li>
+<li><strong>access the created xontext using useContext hook</strong></li>
+</ul>
+<blockquote>
+<p>App.jsx</p>
+</blockquote>
+<pre><code class="language-js">import React, { createContext, useState } from 'react';
+import List from './List';
+
+export const logincontext = createContext();
+
+const App = () =&gt; {
+    const [user, setUser] = useState(null);
+
+    const logout = () =&gt; {
+        setUser(null);
+    };
+
+    const login = (name) =&gt; {
+        setUser(name);
+    };
+
+    const data = [{ name: 'abc' }, { name: 'def' }, { name: 'ghi' }];
+
+    return (
+        &lt;div&gt;
+            {user ? (
+                &lt;&gt;
+                    &lt;h3&gt;Hello {user}&lt;/h3&gt;
+                    &lt;button
+                        type=&quot;button&quot;
+                        onClick={() =&gt; {
+                            logout();
+                        }}
+                    &gt;
+                        Logout
+                    &lt;/button&gt;
+                &lt;/&gt;
+            ) : (
+                &lt;&gt;
+                    &lt;h3&gt;Not logged in&lt;/h3&gt;
+                &lt;/&gt;
+            )}
+            &lt;logincontext.Provider value={{ login }}&gt;
+                &lt;List data={data} /&gt;
+            &lt;/logincontext.Provider&gt;
+        &lt;/div&gt;
+    );
+};
+
+export default App;
+</code></pre>
+<blockquote>
+<p>List.jsx</p>
+</blockquote>
+<pre><code class="language-js">import React from 'react';
+import Person from './Person';
+
+const List = ({ data }) =&gt; {
+    return (
+        &lt;&gt;
+            {data.map((p, idx) =&gt; {
+                return (
+                    &lt;div key={idx}&gt;
+                        &lt;div&gt;
+                            &lt;Person name={p.name} /&gt;
+                        &lt;/div&gt;
+                    &lt;/div&gt;
+                );
+            })}
+        &lt;/&gt;
+    );
+};
+
+export default List;
+</code></pre>
+<blockquote>
+<p>Person.jsx</p>
+</blockquote>
+<pre><code class="language-js">import React, { useContext } from 'react';
+import { logincontext } from './App';
+
+const Person = ({ name }) =&gt; {
+    const { login } = useContext(logincontext);
+
+    return (
+        &lt;div&gt;
+            &lt;h3&gt;{name}&lt;/h3&gt;
+            &lt;button
+                type=&quot;button&quot;
+                onClick={() =&gt; {
+                    login(name);
+                }}
+            &gt;
+                Login
+            &lt;/button&gt;
+        &lt;/div&gt;
+    );
+};
+
+export default Person;
+</code></pre>
+<h3 id="global-context"><a class="header" href="#global-context">Global Context</a></h3>
+<ul>
+<li>in src create context.jsx</li>
+<li>setup a global context - GlobalContext</li>
+<li>setup a component (AppContext) with one state value</li>
+<li>return GlobalContext.Provider from AppContext</li>
+<li>wrap then entire application (main.jsx) - children prop &quot;gotcha&quot;</li>
+<li>setup a custom hook</li>
+<li>access in App.jsx</li>
+<li>log result</li>
+</ul>
+<h3 id="reducer"><a class="header" href="#reducer">Reducer</a></h3>
+<blockquote>
+<p>Structure of inbuilt reducer</p>
+</blockquote>
+<pre><code class="language-js">import React from 'react';
+import { useReducer } from 'react';
+
+const data = [{ name: 'abc' }, { name: 'def' }, { name: 'ghi' }];
+
+// Initial State
+const defState = {
+    people: data
+};
+
+// Reducer Function [Must return a state]
+// Has access to current state,and action
+const reducer = (state, action) =&gt; {
+    return state;
+};
+
+const App = () =&gt; {
+    // dispatch({type:&quot;action-name&quot;,payload:&quot;abc&quot;})
+    // state-&gt;current state
+    const [state, dispatch] = useReducer(reducer, defState);
+
+    return &lt;div&gt;App&lt;/div&gt;;
+};
+
+export default App;
+</code></pre>
+<blockquote>
+<p>useReducer basics</p>
+</blockquote>
+<pre><code class="language-js">import React from 'react';
+import { useReducer } from 'react';
+
+const data = [
+    { name: 'abc', id: 1 },
+    { name: 'def', id: 2 },
+    { name: 'ghi', id: 3 }
+];
+
+const CLEAR_ALL = 'clear-all';
+const REMOVE_ITEM = 'remove-item';
+const RESET_LIST = 'reset-list';
+
+// Initial State
+const defState = {
+    people: data
+};
+
+// Reducer Function [Must return a state]
+// Has access to current state,and action
+const reducer = (state, action) =&gt; {
+    // Remove a single Person
+    if (action.type === REMOVE_ITEM) {
+        const newState = state.people.filter((p) =&gt; p.id != action.payload);
+        console.log(newState);
+        return { ...state, people: newState };
+    }
+    // Remove all
+    else if (action.type === CLEAR_ALL) {
+        return { ...state, people: [] };
+    }
+    // Reset List
+    else if (action.type === RESET_LIST) {
+        return { ...state, people: data };
+    }
+    return state;
+};
+
+const App = () =&gt; {
+    // dispatch({type:&quot;action&quot;,payload:&quot;abc&quot;})
+    // state-&gt;current state
+    const [state, dispatch] = useReducer(reducer, defState);
+    console.log(state);
+
+    return (
+        &lt;div&gt;
+            {state.people.map(({ name, id }, idx) =&gt; {
+                return (
+                    &lt;div key={idx}&gt;
+                        &lt;h3&gt;{name}&lt;/h3&gt;
+                        &lt;button
+                            type=&quot;button&quot;
+                            onClick={() =&gt; {
+                                dispatch({ type: REMOVE_ITEM, payload: id });
+                            }}
+                        &gt;
+                            Remove Item
+                        &lt;/button&gt;
+                    &lt;/div&gt;
+                );
+            })}
+            &lt;br /&gt;
+            &lt;div&gt;
+                &lt;button
+                    type=&quot;button&quot;
+                    onClick={() =&gt; {
+                        dispatch({ type: CLEAR_ALL });
+                    }}
+                &gt;
+                    Clear All
+                &lt;/button&gt;
+                &lt;br /&gt;
+                &lt;button
+                    type=&quot;button&quot;
+                    onClick={() =&gt; {
+                        dispatch({ type: RESET_LIST });
+                    }}
+                &gt;
+                    Rest List
+                &lt;/button&gt;
+            &lt;/div&gt;
+        &lt;/div&gt;
+    );
+};
+
+export default App;
+</code></pre>
+<h3 id="performance"><a class="header" href="#performance">Performance</a></h3>
+<p>When Component Re-Renders :</p>
+<ul>
+<li>
+<p>When the component's state or props change, React will re-render the component to reflect these changes.</p>
+</li>
+<li>
+<p>When the parent element re-renders, even if the component's state or props have not changed.</p>
+</li>
+</ul>
+<p>If u take the below example the Counter componet fixes the issue of re-rendering everytime
+ofthe Childnest component on parent component state change . Because re-renders the child
+component if the parent re-renders.</p>
+<blockquote>
+<p>Parent.jsx</p>
+</blockquote>
+<pre><code class="language-js">import React from 'react';
+import { useState } from 'react';
+import Child from './Child';
+import Counter from './Counter';
+
+const data = [
+    { name: 'abc', id: 1 },
+    { name: 'def', id: 2 },
+    { name: 'ghi', id: 3 }
+];
+
+// Triggers re-renders of the Childnest component on state change of the count variable
+
+// const Parent = () =&gt; {
+// const [count, setCount] = useState(0);
+//     return (
+//         &lt;div&gt;
+//             &lt;h1&gt;Count :{count}&lt;/h1&gt;
+//             &lt;button
+//                 type=&quot;button&quot;
+//                 onClick={() =&gt; {
+//                     setCount(count + 1);
+//                 }}
+//             &gt;
+//                 Click
+//             &lt;/button&gt;
+//             &lt;Child data={data} /&gt;
+//         &lt;/div&gt;
+//     );
+// };
+
+// Issue fixed on movinf the state variable to another component
+
+const Parent = () =&gt; {
+    return (
+        &lt;div&gt;
+            &lt;Counter /&gt;
+            &lt;Child data={data} /&gt;
+        &lt;/div&gt;
+    );
+};
+
+export default Parent;
+</code></pre>
+<blockquote>
+<p>Child.jsx</p>
+</blockquote>
+<pre><code class="language-js">import React from 'react';
+import Childnest from './Childnest';
+
+const Child = ({ data }) =&gt; {
+    return (
+        &lt;div&gt;
+            {data.map(({ name }, idx) =&gt; {
+                return (
+                    &lt;div key={idx}&gt;
+                        &lt;Childnest name={name} /&gt;
+                    &lt;/div&gt;
+                );
+            })}
+        &lt;/div&gt;
+    );
+};
+
+export default Child;
+</code></pre>
+<blockquote>
+<p>Childnest.jsx</p>
+</blockquote>
+<pre><code class="language-js">import React from 'react';
+
+const Childnest = ({ name }) =&gt; {
+    console.log('render');
+    return &lt;div&gt;{name}&lt;/div&gt;;
+};
+
+export default Childnest;
+</code></pre>
+<blockquote>
+<p>Counter.jsx</p>
+</blockquote>
+<pre><code class="language-js">import React, { useState } from 'react';
+
+const Counter = () =&gt; {
+    const [count, setCount] = useState(0);
+    return (
+        &lt;&gt;
+            &lt;h1&gt;Count :{count}&lt;/h1&gt;
+            &lt;button
+                type=&quot;button&quot;
+                onClick={() =&gt; {
+                    setCount(count + 1);
+                }}
+            &gt;
+                Click
+            &lt;/button&gt;
+        &lt;/&gt;
+    );
+};
+
+export default Counter;
+</code></pre>
+<p><strong>Note : [Naive way of Fixing] Fixing the re-render by moving the state that causes
+re-render of the parent component to another file</strong></p>
+<blockquote>
+<p>Input.jsx</p>
+</blockquote>
+<pre><code class="language-js">import React, { useState } from 'react';
+
+const Input = () =&gt; {
+    const [name, setName] = useState('');
+    return (
+        &lt;form&gt;
+            &lt;input
+                type=&quot;text&quot;
+                name=&quot;name&quot;
+                value={name}
+                onChange={(e) =&gt; {
+                    setName(e.target.value);
+                }}
+            /&gt;
+        &lt;/form&gt;
+    );
+};
+
+export default Input;
+</code></pre>
+<blockquote>
+<p>App.jsx</p>
+</blockquote>
+<pre><code class="language-js">import React from 'react';
+import { useState } from 'react';
+import Child from './Child';
+import Input from './Input';
+
+const dataz = [
+    { name: 'abc', id: 1 },
+    { name: 'def', id: 2 },
+    { name: 'ghi', id: 3 }
+];
+
+const Parent = () =&gt; {
+    const [data, setData] = useState(dataz);
+
+    const addPerson = () =&gt; {
+        setData([...data, { name, id: Date.now() }]);
+    };
+
+    // Issue fixed
+    return (
+        &lt;div&gt;
+            &lt;Input /&gt;
+
+            &lt;button
+                type=&quot;button&quot;
+                onClick={() =&gt; {
+                    addPerson();
+                }}
+            &gt;
+                Add
+            &lt;/button&gt;
+
+            &lt;Child data={data} /&gt;
+        &lt;/div&gt;
+    );
+};
+
+export default Parent;
+</code></pre>
+<h3 id="reactmemo"><a class="header" href="#reactmemo">React.memo</a></h3>
+<p>React.memo is a higher-order component (HOC) in React that allows you to memoize a component.
+This means that if the input props to the component have not changed, the memoized
+component will return the same result from the previous render, instead of re-rendering.
+This can help improve performance by avoiding unnecessary render cycles.</p>
+<p>The React.memo function takes a functional component as its argument and
+returns a new component that has the same behavior, but with the added optimization
+of checking if the props have changed. If the props have not changed, the
+memoized component will return the cached result from the previous render.</p>
+<blockquote>
+<p>Child.jsx</p>
+</blockquote>
+<p>Instead moving the creating separate component to another file.
+Use React.memo to trigger re-render only on props changed</p>
+<pre><code class="language-js">export default memo(Child);
+</code></pre>
+<h3 id="usecallback"><a class="header" href="#usecallback">UseCallback</a></h3>
+<p>The useCallback hook is a hook in React that allows you to memoize a function. It takes two arguments: the first is the function you want to memoize, and the second is an array of dependencies. The hook will return a memoized version of the function that only changes if one of the values in the dependency array changes.</p>
+<p>By memoizing the function, you can avoid unnecessary re-renders and improve the performance of your React application. The function will only be re-created if one of its dependencies changes, otherwise the same instance of the function will be returned. This can be useful in situations where you have an expensive function that you only want to recompute when its dependencies change.</p>
+<p>We will notice a gotcha by creating a removePerson function on
+App.jsx , we will see even after with React.memo child component
+re-renders again.This is happens beacuse when parent component
+re-renders on state change in our case when we type input value
+the removePerson is created from scratch so as a result when
+removePerson is passed down as a prop to another child component
+it trigger re-renders as the prop changed</p>
+<blockquote>
+<p>Wihout Fix</p>
+</blockquote>
+<pre><code class="language-js">const removePerson = (id) =&gt; {
+    const newPeople = people.filter((person) =&gt; person.id !== id);
+    setPeople(newPeople);
+};
+</code></pre>
+<blockquote>
+<p>Fix</p>
+</blockquote>
+<pre><code class="language-js">useCallback(
+    (id) =&gt; {
+        const newPeople = people.filter((person) =&gt; person.id !== id);
+        setPeople(newPeople);
+    },
+    [people]
+);
+</code></pre>
+<blockquote>
+<p>useCallback - Common Use Case</p>
+</blockquote>
+<p>What happens if we keep dependency array as FetchData in
+the useEffect is we will encounter inifinite re-renders
+as the fetchData is created from scratch.To fix this and
+still use fetchData as dependency we can use useCallback
+to create the function only on initial re-render.Another fix
+is to not use useCallback and remove fetchData from dependency.</p>
+<pre><code class="language-js">import { useState, useEffect, useCallback } from 'react';
+const url = 'https://api.github.com/users';
+
+const FetchData = () =&gt; {
+    const [users, setUsers] = useState([]);
+    const fetchData = useCallback(async () =&gt; {
+        try {
+            const response = await fetch(url);
+            const users = await response.json();
+            setUsers(users);
+        } catch (error) {
+            console.log(error);
+        }
+    }, []);
+
+    useEffect(() =&gt; {
+        fetchData();
+    }, [fetchData]);
+    // rest of the logic
+};
+</code></pre>
+<h3 id="usememo"><a class="header" href="#usememo">useMemo</a></h3>
+<p>The useMemo hook is a hook in React that allows you to memoize a value. It
+takes two arguments: the first is a function that returns the value you want to
+memoize, and the second is an array of dependencies. The hook will return the
+memoized value that will only change if one of the values in the dependency array changes.</p>
+<p>By memoizing a value, you can avoid unnecessary calculations and improve the performance
+of your React application. The value will only be recalculated if one of its dependencies
+changes, otherwise the same instance of the value will be returned. This can be useful
+in situations where you have an expensive calculation that you only want to recompute
+when its dependencies change.</p>
+<p>Make the below function run only on first render</p>
+<pre><code class="language-js">const slowFunction = () =&gt; {
+    let value = 0;
+    for (let i = 0; i &lt;= 1000000000; i++) {
+        value += i;
+    }
+    return value;
+};
+
+export default slowFunction;
+
+const processedData = useMemo(() =&gt; {
+    slowFunction();
+}, []);
+</code></pre>
+<div style="break-before: page; page-break-before: always;"></div><h3 id="axios"><a class="header" href="#axios">Axios</a></h3>
+<h4 id="docs"><a class="header" href="#docs">Docs</a></h4>
+<p><a href="https://axios-http.com/docs/intro">Axios Docs</a></p>
+<h4 id="install"><a class="header" href="#install">Install</a></h4>
+<pre><code class="language-sh">npm install axios
+</code></pre>
+<pre><code class="language-js">&lt;script src=&quot;https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js&quot;&gt;&lt;/script&gt;
+</code></pre>
+<h4 id="first-request"><a class="header" href="#first-request">First Request</a></h4>
+<ul>
+<li>
+<p>import axios</p>
+</li>
+<li>
+<p>axios.get(url)</p>
+</li>
+<li>
+<p>axios.post(url)</p>
+</li>
+<li>
+<p>axios.patch/put(url)</p>
+</li>
+<li>
+<p>axios.delete(url)</p>
+</li>
+<li>
+<p>default get axios(url)</p>
+</li>
+<li>
+<p>returns a promise</p>
+</li>
+<li>
+<p>response data located in data property</p>
+</li>
+<li>
+<p>error in error.response</p>
+</li>
+</ul>
+<pre><code class="language-js">import axios from 'axios';
+
+const fetchData = async () =&gt; {
+    try {
+        // axios.get(), axios.post(),axios.put(), axios.delete()
+        const response = await axios(url);
+
+        console.log(response);
+    } catch (error) {
+        console.log(error.response);
+    }
+};
+</code></pre>
+<h4 id="headers"><a class="header" href="#headers">Headers</a></h4>
+<ul>
+<li>
+<p>second argument</p>
+</li>
+<li>
+<p>axios.get(url,{})</p>
+</li>
+<li>
+<p>third argument in requests with data</p>
+</li>
+<li>
+<p>axios.post(url,{data},{})</p>
+</li>
+</ul>
+<pre><code class="language-js">const fetchDadJoke = async () =&gt; {
+    try {
+        const { data } = await axios(url, {
+            headers: {
+                Accept: 'application/json'
+            }
+        });
+        // console.log(data);
+        setJoke(data.joke);
+    } catch (error) {
+        console.log(error.response);
+    }
+};
+</code></pre>
+<h4 id="post-request"><a class="header" href="#post-request">Post Request</a></h4>
+<ul>
+<li>send data to the server</li>
+<li>axios.post(url, { data })</li>
+<li>more options (auth header) - axios.post(url, { data },{})</li>
+</ul>
+<pre><code class="language-js">try {
+    const resp = await axios.post(url, { data });
+} catch (error) {
+    console.log(error.response.data);
+}
+</code></pre>
+<h4 id="global-defaults"><a class="header" href="#global-defaults">Global Defaults</a></h4>
+<pre><code class="language-js">axios.defaults.headers.common['Accept'] = 'application/json';
+axios.defaults.baseURL = 'https://api.example.com';
+axios.defaults.headers.common['Authorization'] = AUTH_TOKEN;
+axios.defaults.headers.post['Content-Type'] =
+    'application/x-www-form-urlencoded';
+</code></pre>
+<h4 id="custom-instance"><a class="header" href="#custom-instance">Custom Instance</a></h4>
+<pre><code class="language-js">const authFetch = axios.create({
+    baseURL: 'https://course-api.com',
+    headers: {
+        Accept: 'application/json'
+    }
+});
+</code></pre>
+<h4 id="interceptors"><a class="header" href="#interceptors">Interceptors</a></h4>
+<ul>
+<li>global and custom</li>
+</ul>
+<pre><code class="language-js">authFetch.interceptors.request.use(
+    (request) =&gt; {
+        request.headers.common['Accept'] = `application/json`;
+        console.log('request sent');
+        // must return request
+        return request;
+    },
+    (error) =&gt; {
+        return Promise.reject(error);
+    }
+);
+
+authFetch.interceptors.response.use(
+    (response) =&gt; {
+        console.log('got response');
+        return response;
+    },
+    (error) =&gt; {
+        console.log(error.response);
+        if (error.response.status === 404) {
+            // do something
+            console.log('NOT FOUND');
+        }
+        return Promise.reject(error);
+    }
+);
+</code></pre>
+<div style="break-before: page; page-break-before: always;"></div><h4 id="react-router"><a class="header" href="#react-router">React Router</a></h4>
+<p><a href="https://reactrouter.com/docs/en/v6/getting-started/overview">React Router Docs</a></p>
+<h4 id="install-1"><a class="header" href="#install-1">Install</a></h4>
+<pre><code class="language-sh">npm install react-router-dom@6
+</code></pre>
+<h4 id="first-pages"><a class="header" href="#first-pages">First Pages</a></h4>
+<ul>
+<li>App.js</li>
+</ul>
+<pre><code class="language-js">import { BrowserRouter, Routes, Route } from 'react-router-dom';
+
+function App() {
+    return (
+        &lt;BrowserRouter&gt;
+            &lt;Routes&gt;
+                &lt;Route path=&quot;/&quot; element={&lt;div&gt;home page&lt;/div&gt;} /&gt;
+                &lt;Route
+                    path=&quot;testing&quot;
+                    element={
+                        &lt;div&gt;
+                            &lt;h2&gt;testing &lt;/h2&gt;
+                        &lt;/div&gt;
+                    }
+                /&gt;
+            &lt;/Routes&gt;
+        &lt;/BrowserRouter&gt;
+    );
+}
+
+export default App;
+</code></pre>
+<h4 id="components"><a class="header" href="#components">Components</a></h4>
+<ul>
+<li>App.js</li>
+</ul>
+<pre><code class="language-js">import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import Home from './pages/Home';
+import About from './pages/About';
+import Products from './pages/Products';
+
+function App() {
+    return (
+        &lt;BrowserRouter&gt;
+            &lt;Routes&gt;
+                &lt;Route path=&quot;/&quot; element={&lt;Home /&gt;} /&gt;
+                &lt;Route path=&quot;about&quot; element={&lt;About /&gt;} /&gt;
+                &lt;Route path=&quot;products&quot; element={&lt;Products /&gt;} /&gt;
+            &lt;/Routes&gt;
+        &lt;/BrowserRouter&gt;
+    );
+}
+
+export default App;
+</code></pre>
+<h4 id="links"><a class="header" href="#links">Links</a></h4>
+<ul>
+<li>Home.js, About.js</li>
+</ul>
+<pre><code class="language-js">import { Link } from 'react-router-dom';
+
+const Home = () =&gt; {
+  return (
+    &lt;div&gt;
+      &lt;h2&gt;Home Page&lt;/h2&gt;
+      &lt;Link to='/about' className='btn'&gt;
+        About
+      &lt;/Link&gt;
+      &lt;a href=&quot;&quot;&gt;
+    &lt;/div&gt;
+  );
+};
+export default Home;
+</code></pre>
+<h4 id="error-page"><a class="header" href="#error-page">Error Page</a></h4>
+<ul>
+<li>App.js</li>
+</ul>
+<pre><code class="language-js">function App() {
+    return (
+        &lt;BrowserRouter&gt;
+            &lt;Routes&gt;
+                &lt;Route path=&quot;/&quot; element={&lt;Home /&gt;} /&gt;
+                &lt;Route path=&quot;about&quot; element={&lt;About /&gt;} /&gt;
+                &lt;Route path=&quot;products&quot; element={&lt;Products /&gt;} /&gt;
+                &lt;Route path=&quot;*&quot; element={&lt;Error /&gt;} /&gt;
+            &lt;/Routes&gt;
+        &lt;/BrowserRouter&gt;
+    );
+}
+</code></pre>
+<ul>
+<li>Error.js</li>
+</ul>
+<pre><code class="language-js">import { Link } from 'react-router-dom';
+
+const Error = () =&gt; {
+    return (
+        &lt;section className=&quot;section&quot;&gt;
+            &lt;h2&gt;404&lt;/h2&gt;
+            &lt;p&gt;page not found&lt;/p&gt;
+            &lt;Link to=&quot;/&quot;&gt;back home&lt;/Link&gt;
+        &lt;/section&gt;
+    );
+};
+export default Error;
+</code></pre>
+<h4 id="nested-pages"><a class="header" href="#nested-pages">Nested Pages</a></h4>
+<ul>
+<li>
+<p>will refactor few times</p>
+</li>
+<li>
+<p>App.js</p>
+</li>
+</ul>
+<pre><code class="language-js">function App() {
+    return (
+        &lt;BrowserRouter&gt;
+            &lt;Routes&gt;
+                &lt;Route path=&quot;/&quot; element={&lt;Home /&gt;}&gt;
+                    &lt;Route path=&quot;about&quot; element={&lt;About /&gt;} /&gt;
+                    &lt;Route path=&quot;products&quot; element={&lt;Products /&gt;} /&gt;
+                    &lt;Route path=&quot;*&quot; element={&lt;Error /&gt;} /&gt;
+                &lt;/Route&gt;
+            &lt;/Routes&gt;
+        &lt;/BrowserRouter&gt;
+    );
+}
+</code></pre>
+<h4 id="shared-layout"><a class="header" href="#shared-layout">Shared Layout</a></h4>
+<ul>
+<li>Home.js</li>
+</ul>
+<pre><code class="language-js">import { Link, Outlet } from 'react-router-dom';
+
+const Home = () =&gt; {
+    return (
+        &lt;section className=&quot;section&quot;&gt;
+            &lt;h2&gt;Home Page&lt;/h2&gt;
+            &lt;Outlet /&gt;
+        &lt;/section&gt;
+    );
+};
+export default Home;
+</code></pre>
+<h4 id="navbar"><a class="header" href="#navbar">Navbar</a></h4>
+<ul>
+<li>Navbar.js</li>
+</ul>
+<pre><code class="language-js">import { Link } from 'react-router-dom';
+
+const Navbar = () =&gt; {
+    return (
+        &lt;nav className=&quot;navbar&quot;&gt;
+            &lt;Link to=&quot;/&quot;&gt;Home&lt;/Link&gt;
+            &lt;Link to=&quot;/about&quot;&gt;About&lt;/Link&gt;
+            &lt;Link to=&quot;/products&quot;&gt;Products&lt;/Link&gt;
+        &lt;/nav&gt;
+    );
+};
+export default Navbar;
+</code></pre>
+<ul>
+<li>Home.js</li>
+</ul>
+<pre><code class="language-js">import { Link, Outlet } from 'react-router-dom';
+import Navbar from '../components/Navbar';
+const Home = () =&gt; {
+    return (
+        &lt;&gt;
+            &lt;Navbar /&gt;
+            &lt;section className=&quot;section&quot;&gt;
+                &lt;Outlet /&gt;
+            &lt;/section&gt;
+        &lt;/&gt;
+    );
+};
+export default Home;
+</code></pre>
+<h4 id="index-routes"><a class="header" href="#index-routes">Index Routes</a></h4>
+<ul>
+<li>
+<p>Index routes render in the parent routes outlet at the parent route's path.</p>
+</li>
+<li>
+<p>Index routes match when a parent route matches but none of the other children match.</p>
+</li>
+<li>
+<p>Index routes are the default child route for a parent route.</p>
+</li>
+<li>
+<p>Index routes render when the user hasn't clicked one of the items in a navigation list yet.</p>
+</li>
+<li>
+<p>copy Home.js content</p>
+</li>
+<li>
+<p>SharedLayout.js</p>
+</li>
+</ul>
+<pre><code class="language-js">import { Link, Outlet } from 'react-router-dom';
+import Navbar from '../components/Navbar';
+const SharedLayout = () =&gt; {
+    return (
+        &lt;&gt;
+            &lt;Navbar /&gt;
+            &lt;section className=&quot;section&quot;&gt;
+                &lt;Outlet /&gt;
+            &lt;/section&gt;
+        &lt;/&gt;
+    );
+};
+export default SharedLayout;
+</code></pre>
+<ul>
+<li>Home.js</li>
+</ul>
+<pre><code class="language-js">const Home = () =&gt; {
+    return (
+        &lt;section className=&quot;section&quot;&gt;
+            &lt;h2&gt;Home Page&lt;/h2&gt;
+        &lt;/section&gt;
+    );
+};
+export default Home;
+</code></pre>
+<ul>
+<li>App.js</li>
+</ul>
+<pre><code class="language-js">function App() {
+    return (
+        &lt;BrowserRouter&gt;
+            &lt;Routes&gt;
+                &lt;Route path=&quot;/&quot; element={&lt;SharedLayout /&gt;}&gt;
+                    &lt;Route index element={&lt;Home /&gt;} /&gt;
+                    &lt;Route path=&quot;about&quot; element={&lt;About /&gt;} /&gt;
+                    &lt;Route path=&quot;products&quot; element={&lt;Products /&gt;} /&gt;
+                    &lt;Route path=&quot;*&quot; element={&lt;Error /&gt;} /&gt;
+                &lt;/Route&gt;
+            &lt;/Routes&gt;
+        &lt;/BrowserRouter&gt;
+    );
+}
+</code></pre>
+<h4 id="navlink-style"><a class="header" href="#navlink-style">NavLink (style)</a></h4>
+<ul>
+<li>StyledNavbar.js</li>
+</ul>
+<pre><code class="language-js">import { NavLink } from 'react-router-dom';
+
+&lt;nav className=&quot;navbar&quot;&gt;
+    &lt;NavLink
+        to=&quot;/about&quot;
+        style={({ isActive }) =&gt; {
+            return { color: isActive ? 'red' : 'grey' };
+        }}
+    &gt;
+        Home
+    &lt;/NavLink&gt;
+&lt;/nav&gt;;
+</code></pre>
+<h4 id="navlink-classname"><a class="header" href="#navlink-classname">NavLink (className)</a></h4>
+<ul>
+<li>StyledNavbar.js</li>
+</ul>
+<pre><code class="language-js">&lt;nav className=&quot;navbar&quot;&gt;
+    &lt;NavLink
+        to=&quot;/&quot;
+        className={({ isActive }) =&gt; (isActive ? 'link active' : 'link')}
+    &gt;
+        Home
+    &lt;/NavLink&gt;
+&lt;/nav&gt;
+</code></pre>
+<h4 id="reading-url-params"><a class="header" href="#reading-url-params">Reading URL Params</a></h4>
+<ul>
+<li>App.js</li>
+</ul>
+<pre><code class="language-js">function App() {
+    return (
+        &lt;BrowserRouter&gt;
+            &lt;Routes&gt;
+                &lt;Route path=&quot;/&quot; element={&lt;SharedLayout /&gt;}&gt;
+                    &lt;Route index element={&lt;Home /&gt;} /&gt;
+                    &lt;Route path=&quot;about&quot; element={&lt;About /&gt;} /&gt;
+                    &lt;Route path=&quot;products&quot; element={&lt;Products /&gt;} /&gt;
+                    &lt;Route
+                        path=&quot;products/:productId&quot;
+                        element={&lt;SingleProduct /&gt;}
+                    /&gt;
+                    &lt;Route path=&quot;*&quot; element={&lt;Error /&gt;} /&gt;
+                &lt;/Route&gt;
+            &lt;/Routes&gt;
+        &lt;/BrowserRouter&gt;
+    );
+}
+</code></pre>
+<h4 id="single-product"><a class="header" href="#single-product">Single Product</a></h4>
+<ul>
+<li>SingleProduct.js</li>
+</ul>
+<pre><code class="language-js">import { Link, useParams } from 'react-router-dom';
+import products from '../data';
+const SingleProduct = () =&gt; {
+    const { productId } = useParams();
+
+    return (
+        &lt;section className=&quot;section product&quot;&gt;
+            &lt;h2&gt;{productId}&lt;/h2&gt;
+            &lt;Link to=&quot;/products&quot;&gt;back to products&lt;/Link&gt;
+        &lt;/section&gt;
+    );
+};
+
+export default SingleProduct;
+</code></pre>
+<h4 id="products-page"><a class="header" href="#products-page">Products Page</a></h4>
+<ul>
+<li>Products.js</li>
+</ul>
+<pre><code class="language-js">import { Link } from 'react-router-dom';
+import products from '../data';
+const Products = () =&gt; {
+    return (
+        &lt;section className=&quot;section&quot;&gt;
+            &lt;h2&gt;products&lt;/h2&gt;
+            &lt;div className=&quot;products&quot;&gt;
+                {products.map((product) =&gt; {
+                    return (
+                        &lt;article key={product.id}&gt;
+                            &lt;h5&gt;{product.name}&lt;/h5&gt;
+                            &lt;Link to={`/products/${product.id}`}&gt;
+                                more info
+                            &lt;/Link&gt;
+                        &lt;/article&gt;
+                    );
+                })}
+            &lt;/div&gt;
+        &lt;/section&gt;
+    );
+};
+
+export default Products;
+</code></pre>
+<h4 id="single-product-1"><a class="header" href="#single-product-1">Single Product</a></h4>
+<ul>
+<li>SingleProduct.js</li>
+</ul>
+<pre><code class="language-js">import { Link, useParams } from 'react-router-dom';
+import products from '../data';
+const SingleProduct = () =&gt; {
+    const { productId } = useParams();
+    const product = products.find((product) =&gt; product.id === productId);
+    const { image, name } = product;
+
+    return (
+        &lt;section className=&quot;section product&quot;&gt;
+            &lt;img src={image} alt={name} /&gt;
+            &lt;h5&gt;{name}&lt;/h5&gt;
+            &lt;Link to=&quot;/products&quot;&gt;back to products&lt;/Link&gt;
+        &lt;/section&gt;
+    );
+};
+
+export default SingleProduct;
+</code></pre>
+<h4 id="usenavigate"><a class="header" href="#usenavigate">useNavigate()</a></h4>
+<p><a href="https://youtu.be/PuEGrylM1x8"> (?.) or Optional Chaining Explained</a></p>
+<ul>
+<li>App.js</li>
+</ul>
+<pre><code class="language-js">function App() {
+    const [user, setUser] = useState(null);
+
+    return (
+        &lt;BrowserRouter&gt;
+            &lt;Routes&gt;
+                &lt;Route path=&quot;/&quot; element={&lt;SharedLayout /&gt;}&gt;
+                    &lt;Route index element={&lt;Home /&gt;} /&gt;
+                    &lt;Route path=&quot;about&quot; element={&lt;About /&gt;} /&gt;
+                    &lt;Route path=&quot;products&quot; element={&lt;Products /&gt;} /&gt;
+                    &lt;Route
+                        path=&quot;products/:productId&quot;
+                        element={&lt;SingleProduct /&gt;}
+                    /&gt;
+                    &lt;Route path=&quot;login&quot; element={&lt;Login setUser={setUser} /&gt;} /&gt;
+                    &lt;Route
+                        path=&quot;dashboard&quot;
+                        element={&lt;Dashboard user={user} /&gt;}
+                    /&gt;
+                    &lt;Route path=&quot;*&quot; element={&lt;Error /&gt;} /&gt;
+                &lt;/Route&gt;
+            &lt;/Routes&gt;
+        &lt;/BrowserRouter&gt;
+    );
+}
+</code></pre>
+<ul>
+<li>Login.js</li>
+</ul>
+<pre><code class="language-js"> import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+const Login = ({ setUser }) =&gt; {
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+
+  const navigate = useNavigate();
+
+  const handleSubmit = async (e) =&gt; {
+    e.preventDefault();
+    if (!name || !email) return;
+    setUser({ name: name, email: email });
+    navigate('/dashboard');
+  };
+
+</code></pre>
+<p><a href="https://youtu.be/PuEGrylM1x8"> (?.) or Optional Chaining Explained</a></p>
+<ul>
+<li>Dashboard.js</li>
+</ul>
+<pre><code class="language-js">const Dashboard = ({ user }) =&gt; {
+    return (
+        &lt;section className=&quot;section&quot;&gt;
+            &lt;h4&gt;Hello, {user?.name}&lt;/h4&gt;
+        &lt;/section&gt;
+    );
+};
+export default Dashboard;
+</code></pre>
+<h4 id="protected-route"><a class="header" href="#protected-route">Protected Route</a></h4>
+<ul>
+<li>App.js</li>
+</ul>
+<pre><code class="language-js">&lt;Route
+    path=&quot;dashboard&quot;
+    element={
+        &lt;ProtectedRoute user={user}&gt;
+            &lt;Dashboard user={user} /&gt;
+        &lt;/ProtectedRoute&gt;
+    }
+/&gt;
+</code></pre>
+<ul>
+<li>ProtectedRoute.js</li>
+</ul>
+<pre><code class="language-js">import { Navigate } from 'react-router-dom';
+
+const ProtectedRoute = ({ children, user }) =&gt; {
+    if (!user) {
+        return &lt;Navigate to=&quot;/&quot; /&gt;;
+    }
+    return children;
+};
+
+export default ProtectedRoute;
+</code></pre>
+<div style="break-before: page; page-break-before: always;"></div><h3 id="redux-with-redux-toolkit"><a class="header" href="#redux-with-redux-toolkit">Redux with redux-toolkit</a></h3>
+<h4 id="docs-1"><a class="header" href="#docs-1">Docs</a></h4>
+<p><a href="https://redux-toolkit.js.org/introduction/getting-started">Redux Toolkit Docs</a></p>
+<h4 id="install-template"><a class="header" href="#install-template">Install Template</a></h4>
+<pre><code class="language-sh">npx create-react-app my-app --template redux
+</code></pre>
+<ul>
+<li>@latest</li>
+</ul>
+<pre><code class="language-sh">npx create-react-app@latest my-app --template redux
+</code></pre>
+<h4 id="existing-app"><a class="header" href="#existing-app">Existing App</a></h4>
+<pre><code class="language-sh">npm install @reduxjs/toolkit react-redux
+</code></pre>
+<h4 id="reduxjstoolkit"><a class="header" href="#reduxjstoolkit">@reduxjs/toolkit</a></h4>
+<p>consists of few libraries</p>
+<ul>
+<li>redux (core library, state management)</li>
+<li>immer (allows to mutate state)</li>
+<li>redux-thunk (handles async actions)</li>
+<li>reselect (simplifies reducer functions)</li>
+</ul>
+<h4 id="extras"><a class="header" href="#extras">Extras</a></h4>
+<ul>
+<li>redux devtools</li>
+<li>combine reducers</li>
+</ul>
+<h4 id="react-redux"><a class="header" href="#react-redux">react-redux</a></h4>
+<p>connects our app to redux</p>
+<h4 id="setup-store"><a class="header" href="#setup-store">Setup Store</a></h4>
+<ul>
+<li>create store.js</li>
+</ul>
+<pre><code class="language-js">import { configureStore } from '@reduxjs/toolkit';
+
+export const store = configureStore({
+    reducer: {}
+});
+</code></pre>
+<h4 id="setup-provider"><a class="header" href="#setup-provider">Setup Provider</a></h4>
+<ul>
+<li>index.js</li>
+</ul>
+<pre><code class="language-js">import React from 'react';
+import ReactDOM from 'react-dom';
+import './index.css';
+import App from './App';
+// import store and provider
+import { store } from './store';
+import { Provider } from 'react-redux';
+
+ReactDOM.render(
+    &lt;React.StrictMode&gt;
+        &lt;Provider store={store}&gt;
+            &lt;App /&gt;
+        &lt;/Provider&gt;
+    &lt;/React.StrictMode&gt;,
+    document.getElementById('root')
+);
+</code></pre>
+<h4 id="setup-cart-slice"><a class="header" href="#setup-cart-slice">Setup Cart Slice</a></h4>
+<ul>
+<li>application feature</li>
+<li>create features folder/cart</li>
+<li>create cartSlice.js</li>
+</ul>
+<pre><code class="language-js">import { createSlice } from '@reduxjs/toolkit';
+
+const initialState = {
+    cartItems: [],
+    amount: 0,
+    total: 0,
+    isLoading: true
+};
+
+const cartSlice = createSlice({
+    name: 'cart',
+    initialState
+});
+
+console.log(cartSlice);
+
+export default cartSlice.reducer;
+</code></pre>
+<ul>
+<li>store.js</li>
+</ul>
+<pre><code class="language-js">import { configureStore } from '@reduxjs/toolkit';
+import cartReducer from './features/cart/cartSlice';
+
+export const store = configureStore({
+    reducer: {
+        cart: cartReducer
+    }
+});
+</code></pre>
+<h4 id="redux-devtools"><a class="header" href="#redux-devtools">Redux DevTools</a></h4>
+<ul>
+<li>extension</li>
+</ul>
+<h4 id="access-store-value"><a class="header" href="#access-store-value">Access store value</a></h4>
+<ul>
+<li>create components/Navbar.js</li>
+</ul>
+<pre><code class="language-js">import { CartIcon } from '../icons';
+import { useSelector } from 'react-redux';
+
+const Navbar = () =&gt; {
+    const { amount } = useSelector((state) =&gt; state.cart);
+
+    return (
+        &lt;nav&gt;
+            &lt;div className=&quot;nav-center&quot;&gt;
+                &lt;h3&gt;redux toolkit&lt;/h3&gt;
+                &lt;div className=&quot;nav-container&quot;&gt;
+                    &lt;CartIcon /&gt;
+                    &lt;div className=&quot;amount-container&quot;&gt;
+                        &lt;p className=&quot;total-amount&quot;&gt;{amount}&lt;/p&gt;
+                    &lt;/div&gt;
+                &lt;/div&gt;
+            &lt;/div&gt;
+        &lt;/nav&gt;
+    );
+};
+export default Navbar;
+</code></pre>
+<h4 id="hero-icons"><a class="header" href="#hero-icons">Hero Icons</a></h4>
+<ul>
+<li><a href="https://heroicons.com/">Hero Icons</a></li>
+</ul>
+<pre><code class="language-css">nav svg {
+    width: 40px;
+    color: var(--clr-white);
+}
+</code></pre>
+<h4 id="setup-cart"><a class="header" href="#setup-cart">Setup Cart</a></h4>
+<ul>
+<li>cartSlice.js</li>
+</ul>
+<pre><code class="language-js">import cartItems from '../../cartItems';
+
+const initialState = {
+    cartItems: cartItems,
+    amount: 0,
+    total: 0,
+    isLoading: true
+};
+</code></pre>
+<ul>
+<li>create CartContainer.js and CartItem.js</li>
+<li>CartContainer.js</li>
+</ul>
+<pre><code class="language-js">import React from 'react';
+import CartItem from './CartItem';
+import { useSelector } from 'react-redux';
+
+const CartContainer = () =&gt; {
+    const { cartItems, total, amount } = useSelector((state) =&gt; state.cart);
+
+    if (amount &lt; 1) {
+        return (
+            &lt;section className=&quot;cart&quot;&gt;
+                {/* cart header */}
+                &lt;header&gt;
+                    &lt;h2&gt;your bag&lt;/h2&gt;
+                    &lt;h4 className=&quot;empty-cart&quot;&gt;is currently empty&lt;/h4&gt;
+                &lt;/header&gt;
+            &lt;/section&gt;
+        );
+    }
+    return (
+        &lt;section className=&quot;cart&quot;&gt;
+            {/* cart header */}
+            &lt;header&gt;
+                &lt;h2&gt;your bag&lt;/h2&gt;
+            &lt;/header&gt;
+            {/* cart items */}
+            &lt;div&gt;
+                {cartItems.map((item) =&gt; {
+                    return &lt;CartItem key={item.id} {...item} /&gt;;
+                })}
+            &lt;/div&gt;
+            {/* cart footer */}
+            &lt;footer&gt;
+                &lt;hr /&gt;
+                &lt;div className=&quot;cart-total&quot;&gt;
+                    &lt;h4&gt;
+                        total &lt;span&gt;${total}&lt;/span&gt;
+                    &lt;/h4&gt;
+                &lt;/div&gt;
+                &lt;button className=&quot;btn clear-btn&quot;&gt;clear cart&lt;/button&gt;
+            &lt;/footer&gt;
+        &lt;/section&gt;
+    );
+};
+
+export default CartContainer;
+</code></pre>
+<ul>
+<li>CartItem.js</li>
+</ul>
+<pre><code class="language-js">import React from 'react';
+import { ChevronDown, ChevronUp } from '../icons';
+
+const CartItem = ({ id, img, title, price, amount }) =&gt; {
+    return (
+        &lt;article className=&quot;cart-item&quot;&gt;
+            &lt;img src={img} alt={title} /&gt;
+            &lt;div&gt;
+                &lt;h4&gt;{title}&lt;/h4&gt;
+                &lt;h4 className=&quot;item-price&quot;&gt;${price}&lt;/h4&gt;
+                {/* remove button */}
+                &lt;button className=&quot;remove-btn&quot;&gt;remove&lt;/button&gt;
+            &lt;/div&gt;
+            &lt;div&gt;
+                {/* increase amount */}
+                &lt;button className=&quot;amount-btn&quot;&gt;
+                    &lt;ChevronUp /&gt;
+                &lt;/button&gt;
+                {/* amount */}
+                &lt;p className=&quot;amount&quot;&gt;{amount}&lt;/p&gt;
+                {/* decrease amount */}
+                &lt;button className=&quot;amount-btn&quot;&gt;
+                    &lt;ChevronDown /&gt;
+                &lt;/button&gt;
+            &lt;/div&gt;
+        &lt;/article&gt;
+    );
+};
+
+export default CartItem;
+</code></pre>
+<h4 id="first-reducer"><a class="header" href="#first-reducer">First Reducer</a></h4>
+<ul>
+<li>cartSlice.js</li>
+<li>Immer library</li>
+</ul>
+<pre><code class="language-js">const cartSlice = createSlice({
+    name: 'cart',
+    initialState,
+    reducers: {
+        clearCart: (state) =&gt; {
+            state.cartItems = [];
+        }
+    }
+});
+
+export const { clearCart } = cartSlice.actions;
+</code></pre>
+<ul>
+<li>create action</li>
+</ul>
+<pre><code class="language-js">const ACTION_TYPE = 'ACTION_TYPE';
+
+const actionCreator = (payload) =&gt; {
+    return { type: ACTION_TYPE, payload: payload };
+};
+</code></pre>
+<ul>
+<li>CartContainer.js</li>
+</ul>
+<pre><code class="language-js">import React from 'react';
+import CartItem from './CartItem';
+import { useDispatch, useSelector } from 'react-redux';
+
+const CartContainer = () =&gt; {
+    const dispatch = useDispatch();
+
+    return (
+        &lt;button
+            className=&quot;btn clear-btn&quot;
+            onClick={() =&gt; {
+                dispatch(clearCart());
+            }}
+        &gt;
+            clear cart
+        &lt;/button&gt;
+    );
+};
+
+export default CartContainer;
+</code></pre>
+<h4 id="remove-increase-decrease"><a class="header" href="#remove-increase-decrease">Remove, Increase, Decrease</a></h4>
+<ul>
+<li>cartSlice.js</li>
+</ul>
+<pre><code class="language-js">import { createSlice } from '@reduxjs/toolkit';
+import cartItems from '../../cartItems';
+
+const initialState = {
+    cartItems: [],
+    amount: 0,
+    total: 0,
+    isLoading: true
+};
+
+const cartSlice = createSlice({
+    name: 'cart',
+    initialState,
+    reducers: {
+        clearCart: (state) =&gt; {
+            state.cartItems = [];
+        },
+        removeItem: (state, action) =&gt; {
+            const itemId = action.payload;
+            state.cartItems = state.cartItems.filter(
+                (item) =&gt; item.id !== itemId
+            );
+        },
+        increase: (state, { payload }) =&gt; {
+            const cartItem = state.cartItems.find(
+                (item) =&gt; item.id === payload.id
+            );
+            cartItem.amount = cartItem.amount + 1;
+        },
+        decrease: (state, { payload }) =&gt; {
+            const cartItem = state.cartItems.find(
+                (item) =&gt; item.id === payload.id
+            );
+            cartItem.amount = cartItem.amount - 1;
+        },
+        calculateTotals: (state) =&gt; {
+            let amount = 0;
+            let total = 0;
+            state.cartItems.forEach((item) =&gt; {
+                amount += item.amount;
+                total += item.amount * item.price;
+            });
+            state.amount = amount;
+            state.total = total;
+        }
+    }
+});
+
+export const { clearCart, removeItem, increase, decrease, calculateTotals } =
+    cartSlice.actions;
+
+export default cartSlice.reducer;
+</code></pre>
+<ul>
+<li>CartItem.js</li>
+</ul>
+<pre><code class="language-js">import React from 'react';
+import { ChevronDown, ChevronUp } from '../icons';
+
+import { useDispatch } from 'react-redux';
+import { removeItem, increase, decrease } from '../features/cart/cartSlice';
+
+const CartItem = ({ id, img, title, price, amount }) =&gt; {
+    const dispatch = useDispatch();
+
+    return (
+        &lt;article className=&quot;cart-item&quot;&gt;
+            &lt;img src={img} alt={title} /&gt;
+            &lt;div&gt;
+                &lt;h4&gt;{title}&lt;/h4&gt;
+                &lt;h4 className=&quot;item-price&quot;&gt;${price}&lt;/h4&gt;
+                {/* remove button */}
+                &lt;button
+                    className=&quot;remove-btn&quot;
+                    onClick={() =&gt; {
+                        dispatch(removeItem(id));
+                    }}
+                &gt;
+                    remove
+                &lt;/button&gt;
+            &lt;/div&gt;
+            &lt;div&gt;
+                {/* increase amount */}
+                &lt;button
+                    className=&quot;amount-btn&quot;
+                    onClick={() =&gt; {
+                        dispatch(increase({ id }));
+                    }}
+                &gt;
+                    &lt;ChevronUp /&gt;
+                &lt;/button&gt;
+                {/* amount */}
+                &lt;p className=&quot;amount&quot;&gt;{amount}&lt;/p&gt;
+                {/* decrease amount */}
+                &lt;button
+                    className=&quot;amount-btn&quot;
+                    onClick={() =&gt; {
+                        if (amount === 1) {
+                            dispatch(removeItem(id));
+                            return;
+                        }
+                        dispatch(decrease({ id }));
+                    }}
+                &gt;
+                    &lt;ChevronDown /&gt;
+                &lt;/button&gt;
+            &lt;/div&gt;
+        &lt;/article&gt;
+    );
+};
+
+export default CartItem;
+</code></pre>
+<ul>
+<li>App.js</li>
+</ul>
+<pre><code class="language-js">import { useEffect } from 'react';
+import Navbar from './components/Navbar';
+import CartContainer from './components/CartContainer';
+import { useSelector, useDispatch } from 'react-redux';
+import { calculateTotals } from './features/cart/cartSlice';
+
+function App() {
+    const { cartItems } = useSelector((state) =&gt; state.cart);
+    const dispatch = useDispatch();
+    useEffect(() =&gt; {
+        dispatch(calculateTotals());
+    }, [cartItems]);
+
+    return (
+        &lt;main&gt;
+            &lt;Navbar /&gt;
+            &lt;CartContainer /&gt;
+        &lt;/main&gt;
+    );
+}
+
+export default App;
+</code></pre>
+<h4 id="modal"><a class="header" href="#modal">Modal</a></h4>
+<ul>
+<li>create components/Modal.js</li>
+</ul>
+<pre><code class="language-js">const Modal = () =&gt; {
+    return (
+        &lt;aside className=&quot;modal-container&quot;&gt;
+            &lt;div className=&quot;modal&quot;&gt;
+                &lt;h4&gt;Remove all items from your shopping cart?&lt;/h4&gt;
+                &lt;div className=&quot;btn-container&quot;&gt;
+                    &lt;button type=&quot;button&quot; className=&quot;btn confirm-btn&quot;&gt;
+                        confirm
+                    &lt;/button&gt;
+                    &lt;button type=&quot;button&quot; className=&quot;btn clear-btn&quot;&gt;
+                        cancel
+                    &lt;/button&gt;
+                &lt;/div&gt;
+            &lt;/div&gt;
+        &lt;/aside&gt;
+    );
+};
+export default Modal;
+</code></pre>
+<ul>
+<li>App.js</li>
+</ul>
+<pre><code class="language-js">return (
+    &lt;main&gt;
+        &lt;Modal /&gt;
+        &lt;Navbar /&gt;
+        &lt;CartContainer /&gt;
+    &lt;/main&gt;
+);
+</code></pre>
+<h4 id="modal-slice"><a class="header" href="#modal-slice">modal slice</a></h4>
+<ul>
+<li>create features/modal/modalSlice.js</li>
+</ul>
+<pre><code class="language-js">import { createSlice } from '@reduxjs/toolkit';
+const initialState = {
+    isOpen: false
+};
+
+const modalSlice = createSlice({
+    name: 'modal',
+    initialState,
+    reducers: {
+        openModal: (state, action) =&gt; {
+            state.isOpen = true;
+        },
+        closeModal: (state, action) =&gt; {
+            state.isOpen = false;
+        }
+    }
+});
+
+export const { openModal, closeModal } = modalSlice.actions;
+export default modalSlice.reducer;
+</code></pre>
+<ul>
+<li>App.js</li>
+</ul>
+<pre><code class="language-js">const { isOpen } = useSelector((state) =&gt; state.modal);
+
+return (
+    &lt;main&gt;
+        {isOpen &amp;&amp; &lt;Modal /&gt;}
+        &lt;Navbar /&gt;
+        &lt;CartContainer /&gt;
+    &lt;/main&gt;
+);
+</code></pre>
+<h4 id="toggle-modal"><a class="header" href="#toggle-modal">toggle modal</a></h4>
+<ul>
+<li>CartContainer.js</li>
+</ul>
+<pre><code class="language-js">import { openModal } from '../features/modal/modalSlice';
+
+return (
+    &lt;button
+        className=&quot;btn clear-btn&quot;
+        onClick={() =&gt; {
+            dispatch(openModal());
+        }}
+    &gt;
+        clear cart
+    &lt;/button&gt;
+);
+</code></pre>
+<ul>
+<li>Modal.js</li>
+</ul>
+<pre><code class="language-js">import { closeModal } from '../features/modal/modalSlice';
+import { useDispatch } from 'react-redux';
+import { clearCart } from '../features/cart/cartSlice';
+
+const Modal = () =&gt; {
+    const dispatch = useDispatch();
+
+    return (
+        &lt;aside className=&quot;modal-container&quot;&gt;
+            &lt;div className=&quot;modal&quot;&gt;
+                &lt;h4&gt;Remove all items from your shopping cart?&lt;/h4&gt;
+                &lt;div className=&quot;btn-container&quot;&gt;
+                    &lt;button
+                        type=&quot;button&quot;
+                        className=&quot;btn confirm-btn&quot;
+                        onClick={() =&gt; {
+                            dispatch(clearCart());
+                            dispatch(closeModal());
+                        }}
+                    &gt;
+                        confirm
+                    &lt;/button&gt;
+                    &lt;button
+                        type=&quot;button&quot;
+                        className=&quot;btn clear-btn&quot;
+                        onClick={() =&gt; {
+                            dispatch(closeModal());
+                        }}
+                    &gt;
+                        cancel
+                    &lt;/button&gt;
+                &lt;/div&gt;
+            &lt;/div&gt;
+        &lt;/aside&gt;
+    );
+};
+export default Modal;
+</code></pre>
+<h4 id="async-functionality-with-createasyncthunk"><a class="header" href="#async-functionality-with-createasyncthunk">async functionality with createAsyncThunk</a></h4>
+<ul>
+<li>
+<p><a href="https://course-api.com/">Course API</a></p>
+</li>
+<li>
+<p>https://course-api.com/react-useReducer-cart-project</p>
+</li>
+<li>
+<p>cartSlice.js</p>
+</li>
+<li>
+<p>action type</p>
+</li>
+<li>
+<p>callback function</p>
+</li>
+<li>
+<p>lifecycle actions</p>
+</li>
+</ul>
+<pre><code class="language-js">import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+
+const url = 'https://course-api.com/react-useReducer-cart-project';
+
+export const getCartItems = createAsyncThunk('cart/getCartItems', () =&gt; {
+    return fetch(url)
+        .then((resp) =&gt; resp.json())
+        .catch((err) =&gt; console.log(error));
+});
+
+const cartSlice = createSlice({
+    name: 'cart',
+    initialState,
+    extraReducers: {
+        [getCartItems.pending]: (state) =&gt; {
+            state.isLoading = true;
+        },
+        [getCartItems.fulfilled]: (state, action) =&gt; {
+            console.log(action);
+            state.isLoading = false;
+            state.cartItems = action.payload;
+        },
+        [getCartItems.rejected]: (state) =&gt; {
+            state.isLoading = false;
+        }
+    }
+});
+</code></pre>
+<ul>
+<li>App.js</li>
+</ul>
+<pre><code class="language-js">import { calculateTotals, getCartItems } from './features/cart/cartSlice';
+
+function App() {
+    const { cartItems, isLoading } = useSelector((state) =&gt; state.cart);
+
+    useEffect(() =&gt; {
+        dispatch(getCartItems());
+    }, []);
+
+    if (isLoading) {
+        return (
+            &lt;div className=&quot;loading&quot;&gt;
+                &lt;h1&gt;Loading...&lt;/h1&gt;
+            &lt;/div&gt;
+        );
+    }
+
+    return (
+        &lt;main&gt;
+            {isOpen &amp;&amp; &lt;Modal /&gt;}
+            &lt;Navbar /&gt;
+            &lt;CartContainer /&gt;
+        &lt;/main&gt;
+    );
+}
+
+export default App;
+</code></pre>
+<h4 id="options"><a class="header" href="#options">Options</a></h4>
+<pre><code class="language-sh">npm install axios
+</code></pre>
+<ul>
+<li>cartSlice.js</li>
+</ul>
+<pre><code class="language-js">export const getCartItems = createAsyncThunk(
+    'cart/getCartItems',
+    async (name, thunkAPI) =&gt; {
+        try {
+            // console.log(name);
+            // console.log(thunkAPI);
+            // console.log(thunkAPI.getState());
+            // thunkAPI.dispatch(openModal());
+            const resp = await axios(url);
+
+            return resp.data;
+        } catch (error) {
+            return thunkAPI.rejectWithValue('something went wrong');
+        }
+    }
+);
+</code></pre>
+<h4 id="the-extrareducers-builder-callback-notation"><a class="header" href="#the-extrareducers-builder-callback-notation">The extraReducers &quot;builder callback&quot; notation</a></h4>
+<p>cart/cartSlice</p>
+<pre><code class="language-js">const cartSlice = createSlice({
+    name: 'cart',
+    initialState,
+    reducers: {
+        // reducers
+    },
+    extraReducers: (builder) =&gt; {
+        builder
+            .addCase(getCartItems.pending, (state) =&gt; {
+                state.isLoading = true;
+            })
+            .addCase(getCartItems.fulfilled, (state, action) =&gt; {
+                // console.log(action);
+                state.isLoading = false;
+                state.cartItems = action.payload;
+            })
+            .addCase(getCartItems.rejected, (state, action) =&gt; {
+                console.log(action);
+                state.isLoading = false;
+            });
+    }
+});
+</code></pre>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="node-i"><a class="header" href="#node-i">Node I</a></h1>
+<blockquote>
+<p>What is nodejs ?</p>
+</blockquote>
+<ul>
+<li>Environment to run JS outside browser</li>
+<li>Built on chromes V8 engine</li>
+<li>Both Frontend and Backend can be written in javascript</li>
+<li>It provides a way to build scalable and high-performance applications using JavaScript on the server-side</li>
+</ul>
+<blockquote>
+<p>Difference b/w Browser js &amp; NodeJS</p>
+</blockquote>
+<div class="table-wrapper"><table><thead><tr><th>Browser js</th><th>nodejs</th></tr></thead><tbody>
+<tr><td>Acess to browser APIs like DOM,window object</td><td>No access to browser APIs</td></tr>
+<tr><td>Use to make Interactive Apps</td><td>Use to make Server side Apps</td></tr>
+<tr><td>No filesystem</td><td>Has access to filesystem</td></tr>
+<tr><td>Depends on users browser's version</td><td>Depends on NodeJS version</td></tr>
+<tr><td>ES6 modules</td><td>CommonJS</td></tr>
+</tbody></table>
+</div>
+<h3 id="globals"><a class="header" href="#globals">Globals</a></h3>
+<ul>
+<li>__dirname - path to current directory</li>
+<li>__filename - file name</li>
+<li>require - function to use modules (CommonJS)</li>
+<li>module - info about current module (file)</li>
+<li>process - info about env where the program is being executed</li>
+</ul>
+<blockquote>
+<p>What are modules in nodejs ?</p>
+</blockquote>
+<p>Modules in Node.js are reusable pieces of code that can
+be imported and used in other parts of a program</p>
+<ul>
+<li>Encapsulated Code (only sahre minimum)</li>
+<li>Every file in NodeJS is module by default</li>
+</ul>
+<h3 id="modules"><a class="header" href="#modules">Modules</a></h3>
+<p><strong>Example to show module export import</strong></p>
+<blockquote>
+<p>utils.js</p>
+</blockquote>
+<pre><code class="language-js">// Exporting with custom name
+
+module.exports.name = 'johndoe';
+
+// Exporting directly
+
+module.exports = { name: 'johndoe', id: 3 };
+
+// Returns an object with many properties but we are interested in exports property
+
+console.log(module);
+</code></pre>
+<p><strong>Note: Whenever we import a module we execute the module</strong></p>
+<blockquote>
+<p>app.js</p>
+</blockquote>
+<pre><code class="language-js">const data = require('./utils');
+
+// Will return all the things in exports
+console.log(data);
+</code></pre>
+<h3 id="common-inbuilt-modules"><a class="header" href="#common-inbuilt-modules">Common inbuilt modules</a></h3>
+<ul>
+<li>os</li>
+<li>path</li>
+<li>fs</li>
+<li>http</li>
+</ul>
+<h4 id="path-module-basics"><a class="header" href="#path-module-basics">Path module basics</a></h4>
+<pre><code class="language-js">const path = require('path');
+
+// returns platform specific path delimter
+// For Windows -&gt; \
+// For Linux,Mac,BSD -&gt; /
+console.log(path.sep);
+
+// Joins the path with platform specific delimeter
+const filePath = path.join(`${path.sep}folder`, 'subfolder', 'test.txt');
+console.log(filePath);
+
+// Get basename [end name]
+console.log(path.basename(filePath));
+
+// Absolute path
+
+// Returns directory of package.json of current project
+console.log(__dirname);
+console.log(path.resolve(__dirname, 'folder', 'subfolder', 'test.txt'));
+</code></pre>
+<h4 id="fs-sync-module"><a class="header" href="#fs-sync-module">fs sync module</a></h4>
+<pre><code class="language-js">const { readFileSync, writeFileSync } = require('fs');
+console.log('start');
+const first = readFileSync('./content/first.txt', 'utf8');
+const second = readFileSync('./content/second.txt', 'utf8');
+
+writeFileSync(
+    './content/result-sync.txt',
+    `Here is the result : ${first}, ${second}`,
+    { flag: 'a' }
+);
+console.log('done with this task');
+console.log('starting the next one');
+</code></pre>
+<h4 id="fs-async-module"><a class="header" href="#fs-async-module">fs async module</a></h4>
+<pre><code class="language-js">const { writeFile, readFile } = require('fs');
+
+console.log('Start ..');
+
+readFile('./content/first.txt', 'utf-8', (err, res) =&gt; {
+    if (err) {
+        console.log(err);
+        return;
+    }
+    const first = res;
+    console.log(first);
+    readFile('./content/second.txt', 'utf-8', (err, res) =&gt; {
+        if (err) {
+            console.log(err);
+            return;
+        }
+        const sec = res;
+        console.log(sec);
+        writeFile(
+            './content/result-async.txt',
+            `${first} ${sec}`,
+            {
+                flag: 'a'
+            },
+            (err, res) =&gt; {
+                if (err) {
+                    return;
+                }
+                console.log('done with the task');
+            }
+        );
+    });
+});
+
+console.log('End');
+</code></pre>
+<h4 id="http-module"><a class="header" href="#http-module">HTTP Module</a></h4>
+<p><strong>Note : Must use end connection otherwise page wull not paint</strong></p>
+<pre><code class="language-js">const http = require('http');
+
+const server = http.createServer((req, res) =&gt; {
+    if (req.url === '/') {
+        res.write('Home Page');
+        res.end();
+    } else if (req.url === '/about') {
+        res.end(`
+            &lt;h1&gt; About Page&lt;/h1 &gt;
+        `);
+    } else {
+        res.end(
+            `&lt;h1&gt;Page does not exists! &lt;a href=&quot;/&quot;&gt;Go back to Home Page&lt;/a&gt;&lt;/h1&gt;`
+        );
+    }
+});
+
+server.listen(5000, () =&gt; {
+    console.log('Server started ....');
+});
+</code></pre>
+<h3 id="event-loop"><a class="header" href="#event-loop">Event loop</a></h3>
+<p><strong>Every time we have a synchronous action its going to be offloaded
+and when its time we invokt the callback.</strong></p>
+<p>The event loop is a mechanism in Node.js that allows it to handle multiple
+requests and operations simultaneously. It continuously checks for new
+events or tasks in the queue and executes them one by one. This ensures that
+Node.js can handle a large number of requests without blocking the
+main thread, making it highly efficient and scalable.</p>
+<p>Javascipt is an interpreted language it executes code from top
+to down. In JavaScript we have something called callstack,callback
+and web apis. So when code execution starts it adds everyting one
+by one to the callstack and whenever it encounters any timeout,
+fetch,interval functions which takes some times to complete it
+it pull ot from the callstack and put into the webapi which is
+going to wait for the task to finish .After the task is finished executing we
+push it into the callback queue and event loop takes all the
+taks from callback queue and pushes them to the callstack where
+they are executed.</p>
+<pre><code class="language-js">NodeJS -&gt; Inbuilt function util.promisify or use .promise
+</code></pre>
+<h3 id="event-emitter"><a class="header" href="#event-emitter">Event Emitter</a></h3>
+<p>EventEmitter is a built-in module in Node.js that allows you to
+create objects that can emit and listen for events.</p>
+<pre><code class="language-js">// get back the class
+// if want custom extend from class
+// otherwise just for emitting and handling events create instance
+const EventEmitter = require('events');
+
+const customEmitter = new EventEmitter();
+
+// on and emit methods
+// keep track of the order
+// additional arguments
+// built-in modules utilize it
+
+customEmitter.on('response', (name, id) =&gt; {
+    console.log(`data recieved user ${name} with id:${id}`);
+});
+
+customEmitter.on('response', () =&gt; {
+    console.log('some other logic here');
+});
+
+customEmitter.emit('response', 'john', 34);
+</code></pre>
+<h3 id="streams"><a class="header" href="#streams">Streams</a></h3>
+<blockquote>
+<p>Extends emitter class</p>
+</blockquote>
+<ul>
+<li>Read and write sequentially</li>
+<li>Manipulate or read a big file</li>
+</ul>
+<p>They allow you to read and write data in chunks,
+rather than all at once, which can be more efficient
+for large amounts of data.</p>
+<blockquote>
+<p>Types</p>
+</blockquote>
+<ul>
+<li>Writeable</li>
+<li>Readable</li>
+<li>DUpleax</li>
+<li>Transform</li>
+</ul>
+<blockquote>
+<p>Create a big file</p>
+</blockquote>
+<pre><code class="language-js">const { writeFileSync } = require('fs');
+for (let i = 0; i &lt; 10000; i++) {
+    writeFileSync('./content/big.txt', `hello world ${i}\n`, { flag: 'a' });
+}
+</code></pre>
+<blockquote>
+<p>Stream example</p>
+</blockquote>
+<pre><code class="language-js">const { createReadStream } = require('fs');
+
+// default chunk size -&gt; 64kb
+// highWaterMark - control size [Specify chunk size]
+// Specify encoding to output in human readable
+const stream = createReadStream('./content/big.txt', {
+    encoding: 'utf8',
+    highWaterMark: 9000
+});
+
+stream.on('data', (res) =&gt; {
+    console.log(res);
+});
+
+stream.on('error', (err) =&gt; console.log(err));
+</code></pre>
+<blockquote>
+<p>Stream HTTP</p>
+</blockquote>
+<pre><code class="language-js">var http = require('http');
+var fs = require('fs');
+
+http.createServer(function (req, res) {
+    // const text = fs.readFileSync('./content/big.txt', 'utf8')
+    // res.end(text)
+    const fileStream = fs.createReadStream('./content/big.txt', 'utf8');
+    fileStream.on('open', () =&gt; {
+        fileStream.pipe(res);
+    });
+    fileStream.on('error', (err) =&gt; {
+        res.end(err);
+    });
+}).listen(5000);
+</code></pre>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="node-ii"><a class="header" href="#node-ii">Node II</a></h1>
+<p><strong>Difference b/w res.end() vs res.send()</strong></p>
+<div class="table-wrapper"><table><thead><tr><th>res.end()</th><th>res.send()</th></tr></thead><tbody>
+<tr><td>Used to end the response and send a body as response</td><td>used to send a response body</td></tr>
+<tr><td>Cannot set header and status code</td><td>Automatically sets content-type header based on the data passed as an argument</td></tr>
+<tr><td>Immediately terminates the connection with client</td><td>Waits for the response to be send and then terminates the connection</td></tr>
+<tr><td>Cannot do this</td><td>Sets Eh-tag header which is used for cache validation</td></tr>
+<tr><td>Used to end the response stream and flush any remaining data to the client synchronously. It does not return a promise.</td><td>Used to send data to the client asynchronously. It returns a promise that resolves when the data has been sent.</td></tr>
+</tbody></table>
+</div>
+<h3 id="request"><a class="header" href="#request">Request</a></h3>
+<p>Contains:</p>
+<ul>
+<li><strong>METHODS</strong></li>
+<li><strong>URLS (endpoint/Resource to access)</strong></li>
+<li><strong>Headers</strong></li>
+<li><strong>Body(optional)</strong></li>
+</ul>
+<h3 id="response"><a class="header" href="#response">Response</a></h3>
+<p>Contains:</p>
+<ul>
+<li><strong>Headers</strong></li>
+<li><strong>Status code</strong></li>
+<li><strong>Status message</strong></li>
+<li><strong>Body(optional)</strong></li>
+</ul>
+<h3 id="reference"><a class="header" href="#reference">Reference</a></h3>
+<ul>
+<li>
+<p><a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Status">Common HTTPCodes</a></p>
+</li>
+<li>
+<p><a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/MIME_types/Common_types">Common Mimetypes</a></p>
+</li>
+</ul>
+<blockquote>
+<p>What are headers in browser?</p>
+</blockquote>
+<p><strong>Headers contain important information such as the type of browser being used,
+the language preferences of the user, the type of content being requested,
+and any cookies or authentication tokens that may be required.</strong></p>
+<h3 id="simple-http-server"><a class="header" href="#simple-http-server">Simple HTTP server</a></h3>
+<pre><code class="language-js">const http = require('http');
+
+const server = http.createServer((req, res) =&gt; {
+    // Write header
+    res.writeHead(200, { 'content-type': 'text/html' });
+
+    // Write response body
+    res.write('&lt;h1&gt;hello&lt;/h1&gt;');
+
+    // End connection after body and response have been sent to the client
+    res.end();
+});
+
+server.listen(5000, () =&gt; {
+    console.log('Started!');
+});
+</code></pre>
+<h3 id="reading-html-file"><a class="header" href="#reading-html-file">Reading HTML File</a></h3>
+<pre><code class="language-js">const http = require('http');
+const { readFileSync } = require('fs');
+
+// Will be initialized only at server start and will not block
+const somePage = readFileSync('path-to-html-file');
+
+const server = http.createServer((req, res) =&gt; {
+    console.log(req.url);
+    // Write header
+    res.writeHead(200, 'Doneman!', { 'content-type': 'text/html' });
+
+    // Write response body
+    res.write('&lt;h1&gt;hello&lt;/h1&gt;');
+
+    // End connection after body and response have been sent to the client
+    res.end();
+});
+
+server.listen(5000, () =&gt; {
+    console.log('Started!');
+});
+</code></pre>
+<h3 id="using-without-express"><a class="header" href="#using-without-express">Using without express</a></h3>
+<blockquote>
+<p>We need to handle all thr routing by ourselves,handle the locations of the static assets like css,js in our server etc,mention headers by ourselves.</p>
+</blockquote>
+<pre><code class="language-js">const http = require('http');
+const { readFileSync } = require('fs');
+
+// get all files
+const homePage = readFileSync('./navbar-app/index.html');
+const homeStyles = readFileSync('./navbar-app/styles.css');
+const homeImage = readFileSync('./navbar-app/logo.svg');
+const homeLogic = readFileSync('./navbar-app/browser-app.js');
+
+const server = http.createServer((req, res) =&gt; {
+    // console.log(req.method)
+    const url = req.url;
+    console.log(url);
+    // home page
+    if (url === '/') {
+        res.writeHead(200, { 'content-type': 'text/html' });
+        res.write(homePage);
+        res.end();
+    }
+    // about page
+    else if (url === '/about') {
+        res.writeHead(200, { 'content-type': 'text/html' });
+        res.write('&lt;h1&gt;about page&lt;/h1&gt;');
+        res.end();
+    }
+    // styles
+    else if (url === '/styles.css') {
+        res.writeHead(200, { 'content-type': 'text/css' });
+        res.write(homeStyles);
+        res.end();
+    }
+    // image/logo
+    else if (url === '/logo.svg') {
+        res.writeHead(200, { 'content-type': 'image/svg+xml' });
+        res.write(homeImage);
+        res.end();
+    }
+    // logic
+    else if (url === '/browser-app.js') {
+        res.writeHead(200, { 'content-type': 'text/javascript' });
+        res.write(homeLogic);
+        res.end();
+    }
+    // 404
+    else {
+        res.writeHead(404, { 'content-type': 'text/html' });
+        res.write('&lt;h1&gt;page not found&lt;/h1&gt;');
+        res.end();
+    }
+});
+
+server.listen(5000);
+</code></pre>
+<blockquote>
+<p>Why use express js</p>
+</blockquote>
+<ul>
+<li><strong>Provides us with many robust set of features</strong></li>
+<li><strong>Handles routing</strong></li>
+<li><strong>Provides us with many HTTP methods which we can use .</strong></li>
+<li><strong>Provides us with middlewares.</strong></li>
+</ul>
+<h3 id="simple-express-app"><a class="header" href="#simple-express-app">Simple Express App</a></h3>
+<pre><code class="language-js">const express = require('express');
+
+const app = express();
+
+// USE GET method
+app.get('/', (req, res) =&gt; {
+    res.status(200).send('&lt;h1&gt;hello&lt;/h1&gt;');
+});
+
+// res.all() is a method that sets up a route to handle all HTTP methods (GET, POST, PUT, DELETE, etc.) for a given path.
+app.all('*', (req, res) =&gt; {
+    res.status(404).send('&lt;h3&gt;Not Found&lt;/h3&gt;');
+});
+
+// Keep Listening for requests
+app.listen(5000, () =&gt; {
+    console.log('Listening .....');
+});
+</code></pre>
+<h3 id="static-assests"><a class="header" href="#static-assests">Static assests</a></h3>
+<ul>
+<li>
+<p><strong>If we do SSR we do not need to mention the index.html if our public folder has index.html as express will Automatically serve that file.</strong>
+<strong>We can uncomment the lines path-to-index.</strong></p>
+</li>
+<li>
+<p><strong>Note 1: For every <code>endpoints we must configure the corresponding methods allowed for it</code>
+For example: if there is a route <code>/api/gt/gtx</code> we must define what to expect when there is
+a get request,post request If there is <code>a get request we can display a html page</code> or if there
+is <code>a post request we can respond back with json data</code>.</strong></p>
+</li>
+<li>
+<p><strong>Note 2: Just keep in mind that staic assests are accesible via base root.Suppose in the
+public folder we have folder css-&gt;fir.css.We can access it via &lt;domain&gt;/css/fir.css.
+Just give the correct relative path in the html files.</strong></p>
+</li>
+</ul>
+<pre><code class="language-js">const express = require('express');
+const path = require('path');
+
+const app = express();
+
+// Make static files available by using below middleware
+app.use(express.static('path-to-public-folder'));
+
+// USE GET method
+app.get('/', (req, res) =&gt; {
+    res.sendFile(path.resolve(__dirname, 'path-to-index.html for this page'));
+});
+
+// res.all() is a method that sets up a route to handle all HTTP methods (GET, POST, PUT, DELETE, etc.) for a given path.
+app.all('*', (req, res) =&gt; {
+    res.status(404).send('&lt;h3&gt;Not Found&lt;/h3&gt;');
+});
+
+// Keep Listening for requests
+app.listen(5000, () =&gt; {
+    console.log('Listening .....');
+});
+</code></pre>
+<h3 id="reading-files-and-then-sending"><a class="header" href="#reading-files-and-then-sending">Reading files and then sending</a></h3>
+<pre><code class="language-js">const express = require('express');
+const { readFileSync } = require('fs');
+
+const data = readFileSync('./public/sec.html', 'utf8');
+console.log(data);
+
+const app = express();
+
+app.use(express.static('./public'));
+app.get('/', (req, res) =&gt; {
+    res.send(data);
+});
+
+app.listen(5000, (req, res) =&gt; {
+    console.log('Started ....');
+});
+</code></pre>
+<h3 id="api-vs-ssr-difference"><a class="header" href="#api-vs-ssr-difference">API vs SSR difference</a></h3>
+<div class="table-wrapper"><table><thead><tr><th>API</th><th>SSR</th></tr></thead><tbody>
+<tr><td>We send data through json</td><td>We send data through templates</td></tr>
+<tr><td>We use res.json()</td><td>We use res.render()</td></tr>
+</tbody></table>
+</div>
+<h3 id="route-params"><a class="header" href="#route-params">Route Params</a></h3>
+<pre><code class="language-js">const express = require('express');
+
+const app = express();
+
+app.get('/', (req, res) =&gt; {
+    res.send('&lt;h1&gt;hello&lt;/h1&gt;');
+});
+
+// Single Route parameter
+app.get('/api/v1/:productID', (req, res) =&gt; {
+    // Get the route parameter (Slug)
+    // Will be an object -&gt; {productID:3}
+    console.log(req.params);
+
+    return res.send('hello');
+});
+
+// Multiple Route parameters
+app.get('/api/v1/:productID/review/:reviewID', (req, res) =&gt; {
+    // Get the route parameter (Slug)
+    // Will be an object -&gt; {productID:3,reviewID:3}
+    console.log(req.params);
+
+    return res.send('hello');
+});
+
+app.listen(5000, (req, res) =&gt; {
+    console.log('Started ....');
+});
+</code></pre>
+<h3 id="query-string"><a class="header" href="#query-string">Query String</a></h3>
+<pre><code class="language-js">const express = require('express');
+
+const app = express();
+
+app.get('/', (req, res) =&gt; {
+    res.send('&lt;h1&gt;hello&lt;/h1&gt;');
+});
+
+// Query String
+app.get('/api/v1/query', (req, res) =&gt; {
+    // on Putting-&gt; http://localhost:5000/api/v1/query?name=hello&amp;id=3
+    // {name:&quot;hello&quot;,id:3}
+    console.log(req.query);
+
+    return res.send('hello');
+});
+
+app.listen(5000, (req, res) =&gt; {
+    console.log('Started ....');
+});
+</code></pre>
+<h3 id="middlewares"><a class="header" href="#middlewares">Middlewares</a></h3>
+<blockquote>
+<p>What are middlewares in nodejs</p>
+</blockquote>
+<ul>
+<li>
+<p><strong>function that sits between the client and server and performs some operations on the incoming request or outgoing response.</strong></p>
+</li>
+<li>
+<p><strong>It can modify the request/response, add new properties to them, or perform some other tasks before passing them to the next middleware</strong></p>
+</li>
+<li>
+<p><strong>Middleware is used to handle common tasks such as authentication,</strong>
+<strong>logging, error handling, and more.</strong></p>
+</li>
+<li>
+<p><strong>handles a specific task or set of tasks during the</strong>
+<strong>request-response cycle of an HTTP server</strong></p>
+</li>
+</ul>
+<blockquote>
+<p>Middleware basics</p>
+</blockquote>
+<pre><code class="language-js">const express = require('express');
+
+const app = express();
+
+// Express will pass the req,res,next to this middleware function automatically
+const logger = (req, res, next) =&gt; {
+    // Appending a useful value to request object
+    req.user = 'johndoe';
+
+    // Pass the control to the next middlewares
+    next();
+};
+
+app.get('/', logger, (req, res) =&gt; {
+    // Printing what middleware appended
+    console.log(req.user);
+    res.send('&lt;h1&gt;hello&lt;/h1&gt;');
+});
+
+app.listen(5000, (req, res) =&gt; {
+    console.log('Started ....');
+});
+</code></pre>
+<blockquote>
+<p>Multi Middleware</p>
+</blockquote>
+<pre><code class="language-js">const express = require('express');
+
+const app = express();
+
+// Express will pass the req,res,next to this middleware function automatically
+const logger = (req, res, next) =&gt; {
+    console.log('Logger1');
+
+    // Pass the control to the next middlewares
+    next();
+};
+
+const logger2 = (req, res, next) =&gt; {
+    console.log('Logger2');
+
+    // Pass the control to the next middlewares
+    next();
+};
+
+// Array is used for multi middlewares
+app.get('/', [logger, logger2], (req, res) =&gt; {
+    res.send('&lt;h1&gt;hello&lt;/h1&gt;');
+});
+
+app.listen(5000, (req, res) =&gt; {
+    console.log('Started ....');
+});
+</code></pre>
+<blockquote>
+<p>All Routes Middleware</p>
+</blockquote>
+<pre><code class="language-js">const express = require('express');
+
+const app = express();
+
+const logger = (req, res, next) =&gt; {
+    console.log(req.url);
+    next();
+};
+
+// Will be used by all routes
+app.use(logger);
+
+app.get('/', (req, res) =&gt; {
+    res.send('&lt;h1&gt;hello&lt;/h1&gt;');
+});
+
+app.get('/api/hello', (req, res) =&gt; {
+    res.send('&lt;h1&gt;hello&lt;/h1&gt;');
+});
+
+app.get('/api/hello/world', (req, res) =&gt; {
+    res.send('&lt;h1&gt;hello&lt;/h1&gt;');
+});
+
+app.all('*', (req, res) =&gt; {
+    res.send('&lt;h1&gt;not found!&lt;/h1&gt;');
+});
+
+app.listen(5000, (req, res) =&gt; {
+    console.log('Started ....');
+});
+</code></pre>
+<blockquote>
+<p>Route specific Middleware</p>
+</blockquote>
+<pre><code class="language-js">const express = require('express');
+
+const app = express();
+
+const logger = (req, res, next) =&gt; {
+    console.log(req.url);
+    next();
+};
+
+// Will be used by all routes starting with &quot;/api&quot;
+app.use('/api', logger);
+
+app.get('/', (req, res) =&gt; {
+    res.send('&lt;h1&gt;hello&lt;/h1&gt;');
+});
+
+app.get('/xyz', (req, res) =&gt; {
+    res.send('&lt;h1&gt;hello&lt;/h1&gt;');
+});
+
+// logger will be used here
+app.get('/api/hello', (req, res) =&gt; {
+    res.send('&lt;h1&gt;hello&lt;/h1&gt;');
+});
+
+// logger will be used here
+app.get('/api/hello/world', (req, res) =&gt; {
+    res.send('&lt;h1&gt;hello&lt;/h1&gt;');
+});
+
+app.all('*', (req, res) =&gt; {
+    res.send('&lt;h1&gt;not found!&lt;/h1&gt;');
+});
+
+app.listen(5000, (req, res) =&gt; {
+    console.log('Started ....');
+});
+</code></pre>
+<h3 id="http-methods"><a class="header" href="#http-methods">HTTP Methods</a></h3>
+<pre><code class="language-js">const express = require('express');
+
+const app = express();
+
+app.get('/', (req, res) =&gt; {
+    res.send('&lt;h1&gt;hello&lt;/h1&gt;');
+});
+
+// parse json [Javascript/Postman type submitted data]
+app.use(express.json());
+
+// Post request specific
+app.post('/api/people', (req, res) =&gt; {
+    // Will print the json send from Postman type app
+    console.log(req.body);
+    res.status(201).json(req.body);
+});
+
+app.listen(5000, (req, res) =&gt; {
+    console.log('Started ....');
+});
+</code></pre>
+<p><strong>Note : Try using a MVC (Model View Controller to structure node projects)</strong></p>
+<h3 id="express-router"><a class="header" href="#express-router">Express router</a></h3>
+<p><strong>Note: Create a folder named routes</strong></p>
+<blockquote>
+<p>router-people.js</p>
+</blockquote>
+<pre><code class="language-js">const express = require('express');
+const router = express.Router();
+
+const {
+    getPeople,
+    createPerson,
+    createPersonPostman,
+    updatePerson,
+    deletePerson
+} = require('../controllers/people');
+
+router.get('/', getPeople);
+router.post('/', createPerson);
+router.post('/postman', createPersonPostman);
+router.put('/:id', updatePerson);
+router.delete('/:id', deletePerson);
+
+router.route('/').get(getPeople).post(createPerson);
+router.route('/postman').post(createPersonPostman);
+router.route('/:id').put(updatePerson).delete(deletePerson);
+
+module.exports = router;
+</code></pre>
+<blockquote>
+<p>app.js</p>
+</blockquote>
+<pre><code class="language-js">const express = require('express');
+const app = express();
+
+const people = require('./routes/people');
+const auth = require('./routes/auth');
+
+// static assets
+app.use(express.static('./methods-public'));
+// parse form data
+app.use(express.urlencoded({ extended: false }));
+// parse json
+app.use(express.json());
+
+app.use('/api/people', people);
+app.use('/login', auth);
+
+app.listen(5000, () =&gt; {
+    console.log('Server is listening on port 5000....');
+});
+</code></pre>
+<h3 id="express-controllers"><a class="header" href="#express-controllers">Express controllers</a></h3>
+<p><strong>Note: Create a folder named controllers</strong></p>
+<pre><code class="language-js">// No need to import anything
+
+const createPerson = (req, res) =&gt; {
+    const { name } = req.body;
+    if (!name) {
+        return res
+            .status(400)
+            .json({ success: false, msg: 'please provide name value' });
+    }
+    res.status(201).send({ success: true, person: name });
+};
+
+module.exports = {
+    createPerson
+};
+</code></pre>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="sql"><a class="header" href="#sql">SQL</a></h1>
+<ul>
+<li>Domain Specific (Can be used in RDBMS only)</li>
+<li>Declarative Language (We have to mention just what to do not how to do)</li>
+</ul>
+<h2 id="types-of-sql-commands"><a class="header" href="#types-of-sql-commands">Types of SQL commands</a></h2>
+<ul>
+<li>DDL (Works with schema/structure) : CREATE,ALTER,DROP</li>
+<li>DML (Works with data inside the database schema) : INSERT,UPDATE,DELETE,SELECT</li>
+<li>DCL (Works with authorization purposes) : GRANT , REVOKE</li>
+<li>TCL (Transcation realated) : COMMIT , ROLLBACK , SAVEPOINTS</li>
+</ul>
+<h3 id="create-table"><a class="header" href="#create-table">CREATE table</a></h3>
+<p>Link : https://www.postgresqltutorial.com/postgresql-tutorial/postgresql-create-table/</p>
+<pre><code class="language-sql">CREATE TABLE [IF NOT EXISTS] table_name (
+   column1 datatype(length) column_contraint,
+   column2 datatype(length) column_contraint,
+   column3 datatype(length) column_contraint,
+   table_constraints
+);
+
+</code></pre>
+<h3 id="insert-into-table"><a class="header" href="#insert-into-table">INSERT into table</a></h3>
+<p>Link : https://www.postgresqltutorial.com/postgresql-tutorial/postgresql-insert/</p>
+<pre><code class="language-sql">
+INSERT INTO table_name(column1, column2, …)
+VALUES (value1, value2, …);
+</code></pre>
+<h3 id="alter-table"><a class="header" href="#alter-table">ALTER TABLE</a></h3>
+<p>Link : https://www.postgresqltutorial.com/postgresql-tutorial/postgresql-alter-table/</p>
+<pre><code class="language-sql">ALTER TABLE table_name action;
+</code></pre>
+<h3 id="update"><a class="header" href="#update">UPDATE</a></h3>
+<p>Link : https://www.postgresqltutorial.com/postgresql-tutorial/postgresql-update/</p>
+<pre><code class="language-sql">UPDATE table_name
+SET column1 = value1,
+    column2 = value2,
+    ...
+WHERE condition;
+</code></pre>
+<h3 id="difference-bw-alter-and-update"><a class="header" href="#difference-bw-alter-and-update">Difference b/w ALTER and UPDATE</a></h3>
+<div class="table-wrapper"><table><thead><tr><th>ALTER</th><th>UPDATE</th></tr></thead><tbody>
+<tr><td>DDL</td><td>DML</td></tr>
+<tr><td>Works with structure schema</td><td>Works with change in data</td></tr>
+<tr><td>Example : Renaming a column,Changing datatype of a column,droping a column</td><td>Update a value inside the column.</td></tr>
+<tr><td>No condition</td><td>Can give condition with where clause</td></tr>
+</tbody></table>
+</div>
+<h3 id="delete"><a class="header" href="#delete">DELETE</a></h3>
+<p>Link : https://www.postgresqltutorial.com/postgresql-tutorial/postgresql-delete/</p>
+<pre><code class="language-sql">DELETE FROM table_name
+WHERE condition;
+</code></pre>
+<h3 id="drop"><a class="header" href="#drop">DROP</a></h3>
+<p>Link : https://www.postgresqltutorial.com/postgresql-tutorial/postgresql-drop-table/</p>
+<pre><code class="language-sql">DROP TABLE [IF EXISTS] table_name
+[CASCADE | RESTRICT];
+</code></pre>
+<h3 id="truncate"><a class="header" href="#truncate">TRUNCATE</a></h3>
+<p>Link : https://www.postgresqltutorial.com/postgresql-tutorial/postgresql-truncate-table/</p>
+<pre><code class="language-sql">TRUNCATE TABLE table_name;
+</code></pre>
+<h3 id="difference-bw-deletedroptruncate"><a class="header" href="#difference-bw-deletedroptruncate">Difference b/w DELETE,DROP,TRUNCATE</a></h3>
+<div class="table-wrapper"><table><thead><tr><th>DELETE</th><th>DROP</th><th>TRUNCATE</th></tr></thead><tbody>
+<tr><td>DML</td><td>DDL</td><td>DDL</td></tr>
+<tr><td>Deletes only rows row</td><td>Deletes every row+schema</td><td>Deletes only rows</td></tr>
+<tr><td>Deletes rows one by one (can give where clause)</td><td>-</td><td>Deletes rows in one go</td></tr>
+<tr><td>Slower, Rollback possible if done before commit as it maintains logs</td><td>-</td><td>Faster, Rollback not possible as it maintains no logs</td></tr>
+</tbody></table>
+</div>
+<h3 id="constraints"><a class="header" href="#constraints">Constraints</a></h3>
+<ul>
+<li><code>UNIQUE</code> (For unique values)</li>
+<li><code>NOT NULL</code> (non-empty values)</li>
+<li><code>PRIMARY KEY</code> (Unique + not null values)</li>
+<li><code>FOREIGN KEY</code> (Maintains Referential Integrity)</li>
+<li><code>CHECK</code> (Suppose we want to check the age of person during registration process in a website before inserting into the table)</li>
+<li><code>DEFAULT</code> (default values if we do not give any values)</li>
+</ul>
+<h2 id="architectures-in-database"><a class="header" href="#architectures-in-database">Architectures in Database</a></h2>
+<h3 id="1-tier-architecture"><a class="header" href="#1-tier-architecture">1 tier architecture</a></h3>
+<ul>
+<li>Only database layer</li>
+<li>Example : MS Office,Paint,Photoshop</li>
+</ul>
+<h3 id="2-tier-architecture"><a class="header" href="#2-tier-architecture">2 tier architecture</a></h3>
+<ul>
+<li>Client layer &amp; database layer</li>
+<li>Not scalable,not secure</li>
+<li>Heavy load on database layer</li>
+<li>Example : Suppose we go to a bank to create an account,we fill the form then give the accountant the form
+and then accountant from his/her client machine will register our details or in this case data is pushed
+to the database layer.</li>
+</ul>
+<h3 id="3-tier-architecture"><a class="header" href="#3-tier-architecture">3 tier architecture</a></h3>
+<ul>
+<li>Client layer , Application/Business layer , &amp; database layer</li>
+<li>scalable,secure</li>
+<li>Example : Suppose we we use the official bank mobile app (acts as an interface) to create an account ,then all the details will
+first go to the Application/Business layer where the details will be processed and then data is pushed into the database layer.</li>
+</ul>
+<h2 id="different-keys"><a class="header" href="#different-keys">Different Keys</a></h2>
+<h3 id="candidate-keys"><a class="header" href="#candidate-keys">Candidate keys</a></h3>
+<p><strong>Set of keys/attributes which have the potential of being the primary key (Uniqe + can be null)</strong></p>
+<p>Example : voter id, social security number, phone number can be the candidates for being primary keys</p>
+<h3 id="primary-keys"><a class="header" href="#primary-keys">Primary keys</a></h3>
+<p>Used to uniquely identify tuples in a table (Unique + not null)</p>
+<p><b> Note : There can only be one primary key per table.</b></p>
+<h3 id="foreign-keys"><a class="header" href="#foreign-keys">Foreign keys</a></h3>
+<p>It is an attribute or set of attribute which references the primary key of same or another table.
+Primarily Used for maintaining referential integrity.</p>
+<p>Link : https://www.postgresqltutorial.com/postgresql-tutorial/postgresql-foreign-key/</p>
+<pre><code class="language-sql">[CONSTRAINT fk_name]
+   FOREIGN KEY(fk_columns)
+   REFERENCES parent_table(parent_key_columns)
+   [ON DELETE delete_action]
+   [ON UPDATE update_action]
+</code></pre>
+<p><b>Parent Table (Referenced Table)</b></p>
+<ul>
+<li>Insert : No violation</li>
+<li>Update and Delete : May cause violation</li>
+</ul>
+<p><b>Child Table (Referencing Table)</b></p>
+<ul>
+<li>Insert : May cause Violation</li>
+<li>Delete : No violation</li>
+<li>Update : May cause violation</li>
+</ul>
+<p><b>PostgreSQL supports the following actions:</b></p>
+<ul>
+<li>SET NULL</li>
+<li>SET DEFAULT</li>
+<li>RESTRICT</li>
+<li>NO ACTION</li>
+<li>CASCADE</li>
+</ul>
+<p><b> Note : There can only be more than one foreign key per table.</b></p>
+<h3 id="difference-between-restrict-and-no-action"><a class="header" href="#difference-between-restrict-and-no-action">Difference between RESTRICT and NO ACTION</a></h3>
+<p>RESTRICT blocks updates that would violate the referential integrity of the constraint, while NO ACTION allows updates to proceed without enforcing the constraint.</p>
+<h3 id="super-key"><a class="header" href="#super-key">Super Key</a></h3>
+<p>Supeset of any candidate key (all possible values to uniquely identify two tuples in a table)</p>
+<p>Formula : 2^n-k-(2^n-commonsets) , k no of candiate keys</p>
+<h3 id="difference-bw-nested-subqueries--correlated-subqueries"><a class="header" href="#difference-bw-nested-subqueries--correlated-subqueries">Difference b/w Nested Subqueries , Correlated Subqueries</a></h3>
+<div class="table-wrapper"><table><thead><tr><th>Nested</th><th>Correlated</th></tr></thead><tbody>
+<tr><td>Inner query runs first once and acts as a result for the outer query</td><td>Outer query runs first and for each outer query inner query runs multiple times</td></tr>
+<tr><td>Example : IN , NOT IN</td><td>Example : EXISTS , NOT EXISTS</td></tr>
+<tr><td>Bottom up approach</td><td>Top Down approach</td></tr>
+</tbody></table>
+</div>
+<h3 id="common-things-to-do"><a class="header" href="#common-things-to-do">Common things to do</a></h3>
+<ul>
+<li>Aggreagte Functions</li>
+<li>Nested,Correlated [Subqueries]</li>
+<li>GROUP BY</li>
+<li>HAVING</li>
+<li>IN , NOT IN</li>
+<li>EXISTS , NOT EXISTS</li>
+</ul>
+<h3 id="varchar-vs-varchar2"><a class="header" href="#varchar-vs-varchar2">Varchar vs Varchar2</a></h3>
+<ul>
+<li>Varchar is ANSI standard</li>
+<li>Varchar2 is Oracles standard</li>
+</ul>
+<h3 id="acid"><a class="header" href="#acid">ACID</a></h3>
+<ul>
+<li>Atomicity : Either all changes are performed or none of them.</li>
+<li>Consistency : Data is consistent after and before the transcation.</li>
+<li>Isolation : Transcation takes place concurrently in an isolated manner.</li>
+<li>Durability: After a transcation completes successfuly all the data changes persists even after the events of system failure</li>
+</ul>
+<h3 id="joins"><a class="header" href="#joins">Joins</a></h3>
+<ul>
+<li>Cross Join : Cartesian prodocut of 2 tables (combinations of rows of 2 tables).</li>
+<li>Self Join : Joininig a table with itself.</li>
+<li>Natural Join/Inner Join : Returns records matching in both the tables.</li>
+<li>Left Outer Join : Returns the common records in both the tables as well as records not in right table but in left.Fills the columns not in right table with null.</li>
+<li>Right Outer Join : Returns the common records in both the tables as well as records not in left table but in right.Fills the columns not in left table with null.</li>
+</ul>
+<blockquote>
+<p>Alternate way of inner join</p>
+</blockquote>
+<pre><code>select
+  pt.patient_id,
+  pt.first_name,
+  pt.last_name,
+  doc.specialty
+from
+  patients as pt,
+  doctors as doc,
+  admissions as adm
+where
+  pt.patient_id = adm.patient_id
+  AND adm.attending_doctor_id = doc.doctor_id
+  AND adm.diagnosis='Epilepsy'
+  AND doc.first_name='Lisa'
+</code></pre>
+<blockquote>
+<p>Inner Joins Syntax</p>
+</blockquote>
+<pre><code>SELECT
+  p.patient_id,
+  p.first_name AS patient_first_name,
+  p.last_name AS patient_last_name,
+  ph.specialty AS attending_doctor_specialty
+FROM patients p
+  JOIN admissions a ON a.patient_id = p.patient_id
+  JOIN doctors ph ON ph.doctor_id = a.attending_doctor_id
+WHERE
+  ph.first_name = 'Lisa' and
+  a.diagnosis = 'Epilepsy'
+</code></pre>
+<p>Link : https://www.postgresqltutorial.com/postgresql-tutorial/postgresql-joins/</p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+
+            </nav>
+
+        </div>
+
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="elasticlunr.min.js"></script>
+        <script src="mark.min.js"></script>
+        <script src="searcher.js"></script>
+
+        <script src="clipboard.min.js"></script>
+        <script src="highlight.js"></script>
+        <script src="book.js"></script>
+
+        <!-- Custom JS scripts -->
+
+        <script>
+        window.addEventListener('load', function() {
+            window.setTimeout(window.print, 100);
+        });
+        </script>
+
+    </div>
+    </body>
+</html>

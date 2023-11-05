@@ -1,0 +1,681 @@
+<!DOCTYPE HTML>
+<html lang="en" class="light" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>4_react_iv_router_dom - Fundamentals of Web Development</title>
+
+
+        <!-- Custom HTML head -->
+        
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="favicon.svg">
+        <link rel="shortcut icon" href="favicon.png">
+        <link rel="stylesheet" href="css/variables.css">
+        <link rel="stylesheet" href="css/general.css">
+        <link rel="stylesheet" href="css/chrome.css">
+        <link rel="stylesheet" href="css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="highlight.css">
+        <link rel="stylesheet" href="tomorrow-night.css">
+        <link rel="stylesheet" href="ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+
+    </head>
+    <body class="sidebar-visible no-js">
+    <div id="body-container">
+        <!-- Provide site root to javascript -->
+        <script>
+            var path_to_root = "";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('light')
+            html.classList.add(theme);
+            var body = document.querySelector('body');
+            body.classList.remove('no-js')
+            body.classList.add('js');
+        </script>
+
+        <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            var body = document.querySelector('body');
+            var sidebar = null;
+            var sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+            }
+            sidebar_toggle.checked = sidebar === 'visible';
+            body.classList.remove('sidebar-visible');
+            body.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded "><a href="1_react_i_fundamentals.html"><strong aria-hidden="true">1.</strong> 1_react_i_fundamentals</a></li><li class="chapter-item expanded "><a href="2_react_ii_advanced.html"><strong aria-hidden="true">2.</strong> 2_react_ii_advanced</a></li><li class="chapter-item expanded "><a href="3_react_iii_axios.html"><strong aria-hidden="true">3.</strong> 3_react_iii_axios</a></li><li class="chapter-item expanded "><a href="4_react_iv_router_dom.html" class="active"><strong aria-hidden="true">4.</strong> 4_react_iv_router_dom</a></li><li class="chapter-item expanded "><a href="5_react_v_redux_tookit.html"><strong aria-hidden="true">5.</strong> 5_react_v_redux_tookit</a></li><li class="chapter-item expanded "><a href="6_node_i_fundamentals.html"><strong aria-hidden="true">6.</strong> 6_node_i_fundamentals</a></li><li class="chapter-item expanded "><a href="7_node_ii_advanced.html"><strong aria-hidden="true">7.</strong> 7_node_ii_advanced</a></li><li class="chapter-item expanded "><a href="8_sql.html"><strong aria-hidden="true">8.</strong> 8_sql</a></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+        </nav>
+
+        <!-- Track and set sidebar scroll position -->
+        <script>
+            var sidebarScrollbox = document.querySelector('#sidebar .sidebar-scrollbox');
+            sidebarScrollbox.addEventListener('click', function(e) {
+                if (e.target.tagName === 'A') {
+                    sessionStorage.setItem('sidebar-scroll', sidebarScrollbox.scrollTop);
+                }
+            }, { passive: true });
+            var sidebarScrollTop = sessionStorage.getItem('sidebar-scroll');
+            sessionStorage.removeItem('sidebar-scroll');
+            if (sidebarScrollTop) {
+                // preserve sidebar scroll position when navigating via links within sidebar
+                sidebarScrollbox.scrollTop = sidebarScrollTop;
+            } else {
+                // scroll sidebar to current active section when navigating via "next/previous chapter" buttons
+                var activeSection = document.querySelector('#sidebar .active');
+                if (activeSection) {
+                    activeSection.scrollIntoView({ block: 'center' });
+                }
+            }
+        </script>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </label>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">Fundamentals of Web Development</h1>
+
+                    <div class="right-buttons">
+                        <a href="print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h4 id="react-router"><a class="header" href="#react-router">React Router</a></h4>
+<p><a href="https://reactrouter.com/docs/en/v6/getting-started/overview">React Router Docs</a></p>
+<h4 id="install"><a class="header" href="#install">Install</a></h4>
+<pre><code class="language-sh">npm install react-router-dom@6
+</code></pre>
+<h4 id="first-pages"><a class="header" href="#first-pages">First Pages</a></h4>
+<ul>
+<li>App.js</li>
+</ul>
+<pre><code class="language-js">import { BrowserRouter, Routes, Route } from 'react-router-dom';
+
+function App() {
+    return (
+        &lt;BrowserRouter&gt;
+            &lt;Routes&gt;
+                &lt;Route path=&quot;/&quot; element={&lt;div&gt;home page&lt;/div&gt;} /&gt;
+                &lt;Route
+                    path=&quot;testing&quot;
+                    element={
+                        &lt;div&gt;
+                            &lt;h2&gt;testing &lt;/h2&gt;
+                        &lt;/div&gt;
+                    }
+                /&gt;
+            &lt;/Routes&gt;
+        &lt;/BrowserRouter&gt;
+    );
+}
+
+export default App;
+</code></pre>
+<h4 id="components"><a class="header" href="#components">Components</a></h4>
+<ul>
+<li>App.js</li>
+</ul>
+<pre><code class="language-js">import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import Home from './pages/Home';
+import About from './pages/About';
+import Products from './pages/Products';
+
+function App() {
+    return (
+        &lt;BrowserRouter&gt;
+            &lt;Routes&gt;
+                &lt;Route path=&quot;/&quot; element={&lt;Home /&gt;} /&gt;
+                &lt;Route path=&quot;about&quot; element={&lt;About /&gt;} /&gt;
+                &lt;Route path=&quot;products&quot; element={&lt;Products /&gt;} /&gt;
+            &lt;/Routes&gt;
+        &lt;/BrowserRouter&gt;
+    );
+}
+
+export default App;
+</code></pre>
+<h4 id="links"><a class="header" href="#links">Links</a></h4>
+<ul>
+<li>Home.js, About.js</li>
+</ul>
+<pre><code class="language-js">import { Link } from 'react-router-dom';
+
+const Home = () =&gt; {
+  return (
+    &lt;div&gt;
+      &lt;h2&gt;Home Page&lt;/h2&gt;
+      &lt;Link to='/about' className='btn'&gt;
+        About
+      &lt;/Link&gt;
+      &lt;a href=&quot;&quot;&gt;
+    &lt;/div&gt;
+  );
+};
+export default Home;
+</code></pre>
+<h4 id="error-page"><a class="header" href="#error-page">Error Page</a></h4>
+<ul>
+<li>App.js</li>
+</ul>
+<pre><code class="language-js">function App() {
+    return (
+        &lt;BrowserRouter&gt;
+            &lt;Routes&gt;
+                &lt;Route path=&quot;/&quot; element={&lt;Home /&gt;} /&gt;
+                &lt;Route path=&quot;about&quot; element={&lt;About /&gt;} /&gt;
+                &lt;Route path=&quot;products&quot; element={&lt;Products /&gt;} /&gt;
+                &lt;Route path=&quot;*&quot; element={&lt;Error /&gt;} /&gt;
+            &lt;/Routes&gt;
+        &lt;/BrowserRouter&gt;
+    );
+}
+</code></pre>
+<ul>
+<li>Error.js</li>
+</ul>
+<pre><code class="language-js">import { Link } from 'react-router-dom';
+
+const Error = () =&gt; {
+    return (
+        &lt;section className=&quot;section&quot;&gt;
+            &lt;h2&gt;404&lt;/h2&gt;
+            &lt;p&gt;page not found&lt;/p&gt;
+            &lt;Link to=&quot;/&quot;&gt;back home&lt;/Link&gt;
+        &lt;/section&gt;
+    );
+};
+export default Error;
+</code></pre>
+<h4 id="nested-pages"><a class="header" href="#nested-pages">Nested Pages</a></h4>
+<ul>
+<li>
+<p>will refactor few times</p>
+</li>
+<li>
+<p>App.js</p>
+</li>
+</ul>
+<pre><code class="language-js">function App() {
+    return (
+        &lt;BrowserRouter&gt;
+            &lt;Routes&gt;
+                &lt;Route path=&quot;/&quot; element={&lt;Home /&gt;}&gt;
+                    &lt;Route path=&quot;about&quot; element={&lt;About /&gt;} /&gt;
+                    &lt;Route path=&quot;products&quot; element={&lt;Products /&gt;} /&gt;
+                    &lt;Route path=&quot;*&quot; element={&lt;Error /&gt;} /&gt;
+                &lt;/Route&gt;
+            &lt;/Routes&gt;
+        &lt;/BrowserRouter&gt;
+    );
+}
+</code></pre>
+<h4 id="shared-layout"><a class="header" href="#shared-layout">Shared Layout</a></h4>
+<ul>
+<li>Home.js</li>
+</ul>
+<pre><code class="language-js">import { Link, Outlet } from 'react-router-dom';
+
+const Home = () =&gt; {
+    return (
+        &lt;section className=&quot;section&quot;&gt;
+            &lt;h2&gt;Home Page&lt;/h2&gt;
+            &lt;Outlet /&gt;
+        &lt;/section&gt;
+    );
+};
+export default Home;
+</code></pre>
+<h4 id="navbar"><a class="header" href="#navbar">Navbar</a></h4>
+<ul>
+<li>Navbar.js</li>
+</ul>
+<pre><code class="language-js">import { Link } from 'react-router-dom';
+
+const Navbar = () =&gt; {
+    return (
+        &lt;nav className=&quot;navbar&quot;&gt;
+            &lt;Link to=&quot;/&quot;&gt;Home&lt;/Link&gt;
+            &lt;Link to=&quot;/about&quot;&gt;About&lt;/Link&gt;
+            &lt;Link to=&quot;/products&quot;&gt;Products&lt;/Link&gt;
+        &lt;/nav&gt;
+    );
+};
+export default Navbar;
+</code></pre>
+<ul>
+<li>Home.js</li>
+</ul>
+<pre><code class="language-js">import { Link, Outlet } from 'react-router-dom';
+import Navbar from '../components/Navbar';
+const Home = () =&gt; {
+    return (
+        &lt;&gt;
+            &lt;Navbar /&gt;
+            &lt;section className=&quot;section&quot;&gt;
+                &lt;Outlet /&gt;
+            &lt;/section&gt;
+        &lt;/&gt;
+    );
+};
+export default Home;
+</code></pre>
+<h4 id="index-routes"><a class="header" href="#index-routes">Index Routes</a></h4>
+<ul>
+<li>
+<p>Index routes render in the parent routes outlet at the parent route's path.</p>
+</li>
+<li>
+<p>Index routes match when a parent route matches but none of the other children match.</p>
+</li>
+<li>
+<p>Index routes are the default child route for a parent route.</p>
+</li>
+<li>
+<p>Index routes render when the user hasn't clicked one of the items in a navigation list yet.</p>
+</li>
+<li>
+<p>copy Home.js content</p>
+</li>
+<li>
+<p>SharedLayout.js</p>
+</li>
+</ul>
+<pre><code class="language-js">import { Link, Outlet } from 'react-router-dom';
+import Navbar from '../components/Navbar';
+const SharedLayout = () =&gt; {
+    return (
+        &lt;&gt;
+            &lt;Navbar /&gt;
+            &lt;section className=&quot;section&quot;&gt;
+                &lt;Outlet /&gt;
+            &lt;/section&gt;
+        &lt;/&gt;
+    );
+};
+export default SharedLayout;
+</code></pre>
+<ul>
+<li>Home.js</li>
+</ul>
+<pre><code class="language-js">const Home = () =&gt; {
+    return (
+        &lt;section className=&quot;section&quot;&gt;
+            &lt;h2&gt;Home Page&lt;/h2&gt;
+        &lt;/section&gt;
+    );
+};
+export default Home;
+</code></pre>
+<ul>
+<li>App.js</li>
+</ul>
+<pre><code class="language-js">function App() {
+    return (
+        &lt;BrowserRouter&gt;
+            &lt;Routes&gt;
+                &lt;Route path=&quot;/&quot; element={&lt;SharedLayout /&gt;}&gt;
+                    &lt;Route index element={&lt;Home /&gt;} /&gt;
+                    &lt;Route path=&quot;about&quot; element={&lt;About /&gt;} /&gt;
+                    &lt;Route path=&quot;products&quot; element={&lt;Products /&gt;} /&gt;
+                    &lt;Route path=&quot;*&quot; element={&lt;Error /&gt;} /&gt;
+                &lt;/Route&gt;
+            &lt;/Routes&gt;
+        &lt;/BrowserRouter&gt;
+    );
+}
+</code></pre>
+<h4 id="navlink-style"><a class="header" href="#navlink-style">NavLink (style)</a></h4>
+<ul>
+<li>StyledNavbar.js</li>
+</ul>
+<pre><code class="language-js">import { NavLink } from 'react-router-dom';
+
+&lt;nav className=&quot;navbar&quot;&gt;
+    &lt;NavLink
+        to=&quot;/about&quot;
+        style={({ isActive }) =&gt; {
+            return { color: isActive ? 'red' : 'grey' };
+        }}
+    &gt;
+        Home
+    &lt;/NavLink&gt;
+&lt;/nav&gt;;
+</code></pre>
+<h4 id="navlink-classname"><a class="header" href="#navlink-classname">NavLink (className)</a></h4>
+<ul>
+<li>StyledNavbar.js</li>
+</ul>
+<pre><code class="language-js">&lt;nav className=&quot;navbar&quot;&gt;
+    &lt;NavLink
+        to=&quot;/&quot;
+        className={({ isActive }) =&gt; (isActive ? 'link active' : 'link')}
+    &gt;
+        Home
+    &lt;/NavLink&gt;
+&lt;/nav&gt;
+</code></pre>
+<h4 id="reading-url-params"><a class="header" href="#reading-url-params">Reading URL Params</a></h4>
+<ul>
+<li>App.js</li>
+</ul>
+<pre><code class="language-js">function App() {
+    return (
+        &lt;BrowserRouter&gt;
+            &lt;Routes&gt;
+                &lt;Route path=&quot;/&quot; element={&lt;SharedLayout /&gt;}&gt;
+                    &lt;Route index element={&lt;Home /&gt;} /&gt;
+                    &lt;Route path=&quot;about&quot; element={&lt;About /&gt;} /&gt;
+                    &lt;Route path=&quot;products&quot; element={&lt;Products /&gt;} /&gt;
+                    &lt;Route
+                        path=&quot;products/:productId&quot;
+                        element={&lt;SingleProduct /&gt;}
+                    /&gt;
+                    &lt;Route path=&quot;*&quot; element={&lt;Error /&gt;} /&gt;
+                &lt;/Route&gt;
+            &lt;/Routes&gt;
+        &lt;/BrowserRouter&gt;
+    );
+}
+</code></pre>
+<h4 id="single-product"><a class="header" href="#single-product">Single Product</a></h4>
+<ul>
+<li>SingleProduct.js</li>
+</ul>
+<pre><code class="language-js">import { Link, useParams } from 'react-router-dom';
+import products from '../data';
+const SingleProduct = () =&gt; {
+    const { productId } = useParams();
+
+    return (
+        &lt;section className=&quot;section product&quot;&gt;
+            &lt;h2&gt;{productId}&lt;/h2&gt;
+            &lt;Link to=&quot;/products&quot;&gt;back to products&lt;/Link&gt;
+        &lt;/section&gt;
+    );
+};
+
+export default SingleProduct;
+</code></pre>
+<h4 id="products-page"><a class="header" href="#products-page">Products Page</a></h4>
+<ul>
+<li>Products.js</li>
+</ul>
+<pre><code class="language-js">import { Link } from 'react-router-dom';
+import products from '../data';
+const Products = () =&gt; {
+    return (
+        &lt;section className=&quot;section&quot;&gt;
+            &lt;h2&gt;products&lt;/h2&gt;
+            &lt;div className=&quot;products&quot;&gt;
+                {products.map((product) =&gt; {
+                    return (
+                        &lt;article key={product.id}&gt;
+                            &lt;h5&gt;{product.name}&lt;/h5&gt;
+                            &lt;Link to={`/products/${product.id}`}&gt;
+                                more info
+                            &lt;/Link&gt;
+                        &lt;/article&gt;
+                    );
+                })}
+            &lt;/div&gt;
+        &lt;/section&gt;
+    );
+};
+
+export default Products;
+</code></pre>
+<h4 id="single-product-1"><a class="header" href="#single-product-1">Single Product</a></h4>
+<ul>
+<li>SingleProduct.js</li>
+</ul>
+<pre><code class="language-js">import { Link, useParams } from 'react-router-dom';
+import products from '../data';
+const SingleProduct = () =&gt; {
+    const { productId } = useParams();
+    const product = products.find((product) =&gt; product.id === productId);
+    const { image, name } = product;
+
+    return (
+        &lt;section className=&quot;section product&quot;&gt;
+            &lt;img src={image} alt={name} /&gt;
+            &lt;h5&gt;{name}&lt;/h5&gt;
+            &lt;Link to=&quot;/products&quot;&gt;back to products&lt;/Link&gt;
+        &lt;/section&gt;
+    );
+};
+
+export default SingleProduct;
+</code></pre>
+<h4 id="usenavigate"><a class="header" href="#usenavigate">useNavigate()</a></h4>
+<p><a href="https://youtu.be/PuEGrylM1x8"> (?.) or Optional Chaining Explained</a></p>
+<ul>
+<li>App.js</li>
+</ul>
+<pre><code class="language-js">function App() {
+    const [user, setUser] = useState(null);
+
+    return (
+        &lt;BrowserRouter&gt;
+            &lt;Routes&gt;
+                &lt;Route path=&quot;/&quot; element={&lt;SharedLayout /&gt;}&gt;
+                    &lt;Route index element={&lt;Home /&gt;} /&gt;
+                    &lt;Route path=&quot;about&quot; element={&lt;About /&gt;} /&gt;
+                    &lt;Route path=&quot;products&quot; element={&lt;Products /&gt;} /&gt;
+                    &lt;Route
+                        path=&quot;products/:productId&quot;
+                        element={&lt;SingleProduct /&gt;}
+                    /&gt;
+                    &lt;Route path=&quot;login&quot; element={&lt;Login setUser={setUser} /&gt;} /&gt;
+                    &lt;Route
+                        path=&quot;dashboard&quot;
+                        element={&lt;Dashboard user={user} /&gt;}
+                    /&gt;
+                    &lt;Route path=&quot;*&quot; element={&lt;Error /&gt;} /&gt;
+                &lt;/Route&gt;
+            &lt;/Routes&gt;
+        &lt;/BrowserRouter&gt;
+    );
+}
+</code></pre>
+<ul>
+<li>Login.js</li>
+</ul>
+<pre><code class="language-js"> import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+const Login = ({ setUser }) =&gt; {
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+
+  const navigate = useNavigate();
+
+  const handleSubmit = async (e) =&gt; {
+    e.preventDefault();
+    if (!name || !email) return;
+    setUser({ name: name, email: email });
+    navigate('/dashboard');
+  };
+
+</code></pre>
+<p><a href="https://youtu.be/PuEGrylM1x8"> (?.) or Optional Chaining Explained</a></p>
+<ul>
+<li>Dashboard.js</li>
+</ul>
+<pre><code class="language-js">const Dashboard = ({ user }) =&gt; {
+    return (
+        &lt;section className=&quot;section&quot;&gt;
+            &lt;h4&gt;Hello, {user?.name}&lt;/h4&gt;
+        &lt;/section&gt;
+    );
+};
+export default Dashboard;
+</code></pre>
+<h4 id="protected-route"><a class="header" href="#protected-route">Protected Route</a></h4>
+<ul>
+<li>App.js</li>
+</ul>
+<pre><code class="language-js">&lt;Route
+    path=&quot;dashboard&quot;
+    element={
+        &lt;ProtectedRoute user={user}&gt;
+            &lt;Dashboard user={user} /&gt;
+        &lt;/ProtectedRoute&gt;
+    }
+/&gt;
+</code></pre>
+<ul>
+<li>ProtectedRoute.js</li>
+</ul>
+<pre><code class="language-js">import { Navigate } from 'react-router-dom';
+
+const ProtectedRoute = ({ children, user }) =&gt; {
+    if (!user) {
+        return &lt;Navigate to=&quot;/&quot; /&gt;;
+    }
+    return children;
+};
+
+export default ProtectedRoute;
+</code></pre>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="3_react_iii_axios.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+                            <a rel="next prefetch" href="5_react_v_redux_tookit.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="3_react_iii_axios.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+                    <a rel="next prefetch" href="5_react_v_redux_tookit.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="elasticlunr.min.js"></script>
+        <script src="mark.min.js"></script>
+        <script src="searcher.js"></script>
+
+        <script src="clipboard.min.js"></script>
+        <script src="highlight.js"></script>
+        <script src="book.js"></script>
+
+        <!-- Custom JS scripts -->
+
+
+    </div>
+    </body>
+</html>

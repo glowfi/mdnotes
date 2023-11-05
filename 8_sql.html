@@ -1,0 +1,432 @@
+<!DOCTYPE HTML>
+<html lang="en" class="light" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>8_sql - Fundamentals of Web Development</title>
+
+
+        <!-- Custom HTML head -->
+        
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="favicon.svg">
+        <link rel="shortcut icon" href="favicon.png">
+        <link rel="stylesheet" href="css/variables.css">
+        <link rel="stylesheet" href="css/general.css">
+        <link rel="stylesheet" href="css/chrome.css">
+        <link rel="stylesheet" href="css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="highlight.css">
+        <link rel="stylesheet" href="tomorrow-night.css">
+        <link rel="stylesheet" href="ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+
+    </head>
+    <body class="sidebar-visible no-js">
+    <div id="body-container">
+        <!-- Provide site root to javascript -->
+        <script>
+            var path_to_root = "";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('light')
+            html.classList.add(theme);
+            var body = document.querySelector('body');
+            body.classList.remove('no-js')
+            body.classList.add('js');
+        </script>
+
+        <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            var body = document.querySelector('body');
+            var sidebar = null;
+            var sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+            }
+            sidebar_toggle.checked = sidebar === 'visible';
+            body.classList.remove('sidebar-visible');
+            body.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded "><a href="1_react_i_fundamentals.html"><strong aria-hidden="true">1.</strong> 1_react_i_fundamentals</a></li><li class="chapter-item expanded "><a href="2_react_ii_advanced.html"><strong aria-hidden="true">2.</strong> 2_react_ii_advanced</a></li><li class="chapter-item expanded "><a href="3_react_iii_axios.html"><strong aria-hidden="true">3.</strong> 3_react_iii_axios</a></li><li class="chapter-item expanded "><a href="4_react_iv_router_dom.html"><strong aria-hidden="true">4.</strong> 4_react_iv_router_dom</a></li><li class="chapter-item expanded "><a href="5_react_v_redux_tookit.html"><strong aria-hidden="true">5.</strong> 5_react_v_redux_tookit</a></li><li class="chapter-item expanded "><a href="6_node_i_fundamentals.html"><strong aria-hidden="true">6.</strong> 6_node_i_fundamentals</a></li><li class="chapter-item expanded "><a href="7_node_ii_advanced.html"><strong aria-hidden="true">7.</strong> 7_node_ii_advanced</a></li><li class="chapter-item expanded "><a href="8_sql.html" class="active"><strong aria-hidden="true">8.</strong> 8_sql</a></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+        </nav>
+
+        <!-- Track and set sidebar scroll position -->
+        <script>
+            var sidebarScrollbox = document.querySelector('#sidebar .sidebar-scrollbox');
+            sidebarScrollbox.addEventListener('click', function(e) {
+                if (e.target.tagName === 'A') {
+                    sessionStorage.setItem('sidebar-scroll', sidebarScrollbox.scrollTop);
+                }
+            }, { passive: true });
+            var sidebarScrollTop = sessionStorage.getItem('sidebar-scroll');
+            sessionStorage.removeItem('sidebar-scroll');
+            if (sidebarScrollTop) {
+                // preserve sidebar scroll position when navigating via links within sidebar
+                sidebarScrollbox.scrollTop = sidebarScrollTop;
+            } else {
+                // scroll sidebar to current active section when navigating via "next/previous chapter" buttons
+                var activeSection = document.querySelector('#sidebar .active');
+                if (activeSection) {
+                    activeSection.scrollIntoView({ block: 'center' });
+                }
+            }
+        </script>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </label>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">Fundamentals of Web Development</h1>
+
+                    <div class="right-buttons">
+                        <a href="print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1 id="sql"><a class="header" href="#sql">SQL</a></h1>
+<ul>
+<li>Domain Specific (Can be used in RDBMS only)</li>
+<li>Declarative Language (We have to mention just what to do not how to do)</li>
+</ul>
+<h2 id="types-of-sql-commands"><a class="header" href="#types-of-sql-commands">Types of SQL commands</a></h2>
+<ul>
+<li>DDL (Works with schema/structure) : CREATE,ALTER,DROP</li>
+<li>DML (Works with data inside the database schema) : INSERT,UPDATE,DELETE,SELECT</li>
+<li>DCL (Works with authorization purposes) : GRANT , REVOKE</li>
+<li>TCL (Transcation realated) : COMMIT , ROLLBACK , SAVEPOINTS</li>
+</ul>
+<h3 id="create-table"><a class="header" href="#create-table">CREATE table</a></h3>
+<p>Link : https://www.postgresqltutorial.com/postgresql-tutorial/postgresql-create-table/</p>
+<pre><code class="language-sql">CREATE TABLE [IF NOT EXISTS] table_name (
+   column1 datatype(length) column_contraint,
+   column2 datatype(length) column_contraint,
+   column3 datatype(length) column_contraint,
+   table_constraints
+);
+
+</code></pre>
+<h3 id="insert-into-table"><a class="header" href="#insert-into-table">INSERT into table</a></h3>
+<p>Link : https://www.postgresqltutorial.com/postgresql-tutorial/postgresql-insert/</p>
+<pre><code class="language-sql">
+INSERT INTO table_name(column1, column2, …)
+VALUES (value1, value2, …);
+</code></pre>
+<h3 id="alter-table"><a class="header" href="#alter-table">ALTER TABLE</a></h3>
+<p>Link : https://www.postgresqltutorial.com/postgresql-tutorial/postgresql-alter-table/</p>
+<pre><code class="language-sql">ALTER TABLE table_name action;
+</code></pre>
+<h3 id="update"><a class="header" href="#update">UPDATE</a></h3>
+<p>Link : https://www.postgresqltutorial.com/postgresql-tutorial/postgresql-update/</p>
+<pre><code class="language-sql">UPDATE table_name
+SET column1 = value1,
+    column2 = value2,
+    ...
+WHERE condition;
+</code></pre>
+<h3 id="difference-bw-alter-and-update"><a class="header" href="#difference-bw-alter-and-update">Difference b/w ALTER and UPDATE</a></h3>
+<div class="table-wrapper"><table><thead><tr><th>ALTER</th><th>UPDATE</th></tr></thead><tbody>
+<tr><td>DDL</td><td>DML</td></tr>
+<tr><td>Works with structure schema</td><td>Works with change in data</td></tr>
+<tr><td>Example : Renaming a column,Changing datatype of a column,droping a column</td><td>Update a value inside the column.</td></tr>
+<tr><td>No condition</td><td>Can give condition with where clause</td></tr>
+</tbody></table>
+</div>
+<h3 id="delete"><a class="header" href="#delete">DELETE</a></h3>
+<p>Link : https://www.postgresqltutorial.com/postgresql-tutorial/postgresql-delete/</p>
+<pre><code class="language-sql">DELETE FROM table_name
+WHERE condition;
+</code></pre>
+<h3 id="drop"><a class="header" href="#drop">DROP</a></h3>
+<p>Link : https://www.postgresqltutorial.com/postgresql-tutorial/postgresql-drop-table/</p>
+<pre><code class="language-sql">DROP TABLE [IF EXISTS] table_name
+[CASCADE | RESTRICT];
+</code></pre>
+<h3 id="truncate"><a class="header" href="#truncate">TRUNCATE</a></h3>
+<p>Link : https://www.postgresqltutorial.com/postgresql-tutorial/postgresql-truncate-table/</p>
+<pre><code class="language-sql">TRUNCATE TABLE table_name;
+</code></pre>
+<h3 id="difference-bw-deletedroptruncate"><a class="header" href="#difference-bw-deletedroptruncate">Difference b/w DELETE,DROP,TRUNCATE</a></h3>
+<div class="table-wrapper"><table><thead><tr><th>DELETE</th><th>DROP</th><th>TRUNCATE</th></tr></thead><tbody>
+<tr><td>DML</td><td>DDL</td><td>DDL</td></tr>
+<tr><td>Deletes only rows row</td><td>Deletes every row+schema</td><td>Deletes only rows</td></tr>
+<tr><td>Deletes rows one by one (can give where clause)</td><td>-</td><td>Deletes rows in one go</td></tr>
+<tr><td>Slower, Rollback possible if done before commit as it maintains logs</td><td>-</td><td>Faster, Rollback not possible as it maintains no logs</td></tr>
+</tbody></table>
+</div>
+<h3 id="constraints"><a class="header" href="#constraints">Constraints</a></h3>
+<ul>
+<li><code>UNIQUE</code> (For unique values)</li>
+<li><code>NOT NULL</code> (non-empty values)</li>
+<li><code>PRIMARY KEY</code> (Unique + not null values)</li>
+<li><code>FOREIGN KEY</code> (Maintains Referential Integrity)</li>
+<li><code>CHECK</code> (Suppose we want to check the age of person during registration process in a website before inserting into the table)</li>
+<li><code>DEFAULT</code> (default values if we do not give any values)</li>
+</ul>
+<h2 id="architectures-in-database"><a class="header" href="#architectures-in-database">Architectures in Database</a></h2>
+<h3 id="1-tier-architecture"><a class="header" href="#1-tier-architecture">1 tier architecture</a></h3>
+<ul>
+<li>Only database layer</li>
+<li>Example : MS Office,Paint,Photoshop</li>
+</ul>
+<h3 id="2-tier-architecture"><a class="header" href="#2-tier-architecture">2 tier architecture</a></h3>
+<ul>
+<li>Client layer &amp; database layer</li>
+<li>Not scalable,not secure</li>
+<li>Heavy load on database layer</li>
+<li>Example : Suppose we go to a bank to create an account,we fill the form then give the accountant the form
+and then accountant from his/her client machine will register our details or in this case data is pushed
+to the database layer.</li>
+</ul>
+<h3 id="3-tier-architecture"><a class="header" href="#3-tier-architecture">3 tier architecture</a></h3>
+<ul>
+<li>Client layer , Application/Business layer , &amp; database layer</li>
+<li>scalable,secure</li>
+<li>Example : Suppose we we use the official bank mobile app (acts as an interface) to create an account ,then all the details will
+first go to the Application/Business layer where the details will be processed and then data is pushed into the database layer.</li>
+</ul>
+<h2 id="different-keys"><a class="header" href="#different-keys">Different Keys</a></h2>
+<h3 id="candidate-keys"><a class="header" href="#candidate-keys">Candidate keys</a></h3>
+<p><strong>Set of keys/attributes which have the potential of being the primary key (Uniqe + can be null)</strong></p>
+<p>Example : voter id, social security number, phone number can be the candidates for being primary keys</p>
+<h3 id="primary-keys"><a class="header" href="#primary-keys">Primary keys</a></h3>
+<p>Used to uniquely identify tuples in a table (Unique + not null)</p>
+<p><b> Note : There can only be one primary key per table.</b></p>
+<h3 id="foreign-keys"><a class="header" href="#foreign-keys">Foreign keys</a></h3>
+<p>It is an attribute or set of attribute which references the primary key of same or another table.
+Primarily Used for maintaining referential integrity.</p>
+<p>Link : https://www.postgresqltutorial.com/postgresql-tutorial/postgresql-foreign-key/</p>
+<pre><code class="language-sql">[CONSTRAINT fk_name]
+   FOREIGN KEY(fk_columns)
+   REFERENCES parent_table(parent_key_columns)
+   [ON DELETE delete_action]
+   [ON UPDATE update_action]
+</code></pre>
+<p><b>Parent Table (Referenced Table)</b></p>
+<ul>
+<li>Insert : No violation</li>
+<li>Update and Delete : May cause violation</li>
+</ul>
+<p><b>Child Table (Referencing Table)</b></p>
+<ul>
+<li>Insert : May cause Violation</li>
+<li>Delete : No violation</li>
+<li>Update : May cause violation</li>
+</ul>
+<p><b>PostgreSQL supports the following actions:</b></p>
+<ul>
+<li>SET NULL</li>
+<li>SET DEFAULT</li>
+<li>RESTRICT</li>
+<li>NO ACTION</li>
+<li>CASCADE</li>
+</ul>
+<p><b> Note : There can only be more than one foreign key per table.</b></p>
+<h3 id="difference-between-restrict-and-no-action"><a class="header" href="#difference-between-restrict-and-no-action">Difference between RESTRICT and NO ACTION</a></h3>
+<p>RESTRICT blocks updates that would violate the referential integrity of the constraint, while NO ACTION allows updates to proceed without enforcing the constraint.</p>
+<h3 id="super-key"><a class="header" href="#super-key">Super Key</a></h3>
+<p>Supeset of any candidate key (all possible values to uniquely identify two tuples in a table)</p>
+<p>Formula : 2^n-k-(2^n-commonsets) , k no of candiate keys</p>
+<h3 id="difference-bw-nested-subqueries--correlated-subqueries"><a class="header" href="#difference-bw-nested-subqueries--correlated-subqueries">Difference b/w Nested Subqueries , Correlated Subqueries</a></h3>
+<div class="table-wrapper"><table><thead><tr><th>Nested</th><th>Correlated</th></tr></thead><tbody>
+<tr><td>Inner query runs first once and acts as a result for the outer query</td><td>Outer query runs first and for each outer query inner query runs multiple times</td></tr>
+<tr><td>Example : IN , NOT IN</td><td>Example : EXISTS , NOT EXISTS</td></tr>
+<tr><td>Bottom up approach</td><td>Top Down approach</td></tr>
+</tbody></table>
+</div>
+<h3 id="common-things-to-do"><a class="header" href="#common-things-to-do">Common things to do</a></h3>
+<ul>
+<li>Aggreagte Functions</li>
+<li>Nested,Correlated [Subqueries]</li>
+<li>GROUP BY</li>
+<li>HAVING</li>
+<li>IN , NOT IN</li>
+<li>EXISTS , NOT EXISTS</li>
+</ul>
+<h3 id="varchar-vs-varchar2"><a class="header" href="#varchar-vs-varchar2">Varchar vs Varchar2</a></h3>
+<ul>
+<li>Varchar is ANSI standard</li>
+<li>Varchar2 is Oracles standard</li>
+</ul>
+<h3 id="acid"><a class="header" href="#acid">ACID</a></h3>
+<ul>
+<li>Atomicity : Either all changes are performed or none of them.</li>
+<li>Consistency : Data is consistent after and before the transcation.</li>
+<li>Isolation : Transcation takes place concurrently in an isolated manner.</li>
+<li>Durability: After a transcation completes successfuly all the data changes persists even after the events of system failure</li>
+</ul>
+<h3 id="joins"><a class="header" href="#joins">Joins</a></h3>
+<ul>
+<li>Cross Join : Cartesian prodocut of 2 tables (combinations of rows of 2 tables).</li>
+<li>Self Join : Joininig a table with itself.</li>
+<li>Natural Join/Inner Join : Returns records matching in both the tables.</li>
+<li>Left Outer Join : Returns the common records in both the tables as well as records not in right table but in left.Fills the columns not in right table with null.</li>
+<li>Right Outer Join : Returns the common records in both the tables as well as records not in left table but in right.Fills the columns not in left table with null.</li>
+</ul>
+<blockquote>
+<p>Alternate way of inner join</p>
+</blockquote>
+<pre><code>select
+  pt.patient_id,
+  pt.first_name,
+  pt.last_name,
+  doc.specialty
+from
+  patients as pt,
+  doctors as doc,
+  admissions as adm
+where
+  pt.patient_id = adm.patient_id
+  AND adm.attending_doctor_id = doc.doctor_id
+  AND adm.diagnosis='Epilepsy'
+  AND doc.first_name='Lisa'
+</code></pre>
+<blockquote>
+<p>Inner Joins Syntax</p>
+</blockquote>
+<pre><code>SELECT
+  p.patient_id,
+  p.first_name AS patient_first_name,
+  p.last_name AS patient_last_name,
+  ph.specialty AS attending_doctor_specialty
+FROM patients p
+  JOIN admissions a ON a.patient_id = p.patient_id
+  JOIN doctors ph ON ph.doctor_id = a.attending_doctor_id
+WHERE
+  ph.first_name = 'Lisa' and
+  a.diagnosis = 'Epilepsy'
+</code></pre>
+<p>Link : https://www.postgresqltutorial.com/postgresql-tutorial/postgresql-joins/</p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="7_node_ii_advanced.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="7_node_ii_advanced.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+            </nav>
+
+        </div>
+
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="elasticlunr.min.js"></script>
+        <script src="mark.min.js"></script>
+        <script src="searcher.js"></script>
+
+        <script src="clipboard.min.js"></script>
+        <script src="highlight.js"></script>
+        <script src="book.js"></script>
+
+        <!-- Custom JS scripts -->
+
+
+    </div>
+    </body>
+</html>

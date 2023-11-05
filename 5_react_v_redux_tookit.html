@@ -1,0 +1,908 @@
+<!DOCTYPE HTML>
+<html lang="en" class="light" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>5_react_v_redux_tookit - Fundamentals of Web Development</title>
+
+
+        <!-- Custom HTML head -->
+        
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="favicon.svg">
+        <link rel="shortcut icon" href="favicon.png">
+        <link rel="stylesheet" href="css/variables.css">
+        <link rel="stylesheet" href="css/general.css">
+        <link rel="stylesheet" href="css/chrome.css">
+        <link rel="stylesheet" href="css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="highlight.css">
+        <link rel="stylesheet" href="tomorrow-night.css">
+        <link rel="stylesheet" href="ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+
+    </head>
+    <body class="sidebar-visible no-js">
+    <div id="body-container">
+        <!-- Provide site root to javascript -->
+        <script>
+            var path_to_root = "";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('light')
+            html.classList.add(theme);
+            var body = document.querySelector('body');
+            body.classList.remove('no-js')
+            body.classList.add('js');
+        </script>
+
+        <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            var body = document.querySelector('body');
+            var sidebar = null;
+            var sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+            }
+            sidebar_toggle.checked = sidebar === 'visible';
+            body.classList.remove('sidebar-visible');
+            body.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded "><a href="1_react_i_fundamentals.html"><strong aria-hidden="true">1.</strong> 1_react_i_fundamentals</a></li><li class="chapter-item expanded "><a href="2_react_ii_advanced.html"><strong aria-hidden="true">2.</strong> 2_react_ii_advanced</a></li><li class="chapter-item expanded "><a href="3_react_iii_axios.html"><strong aria-hidden="true">3.</strong> 3_react_iii_axios</a></li><li class="chapter-item expanded "><a href="4_react_iv_router_dom.html"><strong aria-hidden="true">4.</strong> 4_react_iv_router_dom</a></li><li class="chapter-item expanded "><a href="5_react_v_redux_tookit.html" class="active"><strong aria-hidden="true">5.</strong> 5_react_v_redux_tookit</a></li><li class="chapter-item expanded "><a href="6_node_i_fundamentals.html"><strong aria-hidden="true">6.</strong> 6_node_i_fundamentals</a></li><li class="chapter-item expanded "><a href="7_node_ii_advanced.html"><strong aria-hidden="true">7.</strong> 7_node_ii_advanced</a></li><li class="chapter-item expanded "><a href="8_sql.html"><strong aria-hidden="true">8.</strong> 8_sql</a></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+        </nav>
+
+        <!-- Track and set sidebar scroll position -->
+        <script>
+            var sidebarScrollbox = document.querySelector('#sidebar .sidebar-scrollbox');
+            sidebarScrollbox.addEventListener('click', function(e) {
+                if (e.target.tagName === 'A') {
+                    sessionStorage.setItem('sidebar-scroll', sidebarScrollbox.scrollTop);
+                }
+            }, { passive: true });
+            var sidebarScrollTop = sessionStorage.getItem('sidebar-scroll');
+            sessionStorage.removeItem('sidebar-scroll');
+            if (sidebarScrollTop) {
+                // preserve sidebar scroll position when navigating via links within sidebar
+                sidebarScrollbox.scrollTop = sidebarScrollTop;
+            } else {
+                // scroll sidebar to current active section when navigating via "next/previous chapter" buttons
+                var activeSection = document.querySelector('#sidebar .active');
+                if (activeSection) {
+                    activeSection.scrollIntoView({ block: 'center' });
+                }
+            }
+        </script>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </label>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">Fundamentals of Web Development</h1>
+
+                    <div class="right-buttons">
+                        <a href="print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h3 id="redux-with-redux-toolkit"><a class="header" href="#redux-with-redux-toolkit">Redux with redux-toolkit</a></h3>
+<h4 id="docs"><a class="header" href="#docs">Docs</a></h4>
+<p><a href="https://redux-toolkit.js.org/introduction/getting-started">Redux Toolkit Docs</a></p>
+<h4 id="install-template"><a class="header" href="#install-template">Install Template</a></h4>
+<pre><code class="language-sh">npx create-react-app my-app --template redux
+</code></pre>
+<ul>
+<li>@latest</li>
+</ul>
+<pre><code class="language-sh">npx create-react-app@latest my-app --template redux
+</code></pre>
+<h4 id="existing-app"><a class="header" href="#existing-app">Existing App</a></h4>
+<pre><code class="language-sh">npm install @reduxjs/toolkit react-redux
+</code></pre>
+<h4 id="reduxjstoolkit"><a class="header" href="#reduxjstoolkit">@reduxjs/toolkit</a></h4>
+<p>consists of few libraries</p>
+<ul>
+<li>redux (core library, state management)</li>
+<li>immer (allows to mutate state)</li>
+<li>redux-thunk (handles async actions)</li>
+<li>reselect (simplifies reducer functions)</li>
+</ul>
+<h4 id="extras"><a class="header" href="#extras">Extras</a></h4>
+<ul>
+<li>redux devtools</li>
+<li>combine reducers</li>
+</ul>
+<h4 id="react-redux"><a class="header" href="#react-redux">react-redux</a></h4>
+<p>connects our app to redux</p>
+<h4 id="setup-store"><a class="header" href="#setup-store">Setup Store</a></h4>
+<ul>
+<li>create store.js</li>
+</ul>
+<pre><code class="language-js">import { configureStore } from '@reduxjs/toolkit';
+
+export const store = configureStore({
+    reducer: {}
+});
+</code></pre>
+<h4 id="setup-provider"><a class="header" href="#setup-provider">Setup Provider</a></h4>
+<ul>
+<li>index.js</li>
+</ul>
+<pre><code class="language-js">import React from 'react';
+import ReactDOM from 'react-dom';
+import './index.css';
+import App from './App';
+// import store and provider
+import { store } from './store';
+import { Provider } from 'react-redux';
+
+ReactDOM.render(
+    &lt;React.StrictMode&gt;
+        &lt;Provider store={store}&gt;
+            &lt;App /&gt;
+        &lt;/Provider&gt;
+    &lt;/React.StrictMode&gt;,
+    document.getElementById('root')
+);
+</code></pre>
+<h4 id="setup-cart-slice"><a class="header" href="#setup-cart-slice">Setup Cart Slice</a></h4>
+<ul>
+<li>application feature</li>
+<li>create features folder/cart</li>
+<li>create cartSlice.js</li>
+</ul>
+<pre><code class="language-js">import { createSlice } from '@reduxjs/toolkit';
+
+const initialState = {
+    cartItems: [],
+    amount: 0,
+    total: 0,
+    isLoading: true
+};
+
+const cartSlice = createSlice({
+    name: 'cart',
+    initialState
+});
+
+console.log(cartSlice);
+
+export default cartSlice.reducer;
+</code></pre>
+<ul>
+<li>store.js</li>
+</ul>
+<pre><code class="language-js">import { configureStore } from '@reduxjs/toolkit';
+import cartReducer from './features/cart/cartSlice';
+
+export const store = configureStore({
+    reducer: {
+        cart: cartReducer
+    }
+});
+</code></pre>
+<h4 id="redux-devtools"><a class="header" href="#redux-devtools">Redux DevTools</a></h4>
+<ul>
+<li>extension</li>
+</ul>
+<h4 id="access-store-value"><a class="header" href="#access-store-value">Access store value</a></h4>
+<ul>
+<li>create components/Navbar.js</li>
+</ul>
+<pre><code class="language-js">import { CartIcon } from '../icons';
+import { useSelector } from 'react-redux';
+
+const Navbar = () =&gt; {
+    const { amount } = useSelector((state) =&gt; state.cart);
+
+    return (
+        &lt;nav&gt;
+            &lt;div className=&quot;nav-center&quot;&gt;
+                &lt;h3&gt;redux toolkit&lt;/h3&gt;
+                &lt;div className=&quot;nav-container&quot;&gt;
+                    &lt;CartIcon /&gt;
+                    &lt;div className=&quot;amount-container&quot;&gt;
+                        &lt;p className=&quot;total-amount&quot;&gt;{amount}&lt;/p&gt;
+                    &lt;/div&gt;
+                &lt;/div&gt;
+            &lt;/div&gt;
+        &lt;/nav&gt;
+    );
+};
+export default Navbar;
+</code></pre>
+<h4 id="hero-icons"><a class="header" href="#hero-icons">Hero Icons</a></h4>
+<ul>
+<li><a href="https://heroicons.com/">Hero Icons</a></li>
+</ul>
+<pre><code class="language-css">nav svg {
+    width: 40px;
+    color: var(--clr-white);
+}
+</code></pre>
+<h4 id="setup-cart"><a class="header" href="#setup-cart">Setup Cart</a></h4>
+<ul>
+<li>cartSlice.js</li>
+</ul>
+<pre><code class="language-js">import cartItems from '../../cartItems';
+
+const initialState = {
+    cartItems: cartItems,
+    amount: 0,
+    total: 0,
+    isLoading: true
+};
+</code></pre>
+<ul>
+<li>create CartContainer.js and CartItem.js</li>
+<li>CartContainer.js</li>
+</ul>
+<pre><code class="language-js">import React from 'react';
+import CartItem from './CartItem';
+import { useSelector } from 'react-redux';
+
+const CartContainer = () =&gt; {
+    const { cartItems, total, amount } = useSelector((state) =&gt; state.cart);
+
+    if (amount &lt; 1) {
+        return (
+            &lt;section className=&quot;cart&quot;&gt;
+                {/* cart header */}
+                &lt;header&gt;
+                    &lt;h2&gt;your bag&lt;/h2&gt;
+                    &lt;h4 className=&quot;empty-cart&quot;&gt;is currently empty&lt;/h4&gt;
+                &lt;/header&gt;
+            &lt;/section&gt;
+        );
+    }
+    return (
+        &lt;section className=&quot;cart&quot;&gt;
+            {/* cart header */}
+            &lt;header&gt;
+                &lt;h2&gt;your bag&lt;/h2&gt;
+            &lt;/header&gt;
+            {/* cart items */}
+            &lt;div&gt;
+                {cartItems.map((item) =&gt; {
+                    return &lt;CartItem key={item.id} {...item} /&gt;;
+                })}
+            &lt;/div&gt;
+            {/* cart footer */}
+            &lt;footer&gt;
+                &lt;hr /&gt;
+                &lt;div className=&quot;cart-total&quot;&gt;
+                    &lt;h4&gt;
+                        total &lt;span&gt;${total}&lt;/span&gt;
+                    &lt;/h4&gt;
+                &lt;/div&gt;
+                &lt;button className=&quot;btn clear-btn&quot;&gt;clear cart&lt;/button&gt;
+            &lt;/footer&gt;
+        &lt;/section&gt;
+    );
+};
+
+export default CartContainer;
+</code></pre>
+<ul>
+<li>CartItem.js</li>
+</ul>
+<pre><code class="language-js">import React from 'react';
+import { ChevronDown, ChevronUp } from '../icons';
+
+const CartItem = ({ id, img, title, price, amount }) =&gt; {
+    return (
+        &lt;article className=&quot;cart-item&quot;&gt;
+            &lt;img src={img} alt={title} /&gt;
+            &lt;div&gt;
+                &lt;h4&gt;{title}&lt;/h4&gt;
+                &lt;h4 className=&quot;item-price&quot;&gt;${price}&lt;/h4&gt;
+                {/* remove button */}
+                &lt;button className=&quot;remove-btn&quot;&gt;remove&lt;/button&gt;
+            &lt;/div&gt;
+            &lt;div&gt;
+                {/* increase amount */}
+                &lt;button className=&quot;amount-btn&quot;&gt;
+                    &lt;ChevronUp /&gt;
+                &lt;/button&gt;
+                {/* amount */}
+                &lt;p className=&quot;amount&quot;&gt;{amount}&lt;/p&gt;
+                {/* decrease amount */}
+                &lt;button className=&quot;amount-btn&quot;&gt;
+                    &lt;ChevronDown /&gt;
+                &lt;/button&gt;
+            &lt;/div&gt;
+        &lt;/article&gt;
+    );
+};
+
+export default CartItem;
+</code></pre>
+<h4 id="first-reducer"><a class="header" href="#first-reducer">First Reducer</a></h4>
+<ul>
+<li>cartSlice.js</li>
+<li>Immer library</li>
+</ul>
+<pre><code class="language-js">const cartSlice = createSlice({
+    name: 'cart',
+    initialState,
+    reducers: {
+        clearCart: (state) =&gt; {
+            state.cartItems = [];
+        }
+    }
+});
+
+export const { clearCart } = cartSlice.actions;
+</code></pre>
+<ul>
+<li>create action</li>
+</ul>
+<pre><code class="language-js">const ACTION_TYPE = 'ACTION_TYPE';
+
+const actionCreator = (payload) =&gt; {
+    return { type: ACTION_TYPE, payload: payload };
+};
+</code></pre>
+<ul>
+<li>CartContainer.js</li>
+</ul>
+<pre><code class="language-js">import React from 'react';
+import CartItem from './CartItem';
+import { useDispatch, useSelector } from 'react-redux';
+
+const CartContainer = () =&gt; {
+    const dispatch = useDispatch();
+
+    return (
+        &lt;button
+            className=&quot;btn clear-btn&quot;
+            onClick={() =&gt; {
+                dispatch(clearCart());
+            }}
+        &gt;
+            clear cart
+        &lt;/button&gt;
+    );
+};
+
+export default CartContainer;
+</code></pre>
+<h4 id="remove-increase-decrease"><a class="header" href="#remove-increase-decrease">Remove, Increase, Decrease</a></h4>
+<ul>
+<li>cartSlice.js</li>
+</ul>
+<pre><code class="language-js">import { createSlice } from '@reduxjs/toolkit';
+import cartItems from '../../cartItems';
+
+const initialState = {
+    cartItems: [],
+    amount: 0,
+    total: 0,
+    isLoading: true
+};
+
+const cartSlice = createSlice({
+    name: 'cart',
+    initialState,
+    reducers: {
+        clearCart: (state) =&gt; {
+            state.cartItems = [];
+        },
+        removeItem: (state, action) =&gt; {
+            const itemId = action.payload;
+            state.cartItems = state.cartItems.filter(
+                (item) =&gt; item.id !== itemId
+            );
+        },
+        increase: (state, { payload }) =&gt; {
+            const cartItem = state.cartItems.find(
+                (item) =&gt; item.id === payload.id
+            );
+            cartItem.amount = cartItem.amount + 1;
+        },
+        decrease: (state, { payload }) =&gt; {
+            const cartItem = state.cartItems.find(
+                (item) =&gt; item.id === payload.id
+            );
+            cartItem.amount = cartItem.amount - 1;
+        },
+        calculateTotals: (state) =&gt; {
+            let amount = 0;
+            let total = 0;
+            state.cartItems.forEach((item) =&gt; {
+                amount += item.amount;
+                total += item.amount * item.price;
+            });
+            state.amount = amount;
+            state.total = total;
+        }
+    }
+});
+
+export const { clearCart, removeItem, increase, decrease, calculateTotals } =
+    cartSlice.actions;
+
+export default cartSlice.reducer;
+</code></pre>
+<ul>
+<li>CartItem.js</li>
+</ul>
+<pre><code class="language-js">import React from 'react';
+import { ChevronDown, ChevronUp } from '../icons';
+
+import { useDispatch } from 'react-redux';
+import { removeItem, increase, decrease } from '../features/cart/cartSlice';
+
+const CartItem = ({ id, img, title, price, amount }) =&gt; {
+    const dispatch = useDispatch();
+
+    return (
+        &lt;article className=&quot;cart-item&quot;&gt;
+            &lt;img src={img} alt={title} /&gt;
+            &lt;div&gt;
+                &lt;h4&gt;{title}&lt;/h4&gt;
+                &lt;h4 className=&quot;item-price&quot;&gt;${price}&lt;/h4&gt;
+                {/* remove button */}
+                &lt;button
+                    className=&quot;remove-btn&quot;
+                    onClick={() =&gt; {
+                        dispatch(removeItem(id));
+                    }}
+                &gt;
+                    remove
+                &lt;/button&gt;
+            &lt;/div&gt;
+            &lt;div&gt;
+                {/* increase amount */}
+                &lt;button
+                    className=&quot;amount-btn&quot;
+                    onClick={() =&gt; {
+                        dispatch(increase({ id }));
+                    }}
+                &gt;
+                    &lt;ChevronUp /&gt;
+                &lt;/button&gt;
+                {/* amount */}
+                &lt;p className=&quot;amount&quot;&gt;{amount}&lt;/p&gt;
+                {/* decrease amount */}
+                &lt;button
+                    className=&quot;amount-btn&quot;
+                    onClick={() =&gt; {
+                        if (amount === 1) {
+                            dispatch(removeItem(id));
+                            return;
+                        }
+                        dispatch(decrease({ id }));
+                    }}
+                &gt;
+                    &lt;ChevronDown /&gt;
+                &lt;/button&gt;
+            &lt;/div&gt;
+        &lt;/article&gt;
+    );
+};
+
+export default CartItem;
+</code></pre>
+<ul>
+<li>App.js</li>
+</ul>
+<pre><code class="language-js">import { useEffect } from 'react';
+import Navbar from './components/Navbar';
+import CartContainer from './components/CartContainer';
+import { useSelector, useDispatch } from 'react-redux';
+import { calculateTotals } from './features/cart/cartSlice';
+
+function App() {
+    const { cartItems } = useSelector((state) =&gt; state.cart);
+    const dispatch = useDispatch();
+    useEffect(() =&gt; {
+        dispatch(calculateTotals());
+    }, [cartItems]);
+
+    return (
+        &lt;main&gt;
+            &lt;Navbar /&gt;
+            &lt;CartContainer /&gt;
+        &lt;/main&gt;
+    );
+}
+
+export default App;
+</code></pre>
+<h4 id="modal"><a class="header" href="#modal">Modal</a></h4>
+<ul>
+<li>create components/Modal.js</li>
+</ul>
+<pre><code class="language-js">const Modal = () =&gt; {
+    return (
+        &lt;aside className=&quot;modal-container&quot;&gt;
+            &lt;div className=&quot;modal&quot;&gt;
+                &lt;h4&gt;Remove all items from your shopping cart?&lt;/h4&gt;
+                &lt;div className=&quot;btn-container&quot;&gt;
+                    &lt;button type=&quot;button&quot; className=&quot;btn confirm-btn&quot;&gt;
+                        confirm
+                    &lt;/button&gt;
+                    &lt;button type=&quot;button&quot; className=&quot;btn clear-btn&quot;&gt;
+                        cancel
+                    &lt;/button&gt;
+                &lt;/div&gt;
+            &lt;/div&gt;
+        &lt;/aside&gt;
+    );
+};
+export default Modal;
+</code></pre>
+<ul>
+<li>App.js</li>
+</ul>
+<pre><code class="language-js">return (
+    &lt;main&gt;
+        &lt;Modal /&gt;
+        &lt;Navbar /&gt;
+        &lt;CartContainer /&gt;
+    &lt;/main&gt;
+);
+</code></pre>
+<h4 id="modal-slice"><a class="header" href="#modal-slice">modal slice</a></h4>
+<ul>
+<li>create features/modal/modalSlice.js</li>
+</ul>
+<pre><code class="language-js">import { createSlice } from '@reduxjs/toolkit';
+const initialState = {
+    isOpen: false
+};
+
+const modalSlice = createSlice({
+    name: 'modal',
+    initialState,
+    reducers: {
+        openModal: (state, action) =&gt; {
+            state.isOpen = true;
+        },
+        closeModal: (state, action) =&gt; {
+            state.isOpen = false;
+        }
+    }
+});
+
+export const { openModal, closeModal } = modalSlice.actions;
+export default modalSlice.reducer;
+</code></pre>
+<ul>
+<li>App.js</li>
+</ul>
+<pre><code class="language-js">const { isOpen } = useSelector((state) =&gt; state.modal);
+
+return (
+    &lt;main&gt;
+        {isOpen &amp;&amp; &lt;Modal /&gt;}
+        &lt;Navbar /&gt;
+        &lt;CartContainer /&gt;
+    &lt;/main&gt;
+);
+</code></pre>
+<h4 id="toggle-modal"><a class="header" href="#toggle-modal">toggle modal</a></h4>
+<ul>
+<li>CartContainer.js</li>
+</ul>
+<pre><code class="language-js">import { openModal } from '../features/modal/modalSlice';
+
+return (
+    &lt;button
+        className=&quot;btn clear-btn&quot;
+        onClick={() =&gt; {
+            dispatch(openModal());
+        }}
+    &gt;
+        clear cart
+    &lt;/button&gt;
+);
+</code></pre>
+<ul>
+<li>Modal.js</li>
+</ul>
+<pre><code class="language-js">import { closeModal } from '../features/modal/modalSlice';
+import { useDispatch } from 'react-redux';
+import { clearCart } from '../features/cart/cartSlice';
+
+const Modal = () =&gt; {
+    const dispatch = useDispatch();
+
+    return (
+        &lt;aside className=&quot;modal-container&quot;&gt;
+            &lt;div className=&quot;modal&quot;&gt;
+                &lt;h4&gt;Remove all items from your shopping cart?&lt;/h4&gt;
+                &lt;div className=&quot;btn-container&quot;&gt;
+                    &lt;button
+                        type=&quot;button&quot;
+                        className=&quot;btn confirm-btn&quot;
+                        onClick={() =&gt; {
+                            dispatch(clearCart());
+                            dispatch(closeModal());
+                        }}
+                    &gt;
+                        confirm
+                    &lt;/button&gt;
+                    &lt;button
+                        type=&quot;button&quot;
+                        className=&quot;btn clear-btn&quot;
+                        onClick={() =&gt; {
+                            dispatch(closeModal());
+                        }}
+                    &gt;
+                        cancel
+                    &lt;/button&gt;
+                &lt;/div&gt;
+            &lt;/div&gt;
+        &lt;/aside&gt;
+    );
+};
+export default Modal;
+</code></pre>
+<h4 id="async-functionality-with-createasyncthunk"><a class="header" href="#async-functionality-with-createasyncthunk">async functionality with createAsyncThunk</a></h4>
+<ul>
+<li>
+<p><a href="https://course-api.com/">Course API</a></p>
+</li>
+<li>
+<p>https://course-api.com/react-useReducer-cart-project</p>
+</li>
+<li>
+<p>cartSlice.js</p>
+</li>
+<li>
+<p>action type</p>
+</li>
+<li>
+<p>callback function</p>
+</li>
+<li>
+<p>lifecycle actions</p>
+</li>
+</ul>
+<pre><code class="language-js">import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+
+const url = 'https://course-api.com/react-useReducer-cart-project';
+
+export const getCartItems = createAsyncThunk('cart/getCartItems', () =&gt; {
+    return fetch(url)
+        .then((resp) =&gt; resp.json())
+        .catch((err) =&gt; console.log(error));
+});
+
+const cartSlice = createSlice({
+    name: 'cart',
+    initialState,
+    extraReducers: {
+        [getCartItems.pending]: (state) =&gt; {
+            state.isLoading = true;
+        },
+        [getCartItems.fulfilled]: (state, action) =&gt; {
+            console.log(action);
+            state.isLoading = false;
+            state.cartItems = action.payload;
+        },
+        [getCartItems.rejected]: (state) =&gt; {
+            state.isLoading = false;
+        }
+    }
+});
+</code></pre>
+<ul>
+<li>App.js</li>
+</ul>
+<pre><code class="language-js">import { calculateTotals, getCartItems } from './features/cart/cartSlice';
+
+function App() {
+    const { cartItems, isLoading } = useSelector((state) =&gt; state.cart);
+
+    useEffect(() =&gt; {
+        dispatch(getCartItems());
+    }, []);
+
+    if (isLoading) {
+        return (
+            &lt;div className=&quot;loading&quot;&gt;
+                &lt;h1&gt;Loading...&lt;/h1&gt;
+            &lt;/div&gt;
+        );
+    }
+
+    return (
+        &lt;main&gt;
+            {isOpen &amp;&amp; &lt;Modal /&gt;}
+            &lt;Navbar /&gt;
+            &lt;CartContainer /&gt;
+        &lt;/main&gt;
+    );
+}
+
+export default App;
+</code></pre>
+<h4 id="options"><a class="header" href="#options">Options</a></h4>
+<pre><code class="language-sh">npm install axios
+</code></pre>
+<ul>
+<li>cartSlice.js</li>
+</ul>
+<pre><code class="language-js">export const getCartItems = createAsyncThunk(
+    'cart/getCartItems',
+    async (name, thunkAPI) =&gt; {
+        try {
+            // console.log(name);
+            // console.log(thunkAPI);
+            // console.log(thunkAPI.getState());
+            // thunkAPI.dispatch(openModal());
+            const resp = await axios(url);
+
+            return resp.data;
+        } catch (error) {
+            return thunkAPI.rejectWithValue('something went wrong');
+        }
+    }
+);
+</code></pre>
+<h4 id="the-extrareducers-builder-callback-notation"><a class="header" href="#the-extrareducers-builder-callback-notation">The extraReducers &quot;builder callback&quot; notation</a></h4>
+<p>cart/cartSlice</p>
+<pre><code class="language-js">const cartSlice = createSlice({
+    name: 'cart',
+    initialState,
+    reducers: {
+        // reducers
+    },
+    extraReducers: (builder) =&gt; {
+        builder
+            .addCase(getCartItems.pending, (state) =&gt; {
+                state.isLoading = true;
+            })
+            .addCase(getCartItems.fulfilled, (state, action) =&gt; {
+                // console.log(action);
+                state.isLoading = false;
+                state.cartItems = action.payload;
+            })
+            .addCase(getCartItems.rejected, (state, action) =&gt; {
+                console.log(action);
+                state.isLoading = false;
+            });
+    }
+});
+</code></pre>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="4_react_iv_router_dom.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+                            <a rel="next prefetch" href="6_node_i_fundamentals.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="4_react_iv_router_dom.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+                    <a rel="next prefetch" href="6_node_i_fundamentals.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="elasticlunr.min.js"></script>
+        <script src="mark.min.js"></script>
+        <script src="searcher.js"></script>
+
+        <script src="clipboard.min.js"></script>
+        <script src="highlight.js"></script>
+        <script src="book.js"></script>
+
+        <!-- Custom JS scripts -->
+
+
+    </div>
+    </body>
+</html>
