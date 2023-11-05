@@ -3,7 +3,7 @@
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>README - Markdown Notes</title>
+        <title>1_react_i_fundamentals - Markdown Notes</title>
 
 
         <!-- Custom HTML head -->
@@ -88,7 +88,7 @@
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
             <div class="sidebar-scrollbox">
-                <ol class="chapter"><li class="chapter-item expanded "><a href="1_react_i_fundamentals.html"><strong aria-hidden="true">1.</strong> 1_react_i_fundamentals</a></li><li class="chapter-item expanded "><a href="2_react_ii_advanced.html"><strong aria-hidden="true">2.</strong> 2_react_ii_advanced</a></li><li class="chapter-item expanded "><a href="3_react_iii_axios.html"><strong aria-hidden="true">3.</strong> 3_react_iii_axios</a></li><li class="chapter-item expanded "><a href="4_react_iv_router_dom.html"><strong aria-hidden="true">4.</strong> 4_react_iv_router_dom</a></li><li class="chapter-item expanded "><a href="5_react_v_redux_tookit.html"><strong aria-hidden="true">5.</strong> 5_react_v_redux_tookit</a></li><li class="chapter-item expanded "><a href="6_node_i_fundamentals.html"><strong aria-hidden="true">6.</strong> 6_node_i_fundamentals</a></li><li class="chapter-item expanded "><a href="7_node_ii_advanced.html"><strong aria-hidden="true">7.</strong> 7_node_ii_advanced</a></li><li class="chapter-item expanded "><a href="8_sql.html"><strong aria-hidden="true">8.</strong> 8_sql</a></li><li class="chapter-item expanded "><a href="index.html" class="active"><strong aria-hidden="true">9.</strong> README</a></li></ol>
+                <ol class="chapter"><li class="chapter-item expanded "><a href="1_react_i_fundamentals.html" class="active"><strong aria-hidden="true">1.</strong> 1_react_i_fundamentals</a></li><li class="chapter-item expanded "><a href="2_react_ii_advanced.html"><strong aria-hidden="true">2.</strong> 2_react_ii_advanced</a></li><li class="chapter-item expanded "><a href="3_react_iii_axios.html"><strong aria-hidden="true">3.</strong> 3_react_iii_axios</a></li><li class="chapter-item expanded "><a href="4_react_iv_router_dom.html"><strong aria-hidden="true">4.</strong> 4_react_iv_router_dom</a></li><li class="chapter-item expanded "><a href="5_react_v_redux_tookit.html"><strong aria-hidden="true">5.</strong> 5_react_v_redux_tookit</a></li><li class="chapter-item expanded "><a href="6_node_i_fundamentals.html"><strong aria-hidden="true">6.</strong> 6_node_i_fundamentals</a></li><li class="chapter-item expanded "><a href="7_node_ii_advanced.html"><strong aria-hidden="true">7.</strong> 7_node_ii_advanced</a></li><li class="chapter-item expanded "><a href="8_sql.html"><strong aria-hidden="true">8.</strong> 8_sql</a></li></ol>
             </div>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
         </nav>
@@ -171,17 +171,802 @@
 
                 <div id="content" class="content">
                     <main>
-                        <h1 id="mdnotes"><a class="header" href="#mdnotes">mdnotes</a></h1>
-<p>Site Link : https://glowfi.github.io/mdnotes/</p>
+                        <h1 id="react-i"><a class="header" href="#react-i">React I</a></h1>
+<blockquote>
+<p>What is React and some of its advantages.</p>
+</blockquote>
+<ul>
+<li>
+<p>React is a <strong>Javascript library for creating user interfaces</strong>.</p>
+</li>
+<li>
+<p>React is all about <strong>components</strong>. Components are <strong>idependent chunks
+of user interfaces</strong> ,which can be pieced up together like lego
+blocks and as a result we will be able to create a complex app.</p>
+</li>
+<li>
+<p>Components are <strong>independent , isolated &amp; resuable</strong> and once they are ready they can
+be used anywhere. So if we want to change a logic in one of the components
+we have do it only in one place and all the instances where we are
+using it will be updated with the new logic.</p>
+</li>
+<li>
+<p>Basically we can <strong>update the logic of components without
+breaking our whole app</strong> ,if we are making an app which is divided
+into multiple isolated components.</p>
+</li>
+<li>
+<p>Under the hood React is very <strong>fast</strong> as it uses something called
+<strong>Virtual DOM</strong> which only updates the components which requires
+updating and without re-rendering our whole app.</p>
+</li>
+</ul>
+<h3 id="npx"><a class="header" href="#npx">NPX</a></h3>
+<p>NPX will only execute the package and will not install the package
+globally</p>
+<h3 id="popluar-options-to-get-setup-reactjs"><a class="header" href="#popluar-options-to-get-setup-reactjs">Popluar options to get setup ReactJS</a></h3>
+<ul>
+<li>Vite (Pronounced as Veet) [https://create-react-app.dev/docs/getting-started]</li>
+<li>create-react-app [https://vitejs.dev/]</li>
+</ul>
+<p><b>Snippet to setup react with create-react-app</b></p>
+<p>Will craete a folder a named myapp</p>
+<pre><code class="language-sh">npx create-react-app myapp
+cd myapp
+npm audit fix --force
+</code></pre>
+<h3 id="what-is-webpack"><a class="header" href="#what-is-webpack">What is webpack?</a></h3>
+<p>Webpack is a tool that helps developers bundle and manage their JavaScript code.
+It takes all the different files (assets,scripts,iamges) and dependencies in a project and combines them into a single file,
+making it easier to load and run in a web browser. It also optimizes the code by removing
+any unnecessary parts.</p>
+<h3 id="what-is-babel"><a class="header" href="#what-is-babel">What is Babel?</a></h3>
+<p>Babel is a JavaScript compiler
+Babel is a tool that helps developers write modern
+JavaScript code and convert it into a version that can
+be understood by older browsers.</p>
+<h3 id="babel-vs-webpack"><a class="header" href="#babel-vs-webpack">Babel vs Webpack</a></h3>
+<p>Babel helps with making modern JavaScript code compatible with older browsers,
+while webpack is a tool for bundling and managing JavaScript code
+for web development</p>
+<h3 id="folder-structure"><a class="header" href="#folder-structure">Folder Structure</a></h3>
+<ul>
+<li>
+<p><strong>node_modules</strong> : Contains all dependencies required by our app.</p>
+</li>
+<li>
+<p><strong>public</strong> : Contains static assests including index.html</p>
+<pre><code> index.html
+    - title
+    - fonts
+    - css
+    - favicon
+    - id=&quot;root&quot; - our entire app
+</code></pre>
+</li>
+<li>
+<p><strong>src</strong> : Contains all our javascript files . We do all our work here.
+Brain of our app.src/index.js is the JavaScript entry point.</p>
+</li>
+<li>
+<p><strong>package.json</strong> : Contains info about our projects like name,version,scripts,
+dependencies</p>
+</li>
+<li>
+<p><strong>package.json.lock</strong> : Contains a snapshot of our dependency tree. Automatically
+generated when installing or updating packages in a JavaScript project.
+It keeps track of the exact versions of all the dependencies
+installed in the project.</p>
+</li>
+</ul>
+<hr />
+<h2 id="react-fundamentals"><a class="header" href="#react-fundamentals">React Fundamentals</a></h2>
+<p><strong>export vs export default</strong></p>
+<div class="table-wrapper"><table><thead><tr><th>export (named export)</th><th>export default</th></tr></thead><tbody>
+<tr><td>Can have muliple export in a single file</td><td>Can have only single</td></tr>
+<tr><td>Imported module should have the same name as the exported module</td><td>Imported module can have any name</td></tr>
+</tbody></table>
+</div>
+<blockquote>
+<p>Boiler Plate</p>
+</blockquote>
+<ul>
+<li>Delete the src created and recreate the folder</li>
+<li>Inside src create index.js (entrypoint of our react app)</li>
+</ul>
+<p><strong>Rules for writing components</strong></p>
+<ul>
+<li>Always start name with capital letter</li>
+<li>Must return JSX element.</li>
+<li>Must self close the component wherever you use it you use it. <br>
+Example : &lt;/Hello&gt;</li>
+</ul>
+<p><strong>What is JSX</strong></p>
+<p>JSX stands for JavaScript XML.
+JSX is a syntax extension for JavaScript that allows you to
+write HTML-like code in your JavaScript files. It's used
+in popular frameworks like React and Vue.js.
+JSX code is transpiled into regular JavaScript
+code before being executed by the browser.</p>
+<p><strong>Rules for JSX</strong></p>
+<ul>
+<li>
+<p><strong>Must return one single parent element</strong>. Either enclose the JSX
+return entire with inbuilt html tags or react Fragments.
+React Fragments helps us to let's us to group elements without
+adding extra node</p>
+<pre><code class="language-js">// One way
+return &lt;React.Fragment&gt;...rest of the return&lt;/React.Fragment&gt;;
+
+// Another way
+return &lt;&gt;...rest of the return&lt;/&gt;;
+</code></pre>
+</li>
+<li>
+<p><strong>camelCase for defininig property names</strong></p>
+</li>
+</ul>
+<pre><code class="language-js">return (
+  &lt;div tabIndex={1}&gt;
+    &lt;button onClick={myFunction}&gt;click me&lt;/button&gt;
+    &lt;label htmlFor='name'&gt;Name&lt;/label&gt;
+    &lt;input readOnly={true} id='name' /&gt;
+  &lt;/div&gt;
+)
+// in html
+&lt;div tabindex=&quot;1&quot;&gt;
+    &lt;button onclick=&quot;myFunction()&quot;&gt;click me&lt;/button&gt;
+    &lt;label for='name'&gt;Name&lt;/label&gt;
+    &lt;input readonly id='name' /&gt;
+&lt;/div&gt;
+</code></pre>
+<ul>
+<li><strong>Close every element</strong></li>
+</ul>
+<p>Close every tag that does not even supports closing in HTML5</p>
+<pre><code class="language-js">return &lt;img /&gt;;
+// or
+return &lt;input /&gt;;
+</code></pre>
+<ul>
+<li><strong>Formatting</strong></li>
+</ul>
+<p>Use () to enclose return statements when returning some
+nested elements.We can ignore () when returning just 1
+single element.</p>
+<pre><code class="language-js">function Hello() {
+    return (
+        &lt;&gt;
+            &lt;div className=&quot;someValue&quot;&gt;
+                &lt;h3&gt;hello world&lt;/h3&gt;
+                &lt;ul&gt;
+                    &lt;li&gt;
+                        &lt;a href=&quot;#&quot;&gt;hello world&lt;/a&gt;
+                    &lt;/li&gt;
+                &lt;/ul&gt;
+            &lt;/div&gt;
+            &lt;h2&gt;hello world&lt;/h2&gt;
+            &lt;input type=&quot;text&quot; name=&quot;&quot; id=&quot;&quot; /&gt;
+        &lt;/&gt;
+    );
+}
+</code></pre>
+<p><strong>Basic React APP</strong></p>
+<blockquote>
+<p>index.js</p>
+</blockquote>
+<pre><code class="language-js">import React from 'react';
+import ReactDOM from 'react-dom/client';
+
+const Hello = () =&gt; {
+    return &lt;h1&gt;Hello World&lt;/h1&gt;;
+};
+
+const root = ReactDOM.createRoot(document.getElementById('root'));
+
+root.render(&lt;Hello /&gt;);
+</code></pre>
+<p><strong>Create element in react</strong></p>
+<blockquote>
+<p>Using JSX is easier to read than using react's createElement</p>
+</blockquote>
+<pre><code class="language-js">import React from 'react';
+import ReactDOM from 'react-dom/client';
+
+// With JSX
+const Hello = () =&gt; {
+    return &lt;h1&gt;Hello&lt;/h1&gt;;
+};
+
+// With React craete element
+const Hello = () =&gt; {
+    return React.createElement('h1', {}, 'Hello');
+};
+
+// Nested React createElement
+const Hello = () =&gt; {
+    return React.createElement(
+        'div',
+        {},
+        React.createElement('h1', {}, 'Hello')
+    );
+};
+
+const root = ReactDOM.createRoot(document.getElementById('root'));
+root.render(&lt;Hello /&gt;);
+</code></pre>
+<hr />
+<h3 id="simple-booklist-app"><a class="header" href="#simple-booklist-app">Simple Booklist App</a></h3>
+<ul>
+<li><strong>1. First Steps</strong></li>
+</ul>
+<pre><code class="language-js">import React from 'react';
+import ReactDOM from 'react-dom/client';
+
+// Booklist
+const Booklist = () =&gt; {
+    return (
+        &lt;&gt;
+            &lt;Book /&gt;
+            &lt;Book /&gt;
+            &lt;Book /&gt;
+        &lt;/&gt;
+    );
+};
+
+// Book
+const Book = () =&gt; {
+    return (
+        &lt;&gt;
+            &lt;Image /&gt;
+            &lt;Title /&gt;
+            &lt;Author /&gt;
+        &lt;/&gt;
+    );
+};
+
+// Items in Book
+const Image = () =&gt; {
+    return (
+        &lt;img
+            src=&quot;https://m.media-amazon.com/images/I/51TrWpIwMfL.jpg&quot;
+            alt=&quot;IMG&quot;
+        /&gt;
+    );
+};
+
+const Title = () =&gt; {
+    return &lt;h3&gt;David Copperfield&lt;/h3&gt;;
+};
+
+const Author = () =&gt; {
+    return &lt;p&gt;Charles Dickens&lt;/p&gt;;
+};
+
+// Render
+const root = ReactDOM.createRoot(document.getElementById('root'));
+root.render(&lt;Booklist /&gt;);
+</code></pre>
+<ul>
+<li><strong>2. Adding CSS</strong></li>
+</ul>
+<p>Create an index.css in src</p>
+<blockquote>
+<p>index.css</p>
+</blockquote>
+<pre><code class="language-css">/* Reset CSS */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family:
+        system-ui,
+        -apple-system,
+        BlinkMacSystemFont,
+        'Segoe UI',
+        Roboto,
+        Oxygen,
+        Ubuntu,
+        Cantarell,
+        'Open Sans',
+        'Helvetica Neue',
+        sans-serif;
+    background: #f1f5f8;
+    color: #222;
+}
+
+/* CSS */
+
+.booklist {
+    width: 90vw;
+    max-width: 1170px;
+    margin: 3rem 3rem;
+    display: grid;
+    gap: 2rem;
+}
+
+.book {
+    background: #fff;
+    border-radius: 1rem;
+    padding: 2rem;
+    text-align: center;
+}
+.book img {
+    width: 100%;
+    object-fit: cover;
+}
+.book h3 {
+    margin-top: 1rem;
+    font-size: 1rem;
+}
+
+/* Media Query */
+
+@media screen and (min-width: 768px) {
+    .booklist {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+</code></pre>
+<blockquote>
+<p>index.js</p>
+</blockquote>
+<p>Import the css by mentioning the path at the top of js file</p>
+<pre><code class="language-js">import './index.css';
+</code></pre>
+<h3 id="local-images"><a class="header" href="#local-images">Local Images</a></h3>
+<ul>
+<li>
+<p>local images (public folder) - less performant</p>
+</li>
+<li>
+<p>local images (src folder) - better solution for assets, since under the hood they get optimized.</p>
+</li>
+</ul>
+<p>Note :<b> Whenever using public folder images and writing an URL,
+Imagine that u are in public folder and write the image path as
+below.I Know its not logical why ./ is used but assume you are
+in public folder.You can type in the browser the url
+http://localhost:3000/images/&lt;imgname.ext&gt; and see the image will
+appear that you have placed in the public/image folder.</b></p>
+<pre><code class="language-js">const Image = () =&gt; (
+    &lt;img
+        src=&quot;./images/book-1.jpg&quot;
+        alt=&quot;Interesting Facts For Curious Minds&quot;
+        alt=&quot;IMG&quot;
+    /&gt;
+);
+</code></pre>
+<h3 id="jsx-css"><a class="header" href="#jsx-css">JSX CSS</a></h3>
+<ul>
+<li>{} in JSX means going back to JS Land</li>
+<li>value is an object with key/value pairs - capitalized and with ''</li>
+<li>property names should be in camel case</li>
+</ul>
+<blockquote>
+<p>Example (Inline CSS)</p>
+</blockquote>
+<pre><code class="language-js">const Author = () =&gt; (
+    &lt;h4 style={{ color: '#617d98', fontSize: '0.75rem', marginTop: '0.5rem' }}&gt;
+        Jordan Moore
+    &lt;/h4&gt;
+);
+</code></pre>
+<blockquote>
+<p>Alternative option using variables</p>
+</blockquote>
+<pre><code class="language-js">const Author = () =&gt; {
+    const inlineHeadingStyles = {
+        color: '#617d98',
+        fontSize: '0.75rem',
+        marginTop: '0.5rem'
+    };
+    return &lt;h4 style={inlineHeadingStyles}&gt;Jordan Moore &lt;/h4&gt;;
+};
+</code></pre>
+<h3 id="jsx-js"><a class="header" href="#jsx-js">JSX JS</a></h3>
+<ul>
+<li>{} in JSX means going back to JS Land</li>
+<li>value inside must be an expression (return value), can't be a statement</li>
+</ul>
+<pre><code class="language-js">import React from 'react';
+import ReactDOM from 'react-dom/client';
+import './index.css';
+
+// Booklist
+const Booklist = () =&gt; {
+    return (
+        &lt;section className=&quot;booklist&quot;&gt;
+            &lt;Book /&gt;
+            &lt;Book /&gt;
+            &lt;Book /&gt;
+        &lt;/section&gt;
+    );
+};
+
+// Book
+const author = 'Charles Dickens'; // variable can be outside
+const Book = () =&gt; {
+    const title = 'David Copperfield'; // variable can be inside
+    return (
+        &lt;article className=&quot;book&quot;&gt;
+            &lt;img
+                src=&quot;https://m.media-amazon.com/images/I/51TrWpIwMfL.jpg&quot;
+                alt=&quot;IMG&quot;
+            /&gt;
+            &lt;h3&gt;{title}&lt;/h3&gt;
+            &lt;p&gt;{author.toUpperCase()}&lt;/p&gt;
+            {/* &lt;p&gt;{let x = 6}&lt;/p&gt; */}
+            &lt;p&gt;${6 + 6}&lt;/p&gt;
+        &lt;/article&gt;
+    );
+};
+
+// Render
+const root = ReactDOM.createRoot(document.getElementById('root'));
+root.render(&lt;Booklist /&gt;);
+</code></pre>
+<h3 id="props-basics"><a class="header" href="#props-basics">Props Basics</a></h3>
+<ul>
+<li>Props, short for properties, are a way to pass data from one component to another in React.</li>
+<li>Props can be named anything like xyz</li>
+</ul>
+<pre><code class="language-js">import React from 'react';
+import ReactDOM from 'react-dom/client';
+import './index.css';
+
+const author = 'Charles Dickens';
+const title = 'David Copperfield';
+const img = 'https://m.media-amazon.com/images/I/51TrWpIwMfL.jpg';
+
+// Booklist
+const Booklist = () =&gt; {
+    return (
+        &lt;section className=&quot;booklist&quot;&gt;
+            &lt;Book img={img} title={title} author={author} /&gt;
+            &lt;Book img={img} title={title} author={author} /&gt;
+        &lt;/section&gt;
+    );
+};
+
+// Book [Destructuring inside body]
+
+const Book = (props) =&gt; {
+    const { img, title, author } = props;
+    return (
+        &lt;article className=&quot;book&quot;&gt;
+            &lt;img src={img} alt={title} /&gt;
+            &lt;h3&gt;{title}&lt;/h3&gt;
+            &lt;p&gt;{author.toUpperCase()}&lt;/p&gt;
+        &lt;/article&gt;
+    );
+};
+
+// Book [Destructuring in the parameter itself]
+const Book = ({ img, title, author }) =&gt; {
+    return (
+        &lt;article className=&quot;book&quot;&gt;
+            &lt;img src={img} alt={title} /&gt;
+            &lt;h3&gt;{title}&lt;/h3&gt;
+            &lt;p&gt;{author.toUpperCase()}&lt;/p&gt;
+        &lt;/article&gt;
+    );
+};
+
+// Render
+const root = ReactDOM.createRoot(document.getElementById('root'));
+root.render(&lt;Booklist /&gt;);
+</code></pre>
+<h3 id="children-props"><a class="header" href="#children-props">Children props</a></h3>
+<ul>
+<li>everything we render between component tags</li>
+<li>mostly use it in Context API</li>
+<li>special prop, has to be named &quot;children&quot;</li>
+<li>can place anywhere in JSX</li>
+</ul>
+<pre><code class="language-js">import React from 'react';
+import ReactDOM from 'react-dom/client';
+import './index.css';
+
+const author = 'Charles Dickens';
+const title = 'David Copperfield';
+const img = 'https://m.media-amazon.com/images/I/51TrWpIwMfL.jpg';
+
+// Booklist
+const Booklist = () =&gt; {
+    return (
+        &lt;section className=&quot;booklist&quot;&gt;
+            &lt;Book img={img} title={title} author={author}&gt;
+                &lt;p&gt;
+                    Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+                    Eligendi, repellat.
+                &lt;/p&gt;
+                &lt;button type=&quot;button&quot;&gt;click me&lt;/button&gt;
+            &lt;/Book&gt;
+            &lt;Book img={img} title={title} author={author} /&gt;
+        &lt;/section&gt;
+    );
+};
+
+// Book
+const Book = ({ img, title, author, children }) =&gt; {
+    return (
+        &lt;article className=&quot;book&quot;&gt;
+            &lt;img src={img} alt={title} /&gt;
+            &lt;h3&gt;{title}&lt;/h3&gt;
+            &lt;p&gt;{author.toUpperCase()}&lt;/p&gt;
+            {children}
+        &lt;/article&gt;
+    );
+};
+
+// Render
+const root = ReactDOM.createRoot(document.getElementById('root'));
+root.render(&lt;Booklist /&gt;);
+</code></pre>
+<h3 id="simple-list"><a class="header" href="#simple-list">Simple List</a></h3>
+<p>Note : <strong>map - creates a new array from calling a function for every array element.</strong> <br/></p>
+<p>Note: <strong>Use Keyprop to assign unique value.The key prop in React is used to uniquely identify
+each element in a list of elements that have the same type. This is necessary because React
+needs a way to keep track of which elements have changed so that it can efficiently update the UI.</strong></p>
+<pre><code class="language-js">import React from 'react';
+import ReactDOM from 'react-dom/client';
+import './index.css';
+
+const data = [
+    {
+        author: 'Charles Dickens',
+        title: 'David Copperfield',
+        img: 'https://m.media-amazon.com/images/I/51TrWpIwMfL.jpg',
+        id: 1
+    },
+    {
+        author: 'Charles Dickens',
+        title: 'Oliver Twist',
+        img: 'https://m.media-amazon.com/images/I/81QGqaKWjXL._AC_UF1000,1000_QL80_.jpg',
+        id: 2
+    }
+];
+
+// const obj = {
+//     author: 'Charles Dickens',
+//     title: 'Oliver Twist',
+//     img: 'https://m.media-amazon.com/images/I/81QGqaKWjXL._AC_UF1000,1000_QL80_.jpg'
+// };
+
+const Booklist = () =&gt; {
+    return (
+        &lt;&gt;
+            &lt;section className=&quot;booklist&quot;&gt;
+                {data.map(({ author, title, img }, index) =&gt; {
+                    return (
+                        &lt;Book
+                            author={author}
+                            title={title}
+                            img={img}
+                            key={index}
+                        /&gt;
+                    );
+                })}
+            &lt;/section&gt;
+        &lt;/&gt;
+    );
+};
+
+const Book = (props) =&gt; {
+    const { author, title, img } = props;
+    return (
+        &lt;article className=&quot;book&quot;&gt;
+            &lt;img src={img} alt={title} /&gt;
+            &lt;h3&gt;{title}&lt;/h3&gt;
+            &lt;p&gt;{author}&lt;/p&gt;
+        &lt;/article&gt;
+    );
+};
+
+const root = ReactDOM.createRoot(document.getElementById('root'));
+root.render(&lt;Booklist /&gt;);
+</code></pre>
+<h3 id="spread-operator"><a class="header" href="#spread-operator">Spread Operator</a></h3>
+<pre><code class="language-js">import React from 'react';
+import ReactDOM from 'react-dom/client';
+import './index.css';
+
+const data = [
+    {
+        author: 'Charles Dickens',
+        title: 'David Copperfield',
+        img: 'https://m.media-amazon.com/images/I/51TrWpIwMfL.jpg',
+        id: 1
+    },
+    {
+        author: 'Charles Dickens',
+        title: 'Oliver Twist',
+        img: 'https://m.media-amazon.com/images/I/81QGqaKWjXL._AC_UF1000,1000_QL80_.jpg',
+        id: 2
+    }
+];
+
+const Booklist = () =&gt; {
+    return (
+        &lt;&gt;
+            &lt;section className=&quot;booklist&quot;&gt;
+                {data.map((book, index) =&gt; {
+                    return &lt;Book {...book} key={index} /&gt;;
+                })}
+            &lt;/section&gt;
+        &lt;/&gt;
+    );
+};
+
+const Book = (props) =&gt; {
+    const { author, title, img } = props;
+    return (
+        &lt;article className=&quot;book&quot;&gt;
+            &lt;img src={img} alt={title} /&gt;
+            &lt;h3&gt;{title}&lt;/h3&gt;
+            &lt;p&gt;{author}&lt;/p&gt;
+        &lt;/article&gt;
+    );
+};
+
+const root = ReactDOM.createRoot(document.getElementById('root'));
+root.render(&lt;Booklist /&gt;);
+</code></pre>
+<h3 id="event-basics"><a class="header" href="#event-basics">Event Basics</a></h3>
+<pre><code class="language-js">import React from 'react';
+import ReactDOM from 'react-dom/client';
+import './index.css';
+
+const Booklist = () =&gt; {
+    return (
+        &lt;&gt;
+            &lt;section className=&quot;booklist&quot;&gt;
+                &lt;EventBasics /&gt;
+            &lt;/section&gt;
+        &lt;/&gt;
+    );
+};
+
+// e can be any name , e signifies event , every event handler function (like onClick,onSubmit) has access to event object
+const handleSubmit = (e) =&gt; {
+    e.preventDefault();
+    console.log('submit');
+    console.log(e);
+};
+
+const handleClick = (e) =&gt; {
+    console.log('click');
+};
+const handleChange = (e) =&gt; {
+    console.log('change');
+    console.log(e);
+    console.log(e.target.value);
+    console.log(e.target.name);
+};
+
+// Arrow Functions too have access to event object
+const EventBasics = () =&gt; {
+    return (
+        &lt;form onSubmit={handleSubmit}&gt;
+            &lt;input type=&quot;text&quot; name=&quot;txt&quot; onChange={handleChange} /&gt;
+            &lt;br /&gt;
+            &lt;button
+                type=&quot;button&quot;
+                onClick={(e) =&gt; {
+                    console.log(e);
+                }}
+            &gt;
+                Submit
+            &lt;/button&gt;
+        &lt;/form&gt;
+    );
+};
+
+const root = ReactDOM.createRoot(document.getElementById('root'));
+root.render(&lt;Booklist /&gt;);
+</code></pre>
+<h3 id="prop-drilling"><a class="header" href="#prop-drilling">Prop Drilling</a></h3>
+<ul>
+<li>react data flow - can only pass props down from parent component to child</li>
+<li>alternatives Context API, redux, other state libraries</li>
+</ul>
+<h3 id="drilling-by-passing-a-function-down"><a class="header" href="#drilling-by-passing-a-function-down">Drilling by passing a function down</a></h3>
+<pre><code class="language-js">import React from 'react';
+import ReactDOM from 'react-dom/client';
+import './index.css';
+
+const data = [
+    {
+        author: 'Charles Dickens',
+        title: 'David Copperfield',
+        img: 'https://m.media-amazon.com/images/I/51TrWpIwMfL.jpg',
+        id: 1
+    },
+    {
+        author: 'Charles Dickens',
+        title: 'Oliver Twist',
+        img: 'https://m.media-amazon.com/images/I/81QGqaKWjXL._AC_UF1000,1000_QL80_.jpg',
+        id: 2
+    }
+];
+
+const Booklist = () =&gt; {
+    const getBook = (id) =&gt; {
+        const k = data.filter((item) =&gt; item.id == id);
+        return k;
+    };
+    return (
+        &lt;&gt;
+            &lt;section className=&quot;booklist&quot;&gt;
+                {data.map((book, index) =&gt; {
+                    return (
+                        &lt;Book
+                            newitem=&quot;sd&quot;
+                            {...book}
+                            key={index}
+                            getBook={getBook}
+                        /&gt;
+                    );
+                })}
+            &lt;/section&gt;
+        &lt;/&gt;
+    );
+};
+
+const Book = (props) =&gt; {
+    // console.log(props);
+    const { author, title, img, id, getBook } = props;
+    return (
+        &lt;article className=&quot;book&quot;&gt;
+            &lt;img src={img} alt={title} /&gt;
+            &lt;h3&gt;{title}&lt;/h3&gt;
+            &lt;p&gt;{author}&lt;/p&gt;
+            &lt;button
+                type=&quot;button&quot;
+                onClick={() =&gt; {
+                    console.log(getBook(id));
+                }}
+            &gt;
+                click
+            &lt;/button&gt;
+        &lt;/article&gt;
+    );
+};
+
+const root = ReactDOM.createRoot(document.getElementById('root'));
+root.render(&lt;Booklist /&gt;);
+</code></pre>
+<h3 id="local-images-src"><a class="header" href="#local-images-src">Local Images (src)</a></h3>
+<ul>
+<li>better performance because optimized</li>
+</ul>
+<pre><code class="language-js">import img1 from './images/book-1.jpg';
+import img2 from './images/book-2.jpg';
+import img3 from './images/book-3.jpg';
+</code></pre>
+<h3 id="vite-setup"><a class="header" href="#vite-setup">Vite Setup</a></h3>
+<ul>
+<li>need to use .jsx extension</li>
+<li>index.html in the source instead of public</li>
+<li>assets still in public</li>
+<li>instead of index.js, need to use main.jsx</li>
+<li>to spin up dev server - &quot;npm run dev&quot;</li>
+<li>rest the same - imports/exports, deployment, assets, etc...</li>
+</ul>
 
                     </main>
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
-                            <a rel="prev" href="8_sql.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
-                                <i class="fa fa-angle-left"></i>
-                            </a>
 
+                            <a rel="next prefetch" href="2_react_ii_advanced.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
 
                         <div style="clear: both"></div>
                     </nav>
@@ -189,10 +974,10 @@
             </div>
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
-                    <a rel="prev" href="8_sql.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
-                        <i class="fa fa-angle-left"></i>
-                    </a>
 
+                    <a rel="next prefetch" href="2_react_ii_advanced.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
             </nav>
 
         </div>

@@ -19,15 +19,16 @@ mdbook init --title="Markdown Notes" --ignore=none mybook
 
 ######### Determine Markdowns present #########
 
-markdownCount=$(ls *.md | wc -l)
+markdownCount=$(ls ./notes/*.md | wc -l)
 markdownCount=$((markdownCount - 1))
 
-markdownList=$(ls *.md | sed '/^$/d' | tr "\n" "," | sed 's/.$//')
+markdownList=$(ls ./notes/*.md | sed '/^$/d' | tr "\n" "," | sed 's/.$//')
 IFS=',' read -r -a array <<<"$markdownList"
 
 ######### Copy Markdown #########
 
-cp -r *.md ./mybook/src/
+cp -r ./notes/*.md ./mybook/src/
+rm -rf ./mybook/src/notes
 rm ./mybook/src/chapter_1.md
 
 ######### Create chapters #########
@@ -39,8 +40,9 @@ echo "# Summary
 for VAR in $(seq 0 "$markdownCount"); do
 	file="${array["$VAR"]}"
 	chapterName=$(basename "$file" | sed 's/\.[^.]*$//')
+	fileName=$(basename "${file}")
 	echo "$chapterName"
-	echo "- ["${chapterName}"](./${file})" >>./mybook/src/SUMMARY.md
+	echo "- ["${chapterName}"](./${fileName})" >>./mybook/src/SUMMARY.md
 done
 
 ######### Build book #########
