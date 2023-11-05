@@ -9,3 +9,4 @@
 - [6_node_i_fundamentals](./6_node_i_fundamentals.md)
 - [7_node_ii_advanced](./7_node_ii_advanced.md)
 - [8_sql](./8_sql.md)
+- [README](./README.md)

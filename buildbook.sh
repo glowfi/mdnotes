@@ -15,7 +15,7 @@ rm -rf css FontAwesome fonts
 ######### Create Book #########
 
 mkdir mybook
-mdbook init --title="Fundamentals of Web Development" --ignore=none mybook
+mdbook init --title="Markdown Notes" --ignore=none mybook
 
 ######### Determine Markdowns present #########
 
