@@ -89,9 +89,11 @@
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
             <div class="sidebar-scrollbox">
-                <ol class="chapter"><li class="chapter-item expanded "><a href="1_react_i_fundamentals.html"><strong aria-hidden="true">1.</strong> 1_react_i_fundamentals</a></li><li class="chapter-item expanded "><a href="2_react_ii_advanced.html"><strong aria-hidden="true">2.</strong> 2_react_ii_advanced</a></li><li class="chapter-item expanded "><a href="3_react_iii_axios.html"><strong aria-hidden="true">3.</strong> 3_react_iii_axios</a></li><li class="chapter-item expanded "><a href="4_react_iv_router_dom.html"><strong aria-hidden="true">4.</strong> 4_react_iv_router_dom</a></li><li class="chapter-item expanded "><a href="5_react_v_redux_tookit.html"><strong aria-hidden="true">5.</strong> 5_react_v_redux_tookit</a></li><li class="chapter-item expanded "><a href="6_node_i_fundamentals.html"><strong aria-hidden="true">6.</strong> 6_node_i_fundamentals</a></li><li class="chapter-item expanded "><a href="7_node_ii_advanced.html"><strong aria-hidden="true">7.</strong> 7_node_ii_advanced</a></li><li class="chapter-item expanded "><a href="8_sql.html"><strong aria-hidden="true">8.</strong> 8_sql</a></li></ol>
+                <ol class="chapter"><li class="chapter-item expanded "><a href="1_react_i_fundamentals.html"><strong aria-hidden="true">1.</strong> 1_react_i_fundamentals</a></li><li class="chapter-item expanded "><a href="2_react_ii_advanced.html"><strong aria-hidden="true">2.</strong> 2_react_ii_advanced</a></li><li class="chapter-item expanded "><a href="3_react_iii_axios.html"><strong aria-hidden="true">3.</strong> 3_react_iii_axios</a></li><li class="chapter-item expanded "><a href="4_react_iv_router_dom.html"><strong aria-hidden="true">4.</strong> 4_react_iv_router_dom</a></li><li class="chapter-item expanded "><a href="5_react_v_redux_tookit.html"><strong aria-hidden="true">5.</strong> 5_react_v_redux_tookit</a></li><li class="chapter-item expanded "><a href="6_node_i_fundamentals.html"><strong aria-hidden="true">6.</strong> 6_node_i_fundamentals</a></li><li class="chapter-item expanded "><a href="7_node_ii_advanced.html"><strong aria-hidden="true">7.</strong> 7_node_ii_advanced</a></li><li class="chapter-item expanded "><a href="8_sql.html"><strong aria-hidden="true">8.</strong> 8_sql</a></li><li class="chapter-item expanded "><a href="9_sql_alchemy.html"><strong aria-hidden="true">9.</strong> 9_sql_alchemy</a></li></ol>
             </div>
-            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
         </nav>
 
         <!-- Track and set sidebar scroll position -->
@@ -4823,6 +4825,493 @@ WHERE
   a.diagnosis = 'Epilepsy'
 </code></pre>
 <p>Link : https://www.postgresqltutorial.com/postgresql-tutorial/postgresql-joins/</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="sql-alchemy"><a class="header" href="#sql-alchemy">SQL Alchemy</a></h1>
+<h2 id="install-2"><a class="header" href="#install-2">Install</a></h2>
+<pre><code class="language-sh">pip install virtualenv
+mkdir sqlalc
+cd sqlalc
+python -m venv env
+source ./env/bin/activate.fish
+pip install sqlalchemy asyncio aiosqlite
+</code></pre>
+<h2 id="sql-alchemy-core"><a class="header" href="#sql-alchemy-core">SQL Alchemy Core</a></h2>
+<blockquote>
+<p>It is a Low level API which give us more control over the
+queries we write. It provides us with the feature of writing raw sql queries.</p>
+</blockquote>
+<h4 id="connecting-with-a-database"><a class="header" href="#connecting-with-a-database">Connecting with a database</a></h4>
+<pre><code class="language-py">from sqlalchemy import create_engine, text
+
+# Initialize engine
+DB_URL = &quot;sqlite:///test.db&quot;
+engine = create_engine(DB_URL, echo=True)
+
+# Establish connection with the database
+with engine.connect() as conn:
+    # Execute raw sql query
+    statement = text(&quot;select 100+200;&quot;)
+    res = conn.execute(statement)
+    print(res.all())
+</code></pre>
+<h4 id="defining-schema-of-db"><a class="header" href="#defining-schema-of-db">Defining schema of db</a></h4>
+<p>In SQLAlchemy Core, the metadata object is used to define the structure of
+the database tables and their relationships. It is a container for
+all the table definitions and provides a way to introspect the database schema.</p>
+<pre><code class="language-py">from sqlalchemy import ForeignKey, MetaData, String, Table, Column, Integer, Text
+
+
+# MetaData object
+meta_obj = MetaData()
+
+### Users Table
+
+&quot;&quot;&quot;
+Users Table
+    - id (pk)
+    - name (str)
+    - fullname (str)
+    - email (str)
+&quot;&quot;&quot;
+
+user_schema = [
+    Column(&quot;id&quot;, Integer, primary_key=True),
+    Column(&quot;name&quot;, String(30), nullable=False),
+    Column(&quot;fullname&quot;, String(50), nullable=False),
+    Column(&quot;email&quot;, String(30), nullable=False),
+]
+user_table = Table(&quot;users&quot;, meta_obj, *user_schema)
+
+### Comments Table
+
+&quot;&quot;&quot;
+Comments Table
+    - id (pk)
+    - comment (str)
+    - user_id (int,fk refrencing the id in user table)
+&quot;&quot;&quot;
+
+comments_schema = [
+    Column(&quot;id&quot;, Integer, primary_key=True),
+    Column(&quot;comment&quot;, Text, nullable=False),
+    Column(&quot;user_id&quot;, Integer, ForeignKey(&quot;users.id&quot;)),
+]
+comments_table = Table(&quot;comments&quot;, meta_obj, *comments_schema)
+</code></pre>
+<h4 id="creating-tables"><a class="header" href="#creating-tables">Creating Tables</a></h4>
+<pre><code class="language-py">from connect import engine
+from tables import meta_obj
+
+
+# Create all the tables
+meta_obj.create_all(bind=engine)
+</code></pre>
+<h4 id="inserting-data"><a class="header" href="#inserting-data">Inserting Data</a></h4>
+<pre><code class="language-py">from sqlalchemy import insert
+from connect import engine
+from tables import user_table
+
+
+with engine.connect() as conn:
+    # Insert Single Data
+    user = {&quot;name&quot;: &quot;John&quot;, &quot;fullname&quot;: &quot;John Doe&quot;, &quot;email&quot;: &quot;john@doe.com&quot;}
+    statement = insert(user_table).values(**user)
+    conn.execute(statement)
+    conn.commit()
+
+    # Insert Multiple Data
+    users = [
+        {&quot;name&quot;: &quot;Jake&quot;, &quot;fullname&quot;: &quot;Jake Doe&quot;, &quot;email&quot;: &quot;jake@doe.com&quot;},
+        {&quot;name&quot;: &quot;Joe&quot;, &quot;fullname&quot;: &quot;Joe Smith&quot;, &quot;email&quot;: &quot;joe@smith.com&quot;},
+    ]
+
+    statement = insert(user_table)
+    conn.execute(statement, users)
+    conn.commit()
+</code></pre>
+<h4 id="selecting-data"><a class="header" href="#selecting-data">Selecting Data</a></h4>
+<pre><code class="language-py">from sqlalchemy import select
+from tables import user_table
+from connect import engine
+
+
+with engine.connect() as conn:
+    # Simple select statement
+    statement = select(user_table)
+    res = conn.execute(statement)
+    print(res.all())
+
+    # Select statement with where clause
+    statement = select(user_table).where(user_table.c.id == 3)
+    res = conn.execute(statement)
+
+    # For priting all rows
+    for row in res:
+        print(row)
+</code></pre>
+<h4 id="updating-data"><a class="header" href="#updating-data">Updating Data</a></h4>
+<pre><code class="language-py">from sqlalchemy import update
+from tables import user_table
+from connect import engine
+
+
+with engine.connect() as conn:
+    # Updated Data
+    statement = update(user_table).where(user_table.c.id == 1).values(name=&quot;Updated&quot;)
+    conn.execute(statement)
+    conn.commit()
+</code></pre>
+<h4 id="deleting-data"><a class="header" href="#deleting-data">Deleting Data</a></h4>
+<pre><code class="language-py">from sqlalchemy import delete
+from tables import user_table
+from connect import engine
+
+
+with engine.connect() as conn:
+    # Delete data
+    statement = delete(user_table).where(user_table.c.id == 1)
+    conn.execute(statement)
+    conn.commit()
+</code></pre>
+<h2 id="sqlalchemy-orm"><a class="header" href="#sqlalchemy-orm">SQLAlchemy ORM</a></h2>
+<blockquote>
+<p>It is a high level API to interact with the database. Here we can define python classes which directly maps to db tables,
+providing us a more pythonic way to interact with the database.</p>
+</blockquote>
+<p>An Object-Relational Mapping (ORM) is a tool or software library that allows programmers to
+interact with databases using an object-oriented programming language, rather than writing
+SQL queries directly.</p>
+<p><strong>Advantages of ORMs</strong>:</p>
+<ul>
+<li>Simplified database access: ORMs provide a simple and intuitive way to interact with databases, allowing developers to focus on their application logic instead of writing complex SQL queries.</li>
+<li>Improved productivity: ORMs reduce the amount of boilerplate code required to perform common database operations, such as creating, reading, updating, and deleting records.</li>
+<li>Consistency: ORMs provide a consistent interface for working with different types of databases, making it easier to switch between them or use multiple databases in the same application.</li>
+<li>Type safety: ORMs can provide type safety, which means that the compiler can check for errors at compile time instead of runtime, reducing the risk of runtime errors.</li>
+<li>Abstraction: ORMs abstract away the underlying database implementation, making it easier to write database-agnostic code.</li>
+</ul>
+<p><strong>Disadvantages of ORMs</strong>:</p>
+<ul>
+<li>Performance overhead: ORMs can introduce performance overhead due to the additional layer of abstraction between the application and the database.</li>
+<li>Limited query capabilities: ORMs may not support all SQL queries or features, limiting the flexibility of the developer when working with complex data.</li>
+<li>Learning curve: ORMs can have a steep learning curve, especially for developers who are new to object-relational mapping.</li>
+<li>Complexity: ORMs can add complexity to the application, making it harder to debug and maintain.</li>
+<li>Lazy loading: ORMs often use lazy loading to fetch related data only when it's needed, but this can result in multiple round trips to the database, leading to performance issues.</li>
+</ul>
+<h4 id="connecting-with-a-database-1"><a class="header" href="#connecting-with-a-database-1">Connecting with a database</a></h4>
+<pre><code class="language-py">from sqlalchemy import create_engine, text
+
+# Initialize engine
+DB_URL = &quot;sqlite:///test.db&quot;
+engine = create_engine(DB_URL, echo=True)
+
+# Establish connection with the database
+with engine.connect() as conn:
+    # Execute raw sql query
+    statement = text(&quot;select 1+1;&quot;)
+    res = conn.execute(statement)
+    print(res.all())
+</code></pre>
+<h4 id="defining-schema-of-db-1"><a class="header" href="#defining-schema-of-db-1">Defining schema of db</a></h4>
+<pre><code class="language-py">from sqlalchemy import ForeignKey, Integer, String, Text
+from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column, relationship
+
+
+# Base class
+class Base(DeclarativeBase):
+    pass
+
+
+# Users Table
+
+
+class Users(Base):
+    &quot;&quot;&quot;
+    User Table
+        - id (pk)
+        - name (str)
+        - fullname (str)
+        - email (str)
+    &quot;&quot;&quot;
+
+    __tablename__ = &quot;users&quot;
+    id: Mapped[int] = mapped_column(&quot;id&quot;, Integer, primary_key=True)
+    name: Mapped[str] = mapped_column(&quot;name&quot;, String(30), nullable=False)
+    fullname: Mapped[str] = mapped_column(&quot;fullname&quot;, String(50), nullable=False)
+    email: Mapped[str] = mapped_column(&quot;email&quot;, String(30), nullable=False)
+    comments: Mapped[list[&quot;Comments&quot;]] = relationship(
+        back_populates=&quot;user&quot;, cascade=&quot;delete,all&quot;
+    )
+
+    # def __repr__(self):
+    #     return f&quot;Username: {self.fullname} Email: {self.email}&quot;
+
+
+# Comments Table
+
+
+class Comments(Base):
+    &quot;&quot;&quot;
+    Comment Table
+        - id (pk)
+        - comment (str)
+        - user_id (int,fk referencing the id in user table)
+    &quot;&quot;&quot;
+
+    __tablename__ = &quot;comments&quot;
+    id: Mapped[int] = mapped_column(&quot;id&quot;, Integer, primary_key=True)
+    comment: Mapped[str] = mapped_column(&quot;comment&quot;, Text, nullable=False)
+    user_id: Mapped[int] = mapped_column(&quot;user_id&quot;, Integer, ForeignKey(&quot;users.id&quot;))
+    user: Mapped[Users] = relationship(back_populates=&quot;comments&quot;, cascade=&quot;delete,all&quot;)
+
+    # def __repr__(self):
+    #     return f&quot;Comment: {self.comment} Comment By: {self.user.fullname}&quot;
+</code></pre>
+<h4 id="creating-tables-1"><a class="header" href="#creating-tables-1">Creating Tables</a></h4>
+<pre><code class="language-py">from connect import engine
+from tables import Base
+
+
+Base.metadata.create_all(bind=engine)
+</code></pre>
+<h4 id="inserting-into-table"><a class="header" href="#inserting-into-table">Inserting into Table</a></h4>
+<pre><code class="language-py">from sqlalchemy.orm import Session
+from tables import Users, Comments
+from connect import engine
+
+
+# Session object
+session = Session(bind=engine)
+
+
+# Insert users
+user1 = Users(
+    name=&quot;John&quot;,
+    fullname=&quot;John Doe&quot;,
+    email=&quot;john@doe.com&quot;,
+    # comments=[Comments(comment=&quot;hello&quot;), Comments(comment=&quot;hey there&quot;)],
+)
+
+# Adding Single User
+session.add(user1)
+session.commit()
+
+
+# Adding Multiple User
+user2 = Users(
+    name=&quot;Jake&quot;,
+    fullname=&quot;Jake Smith&quot;,
+    email=&quot;jake@smith.com&quot;,
+    # comments=[Comments(comment=&quot;hello2&quot;), Comments(comment=&quot;hey there2&quot;)],
+)
+user3 = Users(
+    name=&quot;Joe&quot;,
+    fullname=&quot;Joe Smith&quot;,
+    email=&quot;joe@smith.com&quot;,
+    # comments=[Comments(comment=&quot;hello3&quot;), Comments(comment=&quot;hey there3&quot;)],
+)
+
+session.add_all([user2, user3])
+session.commit()
+
+
+# Add a smaple comment
+comment1 = Comments(comment=&quot;hello world&quot;, user_id=1)
+session.add(comment1)
+session.commit()
+</code></pre>
+<h4 id="selecting"><a class="header" href="#selecting">Selecting</a></h4>
+<pre><code class="language-py">from sqlalchemy import and_, select
+from sqlalchemy.orm import Session
+from connect import engine
+from tables import Users
+
+
+# Session object
+session = Session(bind=engine)
+
+
+# With ORM
+
+## Simple select statement
+res = session.query(Users)
+
+## Simple select with where clause and session execute
+statement = select(Users).where(Users.name.in_([&quot;Jake&quot;, &quot;Joe&quot;]))
+res = session.execute(statement)
+print(res.all())
+
+# filter vs filter_by
+
+## Select with filter_by [Takes dict like kwargs keyword arguments for and arguments]
+statement = select(Users).filter_by(name=&quot;John&quot;, id=1)
+res = session.execute(statement)
+print(res.all())
+
+## Select with filter [for and/or arguments]
+statement = select(Users).filter(and_(Users.name == &quot;John&quot;, Users.id == 1))
+res = session.execute(statement)
+
+## scalar vs one
+# + scalar will not raise exception if no rows present
+# + one will raise exception if no rows present
+
+## Getting user comment using scalars [can be derefrenced using dot]
+for i in res.scalars():
+    for comment in i.comments:
+        print(comment.comment)
+</code></pre>
+<h4 id="joining"><a class="header" href="#joining">Joining</a></h4>
+<pre><code class="language-py">from sqlalchemy.orm import Session
+from connect import engine
+from tables import Users, Comments
+from sqlalchemy import select
+
+session = Session(bind=engine)
+
+# Left Join
+statement = select(Users).join(Comments, Users.id == Comments.user_id)
+rs = session.execute(statement)
+print(rs.all())
+</code></pre>
+<h4 id="updating"><a class="header" href="#updating">Updating</a></h4>
+<pre><code class="language-py">from sqlalchemy import select
+from sqlalchemy.orm import Session
+from connect import engine
+from tables import Users
+
+session = Session(bind=engine)
+
+# Return None if no results found
+res = session.query(Users).filter(Users.id == 1).first()
+
+if res:
+    res.name = &quot;newname&quot;
+    res.fullname = &quot;New Name&quot;
+    session.commit()
+</code></pre>
+<h4 id="deleting"><a class="header" href="#deleting">Deleting</a></h4>
+<pre><code class="language-py">from sqlalchemy import select
+from sqlalchemy.orm import Session
+from connect import engine
+from tables import Users
+
+session = Session(bind=engine)
+
+# Return None if no results found
+res = session.query(Users).filter(Users.id == 1).first()
+
+if res:
+    session.delete(res)
+    session.commit()
+</code></pre>
+<h2 id="sql-alchemy-coreorm-asyncio"><a class="header" href="#sql-alchemy-coreorm-asyncio">SQL Alchemy [core+orm] asyncio</a></h2>
+<h4 id="core"><a class="header" href="#core">Core</a></h4>
+<pre><code class="language-py">from sqlalchemy.ext.asyncio import create_async_engine
+import asyncio
+from sqlalchemy import Integer, MetaData, Table, Column, Text, insert
+from sqlalchemy.sql import select
+
+
+meta_obj = MetaData()
+user_table = Table(
+    &quot;users&quot;,
+    meta_obj,
+    Column(&quot;id&quot;, Integer, primary_key=True),
+    Column(&quot;name&quot;, Text, nullable=True),
+)
+
+
+async def main():
+    DB_URL = &quot;sqlite+aiosqlite:///test.db&quot;
+    engine = create_async_engine(DB_URL, echo=True)
+
+    # can use begin -&gt; auto-commit ater transaction
+    async with engine.begin() as conn:
+        # Create db
+
+        # meta_obj.create_all(bind=engine) [OLD]
+
+        # [NEW]
+        await conn.run_sync(meta_obj.create_all)
+
+        # Insert Data
+        statement = insert(user_table).values(name=&quot;John Doe&quot;)
+        await conn.execute(statement)
+
+        # Select Data
+        statement = select(user_table)
+        res = await conn.execute(statement)
+        print(res.all())
+
+    await engine.dispose()
+
+
+asyncio.run(main())
+</code></pre>
+<h1 id="note"><a class="header" href="#note">Note:</a></h1>
+<p>In SQLAlchemy, the term &quot;expire on commit&quot; refers to a configuration option for a session object
+that determines whether or not the state of objects loaded from the database will be set to
+&quot;expired&quot; when a transaction is committed. When an object's state is expired, it means that any
+changes made to the object during the transaction will be discarded, and the next time the object is
+accessed, its state will be reloaded from the database.</p>
+<h4 id="orm"><a class="header" href="#orm">ORM</a></h4>
+<pre><code class="language-py">from sqlalchemy import Integer, Text, select
+from sqlalchemy.ext.asyncio import create_async_engine, async_sessionmaker, AsyncSession
+import asyncio
+from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column
+
+
+class Base(DeclarativeBase):
+    pass
+
+
+class Users(Base):
+    __tablename__ = &quot;users&quot;
+    id: Mapped[int] = mapped_column(&quot;id&quot;, Integer, primary_key=True)
+    name: Mapped[str] = mapped_column(&quot;name&quot;, Text, nullable=False)
+
+
+async def insert_data(sessmaker: async_sessionmaker[AsyncSession]):
+    async with sessmaker() as session:
+        newuser = Users(name=&quot;John Doe&quot;)
+        session.add(newuser)
+        await session.commit()
+
+
+async def insert_data(sessmaker: async_sessionmaker[AsyncSession]):
+    async with sessmaker() as session:
+        st = select(Users).filter(Users.name == &quot;John Doe&quot;)
+        res = await session.execute(st)
+        ans = res.scalars().first()
+
+        if ans:
+            print(ans.name)
+
+
+async def main():
+    # Initialize engine
+    DB_URL = &quot;sqlite+aiosqlite:///test.db&quot;
+    engine = create_async_engine(DB_URL, echo=True)
+
+    # Session maker
+    # session=Session(bind=engine) [OLD]
+
+    # New
+    session = async_sessionmaker(bind=engine, expire_on_commit=False)
+
+    async with engine.begin() as conn:
+        # Create db
+        await conn.run_sync(Base.metadata.create_all)
+
+    async with engine.connect() as conn:
+        # Insert Data
+        # await insert_data(session)
+
+        # Select Data
+        await insert_data(session)
+
+
+asyncio.run(main())
+</code></pre>
 
                     </main>
 
