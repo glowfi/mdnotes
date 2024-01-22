@@ -1,6 +1,7 @@
 # Summary
 
 
+- [10_redis](./10_redis.md)
 - [1_react_i_fundamentals](./1_react_i_fundamentals.md)
 - [2_react_ii_advanced](./2_react_ii_advanced.md)
 - [3_react_iii_axios](./3_react_iii_axios.md)
