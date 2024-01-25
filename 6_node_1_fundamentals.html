@@ -3,7 +3,7 @@
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>6_node_i_fundamentals - Markdown Notes</title>
+        <title>6_node_1_fundamentals - Markdown Notes</title>
 
 
         <!-- Custom HTML head -->
@@ -88,7 +88,7 @@
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
             <div class="sidebar-scrollbox">
-                <ol class="chapter"><li class="chapter-item expanded "><a href="10_redis.html"><strong aria-hidden="true">1.</strong> 10_redis</a></li><li class="chapter-item expanded "><a href="1_react_i_fundamentals.html"><strong aria-hidden="true">2.</strong> 1_react_i_fundamentals</a></li><li class="chapter-item expanded "><a href="2_react_ii_advanced.html"><strong aria-hidden="true">3.</strong> 2_react_ii_advanced</a></li><li class="chapter-item expanded "><a href="3_react_iii_axios.html"><strong aria-hidden="true">4.</strong> 3_react_iii_axios</a></li><li class="chapter-item expanded "><a href="4_react_iv_router_dom.html"><strong aria-hidden="true">5.</strong> 4_react_iv_router_dom</a></li><li class="chapter-item expanded "><a href="5_react_v_redux_tookit.html"><strong aria-hidden="true">6.</strong> 5_react_v_redux_tookit</a></li><li class="chapter-item expanded "><a href="6_node_i_fundamentals.html" class="active"><strong aria-hidden="true">7.</strong> 6_node_i_fundamentals</a></li><li class="chapter-item expanded "><a href="7_node_ii_advanced.html"><strong aria-hidden="true">8.</strong> 7_node_ii_advanced</a></li><li class="chapter-item expanded "><a href="8_sql.html"><strong aria-hidden="true">9.</strong> 8_sql</a></li><li class="chapter-item expanded "><a href="9_sql_alchemy.html"><strong aria-hidden="true">10.</strong> 9_sql_alchemy</a></li></ol>
+                <ol class="chapter"><li class="chapter-item expanded "><a href="1_react_1_fundamentals.html"><strong aria-hidden="true">1.</strong> 1_react_1_fundamentals</a></li><li class="chapter-item expanded "><a href="2_react_2_advanced.html"><strong aria-hidden="true">2.</strong> 2_react_2_advanced</a></li><li class="chapter-item expanded "><a href="3_react_3_axios.html"><strong aria-hidden="true">3.</strong> 3_react_3_axios</a></li><li class="chapter-item expanded "><a href="4_react_4_router_dom.html"><strong aria-hidden="true">4.</strong> 4_react_4_router_dom</a></li><li class="chapter-item expanded "><a href="5_react_5_redux_tookit.html"><strong aria-hidden="true">5.</strong> 5_react_5_redux_tookit</a></li><li class="chapter-item expanded "><a href="6_node_1_fundamentals.html" class="active"><strong aria-hidden="true">6.</strong> 6_node_1_fundamentals</a></li><li class="chapter-item expanded "><a href="7_node_2_advanced.html"><strong aria-hidden="true">7.</strong> 7_node_2_advanced</a></li><li class="chapter-item expanded "><a href="8_node_3_orm.html"><strong aria-hidden="true">8.</strong> 8_node_3_orm</a></li><li class="chapter-item expanded "><a href="9_node_4_apollo_graphql_basics.html"><strong aria-hidden="true">9.</strong> 9_node_4_apollo_graphql_basics</a></li><li class="chapter-item expanded "><a href="10_node_5_typescript.html"><strong aria-hidden="true">10.</strong> 10_node_5_typescript</a></li><li class="chapter-item expanded "><a href="11_node_6_graphql_ts_orm.html"><strong aria-hidden="true">11.</strong> 11_node_6_graphql_ts_orm</a></li><li class="chapter-item expanded "><a href="12_sql.html"><strong aria-hidden="true">12.</strong> 12_sql</a></li><li class="chapter-item expanded "><a href="13_sql_alchemy.html"><strong aria-hidden="true">13.</strong> 13_sql_alchemy</a></li><li class="chapter-item expanded "><a href="14_redis.html"><strong aria-hidden="true">14.</strong> 14_redis</a></li></ol>
             </div>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle">
                 <div class="sidebar-resize-indicator"></div>
@@ -210,6 +210,17 @@ be imported and used in other parts of a program</p>
 <ul>
 <li>Encapsulated Code (only sahre minimum)</li>
 <li>Every file in NodeJS is module by default</li>
+</ul>
+<h3 id="packagejson-vs-package-lockjson"><a class="header" href="#packagejson-vs-package-lockjson">package.json vs package-lock.json</a></h3>
+<ul>
+<li>
+<p>package.json describes the project's dependencies at a high level</p>
+</li>
+<li>
+<p>package-lock.json provides a detailed record of the exact versions of those dependencies
+that were installed. This can help prevent version conflicts and ensure consistent
+behavior across different development environments.</p>
+</li>
 </ul>
 <h3 id="modules"><a class="header" href="#modules">Modules</a></h3>
 <p><strong>Example to show module export import</strong></p>
@@ -340,23 +351,18 @@ server.listen(5000, () =&gt; {
 });
 </code></pre>
 <h3 id="event-loop"><a class="header" href="#event-loop">Event loop</a></h3>
-<p><strong>Every time we have a synchronous action its going to be offloaded
-and when its time we invokt the callback.</strong></p>
-<p>The event loop is a mechanism in Node.js that allows it to handle multiple
-requests and operations simultaneously. It continuously checks for new
-events or tasks in the queue and executes them one by one. This ensures that
-Node.js can handle a large number of requests without blocking the
-main thread, making it highly efficient and scalable.</p>
-<p>Javascipt is an interpreted language it executes code from top
-to down. In JavaScript we have something called callstack,callback
-and web apis. So when code execution starts it adds everyting one
-by one to the callstack and whenever it encounters any timeout,
-fetch,interval functions which takes some times to complete it
-it pull ot from the callstack and put into the webapi which is
-going to wait for the task to finish .After the task is finished executing we
-push it into the callback queue and event loop takes all the
-taks from callback queue and pushes them to the callstack where
-they are executed.</p>
+<p>The event loop is a mechanism in Node.js that allows it to handle multiple requests and operations
+simultaneously. It continuously checks for new events or tasks in the queue and executes them one
+by one. This ensures that Node.js can handle a large number of requests without blocking the main
+thread, making it highly efficient and scalable.</p>
+<p>JavaScript is an interpreted language, and it executes code from top to bottom. In JavaScript,
+we have the call stack, callbacks, and Web APIs. When code execution starts, it adds everything
+one by one to the call stack. Whenever it encounters timeouts, fetch, interval functions, or other
+asynchronous operations that take some time to complete, it removes those from the call stack and
+puts them into the Web API, which waits for the task to finish. After the task is finished executing,
+it is pushed into the task queue (also known as the callback queue), and the event loop takes all the
+tasks from the task queue and pushes them to the call stack, where they are executed.</p>
+<h3 id="inbuilt-promisify-function-in-nodejs"><a class="header" href="#inbuilt-promisify-function-in-nodejs">Inbuilt promisify function in NodeJS</a></h3>
 <pre><code class="language-js">NodeJS -&gt; Inbuilt function util.promisify or use .promise
 </code></pre>
 <h3 id="event-emitter"><a class="header" href="#event-emitter">Event Emitter</a></h3>
@@ -454,11 +460,11 @@ http.createServer(function (req, res) {
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
-                            <a rel="prev" href="5_react_v_redux_tookit.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                            <a rel="prev" href="5_react_5_redux_tookit.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                                 <i class="fa fa-angle-left"></i>
                             </a>
 
-                            <a rel="next prefetch" href="7_node_ii_advanced.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                            <a rel="next prefetch" href="7_node_2_advanced.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                                 <i class="fa fa-angle-right"></i>
                             </a>
 
@@ -468,11 +474,11 @@ http.createServer(function (req, res) {
             </div>
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
-                    <a rel="prev" href="5_react_v_redux_tookit.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                    <a rel="prev" href="5_react_5_redux_tookit.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                         <i class="fa fa-angle-left"></i>
                     </a>
 
-                    <a rel="next prefetch" href="7_node_ii_advanced.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                    <a rel="next prefetch" href="7_node_2_advanced.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                         <i class="fa fa-angle-right"></i>
                     </a>
             </nav>

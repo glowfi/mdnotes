@@ -512,6 +512,28 @@ router.route('/:id').put(updatePerson).delete(deletePerson);
 module.exports = router;
 ```
 
+### Express controllers
+
+**Note: Create a folder named controllers**
+
+```js
+// No need to import anything
+
+const createPerson = (req, res) => {
+    const { name } = req.body;
+    if (!name) {
+        return res
+            .status(400)
+            .json({ success: false, msg: 'please provide name value' });
+    }
+    res.status(201).send({ success: true, person: name });
+};
+
+module.exports = {
+    createPerson
+};
+```
+
 > app.js
 
 ```js
@@ -536,24 +558,12 @@ app.listen(5000, () => {
 });
 ```
 
-### Express controllers
-
-**Note: Create a folder named controllers**
+### Sending Cookies with expressJS
 
 ```js
-// No need to import anything
-
-const createPerson = (req, res) => {
-    const { name } = req.body;
-    if (!name) {
-        return res
-            .status(400)
-            .json({ success: false, msg: 'please provide name value' });
-    }
-    res.status(201).send({ success: true, person: name });
-};
-
-module.exports = {
-    createPerson
-};
+res.cookie('name', 'john', {
+    httpOnly: true,
+    sameSite: 'strict',
+    maxAge: 2 * 3600 * 1000
+});
 ```

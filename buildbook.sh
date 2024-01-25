@@ -22,7 +22,7 @@ mdbook init --title="Markdown Notes" --ignore=none mybook
 markdownCount=$(ls ./notes/*.md | wc -l)
 markdownCount=$((markdownCount - 1))
 
-markdownList=$(ls ./notes/*.md | sed '/^$/d' | tr "\n" "," | sed 's/.$//')
+markdownList=$(ls ./notes/*.md | sort -Vk1 | sed '/^$/d' | tr "\n" "," | sed 's/.$//')
 IFS=',' read -r -a array <<<"$markdownList"
 
 ######### Copy Markdown #########

@@ -3,8 +3,7 @@
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>Page not found - Markdown Notes</title>
-        <base href="/">
+        <title>8_node_3_orm - Markdown Notes</title>
 
 
         <!-- Custom HTML head -->
@@ -89,7 +88,7 @@
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
             <div class="sidebar-scrollbox">
-                <ol class="chapter"><li class="chapter-item expanded "><a href="1_react_1_fundamentals.html"><strong aria-hidden="true">1.</strong> 1_react_1_fundamentals</a></li><li class="chapter-item expanded "><a href="2_react_2_advanced.html"><strong aria-hidden="true">2.</strong> 2_react_2_advanced</a></li><li class="chapter-item expanded "><a href="3_react_3_axios.html"><strong aria-hidden="true">3.</strong> 3_react_3_axios</a></li><li class="chapter-item expanded "><a href="4_react_4_router_dom.html"><strong aria-hidden="true">4.</strong> 4_react_4_router_dom</a></li><li class="chapter-item expanded "><a href="5_react_5_redux_tookit.html"><strong aria-hidden="true">5.</strong> 5_react_5_redux_tookit</a></li><li class="chapter-item expanded "><a href="6_node_1_fundamentals.html"><strong aria-hidden="true">6.</strong> 6_node_1_fundamentals</a></li><li class="chapter-item expanded "><a href="7_node_2_advanced.html"><strong aria-hidden="true">7.</strong> 7_node_2_advanced</a></li><li class="chapter-item expanded "><a href="8_node_3_orm.html"><strong aria-hidden="true">8.</strong> 8_node_3_orm</a></li><li class="chapter-item expanded "><a href="9_node_4_apollo_graphql_basics.html"><strong aria-hidden="true">9.</strong> 9_node_4_apollo_graphql_basics</a></li><li class="chapter-item expanded "><a href="10_node_5_typescript.html"><strong aria-hidden="true">10.</strong> 10_node_5_typescript</a></li><li class="chapter-item expanded "><a href="11_node_6_graphql_ts_orm.html"><strong aria-hidden="true">11.</strong> 11_node_6_graphql_ts_orm</a></li><li class="chapter-item expanded "><a href="12_sql.html"><strong aria-hidden="true">12.</strong> 12_sql</a></li><li class="chapter-item expanded "><a href="13_sql_alchemy.html"><strong aria-hidden="true">13.</strong> 13_sql_alchemy</a></li><li class="chapter-item expanded "><a href="14_redis.html"><strong aria-hidden="true">14.</strong> 14_redis</a></li></ol>
+                <ol class="chapter"><li class="chapter-item expanded "><a href="1_react_1_fundamentals.html"><strong aria-hidden="true">1.</strong> 1_react_1_fundamentals</a></li><li class="chapter-item expanded "><a href="2_react_2_advanced.html"><strong aria-hidden="true">2.</strong> 2_react_2_advanced</a></li><li class="chapter-item expanded "><a href="3_react_3_axios.html"><strong aria-hidden="true">3.</strong> 3_react_3_axios</a></li><li class="chapter-item expanded "><a href="4_react_4_router_dom.html"><strong aria-hidden="true">4.</strong> 4_react_4_router_dom</a></li><li class="chapter-item expanded "><a href="5_react_5_redux_tookit.html"><strong aria-hidden="true">5.</strong> 5_react_5_redux_tookit</a></li><li class="chapter-item expanded "><a href="6_node_1_fundamentals.html"><strong aria-hidden="true">6.</strong> 6_node_1_fundamentals</a></li><li class="chapter-item expanded "><a href="7_node_2_advanced.html"><strong aria-hidden="true">7.</strong> 7_node_2_advanced</a></li><li class="chapter-item expanded "><a href="8_node_3_orm.html" class="active"><strong aria-hidden="true">8.</strong> 8_node_3_orm</a></li><li class="chapter-item expanded "><a href="9_node_4_apollo_graphql_basics.html"><strong aria-hidden="true">9.</strong> 9_node_4_apollo_graphql_basics</a></li><li class="chapter-item expanded "><a href="10_node_5_typescript.html"><strong aria-hidden="true">10.</strong> 10_node_5_typescript</a></li><li class="chapter-item expanded "><a href="11_node_6_graphql_ts_orm.html"><strong aria-hidden="true">11.</strong> 11_node_6_graphql_ts_orm</a></li><li class="chapter-item expanded "><a href="12_sql.html"><strong aria-hidden="true">12.</strong> 12_sql</a></li><li class="chapter-item expanded "><a href="13_sql_alchemy.html"><strong aria-hidden="true">13.</strong> 13_sql_alchemy</a></li><li class="chapter-item expanded "><a href="14_redis.html"><strong aria-hidden="true">14.</strong> 14_redis</a></li></ol>
             </div>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle">
                 <div class="sidebar-resize-indicator"></div>
@@ -174,14 +173,186 @@
 
                 <div id="content" class="content">
                     <main>
-                        <h1 id="document-not-found-404"><a class="header" href="#document-not-found-404">Document not found (404)</a></h1>
-<p>This URL is invalid, sorry. Please use the navigation bar or search to continue.</p>
+                        <h1 id="a-basic-app-with-nodejsprisma"><a class="header" href="#a-basic-app-with-nodejsprisma">A Basic App with nodejs+prisma</a></h1>
+<h3 id="install-express-and-prisma"><a class="header" href="#install-express-and-prisma">Install express and prisma</a></h3>
+<pre><code class="language-sh">npm i @prisma/client express dotenv nodemon
+</code></pre>
+<h3 id="add-to-packagejson"><a class="header" href="#add-to-packagejson">Add to package.json</a></h3>
+<pre><code class="language-json">&quot;scripts&quot;: {
+    &quot;dev&quot;: &quot;nodemon index.js&quot;
+},
+</code></pre>
+<h3 id="initialize-prisma-project"><a class="header" href="#initialize-prisma-project">Initialize Prisma project</a></h3>
+<pre><code class="language-sh">npx prisma init
+</code></pre>
+<h3 id="env-variables"><a class="header" href="#env-variables">ENV Variables</a></h3>
+<pre><code>DATABASE_URL=&quot;postgresql://postgres:@localhost:5432/postdb?schema=public&quot;
+CHECKPOINT_DISABLE=1
+</code></pre>
+<blockquote>
+<p>Documentation Links</p>
+</blockquote>
+<ul>
+<li>
+<p><a href="https://www.prisma.io/docs/orm/reference/prisma-cli-reference">cli Reference</a></p>
+</li>
+<li>
+<p><a href="https://www.prisma.io/docs/orm/reference/prisma-client-reference">client Reference</a></p>
+</li>
+</ul>
+<h2 id="modelschema"><a class="header" href="#modelschema">Model/Schema</a></h2>
+<blockquote>
+<p>prisma/schema.prisma</p>
+</blockquote>
+<pre><code class="language-prisma">generator client {
+  provider = &quot;prisma-client-js&quot;
+}
+
+datasource db {
+  provider = &quot;postgresql&quot;
+  url      = env(&quot;DATABASE_URL&quot;)
+}
+
+model User{
+    id Int @id @default(autoincrement())
+    email String
+    posts Post[]
+}
+
+model Post{
+    id Int @id @default(autoincrement())
+    updatedAt DateTime @default(now())
+    createdAt DateTime @updatedAt
+    title String @db.VarChar(255)
+    desc String @db.Text()
+    author User @relation(fields: [authorId],references: [id])
+    authorId Int
+}
+</code></pre>
+<blockquote>
+<p>Run migration</p>
+</blockquote>
+<pre><code class="language-sh">npx prisma migrate dev --name init
+</code></pre>
+<h2 id="controllers"><a class="header" href="#controllers">Controllers</a></h2>
+<blockquote>
+<p>controllers/posts.js</p>
+</blockquote>
+<pre><code class="language-js">const { PrismaClient } = require('@prisma/client');
+const prisma = new PrismaClient();
+
+const createPost = async (req, res) =&gt; {
+    const result = await prisma.post.create({
+        data: req.body
+    });
+    res.json(result);
+};
+
+const updatePost = async (req, res) =&gt; {
+    const result = await prisma.post.findFirst({
+        where: { id: parseInt(req.params.id) }
+    });
+
+    if (result) {
+        const result = await prisma.post.update({
+            where: { id: parseInt(req.params.id) },
+            data: req.body
+        });
+        return res.json(result);
+    }
+    return res.json({ msg: 'No Such Record!' });
+};
+
+const deletePost = async (req, res) =&gt; {
+    const result = await prisma.post.findFirst({
+        where: { id: parseInt(req.params.id) }
+    });
+    if (result) {
+        const result = await prisma.post.delete({
+            where: { id: parseInt(req.params.id) }
+        });
+        return res.json(result);
+    }
+    return res.json({ msg: 'No Such Record!' });
+};
+
+const getAllPost = async (req, res) =&gt; {
+    const result = await prisma.post.findMany();
+    res.json(result);
+};
+
+const getPost = async (req, res) =&gt; {
+    console.log(req.params.id);
+    const result = await prisma.post.findMany({
+        where: { id: parseInt(req.params.id) }
+    });
+    res.json(result);
+};
+
+module.exports = { createPost, updatePost, deletePost, getAllPost, getPost };
+</code></pre>
+<h2 id="routes"><a class="header" href="#routes">Routes</a></h2>
+<blockquote>
+<p>routes/posts.js</p>
+</blockquote>
+<pre><code class="language-js">const {
+    getPost,
+    getAllPost,
+    createPost,
+    updatePost,
+    deletePost
+} = require('../controllers/post');
+
+const express = require('express');
+const router = express.Router();
+
+// Get all post
+router.get('/', getAllPost);
+
+// Get post by id [with path parameter]
+router.get('/:id', getPost);
+
+// Create post
+router.post('/', createPost);
+
+// Update post
+router.put('/:id', updatePost);
+
+// Delete post
+router.delete('/:id', deletePost);
+
+module.exports = router;
+</code></pre>
+<h2 id="app"><a class="header" href="#app">App</a></h2>
+<blockquote>
+<p>index.js</p>
+</blockquote>
+<pre><code class="language-js">const express = require('express');
+const dotenv = require('dotenv');
+const post = require('./routes/post');
+
+dotenv.config();
+const app = express();
+
+app.use(express.json());
+app.use('/api/v1/post', post);
+
+app.listen(5000, () =&gt; {
+    console.log('hello');
+});
+</code></pre>
 
                     </main>
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="7_node_2_advanced.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
 
+                            <a rel="next prefetch" href="9_node_4_apollo_graphql_basics.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
 
                         <div style="clear: both"></div>
                     </nav>
@@ -189,7 +360,13 @@
             </div>
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="7_node_2_advanced.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
 
+                    <a rel="next prefetch" href="9_node_4_apollo_graphql_basics.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
             </nav>
 
         </div>

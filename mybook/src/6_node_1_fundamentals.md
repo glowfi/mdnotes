@@ -33,6 +33,14 @@ be imported and used in other parts of a program
 -   Encapsulated Code (only sahre minimum)
 -   Every file in NodeJS is module by default
 
+### package.json vs package-lock.json
+
+-   package.json describes the project's dependencies at a high level
+
+-   package-lock.json provides a detailed record of the exact versions of those dependencies
+    that were installed. This can help prevent version conflicts and ensure consistent
+    behavior across different development environments.
+
 ### Modules
 
 **Example to show module export import**
@@ -181,25 +189,20 @@ server.listen(5000, () => {
 
 ### Event loop
 
-**Every time we have a synchronous action its going to be offloaded
-and when its time we invokt the callback.**
+The event loop is a mechanism in Node.js that allows it to handle multiple requests and operations
+simultaneously. It continuously checks for new events or tasks in the queue and executes them one
+by one. This ensures that Node.js can handle a large number of requests without blocking the main
+thread, making it highly efficient and scalable.
 
-The event loop is a mechanism in Node.js that allows it to handle multiple
-requests and operations simultaneously. It continuously checks for new
-events or tasks in the queue and executes them one by one. This ensures that
-Node.js can handle a large number of requests without blocking the
-main thread, making it highly efficient and scalable.
+JavaScript is an interpreted language, and it executes code from top to bottom. In JavaScript,
+we have the call stack, callbacks, and Web APIs. When code execution starts, it adds everything
+one by one to the call stack. Whenever it encounters timeouts, fetch, interval functions, or other
+asynchronous operations that take some time to complete, it removes those from the call stack and
+puts them into the Web API, which waits for the task to finish. After the task is finished executing,
+it is pushed into the task queue (also known as the callback queue), and the event loop takes all the
+tasks from the task queue and pushes them to the call stack, where they are executed.
 
-Javascipt is an interpreted language it executes code from top
-to down. In JavaScript we have something called callstack,callback
-and web apis. So when code execution starts it adds everyting one
-by one to the callstack and whenever it encounters any timeout,
-fetch,interval functions which takes some times to complete it
-it pull ot from the callstack and put into the webapi which is
-going to wait for the task to finish .After the task is finished executing we
-push it into the callback queue and event loop takes all the
-taks from callback queue and pushes them to the callstack where
-they are executed.
+### Inbuilt promisify function in NodeJS
 
 ```js
 NodeJS -> Inbuilt function util.promisify or use .promise

@@ -3,7 +3,7 @@
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>10_redis - Markdown Notes</title>
+        <title>10_node_5_typescript - Markdown Notes</title>
 
 
         <!-- Custom HTML head -->
@@ -88,7 +88,7 @@
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
             <div class="sidebar-scrollbox">
-                <ol class="chapter"><li class="chapter-item expanded "><a href="10_redis.html" class="active"><strong aria-hidden="true">1.</strong> 10_redis</a></li><li class="chapter-item expanded "><a href="1_react_i_fundamentals.html"><strong aria-hidden="true">2.</strong> 1_react_i_fundamentals</a></li><li class="chapter-item expanded "><a href="2_react_ii_advanced.html"><strong aria-hidden="true">3.</strong> 2_react_ii_advanced</a></li><li class="chapter-item expanded "><a href="3_react_iii_axios.html"><strong aria-hidden="true">4.</strong> 3_react_iii_axios</a></li><li class="chapter-item expanded "><a href="4_react_iv_router_dom.html"><strong aria-hidden="true">5.</strong> 4_react_iv_router_dom</a></li><li class="chapter-item expanded "><a href="5_react_v_redux_tookit.html"><strong aria-hidden="true">6.</strong> 5_react_v_redux_tookit</a></li><li class="chapter-item expanded "><a href="6_node_i_fundamentals.html"><strong aria-hidden="true">7.</strong> 6_node_i_fundamentals</a></li><li class="chapter-item expanded "><a href="7_node_ii_advanced.html"><strong aria-hidden="true">8.</strong> 7_node_ii_advanced</a></li><li class="chapter-item expanded "><a href="8_sql.html"><strong aria-hidden="true">9.</strong> 8_sql</a></li><li class="chapter-item expanded "><a href="9_sql_alchemy.html"><strong aria-hidden="true">10.</strong> 9_sql_alchemy</a></li></ol>
+                <ol class="chapter"><li class="chapter-item expanded "><a href="1_react_1_fundamentals.html"><strong aria-hidden="true">1.</strong> 1_react_1_fundamentals</a></li><li class="chapter-item expanded "><a href="2_react_2_advanced.html"><strong aria-hidden="true">2.</strong> 2_react_2_advanced</a></li><li class="chapter-item expanded "><a href="3_react_3_axios.html"><strong aria-hidden="true">3.</strong> 3_react_3_axios</a></li><li class="chapter-item expanded "><a href="4_react_4_router_dom.html"><strong aria-hidden="true">4.</strong> 4_react_4_router_dom</a></li><li class="chapter-item expanded "><a href="5_react_5_redux_tookit.html"><strong aria-hidden="true">5.</strong> 5_react_5_redux_tookit</a></li><li class="chapter-item expanded "><a href="6_node_1_fundamentals.html"><strong aria-hidden="true">6.</strong> 6_node_1_fundamentals</a></li><li class="chapter-item expanded "><a href="7_node_2_advanced.html"><strong aria-hidden="true">7.</strong> 7_node_2_advanced</a></li><li class="chapter-item expanded "><a href="8_node_3_orm.html"><strong aria-hidden="true">8.</strong> 8_node_3_orm</a></li><li class="chapter-item expanded "><a href="9_node_4_apollo_graphql_basics.html"><strong aria-hidden="true">9.</strong> 9_node_4_apollo_graphql_basics</a></li><li class="chapter-item expanded "><a href="10_node_5_typescript.html" class="active"><strong aria-hidden="true">10.</strong> 10_node_5_typescript</a></li><li class="chapter-item expanded "><a href="11_node_6_graphql_ts_orm.html"><strong aria-hidden="true">11.</strong> 11_node_6_graphql_ts_orm</a></li><li class="chapter-item expanded "><a href="12_sql.html"><strong aria-hidden="true">12.</strong> 12_sql</a></li><li class="chapter-item expanded "><a href="13_sql_alchemy.html"><strong aria-hidden="true">13.</strong> 13_sql_alchemy</a></li><li class="chapter-item expanded "><a href="14_redis.html"><strong aria-hidden="true">14.</strong> 14_redis</a></li></ol>
             </div>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle">
                 <div class="sidebar-resize-indicator"></div>
@@ -173,88 +173,125 @@
 
                 <div id="content" class="content">
                     <main>
-                        <h1 id="redis"><a class="header" href="#redis">Redis</a></h1>
+                        <h1 id="typescript"><a class="header" href="#typescript">Typescript</a></h1>
+<h2 id="typescript-basics"><a class="header" href="#typescript-basics">Typescript Basics</a></h2>
+<h3 id="compiling"><a class="header" href="#compiling">Compiling</a></h3>
+<pre><code class="language-sh">tsc &lt;name_of_file&gt;
+</code></pre>
+<h3 id="variables"><a class="header" href="#variables">Variables</a></h3>
+<pre><code class="language-ts">// Explicit type defination
+
+// Number
+const a: Number = 5.45;
+
+// Objects
+interface User {
+    name: String;
+    id?: Number; // Optional Field
+}
+
+const obj: User = {
+    name: 'asda'
+};
+
+// Adding the id field later
+obj.id = 2;
+</code></pre>
+<h3 id="functions"><a class="header" href="#functions">Functions</a></h3>
+<pre><code class="language-ts">type AddFunc = (x: number, y: number) =&gt; number;
+
+const add1: AddFunc = (x: number, y: number) =&gt; {
+    return x + y;
+};
+
+const add2 = (obj: { a: number; b: number }) =&gt; {
+    return obj.a + obj.b;
+};
+</code></pre>
+<h3 id="unions"><a class="header" href="#unions">Unions</a></h3>
+<pre><code class="language-ts">// Unions Types
+const fn = (x: string | number) =&gt; x;
+
+console.log(fn('sad'));
+console.log(fn(11));
+
+interface Cat {
+    purr: string;
+}
+
+interface Dog {
+    bark: string;
+}
+
+type dog_cat = (Cat &amp; Dog) | number;
+
+let obj: dog_cat = {
+    purr: 'purr',
+    bark: 'bark'
+};
+
+obj = 5;
+</code></pre>
+<h3 id="casting"><a class="header" href="#casting">Casting</a></h3>
+<pre><code class="language-ts">// Use &lt;&gt; angular brackets
+let a = 5;
+console.log(&lt;number&gt;a);
+
+// Use &quot;as&quot; keyword for casting
+console.log(a as number);
+</code></pre>
+<h3 id="any"><a class="header" href="#any">Any</a></h3>
+<pre><code class="language-ts">// Input any data-type and return data as any datatype
+const fn = (x: any): any =&gt; x;
+</code></pre>
+<h2 id="typescript-nodejs"><a class="header" href="#typescript-nodejs">Typescript NodeJS</a></h2>
+<h3 id="install-dependencies"><a class="header" href="#install-dependencies">Install Dependencies</a></h3>
+<pre><code class="language-sh">npm init -y
+npm i typescript --save-dev
+npm i @types/node --save-dev
+npm i nodemon ts-node --save-dev
+npx tsc --init
+</code></pre>
+<h3 id="note"><a class="header" href="#note">Note</a></h3>
+<ul>
+<li><strong>Files with cts must be imported with cjs [es5 using files exporting using module.exports]</strong></li>
+<li><strong>Files with ts must be imported with js [es6 using files]</strong></li>
+</ul>
 <blockquote>
-<p>Redis is a memory-based database that is commonly used for caching purposes.
-When we have a value that takes a long time to compute, we can cache it in Redis and
-retrieve it quickly when we need it. This can significantly improve the performance
-of our application by reducing the time it takes to compute the value.</p>
+<p>package.json</p>
 </blockquote>
-<h3 id="key-value-pair"><a class="header" href="#key-value-pair">Key Value pair</a></h3>
-<pre><code class="language-sh"># Set/Update key value
-set name john
-
-# Will return 1 if exists or 0 if not exists and will print the name if exists
-get name
-
-# Will return 1 if exists or 0 if not exists and will delete the key if exists
-del name
-
-# List all
-keys *
-
-# Delete all
-flushall
-
-# Get time to live
-ttl name
-
-# Set expiry time
-EXPIRE name 10
-
-# set with expiry time
-setex name 10 john
+<pre><code class="language-json">&quot;type&quot;: &quot;module&quot;,
+&quot;scripts&quot;: {
+    &quot;build&quot;: &quot;tsc&quot;,
+    &quot;start&quot;: &quot;tsc --watch &amp; node --watch dist/index.js&quot;
+},
 </code></pre>
-<h3 id="lists"><a class="header" href="#lists">Lists</a></h3>
-<pre><code class="language-sh"># Push from the left and right
-lpush arr john johnny
-rpush arr hello hello2
-
-# List all
-range arr 0 -1
-
-# Remove from left and right
-lpop arr
-rpop arr
-
-# delete list
-del arr
-</code></pre>
-<h3 id="sets-store-unique-values"><a class="header" href="#sets-store-unique-values">Sets [store unique values]</a></h3>
-<pre><code class="language-sh"># Add to set
-SADD hobbies &quot;hello&quot; 1 2
-
-# List all members
-SMEMBERS hobbies
-
-# Remove members
-SREM hobbies &quot;hello&quot;
-</code></pre>
-<h3 id="hashes-key-value-pair-inside-of-a-key-value"><a class="header" href="#hashes-key-value-pair-inside-of-a-key-value">Hashes [key value pair inside of a key value]</a></h3>
-<p><strong>No nesting allowed.Imagine a JSON object we cannot have json inside json.</strong></p>
-<pre><code class="language-sh">
-# Set an attribute to hashset person
-HSET person name john
-
-# Get a single attribute from hashset person
-HGET person name
-
-# Getall attributes from hashset person
-HGETALL person
-
-# delete hashset attribute
-HDEL person name
-
-# delete hashset
-DEL person
+<blockquote>
+<p>tsconfig.json</p>
+</blockquote>
+<pre><code class="language-json">{
+    &quot;compilerOptions&quot;: {
+        &quot;module&quot;: &quot;NodeNext&quot;, // NodeNext (ES6), Commonjs (ES5)
+        &quot;moduleResolution&quot;: &quot;NodeNext&quot;,
+        &quot;esModuleInterop&quot;: true,
+        &quot;target&quot;: &quot;ES5&quot;, // Javascript version our ts code will be compiled to
+        &quot;sourceMap&quot;: true,
+        &quot;outDir&quot;: &quot;dist&quot;,
+        &quot;rootDir&quot;: &quot;src&quot;
+    },
+    &quot;include&quot;: [&quot;src/**/*&quot;]
+}
 </code></pre>
 
                     </main>
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="9_node_4_apollo_graphql_basics.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
 
-                            <a rel="next prefetch" href="1_react_i_fundamentals.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                            <a rel="next prefetch" href="11_node_6_graphql_ts_orm.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                                 <i class="fa fa-angle-right"></i>
                             </a>
 
@@ -264,8 +301,11 @@ DEL person
             </div>
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="9_node_4_apollo_graphql_basics.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
 
-                    <a rel="next prefetch" href="1_react_i_fundamentals.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                    <a rel="next prefetch" href="11_node_6_graphql_ts_orm.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                         <i class="fa fa-angle-right"></i>
                     </a>
             </nav>
