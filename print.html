@@ -89,7 +89,7 @@
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
             <div class="sidebar-scrollbox">
-                <ol class="chapter"><li class="chapter-item expanded "><a href="1_react_1_fundamentals.html"><strong aria-hidden="true">1.</strong> 1_react_1_fundamentals</a></li><li class="chapter-item expanded "><a href="2_react_2_advanced.html"><strong aria-hidden="true">2.</strong> 2_react_2_advanced</a></li><li class="chapter-item expanded "><a href="3_react_3_axios.html"><strong aria-hidden="true">3.</strong> 3_react_3_axios</a></li><li class="chapter-item expanded "><a href="4_react_4_router_dom.html"><strong aria-hidden="true">4.</strong> 4_react_4_router_dom</a></li><li class="chapter-item expanded "><a href="5_react_5_redux_tookit.html"><strong aria-hidden="true">5.</strong> 5_react_5_redux_tookit</a></li><li class="chapter-item expanded "><a href="6_node_1_fundamentals.html"><strong aria-hidden="true">6.</strong> 6_node_1_fundamentals</a></li><li class="chapter-item expanded "><a href="7_node_2_advanced.html"><strong aria-hidden="true">7.</strong> 7_node_2_advanced</a></li><li class="chapter-item expanded "><a href="8_node_3_orm.html"><strong aria-hidden="true">8.</strong> 8_node_3_orm</a></li><li class="chapter-item expanded "><a href="9_node_4_apollo_graphql_basics.html"><strong aria-hidden="true">9.</strong> 9_node_4_apollo_graphql_basics</a></li><li class="chapter-item expanded "><a href="10_node_5_typescript.html"><strong aria-hidden="true">10.</strong> 10_node_5_typescript</a></li><li class="chapter-item expanded "><a href="11_node_6_graphql_ts_orm.html"><strong aria-hidden="true">11.</strong> 11_node_6_graphql_ts_orm</a></li><li class="chapter-item expanded "><a href="12_sql.html"><strong aria-hidden="true">12.</strong> 12_sql</a></li><li class="chapter-item expanded "><a href="13_sql_alchemy.html"><strong aria-hidden="true">13.</strong> 13_sql_alchemy</a></li><li class="chapter-item expanded "><a href="14_redis.html"><strong aria-hidden="true">14.</strong> 14_redis</a></li></ol>
+                <ol class="chapter"><li class="chapter-item expanded "><a href="1_react_1_fundamentals.html"><strong aria-hidden="true">1.</strong> 1_react_1_fundamentals</a></li><li class="chapter-item expanded "><a href="2_react_2_advanced.html"><strong aria-hidden="true">2.</strong> 2_react_2_advanced</a></li><li class="chapter-item expanded "><a href="3_react_3_axios.html"><strong aria-hidden="true">3.</strong> 3_react_3_axios</a></li><li class="chapter-item expanded "><a href="4_react_4_router_dom.html"><strong aria-hidden="true">4.</strong> 4_react_4_router_dom</a></li><li class="chapter-item expanded "><a href="5_react_5_redux_tookit.html"><strong aria-hidden="true">5.</strong> 5_react_5_redux_tookit</a></li><li class="chapter-item expanded "><a href="6_node_1_fundamentals.html"><strong aria-hidden="true">6.</strong> 6_node_1_fundamentals</a></li><li class="chapter-item expanded "><a href="7_node_2_advanced.html"><strong aria-hidden="true">7.</strong> 7_node_2_advanced</a></li><li class="chapter-item expanded "><a href="8_node_3_orm.html"><strong aria-hidden="true">8.</strong> 8_node_3_orm</a></li><li class="chapter-item expanded "><a href="9_node_4_apollo_graphql_basics.html"><strong aria-hidden="true">9.</strong> 9_node_4_apollo_graphql_basics</a></li><li class="chapter-item expanded "><a href="10_node_5_typescript.html"><strong aria-hidden="true">10.</strong> 10_node_5_typescript</a></li><li class="chapter-item expanded "><a href="11_node_6_graphql_ts_orm.html"><strong aria-hidden="true">11.</strong> 11_node_6_graphql_ts_orm</a></li><li class="chapter-item expanded "><a href="12_sql.html"><strong aria-hidden="true">12.</strong> 12_sql</a></li><li class="chapter-item expanded "><a href="13_sql_alchemy.html"><strong aria-hidden="true">13.</strong> 13_sql_alchemy</a></li><li class="chapter-item expanded "><a href="14_redis.html"><strong aria-hidden="true">14.</strong> 14_redis</a></li><li class="chapter-item expanded "><a href="15_Fastapi.html"><strong aria-hidden="true">15.</strong> 15_Fastapi</a></li></ol>
             </div>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle">
                 <div class="sidebar-resize-indicator"></div>
@@ -6352,6 +6352,433 @@ HDEL person name
 
 # delete hashset
 DEL person
+</code></pre>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="fastapi"><a class="header" href="#fastapi">FastAPI</a></h1>
+<h3 id="install-dependencies-3"><a class="header" href="#install-dependencies-3">Install dependencies</a></h3>
+<pre><code class="language-sh">pip install fastapi uvicorn sqlalchemy strawberry-graphql[debug-server] asyncio python-dotenv asyncpg
+</code></pre>
+<h2 id="a-simple-crud-app-using-sqlalchemy-coreasyncpgfastapi"><a class="header" href="#a-simple-crud-app-using-sqlalchemy-coreasyncpgfastapi">A simple crud app using sqlalchemy core,asyncpg,fastapi</a></h2>
+<p>.env</p>
+<pre><code>DB_URL=postgresql+asyncpg://postgres:@localhost/fastdb
+</code></pre>
+<blockquote>
+<p>main.py</p>
+</blockquote>
+<pre><code class="language-py">import uvicorn
+from fastapi import FastAPI
+from sqlalchemy import delete, insert, select, update
+from connectdb import engine
+from tables import user_table, post_table
+from schema import Post, PostBody, updateBody
+from connectdb import engine
+
+
+app = FastAPI()
+
+
+@app.get(&quot;/post&quot;, response_model=list[Post])
+async def get_all_posts():
+    async with engine.connect() as conn:
+        st = select(post_table)
+        res = await conn.execute(st)
+        data = res.scalars()
+        return data
+
+
+@app.get(&quot;/post/{id}&quot;, response_model=Post)
+async def get_post_by_id(id: int):
+    async with engine.connect() as conn:
+        st = select(post_table).filter_by(id=id)
+        res = await conn.execute(st)
+        data = res.scalars()
+        return data
+
+
+@app.post(&quot;/post&quot;)
+async def create_post(bd: PostBody):
+    async with engine.connect() as conn:
+        st = insert(post_table).values(
+            title=bd.title, description=bd.description, author_id=bd.aid
+        )
+        await conn.execute(st)
+        await conn.commit()
+        return bd
+
+
+@app.put(&quot;/post/{id}&quot;)
+async def update_post(id: int, bd: updateBody):
+    async with engine.connect() as conn:
+        st = (
+            update(post_table)
+            .where(post_table.c.id == id)
+            .values(title=bd.title, description=bd.description)
+        )
+        await conn.execute(st)
+        await conn.commit()
+        return bd
+
+
+@app.delete(&quot;/post/{id}&quot;)
+async def delete_post(id: int):
+    async with engine.connect() as conn:
+        st = delete(post_table).where(post_table.c.id == id)
+        await conn.execute(st)
+        await conn.commit()
+    return {&quot;msg&quot;: &quot;Deleted!&quot;}
+
+
+@app.get(&quot;/&quot;)
+async def hello():
+    return {&quot;msg&quot;: &quot;hello_world&quot;}
+
+
+if __name__ == &quot;__main__&quot;:
+    uvicorn.run(&quot;main:app&quot;, reload=True, log_level=&quot;info&quot;, workers=4, port=5000)
+</code></pre>
+<blockquote>
+<p>connectdb.py</p>
+</blockquote>
+<pre><code class="language-py">from sqlalchemy.ext.asyncio import create_async_engine
+import asyncio
+from tables import meta_obj
+from dotenv import load_dotenv
+import os
+
+
+# Load ENV variables
+load_dotenv()
+
+# Engine
+engine = create_async_engine(os.getenv(&quot;DB_URL&quot;), echo=True)
+
+
+# Create DB
+async def main():
+    async with engine.begin() as conn:
+        await conn.run_sync(meta_obj.create_all)
+        print(&quot;Connected to DB...&quot;)
+    await engine.dispose()
+
+
+asyncio.run(main())
+</code></pre>
+<blockquote>
+<p>schema.py</p>
+</blockquote>
+<pre><code class="language-py">from pydantic import BaseModel
+from datetime import datetime
+
+
+class Post(BaseModel):
+    id: int
+    title: str
+    description: str
+    createdAt: datetime
+    updatedAt: datetime
+    author_id: int
+
+    class Config:
+        orm_mode = True
+
+
+class PostBody(BaseModel):
+    aid: int
+    title: str
+    description: str
+
+
+class updateBody(BaseModel):
+    title: str
+    description: str
+</code></pre>
+<blockquote>
+<p>tables.py</p>
+</blockquote>
+<pre><code class="language-py">from sqlalchemy import (
+    MetaData,
+    Column,
+    Table,
+    Integer,
+    String,
+    Text,
+    ForeignKey,
+    DateTime,
+)
+from datetime import datetime
+
+meta_obj = MetaData()
+
+
+# Users table
+&quot;&quot;&quot;
+Users Table
+    - id (pk)
+    - email (str)
+    - password (str)
+&quot;&quot;&quot;
+
+args = [
+    Column(&quot;id&quot;, Integer, primary_key=True),
+    Column(&quot;email&quot;, String(50), unique=True, nullable=False),
+    Column(&quot;password&quot;, String(50), nullable=False),
+]
+user_table = Table(&quot;users&quot;, meta_obj, *args)
+
+# Post table
+&quot;&quot;&quot;
+Posts Table
+    - id (pk)
+    - title (str)
+    - description (str)
+    - createdAt(datetime)
+    - updatedAt(datetime)
+    - author_id (int,fk refrencing the id in user table)
+&quot;&quot;&quot;
+
+args = [
+    Column(&quot;id&quot;, Integer, primary_key=True),
+    Column(&quot;title&quot;, Text, unique=True, nullable=False),
+    Column(&quot;description&quot;, Text, nullable=False),
+    Column(&quot;createdAt&quot;, DateTime, default=datetime.utcnow),
+    Column(&quot;updatedAt&quot;, DateTime, onupdate=datetime.utcnow),
+    Column(&quot;author_id&quot;, Integer, ForeignKey(&quot;users.id&quot;)),
+]
+post_table = Table(&quot;posts&quot;, meta_obj, *args)
+</code></pre>
+<h2 id="a-simple-crud-app-using-sqlalchemy-ormasyncpgfastapi"><a class="header" href="#a-simple-crud-app-using-sqlalchemy-ormasyncpgfastapi">A simple crud app using sqlalchemy orm,asyncpg,fastapi</a></h2>
+<p>.env</p>
+<pre><code>DB_URL=postgresql+asyncpg://postgres:@localhost/fastdb
+</code></pre>
+<blockquote>
+<p>main.py</p>
+</blockquote>
+<pre><code class="language-py">import uvicorn
+from fastapi import FastAPI
+from sqlalchemy import delete, insert, select, update
+from connectdb import engine
+from connectdb import sess
+from schema import Post, PostBody, updateBody
+from connectdb import engine
+from crud import get_all, create_, update_, delete_
+
+
+app = FastAPI()
+
+
+@app.get(&quot;/post&quot;, response_model=list[Post])
+async def get_all_posts():
+    data = await get_all(sess)
+    return data
+
+
+@app.get(&quot;/post/{id}&quot;, response_model=Post)
+async def get_post_by_id(id: int):
+    pass
+
+
+@app.post(&quot;/post&quot;, response_model=Post)
+async def create_post(bd: PostBody):
+    data = await create_(sess, bd)
+    return data
+
+
+@app.put(&quot;/post/{id}&quot;)
+async def update_post(id: int, bd: updateBody):
+    data = await update_(sess, bd, id)
+    return data
+
+
+@app.delete(&quot;/post/{id}&quot;)
+async def delete_post(id: int):
+    data = await delete_(sess, id)
+    return data
+
+
+@app.get(&quot;/&quot;)
+async def hello():
+    return {&quot;msg&quot;: &quot;hello_world&quot;}
+
+
+if __name__ == &quot;__main__&quot;:
+    uvicorn.run(&quot;main:app&quot;, reload=True, log_level=&quot;info&quot;, workers=4, port=5000)
+</code></pre>
+<blockquote>
+<p>connectdb.py</p>
+</blockquote>
+<pre><code class="language-py">from sqlalchemy import text, create_engine
+from sqlalchemy.ext.asyncio import create_async_engine, async_sessionmaker
+import asyncio
+from tables import Base
+from dotenv import load_dotenv
+import os
+
+
+# Load ENV variables
+load_dotenv()
+
+# Engine
+engine = create_async_engine(os.getenv(&quot;DB_URL&quot;), echo=True)
+sess = async_sessionmaker(bind=engine, expire_on_commit=False)
+
+
+# Create DB
+async def main():
+    async with engine.begin() as conn:
+        await conn.run_sync(Base.metadata.create_all)
+        print(&quot;Connected to DB...&quot;)
+    await engine.dispose()
+
+
+asyncio.run(main())
+</code></pre>
+<blockquote>
+<p>tables.py</p>
+</blockquote>
+<pre><code class="language-py">from sqlalchemy import (
+    Integer,
+    String,
+    Text,
+    ForeignKey,
+    DateTime,
+)
+from datetime import datetime
+from sqlalchemy.orm import Mapped, mapped_column, DeclarativeBase, relationship
+
+
+class Base(DeclarativeBase):
+    pass
+
+
+# Users table
+&quot;&quot;&quot;
+Users Table
+    - id (pk)
+    - email (str)
+    - password (str)
+&quot;&quot;&quot;
+
+
+class User(Base):
+    __tablename__ = &quot;users&quot;
+    id: Mapped[int] = mapped_column(&quot;id&quot;, Integer, primary_key=True)
+    email: Mapped[str] = mapped_column(&quot;email&quot;, String(50), nullable=False)
+    password: Mapped[str] = mapped_column(&quot;password&quot;, String(50), nullable=False)
+    posts: Mapped[list[&quot;Post&quot;]] = relationship(
+        &quot;Post&quot;, back_populates=&quot;user&quot;, cascade=&quot;delete,all&quot;
+    )
+
+
+# Post table
+&quot;&quot;&quot;
+Posts Table
+    - id (pk)
+    - title (str)
+    - description (str)
+    - createdAt(datetime)
+    - updatedAt(datetime)
+    - author_id (int,fk refrencing the id in user table)
+&quot;&quot;&quot;
+
+
+class Post(Base):
+    __tablename__ = &quot;posts&quot;
+    id: Mapped[int] = mapped_column(&quot;id&quot;, Integer, primary_key=True)
+    title: Mapped[str] = mapped_column(&quot;title&quot;, Text, nullable=False)
+    description: Mapped[str] = mapped_column(&quot;description&quot;, Text, nullable=False)
+    createdAt: Mapped[DateTime] = mapped_column(
+        &quot;createdAt&quot;, DateTime, default=datetime.utcnow
+    )
+    updatedAt: Mapped[DateTime] = mapped_column(
+        &quot;updatedAt&quot;, DateTime, onupdate=datetime.utcnow, nullable=True
+    )
+    user_id: Mapped[int] = mapped_column(
+        &quot;user_id&quot;, Integer, ForeignKey(&quot;users.id&quot;), nullable=False
+    )
+    user: Mapped[User] = relationship(
+        &quot;User&quot;, back_populates=&quot;posts&quot;, cascade=&quot;delete,all&quot;
+    )
+</code></pre>
+<blockquote>
+<p>schema.py</p>
+</blockquote>
+<pre><code class="language-py">from pydantic import BaseModel
+from datetime import datetime
+
+
+class Post(BaseModel):
+    id: int
+    title: str
+    description: str
+    createdAt: datetime
+    user_id: int
+
+    class Config:
+        orm_mode = True
+
+
+class PostBody(BaseModel):
+    aid: int
+    title: str
+    description: str
+
+
+class updateBody(BaseModel):
+    title: str
+    description: str
+</code></pre>
+<blockquote>
+<p>crud.py</p>
+</blockquote>
+<pre><code class="language-py">from sqlalchemy import delete, update
+from sqlalchemy.ext.asyncio import AsyncSession, async_sessionmaker
+from sqlalchemy.sql import select
+from tables import User, Post
+
+
+async def get_all(sessmaker: async_sessionmaker[AsyncSession]):
+    async with sessmaker() as session:
+        st = select(Post)
+        res = await session.execute(st)
+        return res
+
+
+async def get_by_id(sessmaker: async_sessionmaker[AsyncSession]):
+    async with sessmaker() as session:
+        pass
+
+
+async def create_(sessmaker: async_sessionmaker[AsyncSession], data):
+    async with sessmaker() as session:
+        newpost = Post(title=data.title, description=data.description)
+        newpost.user_id = data.aid
+
+        session.add(newpost)
+        await session.commit()
+        print(newpost)
+        return newpost
+
+
+async def update_(sessmaker: async_sessionmaker[AsyncSession], data, id):
+    async with sessmaker() as session:
+        st = select(Post).where(Post.id == id)
+        res = await session.execute(st)
+        final_data = res.scalar()
+        if final_data:
+            if data.title:
+                final_data.title = data.title
+            if data.description:
+                final_data.description = data.description
+            await session.commit()
+        return final_data
+
+
+async def delete_(sessmaker: async_sessionmaker[AsyncSession], id):
+    async with sessmaker() as session:
+        print(id)
+        st = delete(Post).where(Post.id == id)
+        res = await session.execute(st)
+        await session.commit()
+        return res
 </code></pre>
 
                     </main>
