@@ -15,4 +15,6 @@
 - [12_sql](./12_sql.md)
 - [13_sql_alchemy](./13_sql_alchemy.md)
 - [14_redis](./14_redis.md)
-- [15_Fastapi](./15_Fastapi.md)
+- [15_fastapi](./15_fastapi.md)
+- [16_react_hooks_compressed](./16_react_hooks_compressed.md)
+- [17_react_Typescript](./17_react_Typescript.md)

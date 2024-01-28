@@ -1,0 +1,937 @@
+<!DOCTYPE HTML>
+<html lang="en" class="light" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>16_react_hooks_compressed - Markdown Notes</title>
+
+
+        <!-- Custom HTML head -->
+        
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="favicon.svg">
+        <link rel="shortcut icon" href="favicon.png">
+        <link rel="stylesheet" href="css/variables.css">
+        <link rel="stylesheet" href="css/general.css">
+        <link rel="stylesheet" href="css/chrome.css">
+        <link rel="stylesheet" href="css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="highlight.css">
+        <link rel="stylesheet" href="tomorrow-night.css">
+        <link rel="stylesheet" href="ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+
+    </head>
+    <body class="sidebar-visible no-js">
+    <div id="body-container">
+        <!-- Provide site root to javascript -->
+        <script>
+            var path_to_root = "";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('light')
+            html.classList.add(theme);
+            var body = document.querySelector('body');
+            body.classList.remove('no-js')
+            body.classList.add('js');
+        </script>
+
+        <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            var body = document.querySelector('body');
+            var sidebar = null;
+            var sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+            }
+            sidebar_toggle.checked = sidebar === 'visible';
+            body.classList.remove('sidebar-visible');
+            body.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded "><a href="1_react_1_fundamentals.html"><strong aria-hidden="true">1.</strong> 1_react_1_fundamentals</a></li><li class="chapter-item expanded "><a href="2_react_2_advanced.html"><strong aria-hidden="true">2.</strong> 2_react_2_advanced</a></li><li class="chapter-item expanded "><a href="3_react_3_axios.html"><strong aria-hidden="true">3.</strong> 3_react_3_axios</a></li><li class="chapter-item expanded "><a href="4_react_4_router_dom.html"><strong aria-hidden="true">4.</strong> 4_react_4_router_dom</a></li><li class="chapter-item expanded "><a href="5_react_5_redux_tookit.html"><strong aria-hidden="true">5.</strong> 5_react_5_redux_tookit</a></li><li class="chapter-item expanded "><a href="6_node_1_fundamentals.html"><strong aria-hidden="true">6.</strong> 6_node_1_fundamentals</a></li><li class="chapter-item expanded "><a href="7_node_2_advanced.html"><strong aria-hidden="true">7.</strong> 7_node_2_advanced</a></li><li class="chapter-item expanded "><a href="8_node_3_orm.html"><strong aria-hidden="true">8.</strong> 8_node_3_orm</a></li><li class="chapter-item expanded "><a href="9_node_4_apollo_graphql_basics.html"><strong aria-hidden="true">9.</strong> 9_node_4_apollo_graphql_basics</a></li><li class="chapter-item expanded "><a href="10_node_5_typescript.html"><strong aria-hidden="true">10.</strong> 10_node_5_typescript</a></li><li class="chapter-item expanded "><a href="11_node_6_graphql_ts_orm.html"><strong aria-hidden="true">11.</strong> 11_node_6_graphql_ts_orm</a></li><li class="chapter-item expanded "><a href="12_sql.html"><strong aria-hidden="true">12.</strong> 12_sql</a></li><li class="chapter-item expanded "><a href="13_sql_alchemy.html"><strong aria-hidden="true">13.</strong> 13_sql_alchemy</a></li><li class="chapter-item expanded "><a href="14_redis.html"><strong aria-hidden="true">14.</strong> 14_redis</a></li><li class="chapter-item expanded "><a href="15_fastapi.html"><strong aria-hidden="true">15.</strong> 15_fastapi</a></li><li class="chapter-item expanded "><a href="16_react_hooks_compressed.html" class="active"><strong aria-hidden="true">16.</strong> 16_react_hooks_compressed</a></li><li class="chapter-item expanded "><a href="17_react_Typescript.html"><strong aria-hidden="true">17.</strong> 17_react_Typescript</a></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <!-- Track and set sidebar scroll position -->
+        <script>
+            var sidebarScrollbox = document.querySelector('#sidebar .sidebar-scrollbox');
+            sidebarScrollbox.addEventListener('click', function(e) {
+                if (e.target.tagName === 'A') {
+                    sessionStorage.setItem('sidebar-scroll', sidebarScrollbox.scrollTop);
+                }
+            }, { passive: true });
+            var sidebarScrollTop = sessionStorage.getItem('sidebar-scroll');
+            sessionStorage.removeItem('sidebar-scroll');
+            if (sidebarScrollTop) {
+                // preserve sidebar scroll position when navigating via links within sidebar
+                sidebarScrollbox.scrollTop = sidebarScrollTop;
+            } else {
+                // scroll sidebar to current active section when navigating via "next/previous chapter" buttons
+                var activeSection = document.querySelector('#sidebar .active');
+                if (activeSection) {
+                    activeSection.scrollIntoView({ block: 'center' });
+                }
+            }
+        </script>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </label>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">Markdown Notes</h1>
+
+                    <div class="right-buttons">
+                        <a href="print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1 id="react-hooks"><a class="header" href="#react-hooks">React Hooks</a></h1>
+<p><strong>Basic Hooks</strong></p>
+<h2 id="usestate"><a class="header" href="#usestate">useState</a></h2>
+<p><strong>Note : State updates are not immediate.</strong></p>
+<blockquote>
+<p>Problem</p>
+</blockquote>
+<pre><code class="language-js">import React from 'react';
+import { useState } from 'react';
+
+const App = () =&gt; {
+    const [count, setCount] = useState(0);
+
+    const handleClick = () =&gt; {
+        // You may think on every click the value will increase by
+        // 3. But it will not because the setCount function is still
+        // using the old values of count.In react we need to use the
+        // updater function in useState to grab the latest value.
+
+        setCount(count + 1);
+        setCount(count + 1);
+        setCount(count + 1);
+    };
+
+    return (
+        &lt;&gt;
+            &lt;div&gt;
+                &lt;h3&gt;{count}&lt;/h3&gt;
+                &lt;button type=&quot;button&quot; onClick={handleClick}&gt;
+                    Increase
+                &lt;/button&gt;
+            &lt;/div&gt;
+        &lt;/&gt;
+    );
+};
+
+export default App;
+</code></pre>
+<blockquote>
+<p>Fix</p>
+</blockquote>
+<pre><code class="language-js">import React from 'react';
+import { useState } from 'react';
+
+const App = () =&gt; {
+    const [count, setCount] = useState(0);
+
+    const handleClick = () =&gt; {
+        // You may think on every click the value will increase by
+        // 3. But it will not because the setCount function is still
+        // using the old values of count.In react we need to use the
+        // updater function in useState to grab the latest value.
+
+        setCount((prev) =&gt; prev + 1);
+        setCount((prev) =&gt; prev + 1);
+        setCount((prev) =&gt; prev + 1);
+    };
+
+    return (
+        &lt;&gt;
+            &lt;div&gt;
+                &lt;h3&gt;{count}&lt;/h3&gt;
+                &lt;button type=&quot;button&quot; onClick={handleClick}&gt;
+                    Increase
+                &lt;/button&gt;
+            &lt;/div&gt;
+        &lt;/&gt;
+    );
+};
+
+export default App;
+</code></pre>
+<blockquote>
+<p>Dynamic object Keys form</p>
+</blockquote>
+<pre><code class="language-js">import React from 'react';
+import { useState } from 'react';
+
+const App = () =&gt; {
+    const [data, setData] = useState({ name: '', email: '' });
+    const handleChange = (e) =&gt; {
+        setData((data) =&gt; {
+            return { ...data, [e.target.name]: e.target.value };
+        });
+    };
+    return (
+        &lt;div&gt;
+            &lt;input
+                type=&quot;text&quot;
+                name=&quot;name&quot;
+                value={data.name}
+                onChange={handleChange}
+            /&gt;
+            &lt;input
+                type=&quot;text&quot;
+                name=&quot;email&quot;
+                value={data.email}
+                onChange={handleChange}
+            /&gt;
+        &lt;/div&gt;
+    );
+};
+
+export default App;
+</code></pre>
+<h2 id="useeffect"><a class="header" href="#useeffect">useEffect</a></h2>
+<p><strong>Component Mount/Unmount</strong></p>
+<ul>
+<li>useEffect gets triggered after the page/component in which it is in is rendered.</li>
+<li>useEffect cleanup function gets triggered after the component which it is in is unmounted.</li>
+</ul>
+<blockquote>
+<p>App.jsx</p>
+</blockquote>
+<pre><code class="language-js">import React from 'react';
+import { useState } from 'react';
+import Hello from './Hello';
+
+const App = () =&gt; {
+    const [showhello, setShowhello] = useState(false);
+    return (
+        &lt;&gt;
+            {console.log('App rendered!')}
+            {showhello ? &lt;Hello /&gt; : ''}
+            &lt;button
+                type=&quot;button&quot;
+                onClick={() =&gt; {
+                    setShowhello(!showhello);
+                }}
+            &gt;
+                CLick
+            &lt;/button&gt;
+            &lt;div&gt;
+                &lt;h3&gt;App&lt;/h3&gt;
+            &lt;/div&gt;
+        &lt;/&gt;
+    );
+};
+
+export default App;
+</code></pre>
+<blockquote>
+<p>Hello.jsx</p>
+</blockquote>
+<pre><code class="language-js">import React, { useEffect } from 'react';
+
+const Hello = () =&gt; {
+    useEffect(() =&gt; {
+        console.log(
+            'Hello component useEffect is triggered after page has re-rendered!'
+        );
+        return () =&gt; {
+            console.log('Unmounted hello!');
+        };
+    });
+
+    return (
+        &lt;&gt;
+            {console.log('Render hello!')}
+            &lt;h3&gt;hello&lt;/h3&gt;
+        &lt;/&gt;
+    );
+};
+
+export default Hello;
+</code></pre>
+<p><strong>Event Listeners in useEffect</strong></p>
+<p>Use of cleanup functions.</p>
+<ul>
+<li>Must cancel the previous event Listeners,otherwise when the component gets
+re-rendered we are going to have multiple event-listeners.</li>
+</ul>
+<blockquote>
+<p>App.jsx [Problem and Fix 1]</p>
+</blockquote>
+<pre><code class="language-js">import React, { useEffect } from 'react';
+import { useState } from 'react';
+import Hello from './Hello';
+
+const App = () =&gt; {
+    const [count, setCount] = useState(0);
+    useEffect(() =&gt; {
+        // Main
+        console.log(
+            'This will run after we have painted the DOM with the below JSX'
+        );
+
+        // Cleanup [Apprender-&gt;cleanup(if any)-&gt;Trigger useEffect main]
+        return () =&gt; {
+            console.log('This will run to cancel previous useEffects if any!');
+        };
+    });
+    return (
+        &lt;&gt;
+            {console.log('App rendered!')}
+            {count}
+            &lt;button
+                type=&quot;button&quot;
+                onClick={() =&gt; {
+                    setCount((prev) =&gt; prev + 1);
+                }}
+            &gt;
+                Click
+            &lt;/button&gt;
+            &lt;div&gt;
+                &lt;h3&gt;App&lt;/h3&gt;
+            &lt;/div&gt;
+        &lt;/&gt;
+    );
+};
+
+export default App;
+</code></pre>
+<blockquote>
+<p>App.jsx [Problem and Fix 2]</p>
+</blockquote>
+<pre><code class="language-js">import React, { useEffect } from 'react';
+import { useState } from 'react';
+
+const App = () =&gt; {
+    const [count, setCount] = useState(0);
+    useEffect(() =&gt; {
+        // Main
+        const fn = () =&gt; {
+            console.log('Mouse moved!');
+        };
+
+        window.addEventListener('mousemove', fn);
+
+        // Cleanup [Apprender-&gt;cleanup(if any)-&gt;Trigger useEffect main]
+        // Going tosave the refrence of function fn of previous useEffect as fn get re-created from scratch
+        return () =&gt; {
+            window.removeEventListener('mousemove', fn);
+        };
+    });
+    return (
+        &lt;&gt;
+            {console.log('App rendered!')}
+            {count}
+            &lt;button
+                type=&quot;button&quot;
+                onClick={() =&gt; {
+                    setCount((prev) =&gt; prev + 1);
+                }}
+            &gt;
+                Click
+            &lt;/button&gt;
+            &lt;div&gt;
+                &lt;h3&gt;App&lt;/h3&gt;
+            &lt;/div&gt;
+        &lt;/&gt;
+    );
+};
+
+export default App;
+</code></pre>
+<p><strong>Fetch Function with useEffect using custom hooks</strong></p>
+<p>Some note :</p>
+<ul>
+<li>Custom Hooks can have any arbitary name. Good Convention is
+to give the &quot;use&quot; prefix to make the developer understand its
+a hook.It is not a mandatory thing.</li>
+</ul>
+<ul>
+<li>UseEffect only runs after dom is painted</li>
+<li>Use Dependency array wisely.Below by adding count useEffect is triggerd when value of count changes.</li>
+<li>2 phases for a custom default value return phase and value return phase</li>
+</ul>
+<blockquote>
+<p>App.jsx</p>
+</blockquote>
+<pre><code class="language-js">import React, { useState } from 'react';
+import customhook from './customhook';
+
+const App = () =&gt; {
+    const [count, setCount] = useState(0);
+    const { data, isLoading, isErr } = customhook(count);
+
+    if (isLoading) {
+        console.log('Loading renderd!');
+        return &lt;div&gt;Loading....&lt;/div&gt;;
+    }
+    if (isErr) {
+        return &lt;div&gt;Error....&lt;/div&gt;;
+    }
+
+    return (
+        &lt;div&gt;
+            {console.log('App renderd!')}
+            &lt;h3&gt;Count : {count}&lt;/h3&gt;
+            &lt;div&gt;
+                &lt;button
+                    type=&quot;button&quot;
+                    onClick={() =&gt; {
+                        setCount((prev) =&gt; prev + 1);
+                    }}
+                &gt;
+                    Click
+                &lt;/button&gt;
+            &lt;/div&gt;
+            {data}
+        &lt;/div&gt;
+    );
+};
+
+export default App;
+</code></pre>
+<blockquote>
+<p>customhook.jsx</p>
+</blockquote>
+<pre><code class="language-js">import React from 'react';
+import { useEffect } from 'react';
+import { useState } from 'react';
+
+const customhook = (count) =&gt; {
+    const [result, setResult] = useState({
+        data: [],
+        isLoading: true,
+        isErr: false
+    });
+
+    useEffect(() =&gt; {
+        const fetchData = async () =&gt; {
+            console.log('customhook effect triggered!');
+
+            try {
+                const data = await fetch(
+                    `http://numbersapi.com/${count}/trivia`
+                );
+                const res = await data.text();
+                setResult((data) =&gt; {
+                    return {
+                        ...data,
+                        isLoading: false,
+                        isErr: false,
+                        data: res
+                    };
+                });
+            } catch (err) {
+                setResult((data) =&gt; {
+                    return {
+                        ...data,
+                        isLoading: false,
+                        isErr: true
+                    };
+                });
+            }
+        };
+        fetchData();
+    }, [count]);
+
+    console.log('customhook renderd!');
+    return result;
+};
+
+export default customhook;
+</code></pre>
+<h2 id="useref"><a class="header" href="#useref">useRef</a></h2>
+<blockquote>
+<p>Does not trigger re-render and persist the value across multiple re-renders</p>
+</blockquote>
+<ul>
+<li>Keep track of times component re-renderd</li>
+<li>Used in forms</li>
+</ul>
+<p>Note: on adding fetchData function in the above codes Dependency array
+,it will cause and infinte loop.We can use useRef to strore the reference
+of the function , so on re-render the function does not gets created from
+scratch.</p>
+<blockquote>
+<p>Fix liniting errors</p>
+</blockquote>
+<pre><code class="language-js">import React from 'react';
+import { useRef } from 'react';
+import { useEffect } from 'react';
+import { useState } from 'react';
+
+const customhook = (count) =&gt; {
+    const [result, setResult] = useState({
+        data: [],
+        isLoading: true,
+        isErr: false
+    });
+
+    // An object with current variable
+    // Get created with the first ct value during initial render , so thats wht ct is passed as an argument
+    // Can be done with useState too but a function must be returned from a function, state is initialized during first render.
+
+    const fetchData = useRef(async (ct) =&gt; {
+        console.log('customhook effect triggered!');
+
+        try {
+            const data = await fetch(`http://numbersapi.com/${ct}/trivia`);
+            const res = await data.text();
+            setResult((data) =&gt; {
+                return {
+                    ...data,
+                    isLoading: false,
+                    isErr: false,
+                    data: res
+                };
+            });
+        } catch (err) {
+            setResult((data) =&gt; {
+                return {
+                    ...data,
+                    isLoading: false,
+                    isErr: true
+                };
+            });
+        }
+    });
+
+    useEffect(() =&gt; {
+        // fetchData();
+        fetchData.current(count);
+    }, [fetchData.current, count]);
+
+    console.log('customhook renderd!');
+    return result;
+};
+
+export default customhook;
+</code></pre>
+<blockquote>
+<p>Form example</p>
+</blockquote>
+<pre><code class="language-js">import React, { useRef } from 'react';
+
+const App = () =&gt; {
+    const rf = useRef(null);
+    return (
+        &lt;div&gt;
+            &lt;input
+                type=&quot;text&quot;
+                name=&quot;name&quot;
+                ref={rf}
+                onChange={() =&gt; {
+                    console.log(rf.current.value);
+                }}
+            /&gt;
+        &lt;/div&gt;
+    );
+};
+
+export default App;
+</code></pre>
+<p><strong>Performance Hooks</strong></p>
+<h2 id="reactmemo"><a class="header" href="#reactmemo">React.memo</a></h2>
+<p>In react a child component will re-render if its parent component re-renders,
+even if the child components props have not changed.So this can lead to
+performace degradation if we have many child components in our app,so
+to fix it we can use Reacts memo to tell the component only to re-render when
+its props change.But when child component re-renders parent does not re-render,but
+the childs child component re-renders.</p>
+<h3 id="a-problem-where-child-component-re-renders-even-if-its-props-dont-change-beacuse-its-parent-component-re-renders"><a class="header" href="#a-problem-where-child-component-re-renders-even-if-its-props-dont-change-beacuse-its-parent-component-re-renders">A problem where child component re-renders even if its props dont change beacuse its parent component re-renders</a></h3>
+<blockquote>
+<p>Problem</p>
+</blockquote>
+<blockquote>
+<p>App.jsx</p>
+</blockquote>
+<pre><code class="language-js">import React, { useState } from 'react';
+import List from './List';
+
+const data = [
+    { id: 1, name: 'Jack' },
+    { id: 2, name: 'Joe' }
+];
+
+const App = () =&gt; {
+    const [count, setCount] = useState(0);
+    return (
+        &lt;div&gt;
+            &lt;h3&gt;Count : {count}&lt;/h3&gt;
+            &lt;button
+                type=&quot;button&quot;
+                onClick={() =&gt; {
+                    setCount((prev) =&gt; prev + 1);
+                }}
+            &gt;
+                Click
+            &lt;/button&gt;
+            &lt;List people={data} /&gt;
+        &lt;/div&gt;
+    );
+};
+
+export default App;
+</code></pre>
+<blockquote>
+<p>List.jsx</p>
+</blockquote>
+<pre><code class="language-js">import React from 'react';
+import Person from './Person';
+const List = ({ people }) =&gt; {
+    return (
+        &lt;div&gt;
+            {people.map((person) =&gt; {
+                return &lt;Person key={person.id} {...person} /&gt;;
+            })}
+        &lt;/div&gt;
+    );
+};
+export default List;
+</code></pre>
+<blockquote>
+<p>Person.jsx</p>
+</blockquote>
+<pre><code class="language-js">const Person = ({ name }) =&gt; {
+    return (
+        &lt;div&gt;
+            &lt;h4&gt;{name}&lt;/h4&gt;
+        &lt;/div&gt;
+    );
+};
+export default Person;
+</code></pre>
+<blockquote>
+<p>Fix</p>
+</blockquote>
+<p>Move the counter to a seperate component.So that component becomes
+a child component of App.jsx when attached to App.jsx.So when counter
+renders then the counter and all its child component of counter will re-renders
+not app.jsx.</p>
+<h3 id="add-reactmemo-will-only-re-render-a-component-if-its-props-have-changed"><a class="header" href="#add-reactmemo-will-only-re-render-a-component-if-its-props-have-changed">Add react.memo() will only re-render a component if its props have changed</a></h3>
+<pre><code class="language-js">import React, { useState } from 'react';
+import Person from './Person';
+const List = ({ people }) =&gt; {
+    return (
+        &lt;div&gt;
+            {people.map((person) =&gt; {
+                return &lt;Person key={person.id} {...person} /&gt;;
+            })}
+        &lt;/div&gt;
+    );
+};
+export default React.memo(List);
+</code></pre>
+<h2 id="usecallback"><a class="header" href="#usecallback">useCallback</a></h2>
+<blockquote>
+<p>Cache a functions reference so that its does not gets created from scratch and its
+refrence change</p>
+</blockquote>
+<p>Tip : Either use Dependency array or set state updater function if want to use latest value of a state.</p>
+<blockquote>
+<p>App.jsx</p>
+</blockquote>
+<pre><code class="language-js">import React, { useCallback, useState } from 'react';
+import List from './List';
+
+const data = [
+    { id: 1, name: 'Jack' },
+    { id: 2, name: 'Joe' },
+    { id: 3, name: 'Jay' },
+    { id: 4, name: 'Jase' }
+];
+
+const App = () =&gt; {
+    const [count, setCount] = useState(0);
+    const [res, setRes] = useState(data);
+
+    const removePerson = useCallback(
+        (id) =&gt; {
+            // Still going to use the value of res it was first created on initial render
+            const data = res.filter((p) =&gt; p.id != id);
+            setRes(data);
+
+            // Way 1
+            // setRes((prev) =&gt; {
+            //     return prev.filter((p) =&gt; p.id != id);
+            // });
+
+            // Way 2
+        },
+        [res]
+    );
+
+    return (
+        &lt;div&gt;
+            &lt;h3&gt;Count : {count}&lt;/h3&gt;
+            &lt;button
+                type=&quot;button&quot;
+                onClick={() =&gt; {
+                    setCount((prev) =&gt; prev + 1);
+                }}
+            &gt;
+                Click
+            &lt;/button&gt;
+            &lt;List people={res} removePerson={removePerson} /&gt;
+        &lt;/div&gt;
+    );
+};
+
+export default App;
+</code></pre>
+<blockquote>
+<p>List.jsx</p>
+</blockquote>
+<pre><code class="language-js">import React, { useState } from 'react';
+import Person from './Person';
+const List = ({ people, removePerson }) =&gt; {
+    return (
+        &lt;div&gt;
+            {people.map((person) =&gt; {
+                return (
+                    &lt;Person
+                        key={person.id}
+                        {...person}
+                        removePerson={removePerson}
+                    /&gt;
+                );
+            })}
+        &lt;/div&gt;
+    );
+};
+export default React.memo(List);
+</code></pre>
+<blockquote>
+<p>Person.jsx</p>
+</blockquote>
+<pre><code class="language-js">const Person = ({ name, id, removePerson }) =&gt; {
+    return (
+        &lt;div&gt;
+            &lt;button
+                type=&quot;button&quot;
+                onClick={() =&gt; {
+                    removePerson(id);
+                }}
+            &gt;
+                Remove
+            &lt;/button&gt;
+            &lt;h4&gt;{name}&lt;/h4&gt;
+        &lt;/div&gt;
+    );
+};
+export default Person;
+</code></pre>
+<h2 id="usememo"><a class="header" href="#usememo">useMemo</a></h2>
+<blockquote>
+<p>Cache a single value which takes a long time to compute</p>
+</blockquote>
+<pre><code class="language-js">import React, { useMemo, useState } from 'react';
+import { slow } from './slowfunc';
+
+const data = [
+    { id: 1, name: 'Jack' },
+    { id: 2, name: 'Joe' },
+    { id: 3, name: 'Jay' },
+    { id: 4, name: 'Jase' }
+];
+
+const App = () =&gt; {
+    const [count, setCount] = useState(0);
+
+    // Will be run only on first reder
+
+    const val = useMemo(() =&gt; slow(), []);
+    console.log(val);
+
+    return (
+        &lt;div&gt;
+            &lt;h3&gt;Count : {count}&lt;/h3&gt;
+            &lt;button
+                type=&quot;button&quot;
+                onClick={() =&gt; {
+                    setCount((prev) =&gt; prev + 1);
+                }}
+            &gt;
+                Click
+            &lt;/button&gt;
+        &lt;/div&gt;
+    );
+};
+
+export default App;
+</code></pre>
+<p><strong>Useful Hooks</strong></p>
+<h2 id="usecontext-context-api"><a class="header" href="#usecontext-context-api">useContext (Context API)</a></h2>
+<blockquote>
+<p>main.jsx</p>
+</blockquote>
+<pre><code class="language-js">import React, { createContext } from 'react';
+import ReactDOM from 'react-dom/client';
+import App from './App.jsx';
+import { BrowserRouter } from 'react-router-dom';
+
+export const userctx = createContext(null);
+ReactDOM.createRoot(document.getElementById('root')).render(
+    &lt;userctx.Provider value={{ name: 'sdas', id: 1 }}&gt;
+        &lt;BrowserRouter&gt;
+            &lt;App /&gt;
+        &lt;/BrowserRouter&gt;
+    &lt;/userctx.Provider&gt;
+);
+</code></pre>
+<blockquote>
+<p>About.jsx</p>
+</blockquote>
+<pre><code class="language-js">import React, { useContext } from 'react';
+import { userctx } from '../main';
+
+const About = () =&gt; {
+    const val = useContext(userctx);
+    console.log(val);
+    return &lt;div&gt;About&lt;/div&gt;;
+};
+
+export default About;
+</code></pre>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="15_fastapi.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+                            <a rel="next prefetch" href="17_react_Typescript.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="15_fastapi.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+                    <a rel="next prefetch" href="17_react_Typescript.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="elasticlunr.min.js"></script>
+        <script src="mark.min.js"></script>
+        <script src="searcher.js"></script>
+
+        <script src="clipboard.min.js"></script>
+        <script src="highlight.js"></script>
+        <script src="book.js"></script>
+
+        <!-- Custom JS scripts -->
+
+
+    </div>
+    </body>
+</html>

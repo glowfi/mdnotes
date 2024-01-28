@@ -3,7 +3,7 @@
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>3_react_3_axios - Markdown Notes</title>
+        <title>17_react_Typescript - Markdown Notes</title>
 
 
         <!-- Custom HTML head -->
@@ -88,7 +88,7 @@
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
             <div class="sidebar-scrollbox">
-                <ol class="chapter"><li class="chapter-item expanded "><a href="1_react_1_fundamentals.html"><strong aria-hidden="true">1.</strong> 1_react_1_fundamentals</a></li><li class="chapter-item expanded "><a href="2_react_2_advanced.html"><strong aria-hidden="true">2.</strong> 2_react_2_advanced</a></li><li class="chapter-item expanded "><a href="3_react_3_axios.html" class="active"><strong aria-hidden="true">3.</strong> 3_react_3_axios</a></li><li class="chapter-item expanded "><a href="4_react_4_router_dom.html"><strong aria-hidden="true">4.</strong> 4_react_4_router_dom</a></li><li class="chapter-item expanded "><a href="5_react_5_redux_tookit.html"><strong aria-hidden="true">5.</strong> 5_react_5_redux_tookit</a></li><li class="chapter-item expanded "><a href="6_node_1_fundamentals.html"><strong aria-hidden="true">6.</strong> 6_node_1_fundamentals</a></li><li class="chapter-item expanded "><a href="7_node_2_advanced.html"><strong aria-hidden="true">7.</strong> 7_node_2_advanced</a></li><li class="chapter-item expanded "><a href="8_node_3_orm.html"><strong aria-hidden="true">8.</strong> 8_node_3_orm</a></li><li class="chapter-item expanded "><a href="9_node_4_apollo_graphql_basics.html"><strong aria-hidden="true">9.</strong> 9_node_4_apollo_graphql_basics</a></li><li class="chapter-item expanded "><a href="10_node_5_typescript.html"><strong aria-hidden="true">10.</strong> 10_node_5_typescript</a></li><li class="chapter-item expanded "><a href="11_node_6_graphql_ts_orm.html"><strong aria-hidden="true">11.</strong> 11_node_6_graphql_ts_orm</a></li><li class="chapter-item expanded "><a href="12_sql.html"><strong aria-hidden="true">12.</strong> 12_sql</a></li><li class="chapter-item expanded "><a href="13_sql_alchemy.html"><strong aria-hidden="true">13.</strong> 13_sql_alchemy</a></li><li class="chapter-item expanded "><a href="14_redis.html"><strong aria-hidden="true">14.</strong> 14_redis</a></li><li class="chapter-item expanded "><a href="15_fastapi.html"><strong aria-hidden="true">15.</strong> 15_fastapi</a></li><li class="chapter-item expanded "><a href="16_react_hooks_compressed.html"><strong aria-hidden="true">16.</strong> 16_react_hooks_compressed</a></li><li class="chapter-item expanded "><a href="17_react_Typescript.html"><strong aria-hidden="true">17.</strong> 17_react_Typescript</a></li></ol>
+                <ol class="chapter"><li class="chapter-item expanded "><a href="1_react_1_fundamentals.html"><strong aria-hidden="true">1.</strong> 1_react_1_fundamentals</a></li><li class="chapter-item expanded "><a href="2_react_2_advanced.html"><strong aria-hidden="true">2.</strong> 2_react_2_advanced</a></li><li class="chapter-item expanded "><a href="3_react_3_axios.html"><strong aria-hidden="true">3.</strong> 3_react_3_axios</a></li><li class="chapter-item expanded "><a href="4_react_4_router_dom.html"><strong aria-hidden="true">4.</strong> 4_react_4_router_dom</a></li><li class="chapter-item expanded "><a href="5_react_5_redux_tookit.html"><strong aria-hidden="true">5.</strong> 5_react_5_redux_tookit</a></li><li class="chapter-item expanded "><a href="6_node_1_fundamentals.html"><strong aria-hidden="true">6.</strong> 6_node_1_fundamentals</a></li><li class="chapter-item expanded "><a href="7_node_2_advanced.html"><strong aria-hidden="true">7.</strong> 7_node_2_advanced</a></li><li class="chapter-item expanded "><a href="8_node_3_orm.html"><strong aria-hidden="true">8.</strong> 8_node_3_orm</a></li><li class="chapter-item expanded "><a href="9_node_4_apollo_graphql_basics.html"><strong aria-hidden="true">9.</strong> 9_node_4_apollo_graphql_basics</a></li><li class="chapter-item expanded "><a href="10_node_5_typescript.html"><strong aria-hidden="true">10.</strong> 10_node_5_typescript</a></li><li class="chapter-item expanded "><a href="11_node_6_graphql_ts_orm.html"><strong aria-hidden="true">11.</strong> 11_node_6_graphql_ts_orm</a></li><li class="chapter-item expanded "><a href="12_sql.html"><strong aria-hidden="true">12.</strong> 12_sql</a></li><li class="chapter-item expanded "><a href="13_sql_alchemy.html"><strong aria-hidden="true">13.</strong> 13_sql_alchemy</a></li><li class="chapter-item expanded "><a href="14_redis.html"><strong aria-hidden="true">14.</strong> 14_redis</a></li><li class="chapter-item expanded "><a href="15_fastapi.html"><strong aria-hidden="true">15.</strong> 15_fastapi</a></li><li class="chapter-item expanded "><a href="16_react_hooks_compressed.html"><strong aria-hidden="true">16.</strong> 16_react_hooks_compressed</a></li><li class="chapter-item expanded "><a href="17_react_Typescript.html" class="active"><strong aria-hidden="true">17.</strong> 17_react_Typescript</a></li></ol>
             </div>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle">
                 <div class="sidebar-resize-indicator"></div>
@@ -173,156 +173,22 @@
 
                 <div id="content" class="content">
                     <main>
-                        <h3 id="axios"><a class="header" href="#axios">Axios</a></h3>
-<h4 id="docs"><a class="header" href="#docs">Docs</a></h4>
-<p><a href="https://axios-http.com/docs/intro">Axios Docs</a></p>
-<h4 id="install"><a class="header" href="#install">Install</a></h4>
-<pre><code class="language-sh">npm install axios
-</code></pre>
-<pre><code class="language-js">&lt;script src=&quot;https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js&quot;&gt;&lt;/script&gt;
-</code></pre>
-<h4 id="first-request"><a class="header" href="#first-request">First Request</a></h4>
-<ul>
-<li>
-<p>import axios</p>
-</li>
-<li>
-<p>axios.get(url)</p>
-</li>
-<li>
-<p>axios.post(url)</p>
-</li>
-<li>
-<p>axios.patch/put(url)</p>
-</li>
-<li>
-<p>axios.delete(url)</p>
-</li>
-<li>
-<p>default get axios(url)</p>
-</li>
-<li>
-<p>returns a promise</p>
-</li>
-<li>
-<p>response data located in data property</p>
-</li>
-<li>
-<p>error in error.response</p>
-</li>
-</ul>
-<pre><code class="language-js">import axios from 'axios';
-
-const fetchData = async () =&gt; {
-    try {
-        // axios.get(), axios.post(),axios.put(), axios.delete()
-        const response = await axios(url);
-
-        console.log(response);
-    } catch (error) {
-        console.log(error.response);
-    }
-};
-</code></pre>
-<h4 id="headers"><a class="header" href="#headers">Headers</a></h4>
-<ul>
-<li>
-<p>second argument</p>
-</li>
-<li>
-<p>axios.get(url,{})</p>
-</li>
-<li>
-<p>third argument in requests with data</p>
-</li>
-<li>
-<p>axios.post(url,{data},{})</p>
-</li>
-</ul>
-<pre><code class="language-js">const fetchDadJoke = async () =&gt; {
-    try {
-        const { data } = await axios(url, {
-            headers: {
-                Accept: 'application/json'
-            }
-        });
-        // console.log(data);
-        setJoke(data.joke);
-    } catch (error) {
-        console.log(error.response);
-    }
-};
-</code></pre>
-<h4 id="post-request"><a class="header" href="#post-request">Post Request</a></h4>
-<ul>
-<li>send data to the server</li>
-<li>axios.post(url, { data })</li>
-<li>more options (auth header) - axios.post(url, { data },{})</li>
-</ul>
-<pre><code class="language-js">try {
-    const resp = await axios.post(url, { data });
-} catch (error) {
-    console.log(error.response.data);
-}
-</code></pre>
-<h4 id="global-defaults"><a class="header" href="#global-defaults">Global Defaults</a></h4>
-<pre><code class="language-js">axios.defaults.headers.common['Accept'] = 'application/json';
-axios.defaults.baseURL = 'https://api.example.com';
-axios.defaults.headers.common['Authorization'] = AUTH_TOKEN;
-axios.defaults.headers.post['Content-Type'] =
-    'application/x-www-form-urlencoded';
-</code></pre>
-<h4 id="custom-instance"><a class="header" href="#custom-instance">Custom Instance</a></h4>
-<pre><code class="language-js">const authFetch = axios.create({
-    baseURL: 'https://course-api.com',
-    headers: {
-        Accept: 'application/json'
-    }
-});
-</code></pre>
-<h4 id="interceptors"><a class="header" href="#interceptors">Interceptors</a></h4>
-<ul>
-<li>global and custom</li>
-</ul>
-<pre><code class="language-js">authFetch.interceptors.request.use(
-    (request) =&gt; {
-        request.headers.common['Accept'] = `application/json`;
-        console.log('request sent');
-        // must return request
-        return request;
-    },
-    (error) =&gt; {
-        return Promise.reject(error);
-    }
-);
-
-authFetch.interceptors.response.use(
-    (response) =&gt; {
-        console.log('got response');
-        return response;
-    },
-    (error) =&gt; {
-        console.log(error.response);
-        if (error.response.status === 404) {
-            // do something
-            console.log('NOT FOUND');
-        }
-        return Promise.reject(error);
-    }
-);
-</code></pre>
+                        <h1 id="react-typescript"><a class="header" href="#react-typescript">React Typescript</a></h1>
+<p>use React.FC to declare component type</p>
+<h3 id="props"><a class="header" href="#props">Props</a></h3>
+<p>Use interface</p>
+<h3 id="hooks"><a class="header" href="#hooks">Hooks</a></h3>
+<p>Types are declared using &lt;&gt;</p>
+<h3 id="render-props"><a class="header" href="#render-props">Render props</a></h3>
 
                     </main>
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
-                            <a rel="prev" href="2_react_2_advanced.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                            <a rel="prev" href="16_react_hooks_compressed.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                                 <i class="fa fa-angle-left"></i>
                             </a>
 
-                            <a rel="next prefetch" href="4_react_4_router_dom.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
-                                <i class="fa fa-angle-right"></i>
-                            </a>
 
                         <div style="clear: both"></div>
                     </nav>
@@ -330,13 +196,10 @@ authFetch.interceptors.response.use(
             </div>
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
-                    <a rel="prev" href="2_react_2_advanced.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                    <a rel="prev" href="16_react_hooks_compressed.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                         <i class="fa fa-angle-left"></i>
                     </a>
 
-                    <a rel="next prefetch" href="4_react_4_router_dom.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
-                        <i class="fa fa-angle-right"></i>
-                    </a>
             </nav>
 
         </div>

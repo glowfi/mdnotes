@@ -1,487 +1,535 @@
-#### React Router
+# React Router
 
-[React Router Docs](https://reactrouter.com/docs/en/v6/getting-started/overview)
-
-#### Install
+### Install
 
 ```sh
 npm install react-router-dom@6
 ```
 
-#### First Pages
+### Basic Setup
 
--   App.js
+> main.jsx
+
+Wrap entire app with browser router
 
 ```js
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import React from 'react';
+import ReactDOM from 'react-dom/client';
+import App from './App.jsx';
+import { BrowserRouter } from 'react-router-dom';
 
-function App() {
-    return (
-        <BrowserRouter>
-            <Routes>
-                <Route path="/" element={<div>home page</div>} />
-                <Route
-                    path="testing"
-                    element={
-                        <div>
-                            <h2>testing </h2>
-                        </div>
-                    }
-                />
-            </Routes>
-        </BrowserRouter>
-    );
-}
-
-export default App;
+ReactDOM.createRoot(document.getElementById('root')).render(
+    <BrowserRouter>
+        <App />
+    </BrowserRouter>
+);
 ```
 
-#### Components
+Create 2 simple Pages Home,About
 
--   App.js
+> Home.jsx
 
 ```js
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import React from 'react';
+
+const Home = () => {
+    return <div>Home</div>;
+};
+
+export default Home;
+```
+
+> About.jsx
+
+```js
+import React from 'react';
+
+const About = () => {
+    return <div>About</div>;
+};
+
+export default About;
+```
+
+> App.jsx
+
+We use link because it will not refresh the pages.
+If we use anchor tags it will refresh the pages.
+
+Wrap Routes inside Route.
+Use Route to define single route.
+
+```js
+import React from 'react';
+import { Link, Route, Routes } from 'react-router-dom';
 import Home from './pages/Home';
 import About from './pages/About';
-import Products from './pages/Products';
 
-function App() {
+const App = () => {
     return (
-        <BrowserRouter>
+        <>
+            <nav>
+                <ul>
+                    <li>
+                        <Link to="/">Home</Link>
+                    </li>
+                </ul>
+                <ul>
+                    <li>
+                        <Link to="/about">About</Link>
+                    </li>
+                </ul>
+            </nav>
             <Routes>
                 <Route path="/" element={<Home />} />
-                <Route path="about" element={<About />} />
-                <Route path="products" element={<Products />} />
+                <Route path="/about" element={<About />} />
             </Routes>
-        </BrowserRouter>
+        </>
     );
-}
+};
 
 export default App;
 ```
 
-#### Links
+### Router Types
 
--   Home.js, About.js
+-   Hashrouter : Routes as #
+-   unstable_HistoryRouter : Give direct acess to history
+-   MemoryRouter: Used for testing.Stores history in memory.
+-   StaticRouter : Does not allow to browse pages.
 
-```js
-import { Link } from 'react-router-dom';
+### Dynamic Routes
 
-const Home = () => {
-  return (
-    <div>
-      <h2>Home Page</h2>
-      <Link to='/about' className='btn'>
-        About
-      </Link>
-      <a href="">
-    </div>
-  );
-};
-export default Home;
-```
+Create Booklist and Book Component
+Goal is read the route paramete like :id.Example: "/abc/xyz/book/:id"
 
-#### Error Page
-
--   App.js
+> App.jsx
 
 ```js
-function App() {
+import React from 'react';
+import { Link, Route, Routes } from 'react-router-dom';
+import Home from './pages/Home';
+import About from './pages/About';
+import Books from './pages/Books';
+import Book from './pages/Book';
+
+const App = () => {
     return (
-        <BrowserRouter>
+        <>
+            <nav>
+                <ul>
+                    <li>
+                        <Link to="/">Home</Link>
+                    </li>
+                </ul>
+                <ul>
+                    <li>
+                        <Link to="/about">About</Link>
+                    </li>
+                </ul>
+                <ul>
+                    <li>
+                        <Link to="/books">Books</Link>
+                    </li>
+                </ul>
+            </nav>
             <Routes>
                 <Route path="/" element={<Home />} />
-                <Route path="about" element={<About />} />
-                <Route path="products" element={<Products />} />
-                <Route path="*" element={<Error />} />
+                <Route path="/about" element={<About />} />
+                <Route path="/books" element={<Books />} />
+                <Route path="/books/:id" element={<Book />} />
             </Routes>
-        </BrowserRouter>
-    );
-}
-```
-
--   Error.js
-
-```js
-import { Link } from 'react-router-dom';
-
-const Error = () => {
-    return (
-        <section className="section">
-            <h2>404</h2>
-            <p>page not found</p>
-            <Link to="/">back home</Link>
-        </section>
+        </>
     );
 };
-export default Error;
+
+export default App;
 ```
 
-#### Nested Pages
-
--   will refactor few times
-
--   App.js
+> Books.jsx
 
 ```js
-function App() {
+import React from 'react';
+import { Link } from 'react-router-dom';
+
+const Books = () => {
     return (
-        <BrowserRouter>
-            <Routes>
-                <Route path="/" element={<Home />}>
-                    <Route path="about" element={<About />} />
-                    <Route path="products" element={<Products />} />
-                    <Route path="*" element={<Error />} />
-                </Route>
-            </Routes>
-        </BrowserRouter>
+        <div>
+            <h3>Book List</h3>
+            <Link to="/books/1">book 1</Link>
+            <br />
+            <Link to="/books/2">book 2</Link>
+            <br />
+            <Link to="/books/3">book 3</Link>
+            <br />
+        </div>
     );
-}
+};
+
+export default Books;
 ```
 
-#### Shared Layout
-
--   Home.js
+> Book.jsx
 
 ```js
-import { Link, Outlet } from 'react-router-dom';
+import React from 'react';
+import { useParams } from 'react-router-dom';
 
-const Home = () => {
+const Book = () => {
+    const params = useParams();
+    return <div>Book {params.id}</div>;
+};
+
+export default Book;
+```
+
+### Route Specificity
+
+Suppose we have two routes "/books/:id" [1st] "/books/new" [2nd].
+In previous version of react router dom what it would had done is gone
+with the first match.But newer version will take the hardcoded value as
+the possible route option.
+
+> not found
+
+```js
+<Route path="*" element={<NotFound />} />
+```
+
+### Nesting
+
+> App.jsx
+
+Basic Nesting
+
+```js
+import React from 'react';
+import { Link, Route, Routes } from 'react-router-dom';
+import Home from './pages/Home';
+import About from './pages/About';
+import Books from './pages/Books';
+import Book from './pages/Book';
+import Notfound from './pages/Notfound';
+
+const App = () => {
     return (
-        <section className="section">
-            <h2>Home Page</h2>
+        <>
+            <nav>
+                <ul>
+                    <li>
+                        <Link to="/">Home</Link>
+                    </li>
+                </ul>
+                <ul>
+                    <li>
+                        <Link to="/about">About</Link>
+                    </li>
+                </ul>
+                <ul>
+                    <li>
+                        <Link to="/books">Books</Link>
+                    </li>
+                </ul>
+            </nav>
+
+            {/* Basic Nesting */}
+
+            <Routes>
+                <Route path="/" element={<Home />} />
+                <Route path="/about" element={<About />} />
+                <Route path="/books">
+                    <Route index element={<Books />} />
+                    <Route path=":id" element={<Book />} />
+                </Route>
+
+                <Route path="*" element={<Notfound />} />
+            </Routes>
+        </>
+    );
+};
+
+export default App;
+```
+
+### Basic Nesting by passing a layout in every children routes [shared layout]
+
+> Layout.jsx
+
+Outlet must be added otherwise the dom will painter only with layout's jsx.
+
+```js
+import React from 'react';
+import { Outlet } from 'react-router-dom';
+
+const Layout = () => {
+    return (
+        <>
+            <h3>This layout is to be shared.</h3>
             <Outlet />
-        </section>
-    );
-};
-export default Home;
-```
-
-#### Navbar
-
--   Navbar.js
-
-```js
-import { Link } from 'react-router-dom';
-
-const Navbar = () => {
-    return (
-        <nav className="navbar">
-            <Link to="/">Home</Link>
-            <Link to="/about">About</Link>
-            <Link to="/products">Products</Link>
-        </nav>
-    );
-};
-export default Navbar;
-```
-
--   Home.js
-
-```js
-import { Link, Outlet } from 'react-router-dom';
-import Navbar from '../components/Navbar';
-const Home = () => {
-    return (
-        <>
-            <Navbar />
-            <section className="section">
-                <Outlet />
-            </section>
         </>
     );
 };
-export default Home;
+
+export default Layout;
 ```
 
-#### Index Routes
-
--   Index routes render in the parent routes outlet at the parent route's path.
--   Index routes match when a parent route matches but none of the other children match.
--   Index routes are the default child route for a parent route.
--   Index routes render when the user hasn't clicked one of the items in a navigation list yet.
-
--   copy Home.js content
--   SharedLayout.js
+> App.jsx
 
 ```js
-import { Link, Outlet } from 'react-router-dom';
-import Navbar from '../components/Navbar';
-const SharedLayout = () => {
+import React from 'react';
+import { Link, Route, Routes } from 'react-router-dom';
+import Home from './pages/Home';
+import About from './pages/About';
+import Books from './pages/Books';
+import Book from './pages/Book';
+import Notfound from './pages/Notfound';
+import Layout from './pages/Layout';
+
+const App = () => {
     return (
         <>
-            <Navbar />
-            <section className="section">
-                <Outlet />
-            </section>
+            <nav>
+                <ul>
+                    <li>
+                        <Link to="/">Home</Link>
+                    </li>
+                </ul>
+                <ul>
+                    <li>
+                        <Link to="/about">About</Link>
+                    </li>
+                </ul>
+                <ul>
+                    <li>
+                        <Link to="/books">Books</Link>
+                    </li>
+                </ul>
+            </nav>
+
+            {/* Basic Nesting */}
+
+            <Routes>
+                <Route path="/" element={<Home />} />
+                <Route path="/about" element={<About />} />
+                <Route path="/books" element={<Layout />}>
+                    <Route index element={<Books />} />
+                    <Route path=":id" element={<Book />} />
+                </Route>
+
+                <Route path="*" element={<Notfound />} />
+            </Routes>
         </>
     );
 };
-export default SharedLayout;
+
+export default App;
 ```
 
--   Home.js
+### Outlet context
+
+> Layout.jsx
+
+Outlet can be used to pass context
 
 ```js
-const Home = () => {
+import React from 'react';
+import { Outlet } from 'react-router-dom';
+
+const Layout = () => {
     return (
-        <section className="section">
-            <h2>Home Page</h2>
-        </section>
+        <>
+            <h3>This layout is to be shared.</h3>
+            <Outlet context={{ hello: 'world', name: 'john' }} />
+        </>
     );
 };
-export default Home;
+
+export default Layout;
 ```
 
--   App.js
+> Books.jsx
+
+Go to any child route adn access the context value with useContext
 
 ```js
-function App() {
+import React from 'react';
+import { Link, useOutletContext } from 'react-router-dom';
+
+const Books = () => {
+    const val = useOutletContext();
+    console.log(val);
     return (
-        <BrowserRouter>
-            <Routes>
-                <Route path="/" element={<SharedLayout />}>
-                    <Route index element={<Home />} />
-                    <Route path="about" element={<About />} />
-                    <Route path="products" element={<Products />} />
-                    <Route path="*" element={<Error />} />
-                </Route>
-            </Routes>
-        </BrowserRouter>
+        <div>
+            <h3>Book List</h3>
+            <Link to="/books/1">book 1</Link>
+            <br />
+            <Link to="/books/2">book 2</Link>
+            <br />
+            <Link to="/books/3">book 3</Link>
+            <br />
+        </div>
     );
+};
+
+export default Books;
+```
+
+### Routes in a seperate file
+
+> BookRoutes.jsx
+
+```js
+import React from 'react';
+import { Route, Routes } from 'react-router-dom';
+import Books from './pages/Books';
+import Book from './pages/Book';
+import Layout from './pages/Layout';
+
+const BookRoutes = () => {
+    return (
+        <Routes>
+            <Route element={<Layout />}>
+                <Route index element={<Books />} />
+                <Route path=":id" element={<Book />} />
+            </Route>
+        </Routes>
+    );
+};
+
+export default BookRoutes;
+```
+
+> App.jsx
+
+```js
+import React from 'react';
+import { Link, Route, Routes } from 'react-router-dom';
+import Home from './pages/Home';
+import About from './pages/About';
+import Notfound from './pages/Notfound';
+import BookRoutes from './BookRoutes';
+
+const App = () => {
+    return (
+        <>
+            <nav>
+                <ul>
+                    <li>
+                        <Link to="/">Home</Link>
+                    </li>
+                </ul>
+                <ul>
+                    <li>
+                        <Link to="/about">About</Link>
+                    </li>
+                </ul>
+                <ul>
+                    <li>
+                        <Link to="/books">Books</Link>
+                    </li>
+                </ul>
+            </nav>
+
+            {/* Basic Nesting */}
+
+            <Routes>
+                <Route path="/" element={<Home />} />
+                <Route path="/about" element={<About />} />
+                <Route path="/books/*" element={<BookRoutes />} />
+                <Route path="*" element={<Notfound />} />
+            </Routes>
+        </>
+    );
+};
+
+export default App;
+```
+
+### useRoute
+
+We can use Js instead to define routes
+
+## Handling Navigation
+
+In NavLink , Link ,Navigate
+
+-   replace (replace last visited page with current page),
+-   reloadDocument (referesh the entirepage)
+
+## NavLink
+
+By deafult adds class of active
+
+```js
+<NavLink
+    to="/"
+    style={({ isActive }) => ({ color: isActive ? 'red' : 'black' })}
+>
+    {({ isActive }) => {
+        return isActive ? 'Active Home' : 'Home';
+    }}
+</NavLink>
+```
+
+## Navigate
+
+navigate with a component
+
+```js
+<Navigate to="/" />
+```
+
+## useNavigate
+
+navigate with a hook
+
+```js
+const navigate = useNavigate();
+
+unction onSubmit() {
+  // Submit form results
+  navigate("/books", { replace: true, state: { bookName: "Fake Title" } })
 }
 ```
 
-#### NavLink (style)
+## Search Params
 
--   StyledNavbar.js
-
-```js
-import { NavLink } from 'react-router-dom';
-
-<nav className="navbar">
-    <NavLink
-        to="/about"
-        style={({ isActive }) => {
-            return { color: isActive ? 'red' : 'grey' };
-        }}
-    >
-        Home
-    </NavLink>
-</nav>;
-```
-
-#### NavLink (className)
-
--   StyledNavbar.js
+Access searchparams
 
 ```js
-<nav className="navbar">
-    <NavLink
-        to="/"
-        className={({ isActive }) => (isActive ? 'link active' : 'link')}
-    >
-        Home
-    </NavLink>
-</nav>
-```
+import React from 'react';
+import { Link, useOutletContext, useSearchParams } from 'react-router-dom';
 
-#### Reading URL Params
+const Books = () => {
+    const val = useOutletContext();
 
--   App.js
+    // Get search parameters
+    const [searchparams, setSearchParams] = useSearchParams();
+    console.log(searchparams.get('q'));
 
-```js
-function App() {
+    // setSearchParams({ n: e.target.value })
+
+    console.log(val);
     return (
-        <BrowserRouter>
-            <Routes>
-                <Route path="/" element={<SharedLayout />}>
-                    <Route index element={<Home />} />
-                    <Route path="about" element={<About />} />
-                    <Route path="products" element={<Products />} />
-                    <Route
-                        path="products/:productId"
-                        element={<SingleProduct />}
-                    />
-                    <Route path="*" element={<Error />} />
-                </Route>
-            </Routes>
-        </BrowserRouter>
-    );
-}
-```
-
-#### Single Product
-
--   SingleProduct.js
-
-```js
-import { Link, useParams } from 'react-router-dom';
-import products from '../data';
-const SingleProduct = () => {
-    const { productId } = useParams();
-
-    return (
-        <section className="section product">
-            <h2>{productId}</h2>
-            <Link to="/products">back to products</Link>
-        </section>
+        <div>
+            <h3>Book List</h3>
+            <Link to="/books/1">book 1</Link>
+            <br />
+            <Link to="/books/2">book 2</Link>
+            <br />
+            <Link to="/books/3">book 3</Link>
+            <br />
+        </div>
     );
 };
 
-export default SingleProduct;
+export default Books;
 ```
 
-#### Products Page
+## useLocation
 
--   Products.js
-
-```js
-import { Link } from 'react-router-dom';
-import products from '../data';
-const Products = () => {
-    return (
-        <section className="section">
-            <h2>products</h2>
-            <div className="products">
-                {products.map((product) => {
-                    return (
-                        <article key={product.id}>
-                            <h5>{product.name}</h5>
-                            <Link to={`/products/${product.id}`}>
-                                more info
-                            </Link>
-                        </article>
-                    );
-                })}
-            </div>
-        </section>
-    );
-};
-
-export default Products;
-```
-
-#### Single Product
-
--   SingleProduct.js
+access state data passed from another route
 
 ```js
-import { Link, useParams } from 'react-router-dom';
-import products from '../data';
-const SingleProduct = () => {
-    const { productId } = useParams();
-    const product = products.find((product) => product.id === productId);
-    const { image, name } = product;
-
-    return (
-        <section className="section product">
-            <img src={image} alt={name} />
-            <h5>{name}</h5>
-            <Link to="/products">back to products</Link>
-        </section>
-    );
-};
-
-export default SingleProduct;
-```
-
-#### useNavigate()
-
-[ (?.) or Optional Chaining Explained](https://youtu.be/PuEGrylM1x8)
-
--   App.js
-
-```js
-function App() {
-    const [user, setUser] = useState(null);
-
-    return (
-        <BrowserRouter>
-            <Routes>
-                <Route path="/" element={<SharedLayout />}>
-                    <Route index element={<Home />} />
-                    <Route path="about" element={<About />} />
-                    <Route path="products" element={<Products />} />
-                    <Route
-                        path="products/:productId"
-                        element={<SingleProduct />}
-                    />
-                    <Route path="login" element={<Login setUser={setUser} />} />
-                    <Route
-                        path="dashboard"
-                        element={<Dashboard user={user} />}
-                    />
-                    <Route path="*" element={<Error />} />
-                </Route>
-            </Routes>
-        </BrowserRouter>
-    );
-}
-```
-
--   Login.js
-
-```js
- import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-const Login = ({ setUser }) => {
-  const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
-
-  const navigate = useNavigate();
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    if (!name || !email) return;
-    setUser({ name: name, email: email });
-    navigate('/dashboard');
-  };
-
-```
-
-[ (?.) or Optional Chaining Explained](https://youtu.be/PuEGrylM1x8)
-
--   Dashboard.js
-
-```js
-const Dashboard = ({ user }) => {
-    return (
-        <section className="section">
-            <h4>Hello, {user?.name}</h4>
-        </section>
-    );
-};
-export default Dashboard;
-```
-
-#### Protected Route
-
--   App.js
-
-```js
-<Route
-    path="dashboard"
-    element={
-        <ProtectedRoute user={user}>
-            <Dashboard user={user} />
-        </ProtectedRoute>
-    }
-/>
-```
-
--   ProtectedRoute.js
-
-```js
-import { Navigate } from 'react-router-dom';
-
-const ProtectedRoute = ({ children, user }) => {
-    if (!user) {
-        return <Navigate to="/" />;
-    }
-    return children;
-};
-
-export default ProtectedRoute;
+const location = useLocation();
 ```

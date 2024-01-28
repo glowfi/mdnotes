@@ -89,7 +89,7 @@
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
             <div class="sidebar-scrollbox">
-                <ol class="chapter"><li class="chapter-item expanded "><a href="1_react_1_fundamentals.html"><strong aria-hidden="true">1.</strong> 1_react_1_fundamentals</a></li><li class="chapter-item expanded "><a href="2_react_2_advanced.html"><strong aria-hidden="true">2.</strong> 2_react_2_advanced</a></li><li class="chapter-item expanded "><a href="3_react_3_axios.html"><strong aria-hidden="true">3.</strong> 3_react_3_axios</a></li><li class="chapter-item expanded "><a href="4_react_4_router_dom.html"><strong aria-hidden="true">4.</strong> 4_react_4_router_dom</a></li><li class="chapter-item expanded "><a href="5_react_5_redux_tookit.html"><strong aria-hidden="true">5.</strong> 5_react_5_redux_tookit</a></li><li class="chapter-item expanded "><a href="6_node_1_fundamentals.html"><strong aria-hidden="true">6.</strong> 6_node_1_fundamentals</a></li><li class="chapter-item expanded "><a href="7_node_2_advanced.html"><strong aria-hidden="true">7.</strong> 7_node_2_advanced</a></li><li class="chapter-item expanded "><a href="8_node_3_orm.html"><strong aria-hidden="true">8.</strong> 8_node_3_orm</a></li><li class="chapter-item expanded "><a href="9_node_4_apollo_graphql_basics.html"><strong aria-hidden="true">9.</strong> 9_node_4_apollo_graphql_basics</a></li><li class="chapter-item expanded "><a href="10_node_5_typescript.html"><strong aria-hidden="true">10.</strong> 10_node_5_typescript</a></li><li class="chapter-item expanded "><a href="11_node_6_graphql_ts_orm.html"><strong aria-hidden="true">11.</strong> 11_node_6_graphql_ts_orm</a></li><li class="chapter-item expanded "><a href="12_sql.html"><strong aria-hidden="true">12.</strong> 12_sql</a></li><li class="chapter-item expanded "><a href="13_sql_alchemy.html"><strong aria-hidden="true">13.</strong> 13_sql_alchemy</a></li><li class="chapter-item expanded "><a href="14_redis.html"><strong aria-hidden="true">14.</strong> 14_redis</a></li><li class="chapter-item expanded "><a href="15_Fastapi.html"><strong aria-hidden="true">15.</strong> 15_Fastapi</a></li></ol>
+                <ol class="chapter"><li class="chapter-item expanded "><a href="1_react_1_fundamentals.html"><strong aria-hidden="true">1.</strong> 1_react_1_fundamentals</a></li><li class="chapter-item expanded "><a href="2_react_2_advanced.html"><strong aria-hidden="true">2.</strong> 2_react_2_advanced</a></li><li class="chapter-item expanded "><a href="3_react_3_axios.html"><strong aria-hidden="true">3.</strong> 3_react_3_axios</a></li><li class="chapter-item expanded "><a href="4_react_4_router_dom.html"><strong aria-hidden="true">4.</strong> 4_react_4_router_dom</a></li><li class="chapter-item expanded "><a href="5_react_5_redux_tookit.html"><strong aria-hidden="true">5.</strong> 5_react_5_redux_tookit</a></li><li class="chapter-item expanded "><a href="6_node_1_fundamentals.html"><strong aria-hidden="true">6.</strong> 6_node_1_fundamentals</a></li><li class="chapter-item expanded "><a href="7_node_2_advanced.html"><strong aria-hidden="true">7.</strong> 7_node_2_advanced</a></li><li class="chapter-item expanded "><a href="8_node_3_orm.html"><strong aria-hidden="true">8.</strong> 8_node_3_orm</a></li><li class="chapter-item expanded "><a href="9_node_4_apollo_graphql_basics.html"><strong aria-hidden="true">9.</strong> 9_node_4_apollo_graphql_basics</a></li><li class="chapter-item expanded "><a href="10_node_5_typescript.html"><strong aria-hidden="true">10.</strong> 10_node_5_typescript</a></li><li class="chapter-item expanded "><a href="11_node_6_graphql_ts_orm.html"><strong aria-hidden="true">11.</strong> 11_node_6_graphql_ts_orm</a></li><li class="chapter-item expanded "><a href="12_sql.html"><strong aria-hidden="true">12.</strong> 12_sql</a></li><li class="chapter-item expanded "><a href="13_sql_alchemy.html"><strong aria-hidden="true">13.</strong> 13_sql_alchemy</a></li><li class="chapter-item expanded "><a href="14_redis.html"><strong aria-hidden="true">14.</strong> 14_redis</a></li><li class="chapter-item expanded "><a href="15_fastapi.html"><strong aria-hidden="true">15.</strong> 15_fastapi</a></li><li class="chapter-item expanded "><a href="16_react_hooks_compressed.html"><strong aria-hidden="true">16.</strong> 16_react_hooks_compressed</a></li><li class="chapter-item expanded "><a href="17_react_Typescript.html"><strong aria-hidden="true">17.</strong> 17_react_Typescript</a></li></ol>
             </div>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle">
                 <div class="sidebar-resize-indicator"></div>
@@ -2665,461 +2665,482 @@ authFetch.interceptors.response.use(
     }
 );
 </code></pre>
-<div style="break-before: page; page-break-before: always;"></div><h4 id="react-router"><a class="header" href="#react-router">React Router</a></h4>
-<p><a href="https://reactrouter.com/docs/en/v6/getting-started/overview">React Router Docs</a></p>
-<h4 id="install-1"><a class="header" href="#install-1">Install</a></h4>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="react-router"><a class="header" href="#react-router">React Router</a></h1>
+<h3 id="install-1"><a class="header" href="#install-1">Install</a></h3>
 <pre><code class="language-sh">npm install react-router-dom@6
 </code></pre>
-<h4 id="first-pages"><a class="header" href="#first-pages">First Pages</a></h4>
-<ul>
-<li>App.js</li>
-</ul>
-<pre><code class="language-js">import { BrowserRouter, Routes, Route } from 'react-router-dom';
+<h3 id="basic-setup"><a class="header" href="#basic-setup">Basic Setup</a></h3>
+<blockquote>
+<p>main.jsx</p>
+</blockquote>
+<p>Wrap entire app with browser router</p>
+<pre><code class="language-js">import React from 'react';
+import ReactDOM from 'react-dom/client';
+import App from './App.jsx';
+import { BrowserRouter } from 'react-router-dom';
 
-function App() {
-    return (
-        &lt;BrowserRouter&gt;
-            &lt;Routes&gt;
-                &lt;Route path=&quot;/&quot; element={&lt;div&gt;home page&lt;/div&gt;} /&gt;
-                &lt;Route
-                    path=&quot;testing&quot;
-                    element={
-                        &lt;div&gt;
-                            &lt;h2&gt;testing &lt;/h2&gt;
-                        &lt;/div&gt;
-                    }
-                /&gt;
-            &lt;/Routes&gt;
-        &lt;/BrowserRouter&gt;
-    );
-}
-
-export default App;
+ReactDOM.createRoot(document.getElementById('root')).render(
+    &lt;BrowserRouter&gt;
+        &lt;App /&gt;
+    &lt;/BrowserRouter&gt;
+);
 </code></pre>
-<h4 id="components"><a class="header" href="#components">Components</a></h4>
-<ul>
-<li>App.js</li>
-</ul>
-<pre><code class="language-js">import { BrowserRouter, Routes, Route } from 'react-router-dom';
+<p>Create 2 simple Pages Home,About</p>
+<blockquote>
+<p>Home.jsx</p>
+</blockquote>
+<pre><code class="language-js">import React from 'react';
+
+const Home = () =&gt; {
+    return &lt;div&gt;Home&lt;/div&gt;;
+};
+
+export default Home;
+</code></pre>
+<blockquote>
+<p>About.jsx</p>
+</blockquote>
+<pre><code class="language-js">import React from 'react';
+
+const About = () =&gt; {
+    return &lt;div&gt;About&lt;/div&gt;;
+};
+
+export default About;
+</code></pre>
+<blockquote>
+<p>App.jsx</p>
+</blockquote>
+<p>We use link because it will not refresh the pages.
+If we use anchor tags it will refresh the pages.</p>
+<p>Wrap Routes inside Route.
+Use Route to define single route.</p>
+<pre><code class="language-js">import React from 'react';
+import { Link, Route, Routes } from 'react-router-dom';
 import Home from './pages/Home';
 import About from './pages/About';
-import Products from './pages/Products';
 
-function App() {
+const App = () =&gt; {
     return (
-        &lt;BrowserRouter&gt;
+        &lt;&gt;
+            &lt;nav&gt;
+                &lt;ul&gt;
+                    &lt;li&gt;
+                        &lt;Link to=&quot;/&quot;&gt;Home&lt;/Link&gt;
+                    &lt;/li&gt;
+                &lt;/ul&gt;
+                &lt;ul&gt;
+                    &lt;li&gt;
+                        &lt;Link to=&quot;/about&quot;&gt;About&lt;/Link&gt;
+                    &lt;/li&gt;
+                &lt;/ul&gt;
+            &lt;/nav&gt;
             &lt;Routes&gt;
                 &lt;Route path=&quot;/&quot; element={&lt;Home /&gt;} /&gt;
-                &lt;Route path=&quot;about&quot; element={&lt;About /&gt;} /&gt;
-                &lt;Route path=&quot;products&quot; element={&lt;Products /&gt;} /&gt;
+                &lt;Route path=&quot;/about&quot; element={&lt;About /&gt;} /&gt;
             &lt;/Routes&gt;
-        &lt;/BrowserRouter&gt;
+        &lt;/&gt;
     );
-}
+};
 
 export default App;
 </code></pre>
-<h4 id="links"><a class="header" href="#links">Links</a></h4>
+<h3 id="router-types"><a class="header" href="#router-types">Router Types</a></h3>
 <ul>
-<li>Home.js, About.js</li>
+<li>Hashrouter : Routes as #</li>
+<li>unstable_HistoryRouter : Give direct acess to history</li>
+<li>MemoryRouter: Used for testing.Stores history in memory.</li>
+<li>StaticRouter : Does not allow to browse pages.</li>
 </ul>
-<pre><code class="language-js">import { Link } from 'react-router-dom';
+<h3 id="dynamic-routes"><a class="header" href="#dynamic-routes">Dynamic Routes</a></h3>
+<p>Create Booklist and Book Component
+Goal is read the route paramete like :id.Example: &quot;/abc/xyz/book/:id&quot;</p>
+<blockquote>
+<p>App.jsx</p>
+</blockquote>
+<pre><code class="language-js">import React from 'react';
+import { Link, Route, Routes } from 'react-router-dom';
+import Home from './pages/Home';
+import About from './pages/About';
+import Books from './pages/Books';
+import Book from './pages/Book';
 
-const Home = () =&gt; {
-  return (
-    &lt;div&gt;
-      &lt;h2&gt;Home Page&lt;/h2&gt;
-      &lt;Link to='/about' className='btn'&gt;
-        About
-      &lt;/Link&gt;
-      &lt;a href=&quot;&quot;&gt;
-    &lt;/div&gt;
-  );
-};
-export default Home;
-</code></pre>
-<h4 id="error-page"><a class="header" href="#error-page">Error Page</a></h4>
-<ul>
-<li>App.js</li>
-</ul>
-<pre><code class="language-js">function App() {
+const App = () =&gt; {
     return (
-        &lt;BrowserRouter&gt;
+        &lt;&gt;
+            &lt;nav&gt;
+                &lt;ul&gt;
+                    &lt;li&gt;
+                        &lt;Link to=&quot;/&quot;&gt;Home&lt;/Link&gt;
+                    &lt;/li&gt;
+                &lt;/ul&gt;
+                &lt;ul&gt;
+                    &lt;li&gt;
+                        &lt;Link to=&quot;/about&quot;&gt;About&lt;/Link&gt;
+                    &lt;/li&gt;
+                &lt;/ul&gt;
+                &lt;ul&gt;
+                    &lt;li&gt;
+                        &lt;Link to=&quot;/books&quot;&gt;Books&lt;/Link&gt;
+                    &lt;/li&gt;
+                &lt;/ul&gt;
+            &lt;/nav&gt;
             &lt;Routes&gt;
                 &lt;Route path=&quot;/&quot; element={&lt;Home /&gt;} /&gt;
-                &lt;Route path=&quot;about&quot; element={&lt;About /&gt;} /&gt;
-                &lt;Route path=&quot;products&quot; element={&lt;Products /&gt;} /&gt;
-                &lt;Route path=&quot;*&quot; element={&lt;Error /&gt;} /&gt;
+                &lt;Route path=&quot;/about&quot; element={&lt;About /&gt;} /&gt;
+                &lt;Route path=&quot;/books&quot; element={&lt;Books /&gt;} /&gt;
+                &lt;Route path=&quot;/books/:id&quot; element={&lt;Book /&gt;} /&gt;
             &lt;/Routes&gt;
-        &lt;/BrowserRouter&gt;
-    );
-}
-</code></pre>
-<ul>
-<li>Error.js</li>
-</ul>
-<pre><code class="language-js">import { Link } from 'react-router-dom';
-
-const Error = () =&gt; {
-    return (
-        &lt;section className=&quot;section&quot;&gt;
-            &lt;h2&gt;404&lt;/h2&gt;
-            &lt;p&gt;page not found&lt;/p&gt;
-            &lt;Link to=&quot;/&quot;&gt;back home&lt;/Link&gt;
-        &lt;/section&gt;
+        &lt;/&gt;
     );
 };
-export default Error;
-</code></pre>
-<h4 id="nested-pages"><a class="header" href="#nested-pages">Nested Pages</a></h4>
-<ul>
-<li>
-<p>will refactor few times</p>
-</li>
-<li>
-<p>App.js</p>
-</li>
-</ul>
-<pre><code class="language-js">function App() {
-    return (
-        &lt;BrowserRouter&gt;
-            &lt;Routes&gt;
-                &lt;Route path=&quot;/&quot; element={&lt;Home /&gt;}&gt;
-                    &lt;Route path=&quot;about&quot; element={&lt;About /&gt;} /&gt;
-                    &lt;Route path=&quot;products&quot; element={&lt;Products /&gt;} /&gt;
-                    &lt;Route path=&quot;*&quot; element={&lt;Error /&gt;} /&gt;
-                &lt;/Route&gt;
-            &lt;/Routes&gt;
-        &lt;/BrowserRouter&gt;
-    );
-}
-</code></pre>
-<h4 id="shared-layout"><a class="header" href="#shared-layout">Shared Layout</a></h4>
-<ul>
-<li>Home.js</li>
-</ul>
-<pre><code class="language-js">import { Link, Outlet } from 'react-router-dom';
 
-const Home = () =&gt; {
+export default App;
+</code></pre>
+<blockquote>
+<p>Books.jsx</p>
+</blockquote>
+<pre><code class="language-js">import React from 'react';
+import { Link } from 'react-router-dom';
+
+const Books = () =&gt; {
     return (
-        &lt;section className=&quot;section&quot;&gt;
-            &lt;h2&gt;Home Page&lt;/h2&gt;
+        &lt;div&gt;
+            &lt;h3&gt;Book List&lt;/h3&gt;
+            &lt;Link to=&quot;/books/1&quot;&gt;book 1&lt;/Link&gt;
+            &lt;br /&gt;
+            &lt;Link to=&quot;/books/2&quot;&gt;book 2&lt;/Link&gt;
+            &lt;br /&gt;
+            &lt;Link to=&quot;/books/3&quot;&gt;book 3&lt;/Link&gt;
+            &lt;br /&gt;
+        &lt;/div&gt;
+    );
+};
+
+export default Books;
+</code></pre>
+<blockquote>
+<p>Book.jsx</p>
+</blockquote>
+<pre><code class="language-js">import React from 'react';
+import { useParams } from 'react-router-dom';
+
+const Book = () =&gt; {
+    const params = useParams();
+    return &lt;div&gt;Book {params.id}&lt;/div&gt;;
+};
+
+export default Book;
+</code></pre>
+<h3 id="route-specificity"><a class="header" href="#route-specificity">Route Specificity</a></h3>
+<p>Suppose we have two routes &quot;/books/:id&quot; [1st] &quot;/books/new&quot; [2nd].
+In previous version of react router dom what it would had done is gone
+with the first match.But newer version will take the hardcoded value as
+the possible route option.</p>
+<blockquote>
+<p>not found</p>
+</blockquote>
+<pre><code class="language-js">&lt;Route path=&quot;*&quot; element={&lt;NotFound /&gt;} /&gt;
+</code></pre>
+<h3 id="nesting"><a class="header" href="#nesting">Nesting</a></h3>
+<blockquote>
+<p>App.jsx</p>
+</blockquote>
+<p>Basic Nesting</p>
+<pre><code class="language-js">import React from 'react';
+import { Link, Route, Routes } from 'react-router-dom';
+import Home from './pages/Home';
+import About from './pages/About';
+import Books from './pages/Books';
+import Book from './pages/Book';
+import Notfound from './pages/Notfound';
+
+const App = () =&gt; {
+    return (
+        &lt;&gt;
+            &lt;nav&gt;
+                &lt;ul&gt;
+                    &lt;li&gt;
+                        &lt;Link to=&quot;/&quot;&gt;Home&lt;/Link&gt;
+                    &lt;/li&gt;
+                &lt;/ul&gt;
+                &lt;ul&gt;
+                    &lt;li&gt;
+                        &lt;Link to=&quot;/about&quot;&gt;About&lt;/Link&gt;
+                    &lt;/li&gt;
+                &lt;/ul&gt;
+                &lt;ul&gt;
+                    &lt;li&gt;
+                        &lt;Link to=&quot;/books&quot;&gt;Books&lt;/Link&gt;
+                    &lt;/li&gt;
+                &lt;/ul&gt;
+            &lt;/nav&gt;
+
+            {/* Basic Nesting */}
+
+            &lt;Routes&gt;
+                &lt;Route path=&quot;/&quot; element={&lt;Home /&gt;} /&gt;
+                &lt;Route path=&quot;/about&quot; element={&lt;About /&gt;} /&gt;
+                &lt;Route path=&quot;/books&quot;&gt;
+                    &lt;Route index element={&lt;Books /&gt;} /&gt;
+                    &lt;Route path=&quot;:id&quot; element={&lt;Book /&gt;} /&gt;
+                &lt;/Route&gt;
+
+                &lt;Route path=&quot;*&quot; element={&lt;Notfound /&gt;} /&gt;
+            &lt;/Routes&gt;
+        &lt;/&gt;
+    );
+};
+
+export default App;
+</code></pre>
+<h3 id="basic-nesting-by-passing-a-layout-in-every-children-routes-shared-layout"><a class="header" href="#basic-nesting-by-passing-a-layout-in-every-children-routes-shared-layout">Basic Nesting by passing a layout in every children routes [shared layout]</a></h3>
+<blockquote>
+<p>Layout.jsx</p>
+</blockquote>
+<p>Outlet must be added otherwise the dom will painter only with layout's jsx.</p>
+<pre><code class="language-js">import React from 'react';
+import { Outlet } from 'react-router-dom';
+
+const Layout = () =&gt; {
+    return (
+        &lt;&gt;
+            &lt;h3&gt;This layout is to be shared.&lt;/h3&gt;
             &lt;Outlet /&gt;
-        &lt;/section&gt;
-    );
-};
-export default Home;
-</code></pre>
-<h4 id="navbar"><a class="header" href="#navbar">Navbar</a></h4>
-<ul>
-<li>Navbar.js</li>
-</ul>
-<pre><code class="language-js">import { Link } from 'react-router-dom';
-
-const Navbar = () =&gt; {
-    return (
-        &lt;nav className=&quot;navbar&quot;&gt;
-            &lt;Link to=&quot;/&quot;&gt;Home&lt;/Link&gt;
-            &lt;Link to=&quot;/about&quot;&gt;About&lt;/Link&gt;
-            &lt;Link to=&quot;/products&quot;&gt;Products&lt;/Link&gt;
-        &lt;/nav&gt;
-    );
-};
-export default Navbar;
-</code></pre>
-<ul>
-<li>Home.js</li>
-</ul>
-<pre><code class="language-js">import { Link, Outlet } from 'react-router-dom';
-import Navbar from '../components/Navbar';
-const Home = () =&gt; {
-    return (
-        &lt;&gt;
-            &lt;Navbar /&gt;
-            &lt;section className=&quot;section&quot;&gt;
-                &lt;Outlet /&gt;
-            &lt;/section&gt;
         &lt;/&gt;
     );
 };
-export default Home;
+
+export default Layout;
 </code></pre>
-<h4 id="index-routes"><a class="header" href="#index-routes">Index Routes</a></h4>
-<ul>
-<li>
-<p>Index routes render in the parent routes outlet at the parent route's path.</p>
-</li>
-<li>
-<p>Index routes match when a parent route matches but none of the other children match.</p>
-</li>
-<li>
-<p>Index routes are the default child route for a parent route.</p>
-</li>
-<li>
-<p>Index routes render when the user hasn't clicked one of the items in a navigation list yet.</p>
-</li>
-<li>
-<p>copy Home.js content</p>
-</li>
-<li>
-<p>SharedLayout.js</p>
-</li>
-</ul>
-<pre><code class="language-js">import { Link, Outlet } from 'react-router-dom';
-import Navbar from '../components/Navbar';
-const SharedLayout = () =&gt; {
+<blockquote>
+<p>App.jsx</p>
+</blockquote>
+<pre><code class="language-js">import React from 'react';
+import { Link, Route, Routes } from 'react-router-dom';
+import Home from './pages/Home';
+import About from './pages/About';
+import Books from './pages/Books';
+import Book from './pages/Book';
+import Notfound from './pages/Notfound';
+import Layout from './pages/Layout';
+
+const App = () =&gt; {
     return (
         &lt;&gt;
-            &lt;Navbar /&gt;
-            &lt;section className=&quot;section&quot;&gt;
-                &lt;Outlet /&gt;
-            &lt;/section&gt;
+            &lt;nav&gt;
+                &lt;ul&gt;
+                    &lt;li&gt;
+                        &lt;Link to=&quot;/&quot;&gt;Home&lt;/Link&gt;
+                    &lt;/li&gt;
+                &lt;/ul&gt;
+                &lt;ul&gt;
+                    &lt;li&gt;
+                        &lt;Link to=&quot;/about&quot;&gt;About&lt;/Link&gt;
+                    &lt;/li&gt;
+                &lt;/ul&gt;
+                &lt;ul&gt;
+                    &lt;li&gt;
+                        &lt;Link to=&quot;/books&quot;&gt;Books&lt;/Link&gt;
+                    &lt;/li&gt;
+                &lt;/ul&gt;
+            &lt;/nav&gt;
+
+            {/* Basic Nesting */}
+
+            &lt;Routes&gt;
+                &lt;Route path=&quot;/&quot; element={&lt;Home /&gt;} /&gt;
+                &lt;Route path=&quot;/about&quot; element={&lt;About /&gt;} /&gt;
+                &lt;Route path=&quot;/books&quot; element={&lt;Layout /&gt;}&gt;
+                    &lt;Route index element={&lt;Books /&gt;} /&gt;
+                    &lt;Route path=&quot;:id&quot; element={&lt;Book /&gt;} /&gt;
+                &lt;/Route&gt;
+
+                &lt;Route path=&quot;*&quot; element={&lt;Notfound /&gt;} /&gt;
+            &lt;/Routes&gt;
         &lt;/&gt;
     );
 };
-export default SharedLayout;
+
+export default App;
 </code></pre>
-<ul>
-<li>Home.js</li>
-</ul>
-<pre><code class="language-js">const Home = () =&gt; {
+<h3 id="outlet-context"><a class="header" href="#outlet-context">Outlet context</a></h3>
+<blockquote>
+<p>Layout.jsx</p>
+</blockquote>
+<p>Outlet can be used to pass context</p>
+<pre><code class="language-js">import React from 'react';
+import { Outlet } from 'react-router-dom';
+
+const Layout = () =&gt; {
     return (
-        &lt;section className=&quot;section&quot;&gt;
-            &lt;h2&gt;Home Page&lt;/h2&gt;
-        &lt;/section&gt;
+        &lt;&gt;
+            &lt;h3&gt;This layout is to be shared.&lt;/h3&gt;
+            &lt;Outlet context={{ hello: 'world', name: 'john' }} /&gt;
+        &lt;/&gt;
     );
 };
-export default Home;
+
+export default Layout;
 </code></pre>
-<ul>
-<li>App.js</li>
-</ul>
-<pre><code class="language-js">function App() {
+<blockquote>
+<p>Books.jsx</p>
+</blockquote>
+<p>Go to any child route adn access the context value with useContext</p>
+<pre><code class="language-js">import React from 'react';
+import { Link, useOutletContext } from 'react-router-dom';
+
+const Books = () =&gt; {
+    const val = useOutletContext();
+    console.log(val);
     return (
-        &lt;BrowserRouter&gt;
-            &lt;Routes&gt;
-                &lt;Route path=&quot;/&quot; element={&lt;SharedLayout /&gt;}&gt;
-                    &lt;Route index element={&lt;Home /&gt;} /&gt;
-                    &lt;Route path=&quot;about&quot; element={&lt;About /&gt;} /&gt;
-                    &lt;Route path=&quot;products&quot; element={&lt;Products /&gt;} /&gt;
-                    &lt;Route path=&quot;*&quot; element={&lt;Error /&gt;} /&gt;
-                &lt;/Route&gt;
-            &lt;/Routes&gt;
-        &lt;/BrowserRouter&gt;
+        &lt;div&gt;
+            &lt;h3&gt;Book List&lt;/h3&gt;
+            &lt;Link to=&quot;/books/1&quot;&gt;book 1&lt;/Link&gt;
+            &lt;br /&gt;
+            &lt;Link to=&quot;/books/2&quot;&gt;book 2&lt;/Link&gt;
+            &lt;br /&gt;
+            &lt;Link to=&quot;/books/3&quot;&gt;book 3&lt;/Link&gt;
+            &lt;br /&gt;
+        &lt;/div&gt;
     );
+};
+
+export default Books;
+</code></pre>
+<h3 id="routes-in-a-seperate-file"><a class="header" href="#routes-in-a-seperate-file">Routes in a seperate file</a></h3>
+<blockquote>
+<p>BookRoutes.jsx</p>
+</blockquote>
+<pre><code class="language-js">import React from 'react';
+import { Route, Routes } from 'react-router-dom';
+import Books from './pages/Books';
+import Book from './pages/Book';
+import Layout from './pages/Layout';
+
+const BookRoutes = () =&gt; {
+    return (
+        &lt;Routes&gt;
+            &lt;Route element={&lt;Layout /&gt;}&gt;
+                &lt;Route index element={&lt;Books /&gt;} /&gt;
+                &lt;Route path=&quot;:id&quot; element={&lt;Book /&gt;} /&gt;
+            &lt;/Route&gt;
+        &lt;/Routes&gt;
+    );
+};
+
+export default BookRoutes;
+</code></pre>
+<blockquote>
+<p>App.jsx</p>
+</blockquote>
+<pre><code class="language-js">import React from 'react';
+import { Link, Route, Routes } from 'react-router-dom';
+import Home from './pages/Home';
+import About from './pages/About';
+import Notfound from './pages/Notfound';
+import BookRoutes from './BookRoutes';
+
+const App = () =&gt; {
+    return (
+        &lt;&gt;
+            &lt;nav&gt;
+                &lt;ul&gt;
+                    &lt;li&gt;
+                        &lt;Link to=&quot;/&quot;&gt;Home&lt;/Link&gt;
+                    &lt;/li&gt;
+                &lt;/ul&gt;
+                &lt;ul&gt;
+                    &lt;li&gt;
+                        &lt;Link to=&quot;/about&quot;&gt;About&lt;/Link&gt;
+                    &lt;/li&gt;
+                &lt;/ul&gt;
+                &lt;ul&gt;
+                    &lt;li&gt;
+                        &lt;Link to=&quot;/books&quot;&gt;Books&lt;/Link&gt;
+                    &lt;/li&gt;
+                &lt;/ul&gt;
+            &lt;/nav&gt;
+
+            {/* Basic Nesting */}
+
+            &lt;Routes&gt;
+                &lt;Route path=&quot;/&quot; element={&lt;Home /&gt;} /&gt;
+                &lt;Route path=&quot;/about&quot; element={&lt;About /&gt;} /&gt;
+                &lt;Route path=&quot;/books/*&quot; element={&lt;BookRoutes /&gt;} /&gt;
+                &lt;Route path=&quot;*&quot; element={&lt;Notfound /&gt;} /&gt;
+            &lt;/Routes&gt;
+        &lt;/&gt;
+    );
+};
+
+export default App;
+</code></pre>
+<h3 id="useroute"><a class="header" href="#useroute">useRoute</a></h3>
+<p>We can use Js instead to define routes</p>
+<h2 id="handling-navigation"><a class="header" href="#handling-navigation">Handling Navigation</a></h2>
+<p>In NavLink , Link ,Navigate</p>
+<ul>
+<li>replace (replace last visited page with current page),</li>
+<li>reloadDocument (referesh the entirepage)</li>
+</ul>
+<h2 id="navlink"><a class="header" href="#navlink">NavLink</a></h2>
+<p>By deafult adds class of active</p>
+<pre><code class="language-js">&lt;NavLink
+    to=&quot;/&quot;
+    style={({ isActive }) =&gt; ({ color: isActive ? 'red' : 'black' })}
+&gt;
+    {({ isActive }) =&gt; {
+        return isActive ? 'Active Home' : 'Home';
+    }}
+&lt;/NavLink&gt;
+</code></pre>
+<h2 id="navigate"><a class="header" href="#navigate">Navigate</a></h2>
+<p>navigate with a component</p>
+<pre><code class="language-js">&lt;Navigate to=&quot;/&quot; /&gt;
+</code></pre>
+<h2 id="usenavigate"><a class="header" href="#usenavigate">useNavigate</a></h2>
+<p>navigate with a hook</p>
+<pre><code class="language-js">const navigate = useNavigate();
+
+unction onSubmit() {
+  // Submit form results
+  navigate(&quot;/books&quot;, { replace: true, state: { bookName: &quot;Fake Title&quot; } })
 }
 </code></pre>
-<h4 id="navlink-style"><a class="header" href="#navlink-style">NavLink (style)</a></h4>
-<ul>
-<li>StyledNavbar.js</li>
-</ul>
-<pre><code class="language-js">import { NavLink } from 'react-router-dom';
+<h2 id="search-params"><a class="header" href="#search-params">Search Params</a></h2>
+<p>Access searchparams</p>
+<pre><code class="language-js">import React from 'react';
+import { Link, useOutletContext, useSearchParams } from 'react-router-dom';
 
-&lt;nav className=&quot;navbar&quot;&gt;
-    &lt;NavLink
-        to=&quot;/about&quot;
-        style={({ isActive }) =&gt; {
-            return { color: isActive ? 'red' : 'grey' };
-        }}
-    &gt;
-        Home
-    &lt;/NavLink&gt;
-&lt;/nav&gt;;
-</code></pre>
-<h4 id="navlink-classname"><a class="header" href="#navlink-classname">NavLink (className)</a></h4>
-<ul>
-<li>StyledNavbar.js</li>
-</ul>
-<pre><code class="language-js">&lt;nav className=&quot;navbar&quot;&gt;
-    &lt;NavLink
-        to=&quot;/&quot;
-        className={({ isActive }) =&gt; (isActive ? 'link active' : 'link')}
-    &gt;
-        Home
-    &lt;/NavLink&gt;
-&lt;/nav&gt;
-</code></pre>
-<h4 id="reading-url-params"><a class="header" href="#reading-url-params">Reading URL Params</a></h4>
-<ul>
-<li>App.js</li>
-</ul>
-<pre><code class="language-js">function App() {
-    return (
-        &lt;BrowserRouter&gt;
-            &lt;Routes&gt;
-                &lt;Route path=&quot;/&quot; element={&lt;SharedLayout /&gt;}&gt;
-                    &lt;Route index element={&lt;Home /&gt;} /&gt;
-                    &lt;Route path=&quot;about&quot; element={&lt;About /&gt;} /&gt;
-                    &lt;Route path=&quot;products&quot; element={&lt;Products /&gt;} /&gt;
-                    &lt;Route
-                        path=&quot;products/:productId&quot;
-                        element={&lt;SingleProduct /&gt;}
-                    /&gt;
-                    &lt;Route path=&quot;*&quot; element={&lt;Error /&gt;} /&gt;
-                &lt;/Route&gt;
-            &lt;/Routes&gt;
-        &lt;/BrowserRouter&gt;
-    );
-}
-</code></pre>
-<h4 id="single-product"><a class="header" href="#single-product">Single Product</a></h4>
-<ul>
-<li>SingleProduct.js</li>
-</ul>
-<pre><code class="language-js">import { Link, useParams } from 'react-router-dom';
-import products from '../data';
-const SingleProduct = () =&gt; {
-    const { productId } = useParams();
+const Books = () =&gt; {
+    const val = useOutletContext();
 
+    // Get search parameters
+    const [searchparams, setSearchParams] = useSearchParams();
+    console.log(searchparams.get('q'));
+
+    // setSearchParams({ n: e.target.value })
+
+    console.log(val);
     return (
-        &lt;section className=&quot;section product&quot;&gt;
-            &lt;h2&gt;{productId}&lt;/h2&gt;
-            &lt;Link to=&quot;/products&quot;&gt;back to products&lt;/Link&gt;
-        &lt;/section&gt;
+        &lt;div&gt;
+            &lt;h3&gt;Book List&lt;/h3&gt;
+            &lt;Link to=&quot;/books/1&quot;&gt;book 1&lt;/Link&gt;
+            &lt;br /&gt;
+            &lt;Link to=&quot;/books/2&quot;&gt;book 2&lt;/Link&gt;
+            &lt;br /&gt;
+            &lt;Link to=&quot;/books/3&quot;&gt;book 3&lt;/Link&gt;
+            &lt;br /&gt;
+        &lt;/div&gt;
     );
 };
 
-export default SingleProduct;
+export default Books;
 </code></pre>
-<h4 id="products-page"><a class="header" href="#products-page">Products Page</a></h4>
-<ul>
-<li>Products.js</li>
-</ul>
-<pre><code class="language-js">import { Link } from 'react-router-dom';
-import products from '../data';
-const Products = () =&gt; {
-    return (
-        &lt;section className=&quot;section&quot;&gt;
-            &lt;h2&gt;products&lt;/h2&gt;
-            &lt;div className=&quot;products&quot;&gt;
-                {products.map((product) =&gt; {
-                    return (
-                        &lt;article key={product.id}&gt;
-                            &lt;h5&gt;{product.name}&lt;/h5&gt;
-                            &lt;Link to={`/products/${product.id}`}&gt;
-                                more info
-                            &lt;/Link&gt;
-                        &lt;/article&gt;
-                    );
-                })}
-            &lt;/div&gt;
-        &lt;/section&gt;
-    );
-};
-
-export default Products;
-</code></pre>
-<h4 id="single-product-1"><a class="header" href="#single-product-1">Single Product</a></h4>
-<ul>
-<li>SingleProduct.js</li>
-</ul>
-<pre><code class="language-js">import { Link, useParams } from 'react-router-dom';
-import products from '../data';
-const SingleProduct = () =&gt; {
-    const { productId } = useParams();
-    const product = products.find((product) =&gt; product.id === productId);
-    const { image, name } = product;
-
-    return (
-        &lt;section className=&quot;section product&quot;&gt;
-            &lt;img src={image} alt={name} /&gt;
-            &lt;h5&gt;{name}&lt;/h5&gt;
-            &lt;Link to=&quot;/products&quot;&gt;back to products&lt;/Link&gt;
-        &lt;/section&gt;
-    );
-};
-
-export default SingleProduct;
-</code></pre>
-<h4 id="usenavigate"><a class="header" href="#usenavigate">useNavigate()</a></h4>
-<p><a href="https://youtu.be/PuEGrylM1x8"> (?.) or Optional Chaining Explained</a></p>
-<ul>
-<li>App.js</li>
-</ul>
-<pre><code class="language-js">function App() {
-    const [user, setUser] = useState(null);
-
-    return (
-        &lt;BrowserRouter&gt;
-            &lt;Routes&gt;
-                &lt;Route path=&quot;/&quot; element={&lt;SharedLayout /&gt;}&gt;
-                    &lt;Route index element={&lt;Home /&gt;} /&gt;
-                    &lt;Route path=&quot;about&quot; element={&lt;About /&gt;} /&gt;
-                    &lt;Route path=&quot;products&quot; element={&lt;Products /&gt;} /&gt;
-                    &lt;Route
-                        path=&quot;products/:productId&quot;
-                        element={&lt;SingleProduct /&gt;}
-                    /&gt;
-                    &lt;Route path=&quot;login&quot; element={&lt;Login setUser={setUser} /&gt;} /&gt;
-                    &lt;Route
-                        path=&quot;dashboard&quot;
-                        element={&lt;Dashboard user={user} /&gt;}
-                    /&gt;
-                    &lt;Route path=&quot;*&quot; element={&lt;Error /&gt;} /&gt;
-                &lt;/Route&gt;
-            &lt;/Routes&gt;
-        &lt;/BrowserRouter&gt;
-    );
-}
-</code></pre>
-<ul>
-<li>Login.js</li>
-</ul>
-<pre><code class="language-js"> import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-const Login = ({ setUser }) =&gt; {
-  const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
-
-  const navigate = useNavigate();
-
-  const handleSubmit = async (e) =&gt; {
-    e.preventDefault();
-    if (!name || !email) return;
-    setUser({ name: name, email: email });
-    navigate('/dashboard');
-  };
-
-</code></pre>
-<p><a href="https://youtu.be/PuEGrylM1x8"> (?.) or Optional Chaining Explained</a></p>
-<ul>
-<li>Dashboard.js</li>
-</ul>
-<pre><code class="language-js">const Dashboard = ({ user }) =&gt; {
-    return (
-        &lt;section className=&quot;section&quot;&gt;
-            &lt;h4&gt;Hello, {user?.name}&lt;/h4&gt;
-        &lt;/section&gt;
-    );
-};
-export default Dashboard;
-</code></pre>
-<h4 id="protected-route"><a class="header" href="#protected-route">Protected Route</a></h4>
-<ul>
-<li>App.js</li>
-</ul>
-<pre><code class="language-js">&lt;Route
-    path=&quot;dashboard&quot;
-    element={
-        &lt;ProtectedRoute user={user}&gt;
-            &lt;Dashboard user={user} /&gt;
-        &lt;/ProtectedRoute&gt;
-    }
-/&gt;
-</code></pre>
-<ul>
-<li>ProtectedRoute.js</li>
-</ul>
-<pre><code class="language-js">import { Navigate } from 'react-router-dom';
-
-const ProtectedRoute = ({ children, user }) =&gt; {
-    if (!user) {
-        return &lt;Navigate to=&quot;/&quot; /&gt;;
-    }
-    return children;
-};
-
-export default ProtectedRoute;
+<h2 id="uselocation"><a class="header" href="#uselocation">useLocation</a></h2>
+<p>access state data passed from another route</p>
+<pre><code class="language-js">const location = useLocation();
 </code></pre>
 <div style="break-before: page; page-break-before: always;"></div><h3 id="redux-with-redux-toolkit"><a class="header" href="#redux-with-redux-toolkit">Redux with redux-toolkit</a></h3>
 <h4 id="docs-1"><a class="header" href="#docs-1">Docs</a></h4>
@@ -6780,6 +6801,723 @@ async def delete_(sessmaker: async_sessionmaker[AsyncSession], id):
         await session.commit()
         return res
 </code></pre>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="react-hooks-1"><a class="header" href="#react-hooks-1">React Hooks</a></h1>
+<p><strong>Basic Hooks</strong></p>
+<h2 id="usestate-1"><a class="header" href="#usestate-1">useState</a></h2>
+<p><strong>Note : State updates are not immediate.</strong></p>
+<blockquote>
+<p>Problem</p>
+</blockquote>
+<pre><code class="language-js">import React from 'react';
+import { useState } from 'react';
+
+const App = () =&gt; {
+    const [count, setCount] = useState(0);
+
+    const handleClick = () =&gt; {
+        // You may think on every click the value will increase by
+        // 3. But it will not because the setCount function is still
+        // using the old values of count.In react we need to use the
+        // updater function in useState to grab the latest value.
+
+        setCount(count + 1);
+        setCount(count + 1);
+        setCount(count + 1);
+    };
+
+    return (
+        &lt;&gt;
+            &lt;div&gt;
+                &lt;h3&gt;{count}&lt;/h3&gt;
+                &lt;button type=&quot;button&quot; onClick={handleClick}&gt;
+                    Increase
+                &lt;/button&gt;
+            &lt;/div&gt;
+        &lt;/&gt;
+    );
+};
+
+export default App;
+</code></pre>
+<blockquote>
+<p>Fix</p>
+</blockquote>
+<pre><code class="language-js">import React from 'react';
+import { useState } from 'react';
+
+const App = () =&gt; {
+    const [count, setCount] = useState(0);
+
+    const handleClick = () =&gt; {
+        // You may think on every click the value will increase by
+        // 3. But it will not because the setCount function is still
+        // using the old values of count.In react we need to use the
+        // updater function in useState to grab the latest value.
+
+        setCount((prev) =&gt; prev + 1);
+        setCount((prev) =&gt; prev + 1);
+        setCount((prev) =&gt; prev + 1);
+    };
+
+    return (
+        &lt;&gt;
+            &lt;div&gt;
+                &lt;h3&gt;{count}&lt;/h3&gt;
+                &lt;button type=&quot;button&quot; onClick={handleClick}&gt;
+                    Increase
+                &lt;/button&gt;
+            &lt;/div&gt;
+        &lt;/&gt;
+    );
+};
+
+export default App;
+</code></pre>
+<blockquote>
+<p>Dynamic object Keys form</p>
+</blockquote>
+<pre><code class="language-js">import React from 'react';
+import { useState } from 'react';
+
+const App = () =&gt; {
+    const [data, setData] = useState({ name: '', email: '' });
+    const handleChange = (e) =&gt; {
+        setData((data) =&gt; {
+            return { ...data, [e.target.name]: e.target.value };
+        });
+    };
+    return (
+        &lt;div&gt;
+            &lt;input
+                type=&quot;text&quot;
+                name=&quot;name&quot;
+                value={data.name}
+                onChange={handleChange}
+            /&gt;
+            &lt;input
+                type=&quot;text&quot;
+                name=&quot;email&quot;
+                value={data.email}
+                onChange={handleChange}
+            /&gt;
+        &lt;/div&gt;
+    );
+};
+
+export default App;
+</code></pre>
+<h2 id="useeffect-1"><a class="header" href="#useeffect-1">useEffect</a></h2>
+<p><strong>Component Mount/Unmount</strong></p>
+<ul>
+<li>useEffect gets triggered after the page/component in which it is in is rendered.</li>
+<li>useEffect cleanup function gets triggered after the component which it is in is unmounted.</li>
+</ul>
+<blockquote>
+<p>App.jsx</p>
+</blockquote>
+<pre><code class="language-js">import React from 'react';
+import { useState } from 'react';
+import Hello from './Hello';
+
+const App = () =&gt; {
+    const [showhello, setShowhello] = useState(false);
+    return (
+        &lt;&gt;
+            {console.log('App rendered!')}
+            {showhello ? &lt;Hello /&gt; : ''}
+            &lt;button
+                type=&quot;button&quot;
+                onClick={() =&gt; {
+                    setShowhello(!showhello);
+                }}
+            &gt;
+                CLick
+            &lt;/button&gt;
+            &lt;div&gt;
+                &lt;h3&gt;App&lt;/h3&gt;
+            &lt;/div&gt;
+        &lt;/&gt;
+    );
+};
+
+export default App;
+</code></pre>
+<blockquote>
+<p>Hello.jsx</p>
+</blockquote>
+<pre><code class="language-js">import React, { useEffect } from 'react';
+
+const Hello = () =&gt; {
+    useEffect(() =&gt; {
+        console.log(
+            'Hello component useEffect is triggered after page has re-rendered!'
+        );
+        return () =&gt; {
+            console.log('Unmounted hello!');
+        };
+    });
+
+    return (
+        &lt;&gt;
+            {console.log('Render hello!')}
+            &lt;h3&gt;hello&lt;/h3&gt;
+        &lt;/&gt;
+    );
+};
+
+export default Hello;
+</code></pre>
+<p><strong>Event Listeners in useEffect</strong></p>
+<p>Use of cleanup functions.</p>
+<ul>
+<li>Must cancel the previous event Listeners,otherwise when the component gets
+re-rendered we are going to have multiple event-listeners.</li>
+</ul>
+<blockquote>
+<p>App.jsx [Problem and Fix 1]</p>
+</blockquote>
+<pre><code class="language-js">import React, { useEffect } from 'react';
+import { useState } from 'react';
+import Hello from './Hello';
+
+const App = () =&gt; {
+    const [count, setCount] = useState(0);
+    useEffect(() =&gt; {
+        // Main
+        console.log(
+            'This will run after we have painted the DOM with the below JSX'
+        );
+
+        // Cleanup [Apprender-&gt;cleanup(if any)-&gt;Trigger useEffect main]
+        return () =&gt; {
+            console.log('This will run to cancel previous useEffects if any!');
+        };
+    });
+    return (
+        &lt;&gt;
+            {console.log('App rendered!')}
+            {count}
+            &lt;button
+                type=&quot;button&quot;
+                onClick={() =&gt; {
+                    setCount((prev) =&gt; prev + 1);
+                }}
+            &gt;
+                Click
+            &lt;/button&gt;
+            &lt;div&gt;
+                &lt;h3&gt;App&lt;/h3&gt;
+            &lt;/div&gt;
+        &lt;/&gt;
+    );
+};
+
+export default App;
+</code></pre>
+<blockquote>
+<p>App.jsx [Problem and Fix 2]</p>
+</blockquote>
+<pre><code class="language-js">import React, { useEffect } from 'react';
+import { useState } from 'react';
+
+const App = () =&gt; {
+    const [count, setCount] = useState(0);
+    useEffect(() =&gt; {
+        // Main
+        const fn = () =&gt; {
+            console.log('Mouse moved!');
+        };
+
+        window.addEventListener('mousemove', fn);
+
+        // Cleanup [Apprender-&gt;cleanup(if any)-&gt;Trigger useEffect main]
+        // Going tosave the refrence of function fn of previous useEffect as fn get re-created from scratch
+        return () =&gt; {
+            window.removeEventListener('mousemove', fn);
+        };
+    });
+    return (
+        &lt;&gt;
+            {console.log('App rendered!')}
+            {count}
+            &lt;button
+                type=&quot;button&quot;
+                onClick={() =&gt; {
+                    setCount((prev) =&gt; prev + 1);
+                }}
+            &gt;
+                Click
+            &lt;/button&gt;
+            &lt;div&gt;
+                &lt;h3&gt;App&lt;/h3&gt;
+            &lt;/div&gt;
+        &lt;/&gt;
+    );
+};
+
+export default App;
+</code></pre>
+<p><strong>Fetch Function with useEffect using custom hooks</strong></p>
+<p>Some note :</p>
+<ul>
+<li>Custom Hooks can have any arbitary name. Good Convention is
+to give the &quot;use&quot; prefix to make the developer understand its
+a hook.It is not a mandatory thing.</li>
+</ul>
+<ul>
+<li>UseEffect only runs after dom is painted</li>
+<li>Use Dependency array wisely.Below by adding count useEffect is triggerd when value of count changes.</li>
+<li>2 phases for a custom default value return phase and value return phase</li>
+</ul>
+<blockquote>
+<p>App.jsx</p>
+</blockquote>
+<pre><code class="language-js">import React, { useState } from 'react';
+import customhook from './customhook';
+
+const App = () =&gt; {
+    const [count, setCount] = useState(0);
+    const { data, isLoading, isErr } = customhook(count);
+
+    if (isLoading) {
+        console.log('Loading renderd!');
+        return &lt;div&gt;Loading....&lt;/div&gt;;
+    }
+    if (isErr) {
+        return &lt;div&gt;Error....&lt;/div&gt;;
+    }
+
+    return (
+        &lt;div&gt;
+            {console.log('App renderd!')}
+            &lt;h3&gt;Count : {count}&lt;/h3&gt;
+            &lt;div&gt;
+                &lt;button
+                    type=&quot;button&quot;
+                    onClick={() =&gt; {
+                        setCount((prev) =&gt; prev + 1);
+                    }}
+                &gt;
+                    Click
+                &lt;/button&gt;
+            &lt;/div&gt;
+            {data}
+        &lt;/div&gt;
+    );
+};
+
+export default App;
+</code></pre>
+<blockquote>
+<p>customhook.jsx</p>
+</blockquote>
+<pre><code class="language-js">import React from 'react';
+import { useEffect } from 'react';
+import { useState } from 'react';
+
+const customhook = (count) =&gt; {
+    const [result, setResult] = useState({
+        data: [],
+        isLoading: true,
+        isErr: false
+    });
+
+    useEffect(() =&gt; {
+        const fetchData = async () =&gt; {
+            console.log('customhook effect triggered!');
+
+            try {
+                const data = await fetch(
+                    `http://numbersapi.com/${count}/trivia`
+                );
+                const res = await data.text();
+                setResult((data) =&gt; {
+                    return {
+                        ...data,
+                        isLoading: false,
+                        isErr: false,
+                        data: res
+                    };
+                });
+            } catch (err) {
+                setResult((data) =&gt; {
+                    return {
+                        ...data,
+                        isLoading: false,
+                        isErr: true
+                    };
+                });
+            }
+        };
+        fetchData();
+    }, [count]);
+
+    console.log('customhook renderd!');
+    return result;
+};
+
+export default customhook;
+</code></pre>
+<h2 id="useref-1"><a class="header" href="#useref-1">useRef</a></h2>
+<blockquote>
+<p>Does not trigger re-render and persist the value across multiple re-renders</p>
+</blockquote>
+<ul>
+<li>Keep track of times component re-renderd</li>
+<li>Used in forms</li>
+</ul>
+<p>Note: on adding fetchData function in the above codes Dependency array
+,it will cause and infinte loop.We can use useRef to strore the reference
+of the function , so on re-render the function does not gets created from
+scratch.</p>
+<blockquote>
+<p>Fix liniting errors</p>
+</blockquote>
+<pre><code class="language-js">import React from 'react';
+import { useRef } from 'react';
+import { useEffect } from 'react';
+import { useState } from 'react';
+
+const customhook = (count) =&gt; {
+    const [result, setResult] = useState({
+        data: [],
+        isLoading: true,
+        isErr: false
+    });
+
+    // An object with current variable
+    // Get created with the first ct value during initial render , so thats wht ct is passed as an argument
+    // Can be done with useState too but a function must be returned from a function, state is initialized during first render.
+
+    const fetchData = useRef(async (ct) =&gt; {
+        console.log('customhook effect triggered!');
+
+        try {
+            const data = await fetch(`http://numbersapi.com/${ct}/trivia`);
+            const res = await data.text();
+            setResult((data) =&gt; {
+                return {
+                    ...data,
+                    isLoading: false,
+                    isErr: false,
+                    data: res
+                };
+            });
+        } catch (err) {
+            setResult((data) =&gt; {
+                return {
+                    ...data,
+                    isLoading: false,
+                    isErr: true
+                };
+            });
+        }
+    });
+
+    useEffect(() =&gt; {
+        // fetchData();
+        fetchData.current(count);
+    }, [fetchData.current, count]);
+
+    console.log('customhook renderd!');
+    return result;
+};
+
+export default customhook;
+</code></pre>
+<blockquote>
+<p>Form example</p>
+</blockquote>
+<pre><code class="language-js">import React, { useRef } from 'react';
+
+const App = () =&gt; {
+    const rf = useRef(null);
+    return (
+        &lt;div&gt;
+            &lt;input
+                type=&quot;text&quot;
+                name=&quot;name&quot;
+                ref={rf}
+                onChange={() =&gt; {
+                    console.log(rf.current.value);
+                }}
+            /&gt;
+        &lt;/div&gt;
+    );
+};
+
+export default App;
+</code></pre>
+<p><strong>Performance Hooks</strong></p>
+<h2 id="reactmemo-1"><a class="header" href="#reactmemo-1">React.memo</a></h2>
+<p>In react a child component will re-render if its parent component re-renders,
+even if the child components props have not changed.So this can lead to
+performace degradation if we have many child components in our app,so
+to fix it we can use Reacts memo to tell the component only to re-render when
+its props change.But when child component re-renders parent does not re-render,but
+the childs child component re-renders.</p>
+<h3 id="a-problem-where-child-component-re-renders-even-if-its-props-dont-change-beacuse-its-parent-component-re-renders"><a class="header" href="#a-problem-where-child-component-re-renders-even-if-its-props-dont-change-beacuse-its-parent-component-re-renders">A problem where child component re-renders even if its props dont change beacuse its parent component re-renders</a></h3>
+<blockquote>
+<p>Problem</p>
+</blockquote>
+<blockquote>
+<p>App.jsx</p>
+</blockquote>
+<pre><code class="language-js">import React, { useState } from 'react';
+import List from './List';
+
+const data = [
+    { id: 1, name: 'Jack' },
+    { id: 2, name: 'Joe' }
+];
+
+const App = () =&gt; {
+    const [count, setCount] = useState(0);
+    return (
+        &lt;div&gt;
+            &lt;h3&gt;Count : {count}&lt;/h3&gt;
+            &lt;button
+                type=&quot;button&quot;
+                onClick={() =&gt; {
+                    setCount((prev) =&gt; prev + 1);
+                }}
+            &gt;
+                Click
+            &lt;/button&gt;
+            &lt;List people={data} /&gt;
+        &lt;/div&gt;
+    );
+};
+
+export default App;
+</code></pre>
+<blockquote>
+<p>List.jsx</p>
+</blockquote>
+<pre><code class="language-js">import React from 'react';
+import Person from './Person';
+const List = ({ people }) =&gt; {
+    return (
+        &lt;div&gt;
+            {people.map((person) =&gt; {
+                return &lt;Person key={person.id} {...person} /&gt;;
+            })}
+        &lt;/div&gt;
+    );
+};
+export default List;
+</code></pre>
+<blockquote>
+<p>Person.jsx</p>
+</blockquote>
+<pre><code class="language-js">const Person = ({ name }) =&gt; {
+    return (
+        &lt;div&gt;
+            &lt;h4&gt;{name}&lt;/h4&gt;
+        &lt;/div&gt;
+    );
+};
+export default Person;
+</code></pre>
+<blockquote>
+<p>Fix</p>
+</blockquote>
+<p>Move the counter to a seperate component.So that component becomes
+a child component of App.jsx when attached to App.jsx.So when counter
+renders then the counter and all its child component of counter will re-renders
+not app.jsx.</p>
+<h3 id="add-reactmemo-will-only-re-render-a-component-if-its-props-have-changed"><a class="header" href="#add-reactmemo-will-only-re-render-a-component-if-its-props-have-changed">Add react.memo() will only re-render a component if its props have changed</a></h3>
+<pre><code class="language-js">import React, { useState } from 'react';
+import Person from './Person';
+const List = ({ people }) =&gt; {
+    return (
+        &lt;div&gt;
+            {people.map((person) =&gt; {
+                return &lt;Person key={person.id} {...person} /&gt;;
+            })}
+        &lt;/div&gt;
+    );
+};
+export default React.memo(List);
+</code></pre>
+<h2 id="usecallback-1"><a class="header" href="#usecallback-1">useCallback</a></h2>
+<blockquote>
+<p>Cache a functions reference so that its does not gets created from scratch and its
+refrence change</p>
+</blockquote>
+<p>Tip : Either use Dependency array or set state updater function if want to use latest value of a state.</p>
+<blockquote>
+<p>App.jsx</p>
+</blockquote>
+<pre><code class="language-js">import React, { useCallback, useState } from 'react';
+import List from './List';
+
+const data = [
+    { id: 1, name: 'Jack' },
+    { id: 2, name: 'Joe' },
+    { id: 3, name: 'Jay' },
+    { id: 4, name: 'Jase' }
+];
+
+const App = () =&gt; {
+    const [count, setCount] = useState(0);
+    const [res, setRes] = useState(data);
+
+    const removePerson = useCallback(
+        (id) =&gt; {
+            // Still going to use the value of res it was first created on initial render
+            const data = res.filter((p) =&gt; p.id != id);
+            setRes(data);
+
+            // Way 1
+            // setRes((prev) =&gt; {
+            //     return prev.filter((p) =&gt; p.id != id);
+            // });
+
+            // Way 2
+        },
+        [res]
+    );
+
+    return (
+        &lt;div&gt;
+            &lt;h3&gt;Count : {count}&lt;/h3&gt;
+            &lt;button
+                type=&quot;button&quot;
+                onClick={() =&gt; {
+                    setCount((prev) =&gt; prev + 1);
+                }}
+            &gt;
+                Click
+            &lt;/button&gt;
+            &lt;List people={res} removePerson={removePerson} /&gt;
+        &lt;/div&gt;
+    );
+};
+
+export default App;
+</code></pre>
+<blockquote>
+<p>List.jsx</p>
+</blockquote>
+<pre><code class="language-js">import React, { useState } from 'react';
+import Person from './Person';
+const List = ({ people, removePerson }) =&gt; {
+    return (
+        &lt;div&gt;
+            {people.map((person) =&gt; {
+                return (
+                    &lt;Person
+                        key={person.id}
+                        {...person}
+                        removePerson={removePerson}
+                    /&gt;
+                );
+            })}
+        &lt;/div&gt;
+    );
+};
+export default React.memo(List);
+</code></pre>
+<blockquote>
+<p>Person.jsx</p>
+</blockquote>
+<pre><code class="language-js">const Person = ({ name, id, removePerson }) =&gt; {
+    return (
+        &lt;div&gt;
+            &lt;button
+                type=&quot;button&quot;
+                onClick={() =&gt; {
+                    removePerson(id);
+                }}
+            &gt;
+                Remove
+            &lt;/button&gt;
+            &lt;h4&gt;{name}&lt;/h4&gt;
+        &lt;/div&gt;
+    );
+};
+export default Person;
+</code></pre>
+<h2 id="usememo-1"><a class="header" href="#usememo-1">useMemo</a></h2>
+<blockquote>
+<p>Cache a single value which takes a long time to compute</p>
+</blockquote>
+<pre><code class="language-js">import React, { useMemo, useState } from 'react';
+import { slow } from './slowfunc';
+
+const data = [
+    { id: 1, name: 'Jack' },
+    { id: 2, name: 'Joe' },
+    { id: 3, name: 'Jay' },
+    { id: 4, name: 'Jase' }
+];
+
+const App = () =&gt; {
+    const [count, setCount] = useState(0);
+
+    // Will be run only on first reder
+
+    const val = useMemo(() =&gt; slow(), []);
+    console.log(val);
+
+    return (
+        &lt;div&gt;
+            &lt;h3&gt;Count : {count}&lt;/h3&gt;
+            &lt;button
+                type=&quot;button&quot;
+                onClick={() =&gt; {
+                    setCount((prev) =&gt; prev + 1);
+                }}
+            &gt;
+                Click
+            &lt;/button&gt;
+        &lt;/div&gt;
+    );
+};
+
+export default App;
+</code></pre>
+<p><strong>Useful Hooks</strong></p>
+<h2 id="usecontext-context-api"><a class="header" href="#usecontext-context-api">useContext (Context API)</a></h2>
+<blockquote>
+<p>main.jsx</p>
+</blockquote>
+<pre><code class="language-js">import React, { createContext } from 'react';
+import ReactDOM from 'react-dom/client';
+import App from './App.jsx';
+import { BrowserRouter } from 'react-router-dom';
+
+export const userctx = createContext(null);
+ReactDOM.createRoot(document.getElementById('root')).render(
+    &lt;userctx.Provider value={{ name: 'sdas', id: 1 }}&gt;
+        &lt;BrowserRouter&gt;
+            &lt;App /&gt;
+        &lt;/BrowserRouter&gt;
+    &lt;/userctx.Provider&gt;
+);
+</code></pre>
+<blockquote>
+<p>About.jsx</p>
+</blockquote>
+<pre><code class="language-js">import React, { useContext } from 'react';
+import { userctx } from '../main';
+
+const About = () =&gt; {
+    const val = useContext(userctx);
+    console.log(val);
+    return &lt;div&gt;About&lt;/div&gt;;
+};
+
+export default About;
+</code></pre>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="react-typescript"><a class="header" href="#react-typescript">React Typescript</a></h1>
+<p>use React.FC to declare component type</p>
+<h3 id="props"><a class="header" href="#props">Props</a></h3>
+<p>Use interface</p>
+<h3 id="hooks"><a class="header" href="#hooks">Hooks</a></h3>
+<p>Types are declared using &lt;&gt;</p>
+<h3 id="render-props"><a class="header" href="#render-props">Render props</a></h3>
 
                     </main>
 
