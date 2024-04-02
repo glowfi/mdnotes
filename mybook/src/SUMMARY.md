@@ -18,3 +18,4 @@
 - [15_fastapi](./15_fastapi.md)
 - [16_react_hooks_compressed](./16_react_hooks_compressed.md)
 - [17_react_Typescript](./17_react_Typescript.md)
+- [18_next_JS_14](./18_next_JS_14.md)

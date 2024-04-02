@@ -1,0 +1,1872 @@
+<!DOCTYPE HTML>
+<html lang="en" class="light" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>18_next_JS_14 - Markdown Notes</title>
+
+
+        <!-- Custom HTML head -->
+        
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="favicon.svg">
+        <link rel="shortcut icon" href="favicon.png">
+        <link rel="stylesheet" href="css/variables.css">
+        <link rel="stylesheet" href="css/general.css">
+        <link rel="stylesheet" href="css/chrome.css">
+        <link rel="stylesheet" href="css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="highlight.css">
+        <link rel="stylesheet" href="tomorrow-night.css">
+        <link rel="stylesheet" href="ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+
+    </head>
+    <body class="sidebar-visible no-js">
+    <div id="body-container">
+        <!-- Provide site root to javascript -->
+        <script>
+            var path_to_root = "";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('light')
+            html.classList.add(theme);
+            var body = document.querySelector('body');
+            body.classList.remove('no-js')
+            body.classList.add('js');
+        </script>
+
+        <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            var body = document.querySelector('body');
+            var sidebar = null;
+            var sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+            }
+            sidebar_toggle.checked = sidebar === 'visible';
+            body.classList.remove('sidebar-visible');
+            body.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded "><a href="1_react_1_fundamentals.html"><strong aria-hidden="true">1.</strong> 1_react_1_fundamentals</a></li><li class="chapter-item expanded "><a href="2_react_2_advanced.html"><strong aria-hidden="true">2.</strong> 2_react_2_advanced</a></li><li class="chapter-item expanded "><a href="3_react_3_axios.html"><strong aria-hidden="true">3.</strong> 3_react_3_axios</a></li><li class="chapter-item expanded "><a href="4_react_4_router_dom.html"><strong aria-hidden="true">4.</strong> 4_react_4_router_dom</a></li><li class="chapter-item expanded "><a href="5_react_5_redux_tookit.html"><strong aria-hidden="true">5.</strong> 5_react_5_redux_tookit</a></li><li class="chapter-item expanded "><a href="6_node_1_fundamentals.html"><strong aria-hidden="true">6.</strong> 6_node_1_fundamentals</a></li><li class="chapter-item expanded "><a href="7_node_2_advanced.html"><strong aria-hidden="true">7.</strong> 7_node_2_advanced</a></li><li class="chapter-item expanded "><a href="8_node_3_orm.html"><strong aria-hidden="true">8.</strong> 8_node_3_orm</a></li><li class="chapter-item expanded "><a href="9_node_4_apollo_graphql_basics.html"><strong aria-hidden="true">9.</strong> 9_node_4_apollo_graphql_basics</a></li><li class="chapter-item expanded "><a href="10_node_5_typescript.html"><strong aria-hidden="true">10.</strong> 10_node_5_typescript</a></li><li class="chapter-item expanded "><a href="11_node_6_graphql_ts_orm.html"><strong aria-hidden="true">11.</strong> 11_node_6_graphql_ts_orm</a></li><li class="chapter-item expanded "><a href="12_sql.html"><strong aria-hidden="true">12.</strong> 12_sql</a></li><li class="chapter-item expanded "><a href="13_sql_alchemy.html"><strong aria-hidden="true">13.</strong> 13_sql_alchemy</a></li><li class="chapter-item expanded "><a href="14_redis.html"><strong aria-hidden="true">14.</strong> 14_redis</a></li><li class="chapter-item expanded "><a href="15_fastapi.html"><strong aria-hidden="true">15.</strong> 15_fastapi</a></li><li class="chapter-item expanded "><a href="16_react_hooks_compressed.html"><strong aria-hidden="true">16.</strong> 16_react_hooks_compressed</a></li><li class="chapter-item expanded "><a href="17_react_Typescript.html"><strong aria-hidden="true">17.</strong> 17_react_Typescript</a></li><li class="chapter-item expanded "><a href="18_next_JS_14.html" class="active"><strong aria-hidden="true">18.</strong> 18_next_JS_14</a></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <!-- Track and set sidebar scroll position -->
+        <script>
+            var sidebarScrollbox = document.querySelector('#sidebar .sidebar-scrollbox');
+            sidebarScrollbox.addEventListener('click', function(e) {
+                if (e.target.tagName === 'A') {
+                    sessionStorage.setItem('sidebar-scroll', sidebarScrollbox.scrollTop);
+                }
+            }, { passive: true });
+            var sidebarScrollTop = sessionStorage.getItem('sidebar-scroll');
+            sessionStorage.removeItem('sidebar-scroll');
+            if (sidebarScrollTop) {
+                // preserve sidebar scroll position when navigating via links within sidebar
+                sidebarScrollbox.scrollTop = sidebarScrollTop;
+            } else {
+                // scroll sidebar to current active section when navigating via "next/previous chapter" buttons
+                var activeSection = document.querySelector('#sidebar .active');
+                if (activeSection) {
+                    activeSection.scrollIntoView({ block: 'center' });
+                }
+            }
+        </script>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </label>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">Markdown Notes</h1>
+
+                    <div class="right-buttons">
+                        <a href="print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h3 id="nextjs-14"><a class="header" href="#nextjs-14">NextJS 14</a></h3>
+<h2 id="getting-started"><a class="header" href="#getting-started">Getting Started</a></h2>
+<p><a href="https://nextjs.org/docs/getting-started/installation">NextJS</a></p>
+<h3 id="create-app"><a class="header" href="#create-app">Create APP</a></h3>
+<pre><code class="language-sh">npx create-next-app@latest
+</code></pre>
+<h2 id="folder-structure"><a class="header" href="#folder-structure">Folder Structure</a></h2>
+<ul>
+<li>app folder - where we will spend most of our time
+<ul>
+<li>setup routes, layouts, loading states, etc</li>
+</ul>
+</li>
+<li>node_modules - project dependencies</li>
+<li>public - static assets</li>
+<li>.gitignore - sets which will be ignored by source control</li>
+<li>bunch of config files (will discuss as we go)</li>
+<li>in package.json look scripts</li>
+<li>'npm run dev' to spin up the project on http://localhost:3000</li>
+</ul>
+<h2 id="home-page"><a class="header" href="#home-page">Home Page</a></h2>
+<ul>
+<li>
+<p>page.js in the root of app folder</p>
+</li>
+<li>
+<p>represents root of our application
+'/' local domain or production domain</p>
+</li>
+<li>
+<p>react component (server component)</p>
+</li>
+<li>
+<p>bunch of css classes (will discuss Tailwind in few lectures)</p>
+</li>
+<li>
+<p>export component as default</p>
+</li>
+<li>
+<p>file name "page" has a special meaning</p>
+</li>
+<li>
+<p>snippets extension</p>
+<p>app/page.js</p>
+</li>
+</ul>
+<pre><code class="language-js">const HomePage = () =&gt; {
+    return (
+        &lt;div&gt;
+            &lt;h1 className="text-7xl"&gt;HomePage&lt;/h1&gt;
+        &lt;/div&gt;
+    );
+};
+export default HomePage;
+</code></pre>
+<h2 id="create-pages-in-nextjs"><a class="header" href="#create-pages-in-nextjs">Create Pages in Next.js</a></h2>
+<ul>
+<li>in the app folder create a folder with the page.js file
+<ul>
+<li>about/page.js</li>
+<li>contact/page.js</li>
+</ul>
+</li>
+<li>can have .js .jsx .tsx extension</li>
+</ul>
+<p>app/about/page.js</p>
+<pre><code class="language-js">const AboutPage = () =&gt; {
+    return (
+        &lt;div&gt;
+            &lt;h1 className="text-7xl"&gt;AboutPage&lt;/h1&gt;
+        &lt;/div&gt;
+    );
+};
+export default AboutPage;
+</code></pre>
+<h2 id="link-component"><a class="header" href="#link-component">Link Component</a></h2>
+<ul>
+<li>navigate around the project</li>
+<li>import Link from 'next/link'
+home page</li>
+</ul>
+<pre><code class="language-js">import Link from 'next/link';
+
+const HomePage = () =&gt; {
+    return (
+        &lt;div&gt;
+            &lt;h1 className="text-7xl"&gt;HomePage&lt;/h1&gt;
+            &lt;Link href="/about" className="text-2xl"&gt;
+                about page
+            &lt;/Link&gt;
+        &lt;/div&gt;
+    );
+};
+export default HomePage;
+</code></pre>
+<h2 id="nested-routes"><a class="header" href="#nested-routes">Nested Routes</a></h2>
+<ul>
+<li>app/about/info/page.js</li>
+<li>if no page.js in a segment will result in 404</li>
+</ul>
+<pre><code class="language-js">const AboutInfoPage = () =&gt; {
+    return &lt;h1 className="text-7xl"&gt;AboutInfoPage&lt;/h1&gt;;
+};
+export default AboutInfoPage;
+</code></pre>
+<h2 id="tailwind-and-daisyui"><a class="header" href="#tailwind-and-daisyui">Tailwind and DaisyUI</a></h2>
+<p>Tailwind Site : https://tailwindcss.com/docs/installation
+DaisyUI Site : https://daisyui.com/components/</p>
+<ul>
+<li>
+<p>both videos optional</p>
+</li>
+<li>
+<p>remove extra code in globals.css</p>
+</li>
+<li>
+<p>install daisyui</p>
+</li>
+<li>
+<p>install tailwindcss typography plugin</p>
+</li>
+<li>
+<p>configure tailwind</p>
+</li>
+</ul>
+<pre><code class="language-sh">npm i -D daisyui@latest
+npm i @tailwindcss/typography
+</code></pre>
+<p>tailwind.config.js</p>
+<pre><code class="language-js">/** @type {import('tailwindcss').Config} */
+module.exports = {
+  ...
+  plugins: [require('@tailwindcss/typography'), require('daisyui')]
+};
+
+</code></pre>
+<h2 id="layouts-and-templates"><a class="header" href="#layouts-and-templates">Layouts and Templates</a></h2>
+<ul>
+<li>
+<p>layout.js</p>
+</li>
+<li>
+<p>template.js</p>
+<p>Layout is a component which wraps other pages and layouts. Allow to share UI. Even when the route changes, layout DOES NOT re-render. Can fetch data but can't pass it down to children. Templates are the same but they re-render.</p>
+</li>
+<li>
+<p>the top-most layout is called the Root Layout. This required layout is shared across all pages in an application. Root layouts must contain html and body tags.</p>
+</li>
+<li>
+<p>any route segment can optionally define its own Layout. These layouts will be shared across all pages in that segment.</p>
+</li>
+<li>
+<p>layouts in a route are nested by default. Each parent layout wraps child layouts below it using the React children prop.</p>
+</li>
+</ul>
+<pre><code class="language-js">import { Inter } from 'next/font/google';
+import './globals.css';
+
+const inter = Inter({ subsets: ['latin'] });
+
+export const metadata = {
+    title: 'Next.js Tutorial',
+    description: 'Build awesome stuff with Next.js!'
+};
+
+export default function RootLayout({ children }) {
+    return (
+        &lt;html lang="en"&gt;
+            &lt;body className={inter.className}&gt;{children}&lt;/body&gt;
+        &lt;/html&gt;
+    );
+}
+</code></pre>
+<h2 id="challenge---navbar"><a class="header" href="#challenge---navbar">Challenge - Navbar</a></h2>
+<ul>
+<li>in the root create components folder</li>
+<li>create Navbar.jsx component</li>
+<li>import Link component</li>
+<li>setup a list of links (to existing pages)</li>
+<li>iterate over the list</li>
+<li>render Navbar in the app/layout.js</li>
+<li>setup the same layout for all pages (hint: wrap children prop)</li>
+</ul>
+<h2 id="setup-navbar"><a class="header" href="#setup-navbar">Setup Navbar</a></h2>
+<p>components/Navbar</p>
+<pre><code class="language-js">import Link from 'next/link';
+import React from 'react';
+
+const Navbar = () =&gt; {
+    const links = [
+        { name: 'client', href: '/client' },
+        { name: 'drinks', href: '/drinks' },
+        { name: 'tasks', href: '/tasks' },
+        { name: 'query', href: '/query' }
+    ];
+    return (
+        &lt;nav className="bg-base-300 py-4"&gt;
+            &lt;div className="navbar px-8 max-w-6xl mx-auto flex-col sm:flex-row"&gt;
+                &lt;ul className="menu menu-horizontal md:ml-8"&gt;
+                    &lt;li&gt;
+                        &lt;Link href={`/`}&gt;Home Page&lt;/Link&gt;
+                    &lt;/li&gt;
+                    {links.map(({ name, href }) =&gt; {
+                        return (
+                            &lt;li&gt;
+                                &lt;Link href={`${href}`}&gt;{name}&lt;/Link&gt;
+                            &lt;/li&gt;
+                        );
+                    })}
+                &lt;/ul&gt;
+            &lt;/div&gt;
+        &lt;/nav&gt;
+    );
+};
+
+export default Navbar;
+</code></pre>
+<p>app/layout</p>
+<pre><code class="language-js">import type { Metadata } from 'next';
+import { Inter } from 'next/font/google';
+import './globals.css';
+import Navbar from '@/components/Navbar';
+
+const inter = Inter({ subsets: ['latin'] });
+
+export const metadata: Metadata = {
+    title: 'Create Next App',
+    description: 'Generated by create next app'
+};
+
+export default function RootLayout({
+    children
+}: Readonly&lt;{
+    children: React.ReactNode;
+}&gt;) {
+    return (
+        &lt;html lang="en"&gt;
+            &lt;body className={inter.className}&gt;
+                &lt;Navbar /&gt;
+                &lt;main className="px-8 py-20 max-w-6xl mx-auto"&gt;{children}&lt;/main&gt;
+            &lt;/body&gt;
+        &lt;/html&gt;
+    );
+}
+</code></pre>
+<h2 id="server-components-vs-client-components"><a class="header" href="#server-components-vs-client-components">Server Components VS Client Components</a></h2>
+<ul>
+<li>
+<p><a href="https://nextjs.org/docs/app/building-your-application/rendering/server-components">Server Components</a></p>
+</li>
+<li>
+<p><a href="https://nextjs.org/docs/app/building-your-application/rendering/client-components">Client Components</a></p>
+</li>
+<li>
+<p>BY DEFAULT, NEXT.JS USES SERVER COMPONENTS !!!!</p>
+</li>
+<li>
+<p>To use Client Components, you can add the React "use client" directive</p>
+</li>
+</ul>
+<h3 id="server-components"><a class="header" href="#server-components">Server Components</a></h3>
+<p>Benefits :</p>
+<ul>
+<li>data fetching</li>
+<li>security</li>
+<li>caching</li>
+<li>bundle size</li>
+</ul>
+<p>Data Fetching: Server Components allow you to move data fetching to the server, closer to your data source. This can improve performance by reducing time it takes to fetch data needed for rendering, and the amount of requests the client needs to make.
+Security: Server Components allow you to keep sensitive data and logic on the server, such as tokens and API keys, without the risk of exposing them to the client.
+Caching: By rendering on the server, the result can be cached and reused on subsequent requests and across users. This can improve performance and reduce cost by reducing the amount of rendering and data fetching done on each request.
+Bundle Sizes: Server Components allow you to keep large dependencies that previously would impact the client JavaScript bundle size on the server. This is beneficial for users with slower internet or less powerful devices, as the client does not have to download, parse and execute any JavaScript for Server Components.
+Initial Page Load and First Contentful Paint (FCP): On the server, we can generate HTML to allow users to view the page immediately, without waiting for the client to download, parse and execute the JavaScript needed to render the page.
+Search Engine Optimization and Social Network Shareability: The rendered HTML can be used by search engine bots to index your pages and social network bots to generate social card previews for your pages.
+Streaming: Server Components allow you to split the rendering work into chunks and stream them to the client as they become ready. This allows the user to see parts of the page earlier without having to wait for the entire page to be rendered on the server.</p>
+<h3 id="client-components"><a class="header" href="#client-components">Client Components</a></h3>
+<p>Benefits :</p>
+<ul>
+<li>Interactivity: Client Components can use state, effects, and event listeners, meaning they can provide immediate feedback to the user and update the UI.</li>
+<li>Browser APIs: Client Components have access to browser APIs, like geolocation or localStorage, allowing you to build UI for specific use cases.</li>
+</ul>
+<h2 id="challenge---setup-counter"><a class="header" href="#challenge---setup-counter">Challenge - Setup Counter</a></h2>
+<ul>
+<li>setup our home page (no restrictions)</li>
+<li>setup a simple counter in app/client/page.js</li>
+</ul>
+<h3 id="counter--client-component"><a class="header" href="#counter--client-component">Counter ( Client Component)</a></h3>
+<pre><code class="language-js">import React, { useState } from 'react';
+
+const ClientPage = () =&gt; {
+    const [count, setCount] = useState(0);
+    return (
+        &lt;div&gt;
+            &lt;h3&gt;ClientPage&lt;/h3&gt;
+            &lt;button
+                type="button"
+                onClick={() =&gt; {
+                    setCount((c) =&gt; c + 1);
+                }}
+            &gt;
+                {count}
+            &lt;/button&gt;
+        &lt;/div&gt;
+    );
+};
+
+export default ClientPage;
+</code></pre>
+<h2 id="challenge---fetch-data-in-drinks-page"><a class="header" href="#challenge---fetch-data-in-drinks-page">Challenge - Fetch Data in Drinks Page</a></h2>
+<ul>
+<li>setup logic</li>
+<li>visit the page</li>
+<li>look for log in the terminal 😀</li>
+</ul>
+<p>app/drinks/page.js</p>
+<pre><code class="language-js">const url = 'https://www.thecocktaildb.com/api/json/v1/1/search.php?f=a';
+
+const DrinksPage = async () =&gt; {
+    const response = await fetch(url);
+    const data = await response.json();
+    console.log(data);
+    return (
+        &lt;div&gt;
+            &lt;h1 className="text-7xl"&gt;DrinksPage&lt;/h1&gt;
+        &lt;/div&gt;
+    );
+};
+export default DrinksPage;
+</code></pre>
+<h2 id="loading-component"><a class="header" href="#loading-component">Loading Component</a></h2>
+<p>The special file loading.js helps you create meaningful Loading UI with React Suspense. With this convention, you can show an instant loading state from the server while the content of a route segment loads. The new content is automatically swapped in once rendering is complete.</p>
+<ul>
+<li>drinks/loading.js</li>
+</ul>
+<pre><code class="language-js">const loading = () =&gt; {
+    return &lt;span className="loading"&gt;&lt;/span&gt;;
+};
+export default loading;
+</code></pre>
+<ul>
+<li>refactor drinks page</li>
+</ul>
+<pre><code class="language-js">import React from 'react';
+
+const url = 'https://www.thecocktaildb.com/api/json/v1/1/search.php?f=a';
+const fetchData = async () =&gt; {
+    await new Promise((res, _) =&gt; {
+        setTimeout(() =&gt; {
+            res('Done!');
+        }, 1000);
+    });
+    const resp = await fetch(url);
+    // throw error
+    if (!resp.ok) {
+        throw new Error('Failed to fetch drinks...');
+    }
+    const data = await resp.json();
+    return data;
+};
+
+const DrinksPage = async () =&gt; {
+    const data = await fetchData();
+    console.log(data);
+
+    return &lt;div&gt;DrinksPage&lt;/div&gt;;
+};
+
+export default DrinksPage;
+</code></pre>
+<h2 id="error-component"><a class="header" href="#error-component">Error Component</a></h2>
+<p>The error.js file convention allows you to gracefully handle unexpected runtime errors in nested routes.</p>
+<ul>
+<li>drinks/error.js</li>
+<li>'use client'</li>
+</ul>
+<pre><code class="language-js">'use client';
+const error = (err: any) =&gt; {
+    return &lt;div&gt;there was an error... {err.error.message}&lt;/div&gt;;
+};
+export default error;
+</code></pre>
+<h2 id="nested-layouts"><a class="header" href="#nested-layouts">Nested Layouts</a></h2>
+<ul>
+<li>
+<p>create app/drinks/layout.js</p>
+</li>
+<li>
+<p>UI will be applied to app/drinks - segment</p>
+</li>
+<li>
+<p>don't forget about the "children"</p>
+</li>
+<li>
+<p>we can fetch data in the layout but...
+at the moment can't pass data down to children (pages) 😞</p>
+<p>layout.js</p>
+</li>
+</ul>
+<pre><code class="language-js">export default function DrinksLayout({ children }) {
+    return (
+        &lt;div className="max-w-xl "&gt;
+            &lt;div className="mockup-code mb-8"&gt;
+                &lt;pre data-prefix="$"&gt;
+                    &lt;code&gt;npx create-next-app@latest nextjs-tutorial&lt;/code&gt;
+                &lt;/pre&gt;
+            &lt;/div&gt;
+            {children}
+        &lt;/div&gt;
+    );
+}
+</code></pre>
+<h2 id="dynamic-routes"><a class="header" href="#dynamic-routes">Dynamic Routes</a></h2>
+<ul>
+<li>app/drinks/[id]/page.js</li>
+</ul>
+<pre><code class="language-js">const page = ({ params }) =&gt; {
+    console.log(params);
+
+    return (
+        &lt;div&gt;
+            &lt;h1 className="text-7xl"&gt;{params.id}&lt;/h1&gt;
+        &lt;/div&gt;
+    );
+};
+export default page;
+</code></pre>
+<h2 id="challenge---drinks-list"><a class="header" href="#challenge---drinks-list">Challenge - Drinks List</a></h2>
+<ul>
+<li>render a list of drinks</li>
+<li>each item is a link to a drink[id] page</li>
+</ul>
+<h2 id="drinks-list"><a class="header" href="#drinks-list">Drinks List</a></h2>
+<ul>
+<li>create components/DrinksList.jsx</li>
+<li>render in drinks/page and pass the drinks down</li>
+<li>iterate over the drinks and return links</li>
+</ul>
+<p>DrinksList.jsx</p>
+<pre><code class="language-js">import Link from 'next/link';
+
+const DrinksList = ({ drinks }) =&gt; {
+    return (
+        &lt;ul className="menu menu-vertical pl-0"&gt;
+            {drinks.map((drink) =&gt; (
+                &lt;li key={drink.idDrink}&gt;
+                    &lt;Link
+                        href={`/drinks/${drink.idDrink}`}
+                        className="text-xl font-medium"
+                    &gt;
+                        {drink.strDrink}
+                    &lt;/Link&gt;
+                &lt;/li&gt;
+            ))}
+        &lt;/ul&gt;
+    );
+};
+export default DrinksList;
+</code></pre>
+<p>app/drinks/page.js</p>
+<pre><code class="language-js">const url = 'https://www.thecocktaildb.com/api/json/v1/1/search.php?f=a';
+import DrinksList from '@/components/DrinksList';
+const fetchDrinks = async () =&gt; {
+    // just for demo purposes
+    await new Promise((resolve) =&gt; setTimeout(resolve, 1000));
+    const response = await fetch(url);
+
+    if (!response.ok) {
+        throw new Error('Failed to fetch drinks...');
+    }
+    const data = await response.json();
+    return data;
+};
+
+const DrinksPage = async () =&gt; {
+    const data = await fetchDrinks();
+
+    return (
+        &lt;div&gt;
+            &lt;DrinksList drinks={data.drinks} /&gt;
+        &lt;/div&gt;
+    );
+};
+export default DrinksPage;
+</code></pre>
+<h2 id="challenge---render-single-drink"><a class="header" href="#challenge---render-single-drink">Challenge - Render Single Drink</a></h2>
+<ul>
+<li>in drinks/[id], fetch and render drink title</li>
+<li>hint:params object</li>
+</ul>
+<pre><code class="language-js">const url = 'https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=';
+</code></pre>
+<h2 id="render-single-drink"><a class="header" href="#render-single-drink">Render Single Drink</a></h2>
+<p>drinks/[id]/page.js</p>
+<pre><code class="language-js">import Link from 'next/link';
+const url = 'https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=';
+
+const getSingleDrink = async (id) =&gt; {
+    const res = await fetch(`${url}${id}`);
+
+    if (!res.ok) {
+        throw new Error('Failed to fetch drink...');
+    }
+    return res.json();
+};
+
+const SingleDrink = async ({ params }) =&gt; {
+    const data = await getSingleDrink(params.id);
+    const title = data?.drinks[0]?.strDrink;
+    const imgSrc = data?.drinks[0]?.strDrinkThumb;
+    return (
+        &lt;div&gt;
+            &lt;Link href="/drinks" className="btn btn-primary mt-8 mb-12"&gt;
+                back to drinks
+            &lt;/Link&gt;
+            &lt;h1 className="text-4xl mb-8"&gt;{title}&lt;/h1&gt;
+        &lt;/div&gt;
+    );
+};
+export default SingleDrink;
+</code></pre>
+<h2 id="next-image-component"><a class="header" href="#next-image-component">Next Image Component</a></h2>
+<ul>
+<li>get random image from pexels site
+<a href="https://www.pexels.com/photo/red-glass-with-garnished-beverage-2842876/">Random Drink</a></li>
+</ul>
+<p>The Next.js Image component extends the HTML <img> element with features for automatic image optimization:</p>
+<ul>
+<li>Size Optimization: Automatically serve correctly sized images for each device, using modern image formats like WebP and AVIF.</li>
+<li>Visual Stability: Prevent layout shift automatically when images are loading.</li>
+<li>Faster Page Loads: Images are only loaded when they enter the viewport using native browser lazy loading, with optional blur-up placeholders.</li>
+<li>Asset Flexibility: On-demand image resizing, even for images stored on remote servers</li>
+</ul>
+<p>drinks[id]/page.js</p>
+<pre><code class="language-js">import Link from 'next/link';
+const url = 'https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=';
+
+import drinkImg from './drink.jpg';
+import Image from 'next/image';
+
+const SingleDrink = async ({ params }) =&gt; {
+    const data = await getSingleDrink(params.id);
+    const title = data?.drinks[0]?.strDrink;
+    const imgSrc = data?.drinks[0]?.strDrinkThumb;
+    return (
+        &lt;div&gt;
+            &lt;Link href="/drinks" className="btn btn-primary mt-8 mb-12"&gt;
+                back to drinks
+            &lt;/Link&gt;
+            {/* &lt;img src={imgSrc} alt='' /&gt; */}
+            &lt;Image src={drinkImg} className="w-48 h-48 rounded" alt="" /&gt;
+            &lt;h1 className="text-4xl mb-8"&gt;{title}&lt;/h1&gt;
+        &lt;/div&gt;
+    );
+};
+export default SingleDrink;
+</code></pre>
+<h2 id="remote-images"><a class="header" href="#remote-images">Remote Images</a></h2>
+<ul>
+<li>
+<p>To use a remote image, the src property should be a URL string.</p>
+</li>
+<li>
+<p>Since Next.js does not have access to remote files during the build process, you'll need to provide the width, height and optional blurDataURL props manually.</p>
+</li>
+<li>
+<p>The width and height attributes are used to infer the correct aspect ratio of image and avoid layout shift from the image loading in. The width and height do not determine the rendered size of the image file.</p>
+</li>
+<li>
+<p>To safely allow optimizing images, define a list of supported URL patterns in next.config.js. Be as specific as possible to prevent malicious usage.</p>
+</li>
+<li>
+<p>restart dev server</p>
+</li>
+<li>
+<p>priority property to prioritize the image for loading</p>
+</li>
+</ul>
+<pre><code class="language-js">const SingleDrink = async ({ params }) =&gt; {
+    const data = await getSingleDrink(params.id);
+    const title = data?.drinks[0]?.strDrink;
+    const imgSrc = data?.drinks[0]?.strDrinkThumb;
+    return (
+        &lt;div&gt;
+            &lt;Link href="/drinks" className="btn btn-primary mt-8 mb-12"&gt;
+                back to drinks
+            &lt;/Link&gt;
+            {/* &lt;img src={imgSrc} alt='' /&gt; */}
+            {/* &lt;Image src={drinkImg} className='w-48 h-48 rounded' alt='' /&gt; */}
+            &lt;Image
+                src={imgSrc}
+                width={300}
+                height={300}
+                className="w-48 h-48 rounded shadow-lg mb-4"
+                priority
+                alt=""
+            /&gt;
+            &lt;h1 className="text-4xl mb-8"&gt;{title}&lt;/h1&gt;
+        &lt;/div&gt;
+    );
+};
+export default SingleDrink;
+</code></pre>
+<pre><code class="language-js">** @type {import('next').NextConfig} */
+const nextConfig = {
+  images: {
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'www.thecocktaildb.com',
+        port: '',
+        pathname: '/images/**',
+      },
+    ],
+  },
+};
+
+module.exports = nextConfig;
+</code></pre>
+<h2 id="remote-images---responsive"><a class="header" href="#remote-images---responsive">Remote Images - Responsive</a></h2>
+<ul>
+<li>
+<p>The fill prop allows your image to be sized by its parent element</p>
+</li>
+<li>
+<p>sizes property helps the browser select the most appropriate image size to load based on the user's device and screen size, improving website performance and user experience.</p>
+<p>DrinksList.jsx</p>
+</li>
+</ul>
+<pre><code class="language-js">import Image from 'next/image';
+import Link from 'next/link';
+
+const DrinksList = ({ drinks }) =&gt; {
+    return (
+        &lt;ul className="grid sm:grid-cols-2 gap-6 mt-6"&gt;
+            {drinks.map((drink) =&gt; (
+                &lt;li key={drink.idDrink}&gt;
+                    &lt;Link
+                        href={`/drinks/${drink.idDrink}`}
+                        className="text-xl font-medium"
+                    &gt;
+                        &lt;div className="relative h-48 mb-4"&gt;
+                            &lt;Image
+                                src={drink.strDrinkThumb}
+                                fill
+                                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw"
+                                alt={drink.strDrink}
+                                className="rounded-md object-cover"
+                            /&gt;
+                        &lt;/div&gt;
+                        {drink.strDrink}
+                    &lt;/Link&gt;
+                &lt;/li&gt;
+            ))}
+        &lt;/ul&gt;
+    );
+};
+export default DrinksList;
+</code></pre>
+<h2 id="more-routing"><a class="header" href="#more-routing">More Routing</a></h2>
+<ul>
+<li>
+<p>Private Folders
+_folder</p>
+</li>
+<li>
+<p>Route Groups
+(dashboard)</p>
+</li>
+<li>
+<p>Dynamic Routes</p>
+<ul>
+<li>[...folder] - Catch-all route segment</li>
+<li>[[...folder]] Optional catch-all route segment (used by Clerk)</li>
+</ul>
+</li>
+<li>
+<p>create test folder app/_css</p>
+</li>
+<li>
+<p>create app/(dashboard)/auth</p>
+<ul>
+<li>the url is just '/auth'</li>
+</ul>
+</li>
+<li>
+<p>create app/(dashboard)/auth/[sign-in]</p>
+</li>
+</ul>
+<pre><code class="language-js">const SignInPage = ({ params }) =&gt; {
+    console.log(params);
+    return &lt;div&gt;SignInPage&lt;/div&gt;;
+};
+export default SignInPage;
+</code></pre>
+<ul>
+<li>create app/(dashboard)/auth/[...sign-in]</li>
+<li>create app/(dashboard)/auth/[[...sign-in]]</li>
+</ul>
+<h2 id="prisma"><a class="header" href="#prisma">Prisma</a></h2>
+<ul>
+<li>install prisma vs-code extension</li>
+</ul>
+<p><a href="https://www.prisma.io/docs/concepts/database-connectors/sqlite">Prisma sqlite</a></p>
+<p>Prisma ORM is a database toolkit that simplifies database access in web applications. It allows developers to interact with databases using a type-safe and auto-generated API, making database operations easier and more secure.</p>
+<ul>
+<li>Prisma server: A standalone infrastructure component sitting on top of your database.</li>
+<li>Prisma client: An auto-generated library that connects to the Prisma server and lets you read, write and stream data in your database. It is used for data access in your applications.</li>
+</ul>
+<pre><code class="language-sh">npm install prisma --save-dev
+npm install @prisma/client
+</code></pre>
+<pre><code class="language-sh">npx prisma init
+</code></pre>
+<p>This creates a new prisma directory with your Prisma schema file and configures SQLite as your database. You're now ready to model your data and create your database with some tables.</p>
+<pre><code class="language-prisma">generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+</code></pre>
+<ul>
+<li>ADD .ENV TO .GITIGNORE !!!!</li>
+</ul>
+<p>.env</p>
+<pre><code class="language-js">DATABASE_URL = 'file:./dev.db';
+</code></pre>
+<h2 id="setup-instance"><a class="header" href="#setup-instance">Setup Instance</a></h2>
+<p>In development, the command next dev clears Node.js cache on run. This in turn initializes a new PrismaClient instance each time due to hot reloading that creates a connection to the database. This can quickly exhaust the database connections as each PrismaClient instance holds its own connection pool.</p>
+<p>(Prisma Instance)[https://www.prisma.io/docs/guides/other/troubleshooting-orm/help-articles/nextjs-prisma-client-dev-practices#solution]</p>
+<ul>
+<li>create utils/db.ts</li>
+</ul>
+<pre><code class="language-js">import { PrismaClient } from '@prisma/client';
+
+const prismaClientSingleton = () =&gt; {
+  return new PrismaClient();
+};
+
+type PrismaClientSingleton = ReturnType&lt;typeof prismaClientSingleton&gt;;
+
+const globalForPrisma = globalThis as unknown as {
+  prisma: PrismaClientSingleton | undefined;
+};
+
+const prisma = globalForPrisma.prisma ?? prismaClientSingleton();
+
+export default prisma;
+
+if (process.env.NODE_ENV !== 'production') globalForPrisma.prisma = prisma;
+</code></pre>
+<h2 id="create-model"><a class="header" href="#create-model">Create Model</a></h2>
+<pre><code class="language-prisma">model Task {
+  id String @id @default(uuid())
+  content String
+  createdAt DateTime @default(now())
+  completed Boolean @default(false)
+}
+</code></pre>
+<ul>
+<li>safely applies and tracks changes to the database structure.</li>
+</ul>
+<pre><code class="language-sh">npx prisma migrate dev
+</code></pre>
+<h3 id="prisma-model"><a class="header" href="#prisma-model">Prisma Model</a></h3>
+<p>The Prisma model provided is a representation of a Task entity in the context of a database schema. Here's a detailed description of each component within this model:</p>
+<p>model Task { ... }: This is the definition of the Task model. In Prisma, a model represents a table in the database. It serves as a blueprint for the records that will be stored in the corresponding table, defining the structure and behavior of the data.</p>
+<p>id String @id @default(uuid()): This line defines a field named id of type String which is marked with @id, signifying that this field is the primary key of the model. The @default(uuid()) directive indicates that the default value for this field will be a UUID (Universally Unique Identifier) generated by Prisma.</p>
+<p>content String: This line declares a field named content of type String. This field will store textual data, presumably the details or description of the task.</p>
+<p>createdAt DateTime @default(now()): This field is named createdAt and is of type DateTime. It has a default value set to the current timestamp at the time of record creation, indicated by the @default(now()) directive.</p>
+<p>completed Boolean @default(false): Lastly, the completed field is of type Boolean and is used to indicate whether the task has been completed. It defaults to false, meaning when a new task record is created, it is considered incomplete by default.</p>
+<p>In Prisma, the term "model" refers to an abstraction that maps to a table in your database. Prisma models are defined in the Prisma schema, which is a declarative representation of your database's structure. Each model in the Prisma schema corresponds to a table in the database, and each field within a model corresponds to a column in that table. This schema plays a central role in Prisma's features, such as type-safe database access and migrations.</p>
+<h2 id="prisma-example"><a class="header" href="#prisma-example">Prisma Example</a></h2>
+<ul>
+<li>remove query</li>
+<li>fix the links the navbar</li>
+</ul>
+<pre><code class="language-js">import prisma from '@/utils/db';
+
+const prismaHandlers = async () =&gt; {
+    await prisma.task.create({
+        data: {
+            content: 'wake up'
+        }
+    });
+    const allTasks = await prisma.task.findMany({
+        orderBy: {
+            createdAt: 'desc'
+        }
+    });
+
+    return allTasks;
+};
+
+const Prisma = async () =&gt; {
+    const tasks = await prismaHandlers();
+    return (
+        &lt;div&gt;
+            &lt;h1 className="text-3xl font-medium mb-4"&gt;Prisma Example &lt;/h1&gt;
+            {tasks.map((task) =&gt; {
+                return (
+                    &lt;h2 key={task.id} className="text-xl py-2"&gt;
+                        😬 {task.content}
+                    &lt;/h2&gt;
+                );
+            })}
+        &lt;/div&gt;
+    );
+};
+export default Prisma;
+</code></pre>
+<h2 id="optional---prisma-crud"><a class="header" href="#optional---prisma-crud">Optional - Prisma Crud</a></h2>
+<p><a href="https://www.prisma.io/docs/concepts/components/prisma-client/crud">Prisma Docs</a></p>
+<ul>
+<li>Create Single Record</li>
+</ul>
+<pre><code class="language-js">const task = await prisma.task.create({
+    data: {
+        content: 'some task'
+    }
+});
+</code></pre>
+<ul>
+<li>Get All Records</li>
+</ul>
+<pre><code class="language-js">const tasks = await prisma.task.findMany();
+</code></pre>
+<ul>
+<li>Get record by ID or unique identifier</li>
+</ul>
+<pre><code class="language-js">// By unique identifier
+const user = await prisma.user.findUnique({
+    where: {
+        email: 'elsa@prisma.io'
+    }
+});
+
+// By ID
+const task = await prisma.task.findUnique({
+    where: {
+        id: id
+    }
+});
+</code></pre>
+<ul>
+<li>Update Record</li>
+</ul>
+<pre><code class="language-js">const updateTask = await prisma.task.update({
+    where: {
+        id: id
+    },
+    data: {
+        content: 'updated task'
+    }
+});
+</code></pre>
+<ul>
+<li>Update or create records</li>
+</ul>
+<pre><code class="language-js">const upsertTask = await prisma.task.upsert({
+    where: {
+        id: id
+    },
+    update: {
+        content: 'some value'
+    },
+    create: {
+        content: 'some value'
+    }
+});
+</code></pre>
+<ul>
+<li>Delete a single record</li>
+</ul>
+<pre><code class="language-js">const deleteTask = await prisma.task.delete({
+    where: {
+        id: id
+    }
+});
+</code></pre>
+<h2 id="challenge---display-tasks"><a class="header" href="#challenge---display-tasks">Challenge - Display Tasks</a></h2>
+<ul>
+<li>create TaskForm, TaskList, DeleteForm components</li>
+<li>render them in tasks page</li>
+<li>in TaskList render all tasks</li>
+<li>also display editBtn and DeleteForm</li>
+<li>editBtn - link to single task page</li>
+<li>reference the complete project</li>
+</ul>
+<p>tasks/page.js</p>
+<pre><code class="language-js">import TaskForm from '@/components/TaskForm';
+import TaskList from '@/components/TaskList';
+
+const TasksPage = () =&gt; {
+    return (
+        &lt;div className="max-w-lg"&gt;
+            &lt;TaskForm /&gt;
+            &lt;TaskList /&gt;
+        &lt;/div&gt;
+    );
+};
+export default TasksPage;
+</code></pre>
+<p>components/TaskList</p>
+<pre><code class="language-js">import prisma from '@/utils/db';
+import Link from 'next/link';
+import DeleteForm from './DeleteForm';
+
+const TaskList = async () =&gt; {
+    const tasks = await prisma.task.findMany({
+        orderBy: {
+            createdAt: 'desc'
+        }
+    });
+    if (tasks.length === 0)
+        return &lt;h2 className="mt-8 font-medium text-lg"&gt;No tasks to show&lt;/h2&gt;;
+    return (
+        &lt;ul className="mt-8"&gt;
+            {tasks.map((task) =&gt; (
+                &lt;li
+                    key={task.id}
+                    className="flex justify-between items-center px-6 py-4 mb-4 border border-base-300 rounded-lg shadow-lg"
+                &gt;
+                    &lt;h2
+                        className={`text-lg capitalize ${
+                            task.completed ? 'line-through' : null
+                        }`}
+                    &gt;
+                        {task.content}
+                    &lt;/h2&gt;
+                    &lt;div className="flex gap-6 items-center"&gt;
+                        &lt;Link
+                            href={`/tasks/${task.id}`}
+                            className="btn btn-accent btn-xs"
+                        &gt;
+                            edit
+                        &lt;/Link&gt;
+                        &lt;DeleteForm id={task.id} /&gt;
+                    &lt;/div&gt;
+                &lt;/li&gt;
+            ))}
+        &lt;/ul&gt;
+    );
+};
+export default TaskList;
+</code></pre>
+<h2 id="server-actions"><a class="header" href="#server-actions">Server Actions</a></h2>
+<ul>
+<li>
+<p>asynchronous server functions that can be called directly from your components.</p>
+</li>
+<li>
+<p>typical setup for server state mutations (create, update, delete)</p>
+<ul>
+<li>endpoint on the server (api route on Next.js)</li>
+<li>make request from the front-end
+<ul>
+<li>setup form, handle submission etc</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p>Next.js server actions allow you to mutate server state directly from within a React component by defining server-side logic alongside client-side interactions.</p>
+</li>
+</ul>
+<p>Rules :</p>
+<ul>
+<li>must be async</li>
+<li>add 'use server' in function body
+<ul>
+<li>use only in React Server Component</li>
+</ul>
+</li>
+</ul>
+<pre><code class="language-js">export default function ServerComponent() {
+    async function myAction(formData) {
+        'use server';
+        // access input values with formData
+        // formData.get('name')
+        // mutate data (server)
+        // revalidate cache
+    }
+
+    return &lt;form action={myAction}&gt;...&lt;/form&gt;;
+}
+</code></pre>
+<ul>
+<li>or setup in a separate file ('use server' at the top)
+<ul>
+<li>can use in both (RSC and RCC)</li>
+</ul>
+</li>
+</ul>
+<p>utils/actions.js</p>
+<pre><code class="language-js">'use server';
+
+export async function myAction() {
+    // ...
+}
+</code></pre>
+<pre><code class="language-js">'use client';
+
+import { myAction } from './actions';
+
+export default function ClientComponent() {
+    return (
+        &lt;form action={myAction}&gt;
+            &lt;button type="submit"&gt;Add to Cart&lt;/button&gt;
+        &lt;/form&gt;
+    );
+}
+</code></pre>
+<h2 id="taskform"><a class="header" href="#taskform">TaskForm</a></h2>
+<pre><code class="language-js">import prisma from '@/utils/db';
+import { revalidatePath } from 'next/cache';
+
+const createTask = async (formData) =&gt; {
+    'use server';
+    const content = formData.get('content');
+    // some validation here
+
+    await prisma.task.create({
+        data: {
+            content
+        }
+    });
+    // revalidate path
+    revalidatePath('/tasks');
+};
+
+const TaskForm = () =&gt; {
+    return (
+        &lt;form action={createTask}&gt;
+            &lt;div className="join w-full"&gt;
+                &lt;input
+                    className="input input-bordered join-item w-full"
+                    placeholder="Type Here"
+                    type="text"
+                    name="content"
+                    required
+                /&gt;
+                &lt;button type="submit" className="btn join-item btn-primary"&gt;
+                    create task
+                &lt;/button&gt;
+            &lt;/div&gt;
+        &lt;/form&gt;
+    );
+};
+export default TaskForm;
+</code></pre>
+<h2 id="refactor"><a class="header" href="#refactor">Refactor</a></h2>
+<ul>
+<li>create utils/actions</li>
+<li>move get all tasks and create task functionality</li>
+<li>refactor TaskForm and TaskList</li>
+</ul>
+<pre><code class="language-js">'use server';
+
+import prisma from '@/utils/db';
+import { revalidatePath } from 'next/cache';
+
+export const getAllTasks = async () =&gt; {
+    return prisma.task.findMany({
+        orderBy: {
+            createdAt: 'desc'
+        }
+    });
+};
+
+export const createTask = async (formData) =&gt; {
+    const content = formData.get('content');
+    // some validation here
+
+    await prisma.task.create({
+        data: {
+            content
+        }
+    });
+    // revalidate path
+    revalidatePath('/tasks');
+};
+</code></pre>
+<h2 id="deleteform"><a class="header" href="#deleteform">DeleteForm</a></h2>
+<ul>
+<li>will use "action" approach since it works without JS</li>
+<li>invoke by using startTransition (useTransition hook)</li>
+</ul>
+<pre><code class="language-js">import { deleteTask } from '@/utils/actions';
+
+const DeleteForm = ({ id }) =&gt; {
+    return (
+        &lt;form action={deleteTask}&gt;
+            &lt;input type="hidden" name="id" value={id} /&gt;
+            &lt;button className="btn btn-error btn-xs"&gt;delete&lt;/button&gt;
+        &lt;/form&gt;
+    );
+};
+export default DeleteForm;
+</code></pre>
+<p>utils/actions</p>
+<pre><code class="language-js">export const deleteTask = async (formData) =&gt; {
+    const id = formData.get('id');
+    await prisma.task.delete({ where: { id } });
+    revalidatePath('/tasks');
+};
+</code></pre>
+<h2 id="challenge---edit-task"><a class="header" href="#challenge---edit-task">Challenge - Edit Task</a></h2>
+<ul>
+<li>create single task page</li>
+<li>get task info (hint:params)</li>
+<li>create EditForm component</li>
+<li>setup form with all the inputs</li>
+<li>render in single task page</li>
+<li>create server action to update task</li>
+<li>extra - redirect when complete</li>
+</ul>
+<h2 id="edit-task"><a class="header" href="#edit-task">Edit Task</a></h2>
+<p>tasks/[id]/page.js</p>
+<pre><code class="language-js">import EditForm from '@/components/EditForm';
+import { getTask } from '@/utils/actions';
+import Link from 'next/link';
+const TaskPage = async ({ params }) =&gt; {
+    const task = await getTask(params.id);
+
+    return (
+        &lt;&gt;
+            &lt;div className="mb-16"&gt;
+                &lt;Link href="/tasks" className="btn btn-accent"&gt;
+                    Back to Tasks
+                &lt;/Link&gt;
+            &lt;/div&gt;
+            &lt;EditForm task={task} /&gt;
+        &lt;/&gt;
+    );
+};
+export default TaskPage;
+</code></pre>
+<p>actions</p>
+<pre><code class="language-js">export const getTask = async (id) =&gt; {
+    return prisma.task.findUnique({
+        where: {
+            id
+        }
+    });
+};
+
+export const editTask = async (formData) =&gt; {
+    const id = formData.get('id');
+    const content = formData.get('content');
+    const completed = formData.get('completed');
+
+    await prisma.task.update({
+        where: {
+            id: id
+        },
+        data: {
+            content: content,
+            completed: completed === 'on' ? true : false
+        }
+    });
+    // redirect won't works unless the component has 'use client'
+    // another option, setup the editTask in the component directly
+    redirect('/tasks');
+};
+</code></pre>
+<p>EditForm.js</p>
+<pre><code class="language-js">'use client';
+import { editTask } from '@/utils/actions';
+
+const EditForm = ({ task }) =&gt; {
+    const { id, completed, content } = task;
+    return (
+        &lt;form
+            action={editTask}
+            className="max-w-sm bg-base-100 p-12 border border-base-300  rounded-lg"
+        &gt;
+            &lt;input type="hidden" name="id" value={id} /&gt;
+            {/* content */}
+
+            &lt;input
+                type="text"
+                required
+                defaultValue={content}
+                name="content"
+                className="input input-bordered w-full"
+            /&gt;
+
+            {/* completed */}
+            &lt;div className="form-control my-4"&gt;
+                &lt;label className="label cursor-pointer"&gt;
+                    &lt;span className="label-text"&gt;Completed&lt;/span&gt;
+                    &lt;input
+                        type="checkbox"
+                        defaultChecked={completed}
+                        name="completed"
+                        className="checkbox checkbox-primary checkbox-sm"
+                    /&gt;
+                &lt;/label&gt;
+            &lt;/div&gt;
+            &lt;button className="btn btn-primary btn-block btn-sm"&gt;edit&lt;/button&gt;
+        &lt;/form&gt;
+    );
+};
+export default EditForm;
+</code></pre>
+<h2 id="server-actions---loading-state-response-errors"><a class="header" href="#server-actions---loading-state-response-errors">Server Actions - Loading State, Response, Errors</a></h2>
+<ul>
+<li>clone TaskForm - copy and rename TaskFormCustom</li>
+<li>make it client component</li>
+<li>import and replace in Tasks page</li>
+<li>clone createTask in actions - copy and rename createTaskCustom</li>
+<li>import and replace in TaskFormCustom component</li>
+</ul>
+<h2 id="server-actions---loading-state"><a class="header" href="#server-actions---loading-state">Server Actions - Loading State</a></h2>
+<p>TaskFormCustom</p>
+<pre><code class="language-js">'use client';
+
+import { createTaskCustom } from '@/utils/actions';
+import { useFormStatus } from 'react-dom';
+// The useFormStatus Hook provides status information of the last form submission.
+// useFormState is a Hook that allows you to update state based on the result of a form action.
+
+const SubmitButton = () =&gt; {
+    const { pending } = useFormStatus();
+
+    return (
+        &lt;button
+            type="submit"
+            className="btn join-item btn-primary"
+            disabled={pending}
+        &gt;
+            {pending ? 'please wait... ' : 'create task'}
+        &lt;/button&gt;
+    );
+};
+
+const TaskForm = () =&gt; {
+    return (
+        &lt;form action={createTaskCustom}&gt;
+            &lt;div className="join w-full"&gt;
+                &lt;input
+                    className="input input-bordered join-item w-full"
+                    placeholder="Type Here"
+                    type="text"
+                    name="content"
+                    required
+                /&gt;
+                &lt;SubmitButton /&gt;
+            &lt;/div&gt;
+        &lt;/form&gt;
+    );
+};
+export default TaskForm;
+</code></pre>
+<pre><code class="language-js">export const createTaskCustom = async (formData) =&gt; {
+    await new Promise((resolve) =&gt; setTimeout(resolve, 2000));
+    const content = formData.get('content');
+    // some validation here
+
+    await prisma.task.create({
+        data: {
+            content
+        }
+    });
+    // revalidate path
+    revalidatePath('/tasks');
+};
+</code></pre>
+<h2 id="error-handling-and-response-to-user"><a class="header" href="#error-handling-and-response-to-user">Error Handling and Response To User</a></h2>
+<p>TaskFormCustom.jsx</p>
+<pre><code class="language-js">'use client';
+
+import { createTaskCustom } from '@/utils/actions';
+import { useFormStatus, useFormState } from 'react-dom';
+// The useFormStatus Hook provides status information of the last form submission.
+// useFormState is a Hook that allows you to update state based on the result of a form action.
+
+const SubmitButton = () =&gt; {
+    const { pending } = useFormStatus();
+
+    return (
+        &lt;button
+            type="submit"
+            className="btn join-item btn-primary"
+            disabled={pending}
+        &gt;
+            {pending ? 'please wait... ' : 'create task'}
+        &lt;/button&gt;
+    );
+};
+
+const initialState = {
+    message: null
+};
+
+const TaskForm = () =&gt; {
+    const [state, formAction] = useFormState(createTaskCustom, initialState);
+
+    return (
+        &lt;form action={formAction}&gt;
+            {state.message ? &lt;p className="mb-2"&gt;{state.message}&lt;/p&gt; : null}
+            &lt;div className="join w-full"&gt;
+                &lt;input
+                    className="input input-bordered join-item w-full"
+                    placeholder="Type Here"
+                    type="text"
+                    name="content"
+                    required
+                /&gt;
+                &lt;SubmitButton /&gt;
+            &lt;/div&gt;
+        &lt;/form&gt;
+    );
+};
+export default TaskForm;
+</code></pre>
+<p>actions.js</p>
+<pre><code class="language-js">// fix params
+export const createTaskCustom = async (prevState, formData) =&gt; {
+    await new Promise((resolve) =&gt; setTimeout(resolve, 2000));
+    const content = formData.get('content');
+    // some validation here
+    try {
+        await prisma.task.create({
+            data: {
+                content
+            }
+        });
+        // revalidate path
+        revalidatePath('/tasks');
+        return { message: 'success!!!' };
+    } catch (error) {
+        // can't return error
+        return { message: 'error...' };
+    }
+};
+</code></pre>
+<h2 id="extra---more-user-input-validation-options"><a class="header" href="#extra---more-user-input-validation-options">Extra - More User Input Validation Options</a></h2>
+<ul>
+<li>required attribute a great start</li>
+<li>zod library</li>
+</ul>
+<p>The Zod library is a TypeScript-first schema declaration and validation library that allows developers to create complex type checks with simple syntax.</p>
+<p><a href="https://zod.dev/">Zod</a></p>
+<pre><code class="language-sh">npm install zod
+</code></pre>
+<p>actions.js</p>
+<pre><code class="language-js">import { z } from 'zod';
+
+export const createTaskCustom = async (prevState, formData) =&gt; {
+    await new Promise((resolve) =&gt; setTimeout(resolve, 2000));
+    const content = formData.get('content');
+
+    const Task = z.object({
+        content: z.string().min(5)
+    });
+
+    // some validation here
+    try {
+        Task.parse({
+            content
+        });
+        await prisma.task.create({
+            data: {
+                content
+            }
+        });
+        // revalidate path
+        revalidatePath('/tasks');
+        return { message: 'success!!!' };
+    } catch (error) {
+        console.log(error);
+        // can't return error
+        return { message: 'error...' };
+    }
+};
+</code></pre>
+<h2 id="providers"><a class="header" href="#providers">Providers</a></h2>
+<p><a href="https://react-hot-toast.com/">Beautiful Toasts</a></p>
+<pre><code class="language-sh">npm install react-hot-toast
+</code></pre>
+<ul>
+<li>create providers.js file in app</li>
+</ul>
+<pre><code class="language-js">'use client';
+import { Toaster } from 'react-hot-toast';
+
+const Providers = ({ children }) =&gt; {
+    return (
+        &lt;&gt;
+            &lt;Toaster /&gt;
+            {children}
+        &lt;/&gt;
+    );
+};
+export default Providers;
+</code></pre>
+<p>layout.js</p>
+<pre><code class="language-js">import Providers from './providers';
+
+export default function RootLayout({ children }) {
+    return (
+        &lt;html lang="en"&gt;
+            &lt;body className={inter.className}&gt;
+                &lt;Navbar /&gt;
+                &lt;main className="px-8 py-20 max-w-6xl mx-auto"&gt;
+                    &lt;Providers&gt;{children}&lt;/Providers&gt;
+                &lt;/main&gt;
+            &lt;/body&gt;
+        &lt;/html&gt;
+    );
+}
+</code></pre>
+<ul>
+<li>simplify createTaskCustom action</li>
+</ul>
+<pre><code class="language-js">try {
+    return { message: 'success' };
+} catch (error) {
+    console.log(error);
+    return { message: 'error' };
+}
+</code></pre>
+<ul>
+<li>add toast</li>
+</ul>
+<p>TaskFormCustom.jsx</p>
+<pre><code class="language-js">'use client';
+import { createTaskCustom } from '@/utils/actions';
+import { useEffect } from 'react';
+
+import { useFormStatus, useFormState } from 'react-dom';
+import toast from 'react-hot-toast';
+const SubmitBtn = () =&gt; {
+    const { pending } = useFormStatus();
+    return (
+        &lt;button
+            type="submit"
+            className="btn btn-primary join-item"
+            disabled={pending}
+        &gt;
+            {pending ? 'please wait...' : 'create task'}
+        &lt;/button&gt;
+    );
+};
+
+const initialState = {
+    message: null
+};
+
+const TaskForm = () =&gt; {
+    const [state, formAction] = useFormState(createTaskCustom, initialState);
+
+    useEffect(() =&gt; {
+        if (state.message === 'error') {
+            toast.error('there was an error');
+            return;
+        }
+        if (state.message) {
+            toast.success('task created....');
+        }
+    }, [state]);
+
+    return (
+        &lt;form action={formAction}&gt;
+            &lt;div className="join w-full"&gt;
+                &lt;input
+                    type="text "
+                    className="input input-bordered join-item w-full"
+                    placeholder="type here"
+                    name="content"
+                    required
+                /&gt;
+                &lt;SubmitBtn /&gt;
+            &lt;/div&gt;
+        &lt;/form&gt;
+    );
+};
+export default TaskForm;
+</code></pre>
+<h2 id="challenge---add-functionality"><a class="header" href="#challenge---add-functionality">Challenge - Add Functionality</a></h2>
+<p>DeleteForm.jsx</p>
+<pre><code class="language-js">'use client';
+import { useFormStatus } from 'react-dom';
+import { deleteTask } from '@/utils/actions';
+
+const SubmitBtn = () =&gt; {
+    const { pending } = useFormStatus();
+    return (
+        &lt;button
+            type="submit"
+            className="btn btn-xs btn-error"
+            disabled={pending}
+        &gt;
+            {pending ? 'pending...' : 'delete'}
+        &lt;/button&gt;
+    );
+};
+
+const DeleteForm = ({ id }) =&gt; {
+    return (
+        &lt;form action={deleteTask}&gt;
+            &lt;input type="hidden" name="id" value={id} /&gt;
+            &lt;SubmitBtn /&gt;
+        &lt;/form&gt;
+    );
+};
+export default DeleteForm;
+</code></pre>
+<h2 id="route-handlers"><a class="header" href="#route-handlers">Route Handlers</a></h2>
+<ul>
+<li>install Thunder Client</li>
+</ul>
+<p>Route Handlers allow you to create custom request handlers for a given route using the Web Request and Response APIs.</p>
+<ul>
+<li>in app create folder "api"</li>
+<li>in there create folder "tasks" with route.js file</li>
+</ul>
+<p>The following HTTP methods are supported: GET, POST, PUT, PATCH, DELETE, HEAD, and OPTIONS. If an unsupported method is called, Next.js will return a 405 Method Not Allowed response.</p>
+<p>In addition to supporting native Request and Response. Next.js extends them with NextRequest and NextResponse to provide convenient helpers for advanced use cases.</p>
+<p>app/api/tasks/route.js</p>
+<pre><code class="language-js">// the following HTTP methods are supported: GET, POST, PUT, PATCH, DELETE, HEAD, and OPTIONS. If an unsupported method is called, Next.js will return a 405 Method Not Allowed response.
+
+import { NextResponse } from 'next/server';
+import db from '@/utils/db';
+
+export const GET = async (request) =&gt; {
+    const tasks = await db.task.findMany();
+    return Response.json({ data: tasks });
+    // return NextResponse.json({ data: tasks });
+};
+
+export const POST = async (request) =&gt; {
+    const data = await request.json();
+    const task = await db.task.create({
+        data: {
+            content: data.content
+        }
+    });
+    return NextResponse.json({ data: task });
+};
+</code></pre>
+<h2 id="middleware"><a class="header" href="#middleware">Middleware</a></h2>
+<p><a href="https://nextjs.org/docs/app/building-your-application/routing/middleware">Docs</a></p>
+<p>Middleware in Next.js is a piece of code that allows you to perform actions before a request is completed and modify the response accordingly.</p>
+<ul>
+<li>create middleware.js in the root</li>
+<li>by default will be invoked for every route in your project</li>
+</ul>
+<pre><code class="language-js">export function middleware(request) {
+    return Response.json({ msg: 'hello there' });
+}
+
+export const config = {
+    matcher: '/about'
+};
+</code></pre>
+<pre><code class="language-js">import { NextResponse } from 'next/server';
+
+// This function can be marked `async` if using `await` inside
+export function middleware(request) {
+    return NextResponse.redirect(new URL('/', request.url));
+}
+
+// See "Matching Paths" below to learn more
+export const config = {
+    matcher: ['/about/:path*', '/tasks/:path*']
+};
+</code></pre>
+<h2 id="planetscale"><a class="header" href="#planetscale">PlanetScale</a></h2>
+<p><a href="https://planetscale.com/">Host DB</a></p>
+<ul>
+<li>set DATABASE_URL in .env</li>
+</ul>
+<pre><code class="language-prisma">generator client {
+  provider = "prisma-client-js"
+}
+datasource db {
+  provider = "mysql"
+  url = env("DATABASE_URL")
+  relationMode = "prisma"
+}
+</code></pre>
+<pre><code class="language-sh">npx prisma db push
+</code></pre>
+<h3 id="local-build"><a class="header" href="#local-build">Local Build</a></h3>
+<h3 id="setup-app"><a class="header" href="#setup-app">Setup App</a></h3>
+<p>package.json</p>
+<pre><code class="language-json"> "build": "npx prisma generate &amp;&amp; next build",
+</code></pre>
+<ul>
+<li>prisma-example</li>
+</ul>
+<pre><code class="language-js">import prisma from '@/utils/db';
+
+const prismaHandlers = async () =&gt; {
+    console.log('prisma example');
+    // await prisma.task.create({
+    //   data: {
+    //     content: 'wake up',
+    //   },
+    // });
+    return prisma.task.findMany();
+};
+
+const PrismaExample = async () =&gt; {
+    const tasks = await prismaHandlers();
+    if (tasks.length === 0) {
+        return (
+            &lt;h2 className="mt-8 font-medium text-lg"&gt;No tasks to show...&lt;/h2&gt;
+        );
+    }
+
+    return (
+        &lt;div&gt;
+            &lt;h1 className="text-7xl"&gt;PrismaExample&lt;/h1&gt;
+            {tasks.map((task) =&gt; {
+                return (
+                    &lt;h2 key={task.id} className="text-xl py-2"&gt;
+                        😬 {task.content}
+                    &lt;/h2&gt;
+                );
+            })}
+        &lt;/div&gt;
+    );
+};
+export default PrismaExample;
+</code></pre>
+<ul>
+<li>clean out the DB</li>
+</ul>
+<pre><code class="language-sh">npm run build
+</code></pre>
+<pre><code class="language-sh">npm start
+</code></pre>
+<h2 id="force-dynamic"><a class="header" href="#force-dynamic">Force Dynamic</a></h2>
+<ul>
+<li>add loading.js to tasks</li>
+</ul>
+<p>tasks.js</p>
+<pre><code class="language-js">export const dynamic = 'force-dynamic';
+</code></pre>
+<h2 id="deploy"><a class="header" href="#deploy">Deploy</a></h2>
+<p><a href="https://vercel.com/">Vercel</a></p>
+<ul>
+<li>sign up for account</li>
+<li>create github repo</li>
+</ul>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="17_react_Typescript.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="17_react_Typescript.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+            </nav>
+
+        </div>
+
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="elasticlunr.min.js"></script>
+        <script src="mark.min.js"></script>
+        <script src="searcher.js"></script>
+
+        <script src="clipboard.min.js"></script>
+        <script src="highlight.js"></script>
+        <script src="book.js"></script>
+
+        <!-- Custom JS scripts -->
+
+
+    </div>
+    </body>
+</html>

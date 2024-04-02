@@ -88,7 +88,7 @@
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
             <div class="sidebar-scrollbox">
-                <ol class="chapter"><li class="chapter-item expanded "><a href="1_react_1_fundamentals.html"><strong aria-hidden="true">1.</strong> 1_react_1_fundamentals</a></li><li class="chapter-item expanded "><a href="2_react_2_advanced.html"><strong aria-hidden="true">2.</strong> 2_react_2_advanced</a></li><li class="chapter-item expanded "><a href="3_react_3_axios.html"><strong aria-hidden="true">3.</strong> 3_react_3_axios</a></li><li class="chapter-item expanded "><a href="4_react_4_router_dom.html"><strong aria-hidden="true">4.</strong> 4_react_4_router_dom</a></li><li class="chapter-item expanded "><a href="5_react_5_redux_tookit.html"><strong aria-hidden="true">5.</strong> 5_react_5_redux_tookit</a></li><li class="chapter-item expanded "><a href="6_node_1_fundamentals.html"><strong aria-hidden="true">6.</strong> 6_node_1_fundamentals</a></li><li class="chapter-item expanded "><a href="7_node_2_advanced.html"><strong aria-hidden="true">7.</strong> 7_node_2_advanced</a></li><li class="chapter-item expanded "><a href="8_node_3_orm.html"><strong aria-hidden="true">8.</strong> 8_node_3_orm</a></li><li class="chapter-item expanded "><a href="9_node_4_apollo_graphql_basics.html"><strong aria-hidden="true">9.</strong> 9_node_4_apollo_graphql_basics</a></li><li class="chapter-item expanded "><a href="10_node_5_typescript.html"><strong aria-hidden="true">10.</strong> 10_node_5_typescript</a></li><li class="chapter-item expanded "><a href="11_node_6_graphql_ts_orm.html"><strong aria-hidden="true">11.</strong> 11_node_6_graphql_ts_orm</a></li><li class="chapter-item expanded "><a href="12_sql.html"><strong aria-hidden="true">12.</strong> 12_sql</a></li><li class="chapter-item expanded "><a href="13_sql_alchemy.html"><strong aria-hidden="true">13.</strong> 13_sql_alchemy</a></li><li class="chapter-item expanded "><a href="14_redis.html"><strong aria-hidden="true">14.</strong> 14_redis</a></li><li class="chapter-item expanded "><a href="15_fastapi.html" class="active"><strong aria-hidden="true">15.</strong> 15_fastapi</a></li><li class="chapter-item expanded "><a href="16_react_hooks_compressed.html"><strong aria-hidden="true">16.</strong> 16_react_hooks_compressed</a></li><li class="chapter-item expanded "><a href="17_react_Typescript.html"><strong aria-hidden="true">17.</strong> 17_react_Typescript</a></li></ol>
+                <ol class="chapter"><li class="chapter-item expanded "><a href="1_react_1_fundamentals.html"><strong aria-hidden="true">1.</strong> 1_react_1_fundamentals</a></li><li class="chapter-item expanded "><a href="2_react_2_advanced.html"><strong aria-hidden="true">2.</strong> 2_react_2_advanced</a></li><li class="chapter-item expanded "><a href="3_react_3_axios.html"><strong aria-hidden="true">3.</strong> 3_react_3_axios</a></li><li class="chapter-item expanded "><a href="4_react_4_router_dom.html"><strong aria-hidden="true">4.</strong> 4_react_4_router_dom</a></li><li class="chapter-item expanded "><a href="5_react_5_redux_tookit.html"><strong aria-hidden="true">5.</strong> 5_react_5_redux_tookit</a></li><li class="chapter-item expanded "><a href="6_node_1_fundamentals.html"><strong aria-hidden="true">6.</strong> 6_node_1_fundamentals</a></li><li class="chapter-item expanded "><a href="7_node_2_advanced.html"><strong aria-hidden="true">7.</strong> 7_node_2_advanced</a></li><li class="chapter-item expanded "><a href="8_node_3_orm.html"><strong aria-hidden="true">8.</strong> 8_node_3_orm</a></li><li class="chapter-item expanded "><a href="9_node_4_apollo_graphql_basics.html"><strong aria-hidden="true">9.</strong> 9_node_4_apollo_graphql_basics</a></li><li class="chapter-item expanded "><a href="10_node_5_typescript.html"><strong aria-hidden="true">10.</strong> 10_node_5_typescript</a></li><li class="chapter-item expanded "><a href="11_node_6_graphql_ts_orm.html"><strong aria-hidden="true">11.</strong> 11_node_6_graphql_ts_orm</a></li><li class="chapter-item expanded "><a href="12_sql.html"><strong aria-hidden="true">12.</strong> 12_sql</a></li><li class="chapter-item expanded "><a href="13_sql_alchemy.html"><strong aria-hidden="true">13.</strong> 13_sql_alchemy</a></li><li class="chapter-item expanded "><a href="14_redis.html"><strong aria-hidden="true">14.</strong> 14_redis</a></li><li class="chapter-item expanded "><a href="15_fastapi.html" class="active"><strong aria-hidden="true">15.</strong> 15_fastapi</a></li><li class="chapter-item expanded "><a href="16_react_hooks_compressed.html"><strong aria-hidden="true">16.</strong> 16_react_hooks_compressed</a></li><li class="chapter-item expanded "><a href="17_react_Typescript.html"><strong aria-hidden="true">17.</strong> 17_react_Typescript</a></li><li class="chapter-item expanded "><a href="18_next_JS_14.html"><strong aria-hidden="true">18.</strong> 18_next_JS_14</a></li></ol>
             </div>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle">
                 <div class="sidebar-resize-indicator"></div>
@@ -196,7 +196,7 @@ from connectdb import engine
 app = FastAPI()
 
 
-@app.get(&quot;/post&quot;, response_model=list[Post])
+@app.get("/post", response_model=list[Post])
 async def get_all_posts():
     async with engine.connect() as conn:
         st = select(post_table)
@@ -205,7 +205,7 @@ async def get_all_posts():
         return data
 
 
-@app.get(&quot;/post/{id}&quot;, response_model=Post)
+@app.get("/post/{id}", response_model=Post)
 async def get_post_by_id(id: int):
     async with engine.connect() as conn:
         st = select(post_table).filter_by(id=id)
@@ -214,7 +214,7 @@ async def get_post_by_id(id: int):
         return data
 
 
-@app.post(&quot;/post&quot;)
+@app.post("/post")
 async def create_post(bd: PostBody):
     async with engine.connect() as conn:
         st = insert(post_table).values(
@@ -225,7 +225,7 @@ async def create_post(bd: PostBody):
         return bd
 
 
-@app.put(&quot;/post/{id}&quot;)
+@app.put("/post/{id}")
 async def update_post(id: int, bd: updateBody):
     async with engine.connect() as conn:
         st = (
@@ -238,22 +238,22 @@ async def update_post(id: int, bd: updateBody):
         return bd
 
 
-@app.delete(&quot;/post/{id}&quot;)
+@app.delete("/post/{id}")
 async def delete_post(id: int):
     async with engine.connect() as conn:
         st = delete(post_table).where(post_table.c.id == id)
         await conn.execute(st)
         await conn.commit()
-    return {&quot;msg&quot;: &quot;Deleted!&quot;}
+    return {"msg": "Deleted!"}
 
 
-@app.get(&quot;/&quot;)
+@app.get("/")
 async def hello():
-    return {&quot;msg&quot;: &quot;hello_world&quot;}
+    return {"msg": "hello_world"}
 
 
-if __name__ == &quot;__main__&quot;:
-    uvicorn.run(&quot;main:app&quot;, reload=True, log_level=&quot;info&quot;, workers=4, port=5000)
+if __name__ == "__main__":
+    uvicorn.run("main:app", reload=True, log_level="info", workers=4, port=5000)
 </code></pre>
 <blockquote>
 <p>connectdb.py</p>
@@ -269,14 +269,14 @@ import os
 load_dotenv()
 
 # Engine
-engine = create_async_engine(os.getenv(&quot;DB_URL&quot;), echo=True)
+engine = create_async_engine(os.getenv("DB_URL"), echo=True)
 
 
 # Create DB
 async def main():
     async with engine.begin() as conn:
         await conn.run_sync(meta_obj.create_all)
-        print(&quot;Connected to DB...&quot;)
+        print("Connected to DB...")
     await engine.dispose()
 
 
@@ -330,22 +330,22 @@ meta_obj = MetaData()
 
 
 # Users table
-&quot;&quot;&quot;
+"""
 Users Table
     - id (pk)
     - email (str)
     - password (str)
-&quot;&quot;&quot;
+"""
 
 args = [
-    Column(&quot;id&quot;, Integer, primary_key=True),
-    Column(&quot;email&quot;, String(50), unique=True, nullable=False),
-    Column(&quot;password&quot;, String(50), nullable=False),
+    Column("id", Integer, primary_key=True),
+    Column("email", String(50), unique=True, nullable=False),
+    Column("password", String(50), nullable=False),
 ]
-user_table = Table(&quot;users&quot;, meta_obj, *args)
+user_table = Table("users", meta_obj, *args)
 
 # Post table
-&quot;&quot;&quot;
+"""
 Posts Table
     - id (pk)
     - title (str)
@@ -353,17 +353,17 @@ Posts Table
     - createdAt(datetime)
     - updatedAt(datetime)
     - author_id (int,fk refrencing the id in user table)
-&quot;&quot;&quot;
+"""
 
 args = [
-    Column(&quot;id&quot;, Integer, primary_key=True),
-    Column(&quot;title&quot;, Text, unique=True, nullable=False),
-    Column(&quot;description&quot;, Text, nullable=False),
-    Column(&quot;createdAt&quot;, DateTime, default=datetime.utcnow),
-    Column(&quot;updatedAt&quot;, DateTime, onupdate=datetime.utcnow),
-    Column(&quot;author_id&quot;, Integer, ForeignKey(&quot;users.id&quot;)),
+    Column("id", Integer, primary_key=True),
+    Column("title", Text, unique=True, nullable=False),
+    Column("description", Text, nullable=False),
+    Column("createdAt", DateTime, default=datetime.utcnow),
+    Column("updatedAt", DateTime, onupdate=datetime.utcnow),
+    Column("author_id", Integer, ForeignKey("users.id")),
 ]
-post_table = Table(&quot;posts&quot;, meta_obj, *args)
+post_table = Table("posts", meta_obj, *args)
 </code></pre>
 <h2 id="a-simple-crud-app-using-sqlalchemy-ormasyncpgfastapi"><a class="header" href="#a-simple-crud-app-using-sqlalchemy-ormasyncpgfastapi">A simple crud app using sqlalchemy orm,asyncpg,fastapi</a></h2>
 <p>.env</p>
@@ -385,42 +385,42 @@ from crud import get_all, create_, update_, delete_
 app = FastAPI()
 
 
-@app.get(&quot;/post&quot;, response_model=list[Post])
+@app.get("/post", response_model=list[Post])
 async def get_all_posts():
     data = await get_all(sess)
     return data
 
 
-@app.get(&quot;/post/{id}&quot;, response_model=Post)
+@app.get("/post/{id}", response_model=Post)
 async def get_post_by_id(id: int):
     pass
 
 
-@app.post(&quot;/post&quot;, response_model=Post)
+@app.post("/post", response_model=Post)
 async def create_post(bd: PostBody):
     data = await create_(sess, bd)
     return data
 
 
-@app.put(&quot;/post/{id}&quot;)
+@app.put("/post/{id}")
 async def update_post(id: int, bd: updateBody):
     data = await update_(sess, bd, id)
     return data
 
 
-@app.delete(&quot;/post/{id}&quot;)
+@app.delete("/post/{id}")
 async def delete_post(id: int):
     data = await delete_(sess, id)
     return data
 
 
-@app.get(&quot;/&quot;)
+@app.get("/")
 async def hello():
-    return {&quot;msg&quot;: &quot;hello_world&quot;}
+    return {"msg": "hello_world"}
 
 
-if __name__ == &quot;__main__&quot;:
-    uvicorn.run(&quot;main:app&quot;, reload=True, log_level=&quot;info&quot;, workers=4, port=5000)
+if __name__ == "__main__":
+    uvicorn.run("main:app", reload=True, log_level="info", workers=4, port=5000)
 </code></pre>
 <blockquote>
 <p>connectdb.py</p>
@@ -437,7 +437,7 @@ import os
 load_dotenv()
 
 # Engine
-engine = create_async_engine(os.getenv(&quot;DB_URL&quot;), echo=True)
+engine = create_async_engine(os.getenv("DB_URL"), echo=True)
 sess = async_sessionmaker(bind=engine, expire_on_commit=False)
 
 
@@ -445,7 +445,7 @@ sess = async_sessionmaker(bind=engine, expire_on_commit=False)
 async def main():
     async with engine.begin() as conn:
         await conn.run_sync(Base.metadata.create_all)
-        print(&quot;Connected to DB...&quot;)
+        print("Connected to DB...")
     await engine.dispose()
 
 
@@ -470,26 +470,26 @@ class Base(DeclarativeBase):
 
 
 # Users table
-&quot;&quot;&quot;
+"""
 Users Table
     - id (pk)
     - email (str)
     - password (str)
-&quot;&quot;&quot;
+"""
 
 
 class User(Base):
-    __tablename__ = &quot;users&quot;
-    id: Mapped[int] = mapped_column(&quot;id&quot;, Integer, primary_key=True)
-    email: Mapped[str] = mapped_column(&quot;email&quot;, String(50), nullable=False)
-    password: Mapped[str] = mapped_column(&quot;password&quot;, String(50), nullable=False)
-    posts: Mapped[list[&quot;Post&quot;]] = relationship(
-        &quot;Post&quot;, back_populates=&quot;user&quot;, cascade=&quot;delete,all&quot;
+    __tablename__ = "users"
+    id: Mapped[int] = mapped_column("id", Integer, primary_key=True)
+    email: Mapped[str] = mapped_column("email", String(50), nullable=False)
+    password: Mapped[str] = mapped_column("password", String(50), nullable=False)
+    posts: Mapped[list["Post"]] = relationship(
+        "Post", back_populates="user", cascade="delete,all"
     )
 
 
 # Post table
-&quot;&quot;&quot;
+"""
 Posts Table
     - id (pk)
     - title (str)
@@ -497,25 +497,25 @@ Posts Table
     - createdAt(datetime)
     - updatedAt(datetime)
     - author_id (int,fk refrencing the id in user table)
-&quot;&quot;&quot;
+"""
 
 
 class Post(Base):
-    __tablename__ = &quot;posts&quot;
-    id: Mapped[int] = mapped_column(&quot;id&quot;, Integer, primary_key=True)
-    title: Mapped[str] = mapped_column(&quot;title&quot;, Text, nullable=False)
-    description: Mapped[str] = mapped_column(&quot;description&quot;, Text, nullable=False)
+    __tablename__ = "posts"
+    id: Mapped[int] = mapped_column("id", Integer, primary_key=True)
+    title: Mapped[str] = mapped_column("title", Text, nullable=False)
+    description: Mapped[str] = mapped_column("description", Text, nullable=False)
     createdAt: Mapped[DateTime] = mapped_column(
-        &quot;createdAt&quot;, DateTime, default=datetime.utcnow
+        "createdAt", DateTime, default=datetime.utcnow
     )
     updatedAt: Mapped[DateTime] = mapped_column(
-        &quot;updatedAt&quot;, DateTime, onupdate=datetime.utcnow, nullable=True
+        "updatedAt", DateTime, onupdate=datetime.utcnow, nullable=True
     )
     user_id: Mapped[int] = mapped_column(
-        &quot;user_id&quot;, Integer, ForeignKey(&quot;users.id&quot;), nullable=False
+        "user_id", Integer, ForeignKey("users.id"), nullable=False
     )
     user: Mapped[User] = relationship(
-        &quot;User&quot;, back_populates=&quot;posts&quot;, cascade=&quot;delete,all&quot;
+        "User", back_populates="posts", cascade="delete,all"
     )
 </code></pre>
 <blockquote>

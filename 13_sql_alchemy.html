@@ -88,7 +88,7 @@
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
             <div class="sidebar-scrollbox">
-                <ol class="chapter"><li class="chapter-item expanded "><a href="1_react_1_fundamentals.html"><strong aria-hidden="true">1.</strong> 1_react_1_fundamentals</a></li><li class="chapter-item expanded "><a href="2_react_2_advanced.html"><strong aria-hidden="true">2.</strong> 2_react_2_advanced</a></li><li class="chapter-item expanded "><a href="3_react_3_axios.html"><strong aria-hidden="true">3.</strong> 3_react_3_axios</a></li><li class="chapter-item expanded "><a href="4_react_4_router_dom.html"><strong aria-hidden="true">4.</strong> 4_react_4_router_dom</a></li><li class="chapter-item expanded "><a href="5_react_5_redux_tookit.html"><strong aria-hidden="true">5.</strong> 5_react_5_redux_tookit</a></li><li class="chapter-item expanded "><a href="6_node_1_fundamentals.html"><strong aria-hidden="true">6.</strong> 6_node_1_fundamentals</a></li><li class="chapter-item expanded "><a href="7_node_2_advanced.html"><strong aria-hidden="true">7.</strong> 7_node_2_advanced</a></li><li class="chapter-item expanded "><a href="8_node_3_orm.html"><strong aria-hidden="true">8.</strong> 8_node_3_orm</a></li><li class="chapter-item expanded "><a href="9_node_4_apollo_graphql_basics.html"><strong aria-hidden="true">9.</strong> 9_node_4_apollo_graphql_basics</a></li><li class="chapter-item expanded "><a href="10_node_5_typescript.html"><strong aria-hidden="true">10.</strong> 10_node_5_typescript</a></li><li class="chapter-item expanded "><a href="11_node_6_graphql_ts_orm.html"><strong aria-hidden="true">11.</strong> 11_node_6_graphql_ts_orm</a></li><li class="chapter-item expanded "><a href="12_sql.html"><strong aria-hidden="true">12.</strong> 12_sql</a></li><li class="chapter-item expanded "><a href="13_sql_alchemy.html" class="active"><strong aria-hidden="true">13.</strong> 13_sql_alchemy</a></li><li class="chapter-item expanded "><a href="14_redis.html"><strong aria-hidden="true">14.</strong> 14_redis</a></li><li class="chapter-item expanded "><a href="15_fastapi.html"><strong aria-hidden="true">15.</strong> 15_fastapi</a></li><li class="chapter-item expanded "><a href="16_react_hooks_compressed.html"><strong aria-hidden="true">16.</strong> 16_react_hooks_compressed</a></li><li class="chapter-item expanded "><a href="17_react_Typescript.html"><strong aria-hidden="true">17.</strong> 17_react_Typescript</a></li></ol>
+                <ol class="chapter"><li class="chapter-item expanded "><a href="1_react_1_fundamentals.html"><strong aria-hidden="true">1.</strong> 1_react_1_fundamentals</a></li><li class="chapter-item expanded "><a href="2_react_2_advanced.html"><strong aria-hidden="true">2.</strong> 2_react_2_advanced</a></li><li class="chapter-item expanded "><a href="3_react_3_axios.html"><strong aria-hidden="true">3.</strong> 3_react_3_axios</a></li><li class="chapter-item expanded "><a href="4_react_4_router_dom.html"><strong aria-hidden="true">4.</strong> 4_react_4_router_dom</a></li><li class="chapter-item expanded "><a href="5_react_5_redux_tookit.html"><strong aria-hidden="true">5.</strong> 5_react_5_redux_tookit</a></li><li class="chapter-item expanded "><a href="6_node_1_fundamentals.html"><strong aria-hidden="true">6.</strong> 6_node_1_fundamentals</a></li><li class="chapter-item expanded "><a href="7_node_2_advanced.html"><strong aria-hidden="true">7.</strong> 7_node_2_advanced</a></li><li class="chapter-item expanded "><a href="8_node_3_orm.html"><strong aria-hidden="true">8.</strong> 8_node_3_orm</a></li><li class="chapter-item expanded "><a href="9_node_4_apollo_graphql_basics.html"><strong aria-hidden="true">9.</strong> 9_node_4_apollo_graphql_basics</a></li><li class="chapter-item expanded "><a href="10_node_5_typescript.html"><strong aria-hidden="true">10.</strong> 10_node_5_typescript</a></li><li class="chapter-item expanded "><a href="11_node_6_graphql_ts_orm.html"><strong aria-hidden="true">11.</strong> 11_node_6_graphql_ts_orm</a></li><li class="chapter-item expanded "><a href="12_sql.html"><strong aria-hidden="true">12.</strong> 12_sql</a></li><li class="chapter-item expanded "><a href="13_sql_alchemy.html" class="active"><strong aria-hidden="true">13.</strong> 13_sql_alchemy</a></li><li class="chapter-item expanded "><a href="14_redis.html"><strong aria-hidden="true">14.</strong> 14_redis</a></li><li class="chapter-item expanded "><a href="15_fastapi.html"><strong aria-hidden="true">15.</strong> 15_fastapi</a></li><li class="chapter-item expanded "><a href="16_react_hooks_compressed.html"><strong aria-hidden="true">16.</strong> 16_react_hooks_compressed</a></li><li class="chapter-item expanded "><a href="17_react_Typescript.html"><strong aria-hidden="true">17.</strong> 17_react_Typescript</a></li><li class="chapter-item expanded "><a href="18_next_JS_14.html"><strong aria-hidden="true">18.</strong> 18_next_JS_14</a></li></ol>
             </div>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle">
                 <div class="sidebar-resize-indicator"></div>
@@ -191,13 +191,13 @@ queries we write. It provides us with the feature of writing raw sql queries.</p
 <pre><code class="language-py">from sqlalchemy import create_engine, text
 
 # Initialize engine
-DB_URL = &quot;sqlite:///test.db&quot;
+DB_URL = "sqlite:///test.db"
 engine = create_engine(DB_URL, echo=True)
 
 # Establish connection with the database
 with engine.connect() as conn:
     # Execute raw sql query
-    statement = text(&quot;select 100+200;&quot;)
+    statement = text("select 100+200;")
     res = conn.execute(statement)
     print(res.all())
 </code></pre>
@@ -213,37 +213,37 @@ meta_obj = MetaData()
 
 ### Users Table
 
-&quot;&quot;&quot;
+"""
 Users Table
     - id (pk)
     - name (str)
     - fullname (str)
     - email (str)
-&quot;&quot;&quot;
+"""
 
 user_schema = [
-    Column(&quot;id&quot;, Integer, primary_key=True),
-    Column(&quot;name&quot;, String(30), nullable=False),
-    Column(&quot;fullname&quot;, String(50), nullable=False),
-    Column(&quot;email&quot;, String(30), nullable=False),
+    Column("id", Integer, primary_key=True),
+    Column("name", String(30), nullable=False),
+    Column("fullname", String(50), nullable=False),
+    Column("email", String(30), nullable=False),
 ]
-user_table = Table(&quot;users&quot;, meta_obj, *user_schema)
+user_table = Table("users", meta_obj, *user_schema)
 
 ### Comments Table
 
-&quot;&quot;&quot;
+"""
 Comments Table
     - id (pk)
     - comment (str)
     - user_id (int,fk refrencing the id in user table)
-&quot;&quot;&quot;
+"""
 
 comments_schema = [
-    Column(&quot;id&quot;, Integer, primary_key=True),
-    Column(&quot;comment&quot;, Text, nullable=False),
-    Column(&quot;user_id&quot;, Integer, ForeignKey(&quot;users.id&quot;)),
+    Column("id", Integer, primary_key=True),
+    Column("comment", Text, nullable=False),
+    Column("user_id", Integer, ForeignKey("users.id")),
 ]
-comments_table = Table(&quot;comments&quot;, meta_obj, *comments_schema)
+comments_table = Table("comments", meta_obj, *comments_schema)
 </code></pre>
 <h4 id="creating-tables"><a class="header" href="#creating-tables">Creating Tables</a></h4>
 <pre><code class="language-py">from connect import engine
@@ -261,15 +261,15 @@ from tables import user_table
 
 with engine.connect() as conn:
     # Insert Single Data
-    user = {&quot;name&quot;: &quot;John&quot;, &quot;fullname&quot;: &quot;John Doe&quot;, &quot;email&quot;: &quot;john@doe.com&quot;}
+    user = {"name": "John", "fullname": "John Doe", "email": "john@doe.com"}
     statement = insert(user_table).values(**user)
     conn.execute(statement)
     conn.commit()
 
     # Insert Multiple Data
     users = [
-        {&quot;name&quot;: &quot;Jake&quot;, &quot;fullname&quot;: &quot;Jake Doe&quot;, &quot;email&quot;: &quot;jake@doe.com&quot;},
-        {&quot;name&quot;: &quot;Joe&quot;, &quot;fullname&quot;: &quot;Joe Smith&quot;, &quot;email&quot;: &quot;joe@smith.com&quot;},
+        {"name": "Jake", "fullname": "Jake Doe", "email": "jake@doe.com"},
+        {"name": "Joe", "fullname": "Joe Smith", "email": "joe@smith.com"},
     ]
 
     statement = insert(user_table)
@@ -304,7 +304,7 @@ from connect import engine
 
 with engine.connect() as conn:
     # Updated Data
-    statement = update(user_table).where(user_table.c.id == 1).values(name=&quot;Updated&quot;)
+    statement = update(user_table).where(user_table.c.id == 1).values(name="Updated")
     conn.execute(statement)
     conn.commit()
 </code></pre>
@@ -348,13 +348,13 @@ SQL queries directly.</p>
 <pre><code class="language-py">from sqlalchemy import create_engine, text
 
 # Initialize engine
-DB_URL = &quot;sqlite:///test.db&quot;
+DB_URL = "sqlite:///test.db"
 engine = create_engine(DB_URL, echo=True)
 
 # Establish connection with the database
 with engine.connect() as conn:
     # Execute raw sql query
-    statement = text(&quot;select 1+1;&quot;)
+    statement = text("select 1+1;")
     res = conn.execute(statement)
     print(res.all())
 </code></pre>
@@ -372,46 +372,46 @@ class Base(DeclarativeBase):
 
 
 class Users(Base):
-    &quot;&quot;&quot;
+    """
     User Table
         - id (pk)
         - name (str)
         - fullname (str)
         - email (str)
-    &quot;&quot;&quot;
+    """
 
-    __tablename__ = &quot;users&quot;
-    id: Mapped[int] = mapped_column(&quot;id&quot;, Integer, primary_key=True)
-    name: Mapped[str] = mapped_column(&quot;name&quot;, String(30), nullable=False)
-    fullname: Mapped[str] = mapped_column(&quot;fullname&quot;, String(50), nullable=False)
-    email: Mapped[str] = mapped_column(&quot;email&quot;, String(30), nullable=False)
-    comments: Mapped[list[&quot;Comments&quot;]] = relationship(
-        back_populates=&quot;user&quot;, cascade=&quot;delete,all&quot;
+    __tablename__ = "users"
+    id: Mapped[int] = mapped_column("id", Integer, primary_key=True)
+    name: Mapped[str] = mapped_column("name", String(30), nullable=False)
+    fullname: Mapped[str] = mapped_column("fullname", String(50), nullable=False)
+    email: Mapped[str] = mapped_column("email", String(30), nullable=False)
+    comments: Mapped[list["Comments"]] = relationship(
+        back_populates="user", cascade="delete,all"
     )
 
     # def __repr__(self):
-    #     return f&quot;Username: {self.fullname} Email: {self.email}&quot;
+    #     return f"Username: {self.fullname} Email: {self.email}"
 
 
 # Comments Table
 
 
 class Comments(Base):
-    &quot;&quot;&quot;
+    """
     Comment Table
         - id (pk)
         - comment (str)
         - user_id (int,fk referencing the id in user table)
-    &quot;&quot;&quot;
+    """
 
-    __tablename__ = &quot;comments&quot;
-    id: Mapped[int] = mapped_column(&quot;id&quot;, Integer, primary_key=True)
-    comment: Mapped[str] = mapped_column(&quot;comment&quot;, Text, nullable=False)
-    user_id: Mapped[int] = mapped_column(&quot;user_id&quot;, Integer, ForeignKey(&quot;users.id&quot;))
-    user: Mapped[Users] = relationship(back_populates=&quot;comments&quot;, cascade=&quot;delete,all&quot;)
+    __tablename__ = "comments"
+    id: Mapped[int] = mapped_column("id", Integer, primary_key=True)
+    comment: Mapped[str] = mapped_column("comment", Text, nullable=False)
+    user_id: Mapped[int] = mapped_column("user_id", Integer, ForeignKey("users.id"))
+    user: Mapped[Users] = relationship(back_populates="comments", cascade="delete,all")
 
     # def __repr__(self):
-    #     return f&quot;Comment: {self.comment} Comment By: {self.user.fullname}&quot;
+    #     return f"Comment: {self.comment} Comment By: {self.user.fullname}"
 </code></pre>
 <h4 id="creating-tables-1"><a class="header" href="#creating-tables-1">Creating Tables</a></h4>
 <pre><code class="language-py">from connect import engine
@@ -432,10 +432,10 @@ session = Session(bind=engine)
 
 # Insert users
 user1 = Users(
-    name=&quot;John&quot;,
-    fullname=&quot;John Doe&quot;,
-    email=&quot;john@doe.com&quot;,
-    # comments=[Comments(comment=&quot;hello&quot;), Comments(comment=&quot;hey there&quot;)],
+    name="John",
+    fullname="John Doe",
+    email="john@doe.com",
+    # comments=[Comments(comment="hello"), Comments(comment="hey there")],
 )
 
 # Adding Single User
@@ -445,16 +445,16 @@ session.commit()
 
 # Adding Multiple User
 user2 = Users(
-    name=&quot;Jake&quot;,
-    fullname=&quot;Jake Smith&quot;,
-    email=&quot;jake@smith.com&quot;,
-    # comments=[Comments(comment=&quot;hello2&quot;), Comments(comment=&quot;hey there2&quot;)],
+    name="Jake",
+    fullname="Jake Smith",
+    email="jake@smith.com",
+    # comments=[Comments(comment="hello2"), Comments(comment="hey there2")],
 )
 user3 = Users(
-    name=&quot;Joe&quot;,
-    fullname=&quot;Joe Smith&quot;,
-    email=&quot;joe@smith.com&quot;,
-    # comments=[Comments(comment=&quot;hello3&quot;), Comments(comment=&quot;hey there3&quot;)],
+    name="Joe",
+    fullname="Joe Smith",
+    email="joe@smith.com",
+    # comments=[Comments(comment="hello3"), Comments(comment="hey there3")],
 )
 
 session.add_all([user2, user3])
@@ -462,7 +462,7 @@ session.commit()
 
 
 # Add a smaple comment
-comment1 = Comments(comment=&quot;hello world&quot;, user_id=1)
+comment1 = Comments(comment="hello world", user_id=1)
 session.add(comment1)
 session.commit()
 </code></pre>
@@ -483,19 +483,19 @@ session = Session(bind=engine)
 res = session.query(Users)
 
 ## Simple select with where clause and session execute
-statement = select(Users).where(Users.name.in_([&quot;Jake&quot;, &quot;Joe&quot;]))
+statement = select(Users).where(Users.name.in_(["Jake", "Joe"]))
 res = session.execute(statement)
 print(res.all())
 
 # filter vs filter_by
 
 ## Select with filter_by [Takes dict like kwargs keyword arguments for and arguments]
-statement = select(Users).filter_by(name=&quot;John&quot;, id=1)
+statement = select(Users).filter_by(name="John", id=1)
 res = session.execute(statement)
 print(res.all())
 
 ## Select with filter [for and/or arguments]
-statement = select(Users).filter(and_(Users.name == &quot;John&quot;, Users.id == 1))
+statement = select(Users).filter(and_(Users.name == "John", Users.id == 1))
 res = session.execute(statement)
 
 ## scalar vs one
@@ -532,8 +532,8 @@ session = Session(bind=engine)
 res = session.query(Users).filter(Users.id == 1).first()
 
 if res:
-    res.name = &quot;newname&quot;
-    res.fullname = &quot;New Name&quot;
+    res.name = "newname"
+    res.fullname = "New Name"
     session.commit()
 </code></pre>
 <h4 id="deleting"><a class="header" href="#deleting">Deleting</a></h4>
@@ -561,15 +561,15 @@ from sqlalchemy.sql import select
 
 meta_obj = MetaData()
 user_table = Table(
-    &quot;users&quot;,
+    "users",
     meta_obj,
-    Column(&quot;id&quot;, Integer, primary_key=True),
-    Column(&quot;name&quot;, Text, nullable=True),
+    Column("id", Integer, primary_key=True),
+    Column("name", Text, nullable=True),
 )
 
 
 async def main():
-    DB_URL = &quot;sqlite+aiosqlite:///test.db&quot;
+    DB_URL = "sqlite+aiosqlite:///test.db"
     engine = create_async_engine(DB_URL, echo=True)
 
     # can use begin -&gt; auto-commit ater transaction
@@ -582,7 +582,7 @@ async def main():
         await conn.run_sync(meta_obj.create_all)
 
         # Insert Data
-        statement = insert(user_table).values(name=&quot;John Doe&quot;)
+        statement = insert(user_table).values(name="John Doe")
         await conn.execute(statement)
 
         # Select Data
@@ -596,9 +596,9 @@ async def main():
 asyncio.run(main())
 </code></pre>
 <h1 id="note"><a class="header" href="#note">Note:</a></h1>
-<p>In SQLAlchemy, the term &quot;expire on commit&quot; refers to a configuration option for a session object
+<p>In SQLAlchemy, the term "expire on commit" refers to a configuration option for a session object
 that determines whether or not the state of objects loaded from the database will be set to
-&quot;expired&quot; when a transaction is committed. When an object's state is expired, it means that any
+"expired" when a transaction is committed. When an object's state is expired, it means that any
 changes made to the object during the transaction will be discarded, and the next time the object is
 accessed, its state will be reloaded from the database.</p>
 <h4 id="orm"><a class="header" href="#orm">ORM</a></h4>
@@ -613,21 +613,21 @@ class Base(DeclarativeBase):
 
 
 class Users(Base):
-    __tablename__ = &quot;users&quot;
-    id: Mapped[int] = mapped_column(&quot;id&quot;, Integer, primary_key=True)
-    name: Mapped[str] = mapped_column(&quot;name&quot;, Text, nullable=False)
+    __tablename__ = "users"
+    id: Mapped[int] = mapped_column("id", Integer, primary_key=True)
+    name: Mapped[str] = mapped_column("name", Text, nullable=False)
 
 
 async def insert_data(sessmaker: async_sessionmaker[AsyncSession]):
     async with sessmaker() as session:
-        newuser = Users(name=&quot;John Doe&quot;)
+        newuser = Users(name="John Doe")
         session.add(newuser)
         await session.commit()
 
 
 async def insert_data(sessmaker: async_sessionmaker[AsyncSession]):
     async with sessmaker() as session:
-        st = select(Users).filter(Users.name == &quot;John Doe&quot;)
+        st = select(Users).filter(Users.name == "John Doe")
         res = await session.execute(st)
         ans = res.scalars().first()
 
@@ -637,7 +637,7 @@ async def insert_data(sessmaker: async_sessionmaker[AsyncSession]):
 
 async def main():
     # Initialize engine
-    DB_URL = &quot;sqlite+aiosqlite:///test.db&quot;
+    DB_URL = "sqlite+aiosqlite:///test.db"
     engine = create_async_engine(DB_URL, echo=True)
 
     # Session maker
