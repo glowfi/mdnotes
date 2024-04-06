@@ -142,7 +142,7 @@ run()
 
 > In Apollo GraphQL each resolver has access to 4 args which are as follows:
 
--   parent : Parent object value of the prevois resolver.
+-   parent : Parent object value of the previous resolver.
 -   args : Arguments passed to this resolver
 -   context : A global value accesible to all resolvers.A custom object each resolver can read from/write to.
 -   info : Parsed GraphQL query , mutation , subscription string [AST of the incoming request]
@@ -243,4 +243,28 @@ run()
     .catch((err) => {
         console.log(err);
     });
+```
+
+### Fragments and aliases
+
+```gql
+{
+Userl: user(id: 1) {
+
+...userFields
+
+}
+
+User2: user(id: 2) {
+...userFields
+
+}
+
+i
+
+fragment userFields on Person {
+name
+email
+
+}
 ```
