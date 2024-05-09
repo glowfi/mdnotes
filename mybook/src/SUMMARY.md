@@ -21,3 +21,4 @@
 - [18_next_JS_14](./18_next_JS_14.md)
 - [19_React+Node_JS_JWT](./19_React+Node_JS_JWT.md)
 - [20_Golang](./20_Golang.md)
+- [21_Fastapi_JWT_Scratch_React](./21_Fastapi_JWT_Scratch_React.md)

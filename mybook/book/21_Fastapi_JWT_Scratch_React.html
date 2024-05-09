@@ -1,0 +1,465 @@
+<!DOCTYPE HTML>
+<html lang="en" class="light" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>21_Fastapi_JWT_Scratch_React - Markdown Notes</title>
+
+
+        <!-- Custom HTML head -->
+        
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="favicon.svg">
+        <link rel="shortcut icon" href="favicon.png">
+        <link rel="stylesheet" href="css/variables.css">
+        <link rel="stylesheet" href="css/general.css">
+        <link rel="stylesheet" href="css/chrome.css">
+        <link rel="stylesheet" href="css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="highlight.css">
+        <link rel="stylesheet" href="tomorrow-night.css">
+        <link rel="stylesheet" href="ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+
+    </head>
+    <body class="sidebar-visible no-js">
+    <div id="body-container">
+        <!-- Provide site root to javascript -->
+        <script>
+            var path_to_root = "";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('light')
+            html.classList.add(theme);
+            var body = document.querySelector('body');
+            body.classList.remove('no-js')
+            body.classList.add('js');
+        </script>
+
+        <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            var body = document.querySelector('body');
+            var sidebar = null;
+            var sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+            }
+            sidebar_toggle.checked = sidebar === 'visible';
+            body.classList.remove('sidebar-visible');
+            body.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded "><a href="1_react_1_fundamentals.html"><strong aria-hidden="true">1.</strong> 1_react_1_fundamentals</a></li><li class="chapter-item expanded "><a href="2_react_2_advanced.html"><strong aria-hidden="true">2.</strong> 2_react_2_advanced</a></li><li class="chapter-item expanded "><a href="3_react_3_axios.html"><strong aria-hidden="true">3.</strong> 3_react_3_axios</a></li><li class="chapter-item expanded "><a href="4_react_4_router_dom.html"><strong aria-hidden="true">4.</strong> 4_react_4_router_dom</a></li><li class="chapter-item expanded "><a href="5_react_5_redux_tookit.html"><strong aria-hidden="true">5.</strong> 5_react_5_redux_tookit</a></li><li class="chapter-item expanded "><a href="6_node_1_fundamentals.html"><strong aria-hidden="true">6.</strong> 6_node_1_fundamentals</a></li><li class="chapter-item expanded "><a href="7_node_2_advanced.html"><strong aria-hidden="true">7.</strong> 7_node_2_advanced</a></li><li class="chapter-item expanded "><a href="8_node_3_orm.html"><strong aria-hidden="true">8.</strong> 8_node_3_orm</a></li><li class="chapter-item expanded "><a href="9_node_4_apollo_graphql_basics.html"><strong aria-hidden="true">9.</strong> 9_node_4_apollo_graphql_basics</a></li><li class="chapter-item expanded "><a href="10_node_5_typescript.html"><strong aria-hidden="true">10.</strong> 10_node_5_typescript</a></li><li class="chapter-item expanded "><a href="11_node_6_graphql_ts_orm.html"><strong aria-hidden="true">11.</strong> 11_node_6_graphql_ts_orm</a></li><li class="chapter-item expanded "><a href="12_sql.html"><strong aria-hidden="true">12.</strong> 12_sql</a></li><li class="chapter-item expanded "><a href="13_sql_alchemy.html"><strong aria-hidden="true">13.</strong> 13_sql_alchemy</a></li><li class="chapter-item expanded "><a href="14_redis.html"><strong aria-hidden="true">14.</strong> 14_redis</a></li><li class="chapter-item expanded "><a href="15_fastapi.html"><strong aria-hidden="true">15.</strong> 15_fastapi</a></li><li class="chapter-item expanded "><a href="16_react_hooks_compressed.html"><strong aria-hidden="true">16.</strong> 16_react_hooks_compressed</a></li><li class="chapter-item expanded "><a href="17_react_Typescript.html"><strong aria-hidden="true">17.</strong> 17_react_Typescript</a></li><li class="chapter-item expanded "><a href="18_next_JS_14.html"><strong aria-hidden="true">18.</strong> 18_next_JS_14</a></li><li class="chapter-item expanded "><a href="19_React+Node_JS_JWT.html"><strong aria-hidden="true">19.</strong> 19_React+Node_JS_JWT</a></li><li class="chapter-item expanded "><a href="20_Golang.html"><strong aria-hidden="true">20.</strong> 20_Golang</a></li><li class="chapter-item expanded "><a href="21_Fastapi_JWT_Scratch_React.html" class="active"><strong aria-hidden="true">21.</strong> 21_Fastapi_JWT_Scratch_React</a></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <!-- Track and set sidebar scroll position -->
+        <script>
+            var sidebarScrollbox = document.querySelector('#sidebar .sidebar-scrollbox');
+            sidebarScrollbox.addEventListener('click', function(e) {
+                if (e.target.tagName === 'A') {
+                    sessionStorage.setItem('sidebar-scroll', sidebarScrollbox.scrollTop);
+                }
+            }, { passive: true });
+            var sidebarScrollTop = sessionStorage.getItem('sidebar-scroll');
+            sessionStorage.removeItem('sidebar-scroll');
+            if (sidebarScrollTop) {
+                // preserve sidebar scroll position when navigating via links within sidebar
+                sidebarScrollbox.scrollTop = sidebarScrollTop;
+            } else {
+                // scroll sidebar to current active section when navigating via "next/previous chapter" buttons
+                var activeSection = document.querySelector('#sidebar .active');
+                if (activeSection) {
+                    activeSection.scrollIntoView({ block: 'center' });
+                }
+            }
+        </script>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </label>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">Markdown Notes</h1>
+
+                    <div class="right-buttons">
+                        <a href="print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h3 id="install-dependencies"><a class="header" href="#install-dependencies">Install Dependencies</a></h3>
+<pre><code class="language-sh">pip install fastapi uvicorn gunicorn pyjwt
+</code></pre>
+<blockquote>
+<p>main.py</p>
+</blockquote>
+<pre><code class="language-py">from fastapi import Depends, FastAPI, Response, status
+import datetime
+
+from fastapi.encoders import jsonable_encoder
+from fastapi.responses import JSONResponse
+from middlewares.authenticate import authenticate
+from helper.utils import jwt_encode
+from fastapi.middleware.cors import CORSMiddleware
+
+
+# Main app
+app = FastAPI()
+
+origins = ["http://localhost:5173"]
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
+
+# Generate JWT Token
+@app.get("/login", status_code=200)
+async def login(res: Response):
+    user = {"id": 1, "name": "John"}
+    accToken = await jwt_encode(
+        user, int(datetime.datetime.timestamp(datetime.datetime.now())) + (60 * 60)
+    )
+    refToken = await jwt_encode(
+        user,
+        int(datetime.datetime.timestamp(datetime.datetime.now())) + (24 * 60 * 60),
+    )
+
+    res.set_cookie("refreshToken", refToken, httponly=True, samesite="strict")
+    res.headers["Authorization"] = accToken
+
+    return {"accToken": accToken, "id": 1, "user": "John"}
+
+
+@app.get("/me")
+async def me(data: dict = Depends(authenticate)):
+    return data
+</code></pre>
+<blockquote>
+<p>helper/utils.py</p>
+</blockquote>
+<pre><code class="language-py">
+import jwt
+
+
+async def jwt_encode(data, exp):
+    return jwt.encode(
+        {**data, "exp": exp},
+        "secret",
+        algorithm="HS256",
+    ).decode("utf-8")
+
+
+async def jwt_decode(encoded_jwt):
+    return jwt.decode(encoded_jwt, "secret", algorithms=["HS256"])
+</code></pre>
+<blockquote>
+<p>middlewares/authenticate.py</p>
+</blockquote>
+<pre><code class="language-py">import sys
+
+sys.path.append("..")
+
+
+from fastapi.responses import JSONResponse
+from fastapi.encoders import jsonable_encoder
+from fastapi import Request, Response, status
+import datetime
+from helper import utils
+
+
+async def authenticate(req: Request, res: Response):
+    accToken, refToken = req.headers.get("Authorization", None), req.cookies.get(
+        "refreshToken", None
+    )
+
+    # Check if both tokens provided
+    if not accToken and not refToken:
+        return JSONResponse(
+            content=jsonable_encoder({"type": "err", "msg": "No Tokens provided"}),
+            status_code=status.HTTP_401_UNAUTHORIZED,
+        )
+
+    decoded = {}
+
+    # If acc_token not expired
+    try:
+        # Decode the jwt token
+        decoded = await utils.jwt_decode(accToken)
+        req.state.data = decoded.get("name")
+        return JSONResponse(
+            content=jsonable_encoder(
+                {"type": "data", "msg": "Got user back!", "data": decoded.get("name")}
+            ),
+            status_code=status.HTTP_200_OK,
+        )
+
+    # If acc_token expired then use refToken to Generate new accToken
+    except Exception as e:
+        # Check Refresh token provided
+        if not refToken:
+            return JSONResponse(
+                content=jsonable_encoder(
+                    {"type": "err", "msg": "No Refresh Token provided"}
+                ),
+                status_code=status.HTTP_401_UNAUTHORIZED,
+            )
+
+        # If ref_token not expired
+        decoded = {}
+        try:
+            decoded = await utils.jwt_decode(refToken)
+            accToken = await utils.jwt_encode(
+                {"id": decoded.get("id"), "name": decoded.get("name")},
+                int(datetime.datetime.timestamp(datetime.datetime.now())) + 15,
+            )
+            res.set_cookie("refreshToken", refToken, httponly=True, samesite="strict")
+            res.headers["Authorization"] = accToken
+            return JSONResponse(
+                content=jsonable_encoder(
+                    {
+                        "type": "data",
+                        "msg": "Refreshed Token",
+                        "data": {
+                            "accToken": accToken,
+                            "id": decoded.get("id"),
+                            "name": decoded.get("name"),
+                        },
+                    }
+                ),
+                status_code=status.HTTP_200_OK,
+            )
+        # If ref_token expired
+        except Exception as e:
+            return JSONResponse(
+                content=jsonable_encoder(
+                    {"type": "err", "msg": "refreshToken expired"}
+                ),
+                status_code=status.HTTP_401_UNAUTHORIZED,
+            )
+</code></pre>
+<blockquote>
+<p>gunicorn.conf.py</p>
+</blockquote>
+<pre><code class="language-py">
+import os
+import signal
+
+
+def worker_int(worker):
+    os.kill(worker.pid, signal.SIGINT)
+</code></pre>
+<blockquote>
+<p>run.sh</p>
+</blockquote>
+<pre><code class="language-sh">#!/usr/bin/env bash
+
+WORKERS=6
+PORT=5000
+
+gunicorn main:app -w "${WORKERS}" -b 0.0.0.0:"${PORT}" -k uvicorn.workers.UvicornWorker --log-file=- --log-level DEBUG --reload
+</code></pre>
+<blockquote>
+<p>App.tsx</p>
+</blockquote>
+<pre><code class="language-ts">import { useCallback } from 'react';
+
+const App = () =&gt; {
+    const handleLogin = useCallback(async () =&gt; {
+        const url = 'http://localhost:5000/login';
+        const data = await fetch(url, {
+            credentials: 'include',
+            headers: {
+                Accept: 'application/json',
+                'Content-Type': 'application/json'
+            }
+        });
+        const final = await data.json();
+        console.log('DATA', final);
+
+        if (final['accToken']) {
+            localStorage.setItem('accToken', final['accToken']);
+        } else {
+            console.log('No data found');
+        }
+    }, []);
+
+    const me = useCallback(async () =&gt; {
+        const url = 'http://localhost:5000/me';
+        const data = await fetch(url, {
+            credentials: 'include',
+            headers: {
+                Accept: 'application/json',
+                'Content-Type': 'application/json',
+                Authorization: localStorage.getItem('accToken')
+            }
+        });
+        const final = await data.json();
+        if (final['accToken']) {
+            localStorage.setItem('accToken', final['accToken']);
+            console.log('DATA', final);
+        } else {
+            console.log(final);
+        }
+    }, []);
+
+    return (
+        &lt;div&gt;
+            &lt;button
+                type="button"
+                onClick={() =&gt; {
+                    handleLogin();
+                }}
+            &gt;
+                Login
+            &lt;/button&gt;
+            &lt;button
+                type="button"
+                onClick={() =&gt; {
+                    me();
+                }}
+            &gt;
+                Me
+            &lt;/button&gt;
+        &lt;/div&gt;
+    );
+};
+
+export default App;
+</code></pre>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="20_Golang.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="20_Golang.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+            </nav>
+
+        </div>
+
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="elasticlunr.min.js"></script>
+        <script src="mark.min.js"></script>
+        <script src="searcher.js"></script>
+
+        <script src="clipboard.min.js"></script>
+        <script src="highlight.js"></script>
+        <script src="book.js"></script>
+
+        <!-- Custom JS scripts -->
+
+
+    </div>
+    </body>
+</html>
