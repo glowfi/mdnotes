@@ -1,0 +1,763 @@
+<!DOCTYPE HTML>
+<html lang="en" class="light" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>23_Next_JS_14_Notes+Auth_JS - Markdown Notes</title>
+
+
+        <!-- Custom HTML head -->
+        
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="favicon.svg">
+        <link rel="shortcut icon" href="favicon.png">
+        <link rel="stylesheet" href="css/variables.css">
+        <link rel="stylesheet" href="css/general.css">
+        <link rel="stylesheet" href="css/chrome.css">
+        <link rel="stylesheet" href="css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="highlight.css">
+        <link rel="stylesheet" href="tomorrow-night.css">
+        <link rel="stylesheet" href="ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+
+    </head>
+    <body class="sidebar-visible no-js">
+    <div id="body-container">
+        <!-- Provide site root to javascript -->
+        <script>
+            var path_to_root = "";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('light')
+            html.classList.add(theme);
+            var body = document.querySelector('body');
+            body.classList.remove('no-js')
+            body.classList.add('js');
+        </script>
+
+        <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            var body = document.querySelector('body');
+            var sidebar = null;
+            var sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+            }
+            sidebar_toggle.checked = sidebar === 'visible';
+            body.classList.remove('sidebar-visible');
+            body.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded "><a href="1_react_1_fundamentals.html"><strong aria-hidden="true">1.</strong> 1_react_1_fundamentals</a></li><li class="chapter-item expanded "><a href="2_react_2_advanced.html"><strong aria-hidden="true">2.</strong> 2_react_2_advanced</a></li><li class="chapter-item expanded "><a href="3_react_3_axios.html"><strong aria-hidden="true">3.</strong> 3_react_3_axios</a></li><li class="chapter-item expanded "><a href="4_react_4_router_dom.html"><strong aria-hidden="true">4.</strong> 4_react_4_router_dom</a></li><li class="chapter-item expanded "><a href="5_react_5_redux_tookit.html"><strong aria-hidden="true">5.</strong> 5_react_5_redux_tookit</a></li><li class="chapter-item expanded "><a href="6_node_1_fundamentals.html"><strong aria-hidden="true">6.</strong> 6_node_1_fundamentals</a></li><li class="chapter-item expanded "><a href="7_node_2_advanced.html"><strong aria-hidden="true">7.</strong> 7_node_2_advanced</a></li><li class="chapter-item expanded "><a href="8_node_3_orm.html"><strong aria-hidden="true">8.</strong> 8_node_3_orm</a></li><li class="chapter-item expanded "><a href="9_node_4_apollo_graphql_basics.html"><strong aria-hidden="true">9.</strong> 9_node_4_apollo_graphql_basics</a></li><li class="chapter-item expanded "><a href="10_node_5_typescript.html"><strong aria-hidden="true">10.</strong> 10_node_5_typescript</a></li><li class="chapter-item expanded "><a href="11_node_6_graphql_ts_orm.html"><strong aria-hidden="true">11.</strong> 11_node_6_graphql_ts_orm</a></li><li class="chapter-item expanded "><a href="12_sql.html"><strong aria-hidden="true">12.</strong> 12_sql</a></li><li class="chapter-item expanded "><a href="13_sql_alchemy.html"><strong aria-hidden="true">13.</strong> 13_sql_alchemy</a></li><li class="chapter-item expanded "><a href="14_redis.html"><strong aria-hidden="true">14.</strong> 14_redis</a></li><li class="chapter-item expanded "><a href="15_fastapi.html"><strong aria-hidden="true">15.</strong> 15_fastapi</a></li><li class="chapter-item expanded "><a href="16_react_hooks_compressed.html"><strong aria-hidden="true">16.</strong> 16_react_hooks_compressed</a></li><li class="chapter-item expanded "><a href="17_react_Typescript.html"><strong aria-hidden="true">17.</strong> 17_react_Typescript</a></li><li class="chapter-item expanded "><a href="18_next_JS_14.html"><strong aria-hidden="true">18.</strong> 18_next_JS_14</a></li><li class="chapter-item expanded "><a href="19_React+Node_JS_JWT.html"><strong aria-hidden="true">19.</strong> 19_React+Node_JS_JWT</a></li><li class="chapter-item expanded "><a href="20_Golang.html"><strong aria-hidden="true">20.</strong> 20_Golang</a></li><li class="chapter-item expanded "><a href="21_Fastapi_JWT_Scratch_React.html"><strong aria-hidden="true">21.</strong> 21_Fastapi_JWT_Scratch_React</a></li><li class="chapter-item expanded "><a href="23_Next_JS_14_Notes+Auth_JS.html" class="active"><strong aria-hidden="true">22.</strong> 23_Next_JS_14_Notes+Auth_JS</a></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <!-- Track and set sidebar scroll position -->
+        <script>
+            var sidebarScrollbox = document.querySelector('#sidebar .sidebar-scrollbox');
+            sidebarScrollbox.addEventListener('click', function(e) {
+                if (e.target.tagName === 'A') {
+                    sessionStorage.setItem('sidebar-scroll', sidebarScrollbox.scrollTop);
+                }
+            }, { passive: true });
+            var sidebarScrollTop = sessionStorage.getItem('sidebar-scroll');
+            sessionStorage.removeItem('sidebar-scroll');
+            if (sidebarScrollTop) {
+                // preserve sidebar scroll position when navigating via links within sidebar
+                sidebarScrollbox.scrollTop = sidebarScrollTop;
+            } else {
+                // scroll sidebar to current active section when navigating via "next/previous chapter" buttons
+                var activeSection = document.querySelector('#sidebar .active');
+                if (activeSection) {
+                    activeSection.scrollIntoView({ block: 'center' });
+                }
+            }
+        </script>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </label>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">Markdown Notes</h1>
+
+                    <div class="right-buttons">
+                        <a href="print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1 id="next-js-14-authjs-and-notes-app"><a class="header" href="#next-js-14-authjs-and-notes-app">Next JS 14 Auth.js and Notes app</a></h1>
+<h4 id="next-js-must-know-concept"><a class="header" href="#next-js-must-know-concept">Next JS Must know concept</a></h4>
+<ul>
+<li>Routing and Navigation <Link/></li>
+<li>Metadata</li>
+<li>Tailwind CSS</li>
+<li>&lt;Image/&gt;</li>
+<li>client side vs server side</li>
+<li>server actions GET POST PUT DELETE</li>
+<li>Suspsense , streaming [formstatus pending ,react Suspsense]</li>
+<li>Caching [Route caching , Client Caching]</li>
+<li>Static and Dynamic rendering [export const dynamic, cache:no-cache, next:{revalidate:3600}]</li>
+<li>Middleware</li>
+<li>Production Build</li>
+</ul>
+<h4 id="install"><a class="header" href="#install">Install</a></h4>
+<pre><code class="language-sh">pnpm install prisma --save-dev
+pnpm install @prisma/client
+pnpm dlx prisma init
+pnpm dlx shadcn-ui@latest init
+pnpm dlx shadcn-ui@latest add sheet dropdown-menu input button @radix-ui/react-dropdown-menu card select label textarea table checkbox dialog
+pnpm add next-themes
+pnpm i @tanstack/react-table
+pnpm add next-auth@beta
+</code></pre>
+<h3 id="env"><a class="header" href="#env">ENV</a></h3>
+<pre><code>DATABASE_URL = "file:./dev.db"
+</code></pre>
+<h3 id="prisma-models"><a class="header" href="#prisma-models">Prisma models</a></h3>
+<pre><code class="language-prisma">generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model Task {
+  id String @id @default(uuid())
+  content String
+  createdAt DateTime @default(now())
+  completed Boolean @default(false)
+}
+</code></pre>
+<h3 id="migrate-dev"><a class="header" href="#migrate-dev">Migrate Dev</a></h3>
+<pre><code class="language-sh">pnpm dlx prisma migrate dev
+</code></pre>
+<h3 id="layouttsx-home-page"><a class="header" href="#layouttsx-home-page">layout.tsx (Home Page)</a></h3>
+<pre><code class="language-tsx">import Navbar from '@/components/navbar';
+import { ThemeProvider } from '@/components/theme-provider';
+import type { Metadata } from 'next';
+import './globals.css';
+
+export const metadata: Metadata = {
+    title: 'Create Next App',
+    description: 'Generated by create next app'
+};
+
+export default function RootLayout({
+    children
+}: Readonly&lt;{
+    children: React.ReactNode;
+}&gt;) {
+    return (
+        &lt;html lang="en"&gt;
+            &lt;body&gt;
+                &lt;ThemeProvider
+                    attribute="class"
+                    defaultTheme="system"
+                    enableSystem
+                    disableTransitionOnChange
+                &gt;
+                    &lt;Navbar /&gt;
+                    {children}
+                &lt;/ThemeProvider&gt;
+            &lt;/body&gt;
+        &lt;/html&gt;
+    );
+}
+</code></pre>
+<h3 id="pagetsx-home-page"><a class="header" href="#pagetsx-home-page">page.tsx (Home Page)</a></h3>
+<pre><code class="language-tsx">import get_all_notes from '@/actions/get_all_notes';
+import { AllPosts } from '@/components/allposts';
+import { NoteForm } from '@/components/noteform';
+
+const HomePage = async () =&gt; {
+    const allPosts = await get_all_notes();
+
+    return (
+        &lt;div className="container flex flex-col justify-center items-center h-dvh"&gt;
+            &lt;NoteForm /&gt;
+            &lt;AllPosts data={allPosts} /&gt;
+        &lt;/div&gt;
+    );
+};
+
+export default HomePage;
+</code></pre>
+<blockquote>
+<p>src/components/themeswitcher.tsx</p>
+</blockquote>
+<pre><code class="language-tsx">'use client';
+
+import { Moon, Sun } from 'lucide-react';
+import { useTheme } from 'next-themes';
+
+import { Button } from '@/components/ui/button';
+import {
+    DropdownMenu,
+    DropdownMenuContent,
+    DropdownMenuItem,
+    DropdownMenuTrigger
+} from '@/components/ui/dropdown-menu';
+
+export function ModeToggle() {
+    const { setTheme } = useTheme();
+
+    return (
+        &lt;DropdownMenu&gt;
+            &lt;DropdownMenuTrigger asChild&gt;
+                &lt;Button variant="outline" size="icon"&gt;
+                    &lt;Sun className="h-[1.2rem] w-[1.2rem] rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" /&gt;
+                    &lt;Moon className="absolute h-[1.2rem] w-[1.2rem] rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" /&gt;
+                    &lt;span className="sr-only"&gt;Toggle theme&lt;/span&gt;
+                &lt;/Button&gt;
+            &lt;/DropdownMenuTrigger&gt;
+            &lt;DropdownMenuContent align="end"&gt;
+                &lt;DropdownMenuItem onClick={() =&gt; setTheme('light')}&gt;
+                    Light
+                &lt;/DropdownMenuItem&gt;
+                &lt;DropdownMenuItem onClick={() =&gt; setTheme('dark')}&gt;
+                    Dark
+                &lt;/DropdownMenuItem&gt;
+                &lt;DropdownMenuItem onClick={() =&gt; setTheme('system')}&gt;
+                    System
+                &lt;/DropdownMenuItem&gt;
+            &lt;/DropdownMenuContent&gt;
+        &lt;/DropdownMenu&gt;
+    );
+}
+</code></pre>
+<blockquote>
+<p>src/components/allposts.tsx</p>
+</blockquote>
+<pre><code class="language-tsx">import {
+    Table,
+    TableBody,
+    TableCell,
+    TableHead,
+    TableHeader,
+    TableRow
+} from '@/components/ui/table';
+import Act from './act';
+
+export type Task = {
+    id: string;
+    content: string;
+    createdAt: Date;
+    completed: Date;
+};
+
+export function AllPosts({ data }: any) {
+    if (data.length == 0) {
+        return &lt;h2 className="mt-8 font-medium text-lg"&gt;No tasks to show&lt;/h2&gt;;
+    }
+    return (
+        &lt;&gt;
+            &lt;h1 className="mt-5"&gt;Task List&lt;/h1&gt;
+
+            &lt;Table&gt;
+                &lt;TableHeader&gt;
+                    &lt;TableRow className="h-24 text-center"&gt;
+                        &lt;TableHead&gt;Content&lt;/TableHead&gt;
+                        &lt;TableHead&gt;Completed&lt;/TableHead&gt;
+                        &lt;TableHead&gt;Actions&lt;/TableHead&gt;
+                    &lt;/TableRow&gt;
+                &lt;/TableHeader&gt;
+                &lt;TableBody&gt;
+                    {data.map((currTask: any) =&gt; (
+                        &lt;TableRow key={currTask.id}&gt;
+                            &lt;TableCell className="font-medium"&gt;
+                                {currTask.content}
+                            &lt;/TableCell&gt;
+                            &lt;TableCell&gt;
+                                {currTask.completed.toString()}
+                            &lt;/TableCell&gt;
+                            &lt;TableCell&gt;
+                                &lt;Act data={currTask} /&gt;
+                            &lt;/TableCell&gt;
+                        &lt;/TableRow&gt;
+                    ))}
+                &lt;/TableBody&gt;
+            &lt;/Table&gt;
+        &lt;/&gt;
+    );
+}
+</code></pre>
+<blockquote>
+<p>src/components/act.tsx</p>
+</blockquote>
+<pre><code class="language-tsx">'use client';
+import { Button } from './ui/button';
+
+import delete_note from '@/actions/delete_note';
+import update_note from '@/actions/update_note';
+import {
+    Dialog,
+    DialogContent,
+    DialogDescription,
+    DialogHeader,
+    DialogTitle,
+    DialogTrigger
+} from '@/components/ui/dialog';
+import { useRef } from 'react';
+import { Textarea } from './ui/textarea';
+
+const Act = (data: any) =&gt; {
+    let currTask = data.data;
+    const updRef = useRef(null);
+
+    return (
+        &lt;div className="flex gap-3"&gt;
+            &lt;form action=""&gt;
+                &lt;Dialog&gt;
+                    &lt;DialogTrigger asChild&gt;
+                        &lt;Button variant="secondary"&gt;Edit&lt;/Button&gt;
+                    &lt;/DialogTrigger&gt;
+                    &lt;DialogContent className="sm:max-w-[425px]"&gt;
+                        &lt;DialogHeader&gt;
+                            &lt;DialogTitle&gt;Edit profile&lt;/DialogTitle&gt;
+                            &lt;DialogDescription&gt;
+                                Make changes to your content.
+                            &lt;/DialogDescription&gt;
+                        &lt;/DialogHeader&gt;
+                        &lt;div className="grid gap-4 py-4"&gt;
+                            &lt;form
+                                ref={updRef}
+                                action={async (formData: FormData) =&gt; {
+                                    await update_note(formData, currTask.id);
+                                    // @ts-ignore
+                                    updRef.current?.reset();
+                                }}
+                            &gt;
+                                &lt;Textarea
+                                    placeholder="Type your message here."
+                                    name="content"
+                                    defaultValue={currTask.content}
+                                /&gt;
+                                &lt;Button type="submit" className="mt-6"&gt;
+                                    Update
+                                &lt;/Button&gt;
+                            &lt;/form&gt;
+                        &lt;/div&gt;
+                    &lt;/DialogContent&gt;
+                &lt;/Dialog&gt;
+            &lt;/form&gt;
+            &lt;form
+                action={async () =&gt; {
+                    await delete_note(currTask.id);
+                }}
+            &gt;
+                &lt;Button variant={'destructive'}&gt;Delete&lt;/Button&gt;
+            &lt;/form&gt;
+        &lt;/div&gt;
+    );
+};
+
+export default Act;
+</code></pre>
+<blockquote>
+<p>src/components/navbar.tsx</p>
+</blockquote>
+<pre><code class="language-tsx">import { Button } from '@/components/ui/button';
+import {
+    DropdownMenu,
+    DropdownMenuContent,
+    DropdownMenuItem,
+    DropdownMenuLabel,
+    DropdownMenuSeparator,
+    DropdownMenuTrigger
+} from '@/components/ui/dropdown-menu';
+import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
+import { CircleUser, Menu, NotebookPen, Package2 } from 'lucide-react';
+import Link from 'next/link';
+import { ModeToggle } from './themeswitcher';
+
+const Navbar = () =&gt; {
+    return (
+        &lt;&gt;
+            &lt;header className="sticky top-0 flex h-16 items-center gap-4 border-b bg-background px-4 md:px-6"&gt;
+                &lt;nav className="hidden flex-col gap-6 text-lg font-medium md:flex md:flex-row md:items-center md:gap-5 md:text-sm lg:gap-6"&gt;
+                    &lt;Link
+                        href="#"
+                        className="flex items-center gap-2 text-lg font-semibold md:text-base"
+                    &gt;
+                        &lt;NotebookPen className="h-6 w-6" /&gt;
+                        &lt;span className="sr-only"&gt;Acme Inc&lt;/span&gt;
+                    &lt;/Link&gt;
+                    &lt;Link
+                        href="/"
+                        className="text-foreground transition-colors hover:text-foreground"
+                    &gt;
+                        NotesApp
+                    &lt;/Link&gt;
+                &lt;/nav&gt;
+                &lt;Sheet&gt;
+                    &lt;SheetTrigger asChild&gt;
+                        &lt;Button
+                            variant="outline"
+                            size="icon"
+                            className="shrink-0 md:hidden"
+                        &gt;
+                            &lt;Menu className="h-5 w-5" /&gt;
+                            &lt;span className="sr-only"&gt;
+                                Toggle navigation menu
+                            &lt;/span&gt;
+                        &lt;/Button&gt;
+                    &lt;/SheetTrigger&gt;
+                    &lt;SheetContent side="left"&gt;
+                        &lt;nav className="grid gap-6 text-lg font-medium"&gt;
+                            &lt;Link
+                                href="#"
+                                className="flex items-center gap-2 text-lg font-semibold"
+                            &gt;
+                                &lt;Package2 className="h-6 w-6" /&gt;
+                                &lt;span className="sr-only"&gt;Acme Inc&lt;/span&gt;
+                            &lt;/Link&gt;
+                            &lt;Link
+                                href="#"
+                                className="text-muted-foreground hover:text-foreground"
+                            &gt;
+                                Dashboard
+                            &lt;/Link&gt;
+                            &lt;Link
+                                href="#"
+                                className="text-muted-foreground hover:text-foreground"
+                            &gt;
+                                Orders
+                            &lt;/Link&gt;
+                            &lt;Link
+                                href="#"
+                                className="text-muted-foreground hover:text-foreground"
+                            &gt;
+                                Products
+                            &lt;/Link&gt;
+                            &lt;Link
+                                href="#"
+                                className="text-muted-foreground hover:text-foreground"
+                            &gt;
+                                Customers
+                            &lt;/Link&gt;
+                            &lt;Link href="#" className="hover:text-foreground"&gt;
+                                Settings
+                            &lt;/Link&gt;
+                        &lt;/nav&gt;
+                    &lt;/SheetContent&gt;
+                &lt;/Sheet&gt;
+                &lt;div className="flex w-full items-center gap-4 md:ml-auto md:gap-2 lg:gap-4"&gt;
+                    &lt;div className="ml-auto flex flex-1 sm:flex-initial gap-3"&gt;
+                        &lt;ModeToggle /&gt;
+                        &lt;DropdownMenu&gt;
+                            &lt;DropdownMenuTrigger asChild&gt;
+                                &lt;Button
+                                    variant="secondary"
+                                    size="icon"
+                                    className="rounded-full"
+                                &gt;
+                                    &lt;CircleUser className="h-5 w-5" /&gt;
+                                    &lt;span className="sr-only"&gt;
+                                        Toggle user menu
+                                    &lt;/span&gt;
+                                &lt;/Button&gt;
+                            &lt;/DropdownMenuTrigger&gt;
+                            &lt;DropdownMenuContent align="end"&gt;
+                                &lt;DropdownMenuLabel&gt;
+                                    My Account
+                                &lt;/DropdownMenuLabel&gt;
+                                &lt;DropdownMenuSeparator /&gt;
+                                &lt;DropdownMenuItem&gt;Logout&lt;/DropdownMenuItem&gt;
+                            &lt;/DropdownMenuContent&gt;
+                        &lt;/DropdownMenu&gt;
+                    &lt;/div&gt;
+                &lt;/div&gt;
+            &lt;/header&gt;
+        &lt;/&gt;
+    );
+};
+
+export default Navbar;
+</code></pre>
+<blockquote>
+<p>src/components/noteform.tsx</p>
+</blockquote>
+<pre><code class="language-tsx">'use client';
+
+import create_note from '@/actions/create_note';
+import { Button } from '@/components/ui/button';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Textarea } from './ui/textarea';
+import { useRef } from 'react';
+
+export function NoteForm() {
+    const formRef = useRef(null);
+    return (
+        &lt;Card className="w-[350px]"&gt;
+            &lt;CardHeader&gt;
+                &lt;CardTitle&gt;Add a Note&lt;/CardTitle&gt;
+            &lt;/CardHeader&gt;
+            &lt;CardContent&gt;
+                &lt;form
+                    ref={formRef}
+                    id="myForm"
+                    action={async (formData: FormData) =&gt; {
+                        await create_note(formData);
+                        // @ts-ignore
+                        formRef.current?.reset();
+                    }}
+                &gt;
+                    &lt;div className="grid w-full items-center gap-4"&gt;
+                        &lt;div className="flex flex-col space-y-1.5"&gt;
+                            &lt;Textarea
+                                placeholder="Type your message here."
+                                name="content"
+                            /&gt;
+                        &lt;/div&gt;
+                        &lt;Button type="submit"&gt;Add Note&lt;/Button&gt;
+                    &lt;/div&gt;
+                &lt;/form&gt;
+            &lt;/CardContent&gt;
+        &lt;/Card&gt;
+    );
+}
+</code></pre>
+<blockquote>
+<p>src/components/them-provider.tsx</p>
+</blockquote>
+<pre><code class="language-tsx">'use client';
+
+import { ThemeProvider as NextThemesProvider } from 'next-themes';
+import { type ThemeProviderProps } from 'next-themes/dist/types';
+
+export function ThemeProvider({ children, ...props }: ThemeProviderProps) {
+    return &lt;NextThemesProvider {...props}&gt;{children}&lt;/NextThemesProvider&gt;;
+}
+</code></pre>
+<blockquote>
+<p>src/actions/create_note.ts</p>
+</blockquote>
+<pre><code class="language-ts">'use server';
+import prisma from '@/utils/db';
+import { revalidatePath } from 'next/cache';
+
+const create_note = async (formData: FormData) =&gt; {
+    console.log('Enterd!');
+    const content = formData.get('content') as string;
+    await prisma.task.create({ data: { content } });
+    revalidatePath('/');
+};
+
+export default create_note;
+</code></pre>
+<blockquote>
+<p>src/actions/update_note.ts</p>
+</blockquote>
+<pre><code class="language-ts">'use server';
+import prisma from '@/utils/db';
+import { revalidateTag } from 'next/cache';
+
+const update_note = async (formData: FormData, id: string) =&gt; {
+    const content = formData.get('content') as string;
+    await prisma.task.update({ where: { id }, data: { content } });
+    revalidateTag('/');
+};
+
+export default update_note;
+</code></pre>
+<blockquote>
+<p>src/actions/delete_note.ts</p>
+</blockquote>
+<pre><code class="language-ts">'use server';
+import prisma from '@/utils/db';
+import { revalidateTag } from 'next/cache';
+
+const delete_note = async (id: string) =&gt; {
+    await prisma.task.delete({ where: { id } });
+    revalidateTag('/');
+};
+
+export default delete_note;
+</code></pre>
+<blockquote>
+<p>src/actions/getall_note.ts</p>
+</blockquote>
+<pre><code class="language-ts">'use server';
+import prisma from '@/utils/db';
+
+const get_all_notes = async () =&gt; {
+    const tasks = await prisma.task.findMany({
+        orderBy: {
+            createdAt: 'desc'
+        }
+    });
+    return tasks;
+};
+
+export default get_all_notes;
+</code></pre>
+<h3 id="adding-redux"><a class="header" href="#adding-redux">Adding Redux</a></h3>
+<p><strong>Create Store</strong></p>
+<blockquote>
+<p>/lib/store.ts</p>
+</blockquote>
+<pre><code class="language-ts">import { configureStore } from '@reduxjs/toolkit';
+
+export const makeStore = () =&gt; {
+    return configureStore({
+        reducer: {}
+    });
+};
+
+// Infer the type of makeStore
+export type AppStore = ReturnType&lt;typeof makeStore&gt;;
+
+// Infer the `RootState` and `AppDispatch` types from the store itself
+export type RootState = ReturnType&lt;AppStore['getState']&gt;;
+export type AppDispatch = AppStore['dispatch'];
+</code></pre>
+<blockquote>
+<p>/lib/hooks.ts</p>
+</blockquote>
+<pre><code class="language-ts">import { useDispatch, useSelector, useStore } from 'react-redux';
+import type { RootState, AppDispatch, AppStore } from './store';
+
+// Use throughout your app instead of plain `useDispatch` and `useSelector`
+export const useAppDispatch = useDispatch.withTypes&lt;AppDispatch&gt;();
+export const useAppSelector = useSelector.withTypes&lt;RootState&gt;();
+export const useAppStore = useStore.withTypes&lt;AppStore&gt;();
+</code></pre>
+<blockquote>
+<p>app/StoreProvider.tsx</p>
+</blockquote>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="21_Fastapi_JWT_Scratch_React.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="21_Fastapi_JWT_Scratch_React.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+            </nav>
+
+        </div>
+
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="elasticlunr.min.js"></script>
+        <script src="mark.min.js"></script>
+        <script src="searcher.js"></script>
+
+        <script src="clipboard.min.js"></script>
+        <script src="highlight.js"></script>
+        <script src="book.js"></script>
+
+        <!-- Custom JS scripts -->
+
+
+    </div>
+    </body>
+</html>
