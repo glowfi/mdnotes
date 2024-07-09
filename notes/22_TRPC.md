@@ -3,8 +3,7 @@
 #### Install
 
 ```sh
-bun i dotenv @types/dotenv
-bun add @types/express express @types/cookie-parser cookie-parser cors @types/cors zod
+bun add dotenv @types/dotenv @types/express express @types/cookie-parser cookie-parser cors @types/cors zod @trpc/server
 ```
 
 #### Basic Integration Server
