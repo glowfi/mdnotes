@@ -22,3 +22,5 @@
 - [19_React+Node_JS_JWT](./19_React+Node_JS_JWT.md)
 - [20_Fastapi_JWT_Scratch_React](./20_Fastapi_JWT_Scratch_React.md)
 - [21_Mongodb](./21_Mongodb.md)
+- [22_TRPC](./22_TRPC.md)
+- [23_React_Query](./23_React_Query.md)

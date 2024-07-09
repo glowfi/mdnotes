@@ -1,0 +1,486 @@
+<!DOCTYPE HTML>
+<html lang="en" class="light" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>23_React_Query - Markdown Notes</title>
+
+
+        <!-- Custom HTML head -->
+        
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="favicon.svg">
+        <link rel="shortcut icon" href="favicon.png">
+        <link rel="stylesheet" href="css/variables.css">
+        <link rel="stylesheet" href="css/general.css">
+        <link rel="stylesheet" href="css/chrome.css">
+        <link rel="stylesheet" href="css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="highlight.css">
+        <link rel="stylesheet" href="tomorrow-night.css">
+        <link rel="stylesheet" href="ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+
+    </head>
+    <body class="sidebar-visible no-js">
+    <div id="body-container">
+        <!-- Provide site root to javascript -->
+        <script>
+            var path_to_root = "";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('light')
+            html.classList.add(theme);
+            var body = document.querySelector('body');
+            body.classList.remove('no-js')
+            body.classList.add('js');
+        </script>
+
+        <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            var body = document.querySelector('body');
+            var sidebar = null;
+            var sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+            }
+            sidebar_toggle.checked = sidebar === 'visible';
+            body.classList.remove('sidebar-visible');
+            body.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded "><a href="1_react_1_fundamentals.html"><strong aria-hidden="true">1.</strong> 1_react_1_fundamentals</a></li><li class="chapter-item expanded "><a href="2_react_2_advanced.html"><strong aria-hidden="true">2.</strong> 2_react_2_advanced</a></li><li class="chapter-item expanded "><a href="3_react_3_axios.html"><strong aria-hidden="true">3.</strong> 3_react_3_axios</a></li><li class="chapter-item expanded "><a href="4_react_4_router_dom.html"><strong aria-hidden="true">4.</strong> 4_react_4_router_dom</a></li><li class="chapter-item expanded "><a href="5_react_5_redux_tookit.html"><strong aria-hidden="true">5.</strong> 5_react_5_redux_tookit</a></li><li class="chapter-item expanded "><a href="6_node_1_fundamentals.html"><strong aria-hidden="true">6.</strong> 6_node_1_fundamentals</a></li><li class="chapter-item expanded "><a href="7_node_2_advanced.html"><strong aria-hidden="true">7.</strong> 7_node_2_advanced</a></li><li class="chapter-item expanded "><a href="8_node_3_orm.html"><strong aria-hidden="true">8.</strong> 8_node_3_orm</a></li><li class="chapter-item expanded "><a href="9_node_4_apollo_graphql_basics.html"><strong aria-hidden="true">9.</strong> 9_node_4_apollo_graphql_basics</a></li><li class="chapter-item expanded "><a href="10_node_5_typescript.html"><strong aria-hidden="true">10.</strong> 10_node_5_typescript</a></li><li class="chapter-item expanded "><a href="11_node_6_graphql_ts_orm.html"><strong aria-hidden="true">11.</strong> 11_node_6_graphql_ts_orm</a></li><li class="chapter-item expanded "><a href="12_sql.html"><strong aria-hidden="true">12.</strong> 12_sql</a></li><li class="chapter-item expanded "><a href="13_sql_alchemy.html"><strong aria-hidden="true">13.</strong> 13_sql_alchemy</a></li><li class="chapter-item expanded "><a href="14_redis.html"><strong aria-hidden="true">14.</strong> 14_redis</a></li><li class="chapter-item expanded "><a href="15_fastapi.html"><strong aria-hidden="true">15.</strong> 15_fastapi</a></li><li class="chapter-item expanded "><a href="16_react_hooks_compressed.html"><strong aria-hidden="true">16.</strong> 16_react_hooks_compressed</a></li><li class="chapter-item expanded "><a href="17_react_Typescript.html"><strong aria-hidden="true">17.</strong> 17_react_Typescript</a></li><li class="chapter-item expanded "><a href="18_next_JS_14.html"><strong aria-hidden="true">18.</strong> 18_next_JS_14</a></li><li class="chapter-item expanded "><a href="19_React+Node_JS_JWT.html"><strong aria-hidden="true">19.</strong> 19_React+Node_JS_JWT</a></li><li class="chapter-item expanded "><a href="20_Fastapi_JWT_Scratch_React.html"><strong aria-hidden="true">20.</strong> 20_Fastapi_JWT_Scratch_React</a></li><li class="chapter-item expanded "><a href="21_Mongodb.html"><strong aria-hidden="true">21.</strong> 21_Mongodb</a></li><li class="chapter-item expanded "><a href="22_TRPC.html"><strong aria-hidden="true">22.</strong> 22_TRPC</a></li><li class="chapter-item expanded "><a href="23_React_Query.html" class="active"><strong aria-hidden="true">23.</strong> 23_React_Query</a></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <!-- Track and set sidebar scroll position -->
+        <script>
+            var sidebarScrollbox = document.querySelector('#sidebar .sidebar-scrollbox');
+            sidebarScrollbox.addEventListener('click', function(e) {
+                if (e.target.tagName === 'A') {
+                    sessionStorage.setItem('sidebar-scroll', sidebarScrollbox.scrollTop);
+                }
+            }, { passive: true });
+            var sidebarScrollTop = sessionStorage.getItem('sidebar-scroll');
+            sessionStorage.removeItem('sidebar-scroll');
+            if (sidebarScrollTop) {
+                // preserve sidebar scroll position when navigating via links within sidebar
+                sidebarScrollbox.scrollTop = sidebarScrollTop;
+            } else {
+                // scroll sidebar to current active section when navigating via "next/previous chapter" buttons
+                var activeSection = document.querySelector('#sidebar .active');
+                if (activeSection) {
+                    activeSection.scrollIntoView({ block: 'center' });
+                }
+            }
+        </script>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </label>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">Markdown Notes</h1>
+
+                    <div class="right-buttons">
+                        <a href="print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h3 id="react-query"><a class="header" href="#react-query">React Query</a></h3>
+<pre><code class="language-sh">npm create vite@latest myapp
+npm i @tanstack/react-query @tanstack/react-query-devtools
+cd myapp
+</code></pre>
+<h4 id="global-client-wrapper"><a class="header" href="#global-client-wrapper">Global client wrapper</a></h4>
+<blockquote>
+<p>react-query-wrapper.tsx</p>
+</blockquote>
+<pre><code class="language-tsx">import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import React from 'react';
+
+export const queryClient = new QueryClient({
+    defaultOptions: {
+        queries: {
+            staleTime: 10 * (60 * 1000)
+        }
+    }
+});
+
+export const ReactQueryWrapper = ({ children }: React.PropsWithChildren) =&gt; {
+    return (
+        &lt;QueryClientProvider client={queryClient}&gt;
+            {children}
+        &lt;/QueryClientProvider&gt;
+    );
+};
+</code></pre>
+<h4 id="post-list-1"><a class="header" href="#post-list-1">Post List 1</a></h4>
+<pre><code class="language-tsx">import { useQuery } from '@tanstack/react-query';
+
+async function getPosts() {
+    const data = await fetch('http://localhost:5000/posts');
+    const res = await data.json();
+    console.log(res);
+    return res.data;
+}
+
+export default function PostsList1() {
+    const postsQuery = useQuery({
+        queryKey: ['posts'],
+        queryFn: async () =&gt; await getPosts(),
+        placeholderData: [{ id: 1, title: 'Initial Data' }]
+    });
+
+    if (postsQuery.status === 'pending') return &lt;h1&gt;Loading...&lt;/h1&gt;;
+    if (postsQuery.status === 'error') {
+        return &lt;h1&gt;{JSON.stringify(postsQuery.error)}&lt;/h1&gt;;
+    }
+
+    return (
+        &lt;div&gt;
+            &lt;h1&gt;Posts List 1&lt;/h1&gt;
+            &lt;ol&gt;
+                {postsQuery.data.map((post: any) =&gt; (
+                    &lt;li key={post.id}&gt;{post.title}&lt;/li&gt;
+                ))}
+            &lt;/ol&gt;
+        &lt;/div&gt;
+    );
+}
+</code></pre>
+<h4 id="post-by-id"><a class="header" href="#post-by-id">Post by id</a></h4>
+<pre><code class="language-tsx">import { useQuery } from '@tanstack/react-query';
+import { getPost } from './api/posts';
+import { getUser } from './api/users';
+
+export default function Post({ id }) {
+    const postQuery = useQuery({
+        queryKey: ['posts', id],
+        queryFn: () =&gt; getPost(id)
+    });
+
+    const userQuery = useQuery({
+        queryKey: ['users', postQuery?.data?.userId],
+        // Only do after this
+        enabled: postQuery?.data?.userId != null,
+        queryFn: () =&gt; getUser(postQuery.data.userId)
+    });
+
+    if (postQuery.status === 'loading') return &lt;h1&gt;Loading...&lt;/h1&gt;;
+    if (postQuery.status === 'error') {
+        return &lt;h1&gt;{JSON.stringify(postQuery.error)}&lt;/h1&gt;;
+    }
+
+    return (
+        &lt;&gt;
+            &lt;h1&gt;
+                {postQuery.data.title} &lt;br /&gt;
+                &lt;small&gt;
+                    {userQuery.isLoading
+                        ? 'Loading User...'
+                        : userQuery.isError
+                          ? 'Error Loading User'
+                          : userQuery.data.name}
+                &lt;/small&gt;
+            &lt;/h1&gt;
+            &lt;p&gt;{postQuery.data.body}&lt;/p&gt;
+        &lt;/&gt;
+    );
+}
+</code></pre>
+<h4 id="create-post"><a class="header" href="#create-post">Create Post</a></h4>
+<pre><code class="language-tsx">import { useMutation } from '@tanstack/react-query';
+import { useRef } from 'react';
+import { queryClient } from './react-query-wrapper';
+
+async function createPost(data: any) {
+    console.log(data);
+    const res = await fetch('http://localhost:5000/posts', {
+        method: 'POST',
+        headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(data)
+    });
+    const _res = await res.json();
+    console.log(_res);
+    return _res;
+}
+
+const CreatePost = ({ setCurrentPage }: any) =&gt; {
+    const createPostQuery = useMutation({
+        mutationFn: async (data) =&gt; {
+            return await createPost(data);
+        },
+        onSuccess: (data) =&gt; {
+            // update cache for post by id to skip loading
+            queryClient.setQueryData(['posts', data.id], data);
+
+            // invalidate
+            queryClient.invalidateQueries({ queryKey: ['posts'], exact: true });
+        }
+    });
+
+    const title = useRef();
+    const body = useRef();
+
+    return (
+        &lt;&gt;
+            &lt;h3&gt;CreatePost &lt;/h3&gt;
+            &lt;input type="text" ref={title} /&gt;
+            &lt;input type="text" ref={body} /&gt;
+            &lt;button
+                type="button"
+                onClick={() =&gt; {
+                    createPostQuery.mutateAsync({
+                        title: title.current.value,
+                        body: body.current.value
+                    });
+                }}
+            &gt;
+                Add
+            &lt;/button&gt;
+        &lt;/&gt;
+    );
+};
+
+export default CreatePost;
+</code></pre>
+<h4 id="apptsx"><a class="header" href="#apptsx">App.tsx</a></h4>
+<pre><code class="language-tsx">import { useQueryClient } from '@tanstack/react-query';
+import { useState } from 'react';
+import PostsList1 from './PostList1';
+import CreatePost from './CreatePost';
+
+export default function App() {
+    const [currentPage, setCurrentPage] = useState(&lt;PostsList1 /&gt;);
+    const queryClient = useQueryClient();
+
+    return (
+        &lt;div&gt;
+            &lt;button onClick={() =&gt; setCurrentPage(&lt;PostsList1 /&gt;)}&gt;
+                Posts List 1
+            &lt;/button&gt;
+            &lt;button
+                onClick={() =&gt;
+                    setCurrentPage(
+                        &lt;CreatePost setCurrentPage={setCurrentPage} /&gt;
+                    )
+                }
+            &gt;
+                New Post
+            &lt;/button&gt;
+            &lt;br /&gt;
+            {currentPage}
+        &lt;/div&gt;
+    );
+}
+</code></pre>
+<h4 id="fastapi-backend"><a class="header" href="#fastapi-backend">Fastapi backend</a></h4>
+<pre><code class="language-sh">python -m venv env
+source ./env/bin/activate.fish
+pip install fastapi uvicorn
+wget "https://raw.githubusercontent.com/WebDevSimplified/react-query-crash-course-example/main/api/db.json"
+</code></pre>
+<pre><code class="language-py">from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
+import json
+import time
+from pydantic import BaseModel
+from starlette.responses import JSONResponse
+import uvicorn
+
+app = FastAPI()
+
+origins = [
+    "http://localhost:5173",
+]
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
+db = None
+with open("./db.json", "r") as fp:
+    db = json.load(fp)
+
+
+def add_post_to_json(data):
+    if db:
+        val = {
+            "userId": 1,
+            "id": int(time.time()),
+            "title": data.title,
+            "body": data.body,
+        }
+
+        db["posts"].append(val)
+        with open("./db.json", "w") as fp:
+            json.dump(db, fp, indent=4)
+
+        return val
+    return None
+
+
+@app.get("/posts")
+async def get_posts():
+    return JSONResponse(content={"data": db["posts"] if db else None})
+
+
+@app.get("/posts/id")
+async def get_posts_by_id(id: int):
+    return JSONResponse(content={"data": db["posts"][id] if db else None})
+
+
+class Data(BaseModel):
+    title: str
+    body: str
+
+
+@app.post("/posts")
+async def create_post(data: Data):
+    val = add_post_to_json(data)
+    return JSONResponse(content=val)
+
+
+if __name__ == "__main__":
+    uvicorn.run("main:app", port=5000, reload=True)
+</code></pre>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="22_TRPC.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="22_TRPC.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+            </nav>
+
+        </div>
+
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="elasticlunr.min.js"></script>
+        <script src="mark.min.js"></script>
+        <script src="searcher.js"></script>
+
+        <script src="clipboard.min.js"></script>
+        <script src="highlight.js"></script>
+        <script src="book.js"></script>
+
+        <!-- Custom JS scripts -->
+
+
+    </div>
+    </body>
+</html>
