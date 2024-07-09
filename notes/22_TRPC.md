@@ -69,6 +69,7 @@ export type AppRouter = typeof appRouter;
 
 ```sh
 bun add @trpc/server@next @trpc/client@next @trpc/react-query@next @trpc/next@next @tanstack/react-query@latest zod
+bun remove @trpc/server
 ```
 
 > lib/utils.ts
