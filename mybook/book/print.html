@@ -10800,6 +10800,8 @@ export const privateProcedure = (...roles: Role[]) =&gt;
     t.procedure.use(isAuthed(...roles));
 </code></pre>
 <p>Test by passing headers</p>
+<pre><code>t.procedure.use(isAuthed("")).query()
+</code></pre>
 
                     </main>
 

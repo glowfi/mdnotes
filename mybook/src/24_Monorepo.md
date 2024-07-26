@@ -559,3 +559,7 @@ export const privateProcedure = (...roles: Role[]) =>
 ```
 
 Test by passing headers
+
+```
+t.procedure.use(isAuthed("")).query()
+```
