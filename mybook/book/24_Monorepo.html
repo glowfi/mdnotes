@@ -1,0 +1,725 @@
+<!DOCTYPE HTML>
+<html lang="en" class="light" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>24_Monorepo - Markdown Notes</title>
+
+
+        <!-- Custom HTML head -->
+        
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="favicon.svg">
+        <link rel="shortcut icon" href="favicon.png">
+        <link rel="stylesheet" href="css/variables.css">
+        <link rel="stylesheet" href="css/general.css">
+        <link rel="stylesheet" href="css/chrome.css">
+        <link rel="stylesheet" href="css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="highlight.css">
+        <link rel="stylesheet" href="tomorrow-night.css">
+        <link rel="stylesheet" href="ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+
+    </head>
+    <body class="sidebar-visible no-js">
+    <div id="body-container">
+        <!-- Provide site root to javascript -->
+        <script>
+            var path_to_root = "";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('light')
+            html.classList.add(theme);
+            var body = document.querySelector('body');
+            body.classList.remove('no-js')
+            body.classList.add('js');
+        </script>
+
+        <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            var body = document.querySelector('body');
+            var sidebar = null;
+            var sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+            }
+            sidebar_toggle.checked = sidebar === 'visible';
+            body.classList.remove('sidebar-visible');
+            body.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded "><a href="1_react_1_fundamentals.html"><strong aria-hidden="true">1.</strong> 1_react_1_fundamentals</a></li><li class="chapter-item expanded "><a href="2_react_2_advanced.html"><strong aria-hidden="true">2.</strong> 2_react_2_advanced</a></li><li class="chapter-item expanded "><a href="3_react_3_axios.html"><strong aria-hidden="true">3.</strong> 3_react_3_axios</a></li><li class="chapter-item expanded "><a href="4_react_4_router_dom.html"><strong aria-hidden="true">4.</strong> 4_react_4_router_dom</a></li><li class="chapter-item expanded "><a href="5_react_5_redux_tookit.html"><strong aria-hidden="true">5.</strong> 5_react_5_redux_tookit</a></li><li class="chapter-item expanded "><a href="6_node_1_fundamentals.html"><strong aria-hidden="true">6.</strong> 6_node_1_fundamentals</a></li><li class="chapter-item expanded "><a href="7_node_2_advanced.html"><strong aria-hidden="true">7.</strong> 7_node_2_advanced</a></li><li class="chapter-item expanded "><a href="8_node_3_orm.html"><strong aria-hidden="true">8.</strong> 8_node_3_orm</a></li><li class="chapter-item expanded "><a href="9_node_4_apollo_graphql_basics.html"><strong aria-hidden="true">9.</strong> 9_node_4_apollo_graphql_basics</a></li><li class="chapter-item expanded "><a href="10_node_5_typescript.html"><strong aria-hidden="true">10.</strong> 10_node_5_typescript</a></li><li class="chapter-item expanded "><a href="11_node_6_graphql_ts_orm.html"><strong aria-hidden="true">11.</strong> 11_node_6_graphql_ts_orm</a></li><li class="chapter-item expanded "><a href="12_sql.html"><strong aria-hidden="true">12.</strong> 12_sql</a></li><li class="chapter-item expanded "><a href="13_sql_alchemy.html"><strong aria-hidden="true">13.</strong> 13_sql_alchemy</a></li><li class="chapter-item expanded "><a href="14_redis.html"><strong aria-hidden="true">14.</strong> 14_redis</a></li><li class="chapter-item expanded "><a href="15_fastapi.html"><strong aria-hidden="true">15.</strong> 15_fastapi</a></li><li class="chapter-item expanded "><a href="16_react_hooks_compressed.html"><strong aria-hidden="true">16.</strong> 16_react_hooks_compressed</a></li><li class="chapter-item expanded "><a href="17_react_Typescript.html"><strong aria-hidden="true">17.</strong> 17_react_Typescript</a></li><li class="chapter-item expanded "><a href="18_next_JS_14.html"><strong aria-hidden="true">18.</strong> 18_next_JS_14</a></li><li class="chapter-item expanded "><a href="19_React+Node_JS_JWT.html"><strong aria-hidden="true">19.</strong> 19_React+Node_JS_JWT</a></li><li class="chapter-item expanded "><a href="20_Fastapi_JWT_Scratch_React.html"><strong aria-hidden="true">20.</strong> 20_Fastapi_JWT_Scratch_React</a></li><li class="chapter-item expanded "><a href="21_Mongodb.html"><strong aria-hidden="true">21.</strong> 21_Mongodb</a></li><li class="chapter-item expanded "><a href="22_TRPC.html"><strong aria-hidden="true">22.</strong> 22_TRPC</a></li><li class="chapter-item expanded "><a href="23_React_Query.html"><strong aria-hidden="true">23.</strong> 23_React_Query</a></li><li class="chapter-item expanded "><a href="24_Monorepo.html" class="active"><strong aria-hidden="true">24.</strong> 24_Monorepo</a></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <!-- Track and set sidebar scroll position -->
+        <script>
+            var sidebarScrollbox = document.querySelector('#sidebar .sidebar-scrollbox');
+            sidebarScrollbox.addEventListener('click', function(e) {
+                if (e.target.tagName === 'A') {
+                    sessionStorage.setItem('sidebar-scroll', sidebarScrollbox.scrollTop);
+                }
+            }, { passive: true });
+            var sidebarScrollTop = sessionStorage.getItem('sidebar-scroll');
+            sessionStorage.removeItem('sidebar-scroll');
+            if (sidebarScrollTop) {
+                // preserve sidebar scroll position when navigating via links within sidebar
+                sidebarScrollbox.scrollTop = sidebarScrollTop;
+            } else {
+                // scroll sidebar to current active section when navigating via "next/previous chapter" buttons
+                var activeSection = document.querySelector('#sidebar .active');
+                if (activeSection) {
+                    activeSection.scrollIntoView({ block: 'center' });
+                }
+            }
+        </script>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </label>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">Markdown Notes</h1>
+
+                    <div class="right-buttons">
+                        <a href="print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h3 id="monorepo-setup"><a class="header" href="#monorepo-setup">Monorepo setup</a></h3>
+<pre><code class="language-sh">mkdir monorepo
+cd monorepo
+bun init -y
+mkdir apps libs
+rm -rf index.ts
+
+cd apps
+mkdir web
+cd web
+bunx create-next-app@latest .
+cd ../..
+
+cd apps
+mkdir server
+cd server
+bun init -y
+bun add express cors dotenv
+bun add -D @types/express @types/cors
+cd ../..
+
+### Add these to package.json [server]
+  "workspaces": [
+    "apps/*",
+    "libs/*"
+  ]
+
+
+
+    "private": true,
+
+    "scripts": {
+        "format": "prettier  '{apps,libs}/**/*.{ts,tsx,js,json}' --ignore-path .gitignore",
+        "format:check": "bun format --check",
+        "format:write": "bun format --write",
+        "build": "bun nx run-many -t build",
+        "lint": "bun nx run-many -t lint",
+        "validate": "bun run format:write &amp;&amp; bun run lint &amp;&amp; bun run build &amp;&amp; cd libs/db/;bun run prisma generate",
+        "prepare": "husky"
+    },
+
+</code></pre>
+<h3 id="server-code"><a class="header" href="#server-code">Server Code</a></h3>
+<blockquote>
+<p>src/index.ts</p>
+</blockquote>
+<pre><code class="language-ts">import express from 'express';
+import cors from 'cors';
+import 'dotenv/config';
+
+const app = express();
+app.use(express.json());
+app.use(cors());
+
+app.get('/', (_, res) =&gt; {
+    return res.json({ msg: 'Hello World!' }).status(200);
+});
+
+app.listen(process.env.SERVER_PORT, () =&gt; {
+    console.log(`Listening on http://localhost:${process.env.SERVER_PORT} ...`);
+});
+</code></pre>
+<h3 id="web-code"><a class="header" href="#web-code">Web Code</a></h3>
+<p>Delete the template nextjs code and start server and check</p>
+<h3 id="validation-code"><a class="header" href="#validation-code">Validation Code</a></h3>
+<h3 id="install-nx-to-root"><a class="header" href="#install-nx-to-root">Install nx to root</a></h3>
+<pre><code class="language-sh">### Add these to root package.json
+bunx nx@latest init
+
+dev, build [order]
+build, lint [cache]
+next,dist,build [output]
+
+bun nx run-many -t build
+</code></pre>
+<h3 id="add-prettier-to-root"><a class="header" href="#add-prettier-to-root">Add prettier to root</a></h3>
+<pre><code class="language-sh">
+### Install
+
+bun add -D prettier
+
+### package.json
+    "scripts": {
+        "format": "prettier  '{apps,libs}/**/*.{ts,tsx,js,json}' --ignore-path .gitignore",
+        "format:check": "bun format --check",
+        "format:write": "bun format --write",
+        "build": "bun nx run-many -t build",
+        "lint": "bun nx run-many -t lint"
+    },
+</code></pre>
+<h3 id="add-husky--lint-staged"><a class="header" href="#add-husky--lint-staged">Add Husky &amp; lint-staged</a></h3>
+<pre><code class="language-sh">bunx husky init;
+bun add --dev husky;
+bun install
+
+### Add to pre-commit
+bun run lint-staged
+
+
+bun add -D lint-staged
+touch .lintstagedrc
+echo "{
+'{apps,libs}/**/*.{ts,tsx,js,json}':'bun run validate',
+}" &gt; .lintstagedrc
+</code></pre>
+<h3 id="add-prisma"><a class="header" href="#add-prisma">Add prisma</a></h3>
+<pre><code class="language-sh"># change name package.json
+
+bun add -D prisma
+bun add @prisma/client
+bunx prisma init --datasource-provider postgresql
+
+bunx prisma generate
+bunx prisma migrate dev --name "Initial Migration"
+
+ALTER DATABASE template1 REFRESH COLLATION VERSION;
+</code></pre>
+<pre><code class="language-env">DATABASE_URL="postgresql://postgres:@localhost:5432/authdb?schema=public"
+</code></pre>
+<pre><code class="language-prisma">// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+
+model User {
+    uid          String        @id
+    createdAt    DateTime      @default(now())
+    updatedAt    DateTime      @updatedAt
+    name         String?
+    image        String?
+    Credentials  Credentials?
+    AuthProvider AuthProvider?
+    Admin        Admin?
+    Manager      Manager?
+}
+
+model Admin {
+    uid  String @id
+    user User   @relation(fields: [uid], references: [uid])
+}
+
+model Manager {
+    uid  String @id
+    user User   @relation(fields: [uid], references: [uid])
+}
+
+model Credentials {
+    uid          String   @id
+    email        String   @unique
+    user         User     @relation(fields: [uid], references: [uid])
+    passwordHash String
+    createdAt    DateTime @default(now())
+    updatedAt    DateTime @updatedAt
+}
+
+model AuthProvider {
+    uid String @id
+    type AuthProviderType
+    user User             @relation(fields: [uid], references: [uid])
+}
+
+enum AuthProviderType {
+    GOOGLE
+    CREDENTIALS
+}
+</code></pre>
+<blockquote>
+<p>libs/db/index.ts</p>
+</blockquote>
+<pre><code class="language-ts">import { PrismaClient } from '@prisma/client';
+
+const globalForPrisma = globalThis as unknown as {
+    prisma: PrismaClient | undefined;
+};
+
+export const prisma =
+    globalForPrisma.prisma ??
+    new PrismaClient({
+        log:
+            process.env.NODE_ENV === 'development'
+                ? ['query', 'error', 'warn']
+                : ['error']
+    });
+
+if (process.env.NODE_ENV !== 'production') globalForPrisma.prisma = prisma;
+</code></pre>
+<blockquote>
+<p>libs/db/types.ts</p>
+</blockquote>
+<pre><code class="language-ts">export * from '@prisma/client';
+</code></pre>
+<h3 id="trpc-setup"><a class="header" href="#trpc-setup">TRPC Setup</a></h3>
+<pre><code class="language-sh">
+# change name package.json
+
+
+cd libs
+mkdir trpc-server trpc-client
+cd trpc-server
+bun add @trpc/server
+cd ../..
+"@monorepo/db": "workspace:^"
+</code></pre>
+<blockquote>
+<p>libs/trpc-server/index.ts</p>
+</blockquote>
+<pre><code class="language-ts">import { createExpressMiddleware } from '@trpc/server/adapters/express';
+import { appRouter } from './routers';
+
+export const trpcExpress = createExpressMiddleware({
+    router: appRouter
+});
+</code></pre>
+<blockquote>
+<p>libs/trpc-server/trpc.ts</p>
+</blockquote>
+<pre><code class="language-ts">import { initTRPC } from '@trpc/server';
+
+const t = initTRPC.create();
+
+export const router = t.router;
+export const publicProcedure = t.procedure;
+</code></pre>
+<blockquote>
+<p>libs/trpc-server/routers/index.ts</p>
+</blockquote>
+<pre><code class="language-ts">import type { inferRouterOutputs } from '@trpc/server';
+import { router } from '../trpc';
+import { authRoutes } from './auth';
+
+export const appRouter = router({
+    auth: authRoutes
+});
+
+export type AppRouter = typeof appRouter;
+export type AppRouterType = inferRouterOutputs&lt;AppRouter&gt;;
+</code></pre>
+<blockquote>
+<p>libs/trpc-server/routers/auth.ts</p>
+</blockquote>
+<pre><code class="language-ts">import { publicProcedure, router } from '../trpc';
+import { prisma } from '@monorepo/db';
+
+export const authRoutes = router({
+    users: publicProcedure.query(() =&gt; {
+        return prisma.user.findMany({});
+    })
+});
+</code></pre>
+<p>Add ExpressMiddleware</p>
+<pre><code class="language-ts">// TRPC Middleware
+app.use('/trpc', trpcExpress);
+
+// Add dependencies
+"dependencies": {
+        "@monorepo/trpc-server": "workspace:^"
+    },
+</code></pre>
+<h3 id="trpc-in-react-client--server"><a class="header" href="#trpc-in-react-client--server">TRPC in react client &amp; server</a></h3>
+<pre><code class="language-sh">bun add @tanstack/react-query@4.36.1 @trpc/client @trpc/react-query react
+bun add dotenv
+bun add -D @types/dotenv
+</code></pre>
+<blockquote>
+<p>src/libs/trcp-client/src/client.ts</p>
+</blockquote>
+<pre><code class="language-ts">import type { AppRouter } from '@monorepo/trpc-server/routers';
+import { createTRPCReact } from '@trpc/react-query';
+
+export const trpcClient = createTRPCReact&lt;AppRouter&gt;();
+</code></pre>
+<blockquote>
+<p>src/libs/trcp-client/src/index.ts</p>
+</blockquote>
+<pre><code class="language-ts">import type { AppRouter } from '@monorepo/trpc-server/routers';
+import { createTRPCProxyClient, httpBatchLink } from '@trpc/client';
+import 'dotenv/config';
+
+export const trpc = createTRPCProxyClient&lt;AppRouter&gt;({
+    links: [
+        httpBatchLink({
+            url: process.env.SERVER_URL as string
+        })
+    ]
+});
+</code></pre>
+<blockquote>
+<p>src/libs/trcp-client/src/Provider.tsx</p>
+</blockquote>
+<pre><code class="language-tsx">'use client';
+
+import { trpcClient as trpc } from './client';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { httpBatchLink } from '@trpc/client';
+
+import React, { useState } from 'react';
+
+export const Provider = ({ children }: { children: React.ReactNode }) =&gt; {
+    const [queryClient] = useState(() =&gt; new QueryClient());
+    const [trpcClient] = useState(() =&gt;
+        trpc.createClient({
+            links: [
+                httpBatchLink({
+                    url: process.env.SERVER_URL as string
+                })
+            ]
+        })
+    );
+
+    return (
+        &lt;trpc.Provider client={trpcClient} queryClient={queryClient}&gt;
+            &lt;QueryClientProvider client={queryClient}&gt;
+                {children}
+            &lt;/QueryClientProvider&gt;
+        &lt;/trpc.Provider&gt;
+    );
+};
+</code></pre>
+<h3 id="add-to-web"><a class="header" href="#add-to-web">Add to web</a></h3>
+<pre><code class="language-sh">"dependencies": {
+        "@monorepo/trpc-client": "workspace:^"
+    },
+&lt;Provider&gt;{children}&lt;/Provider&gt;
+
+env: {
+        SERVER_URL: process.env.SERVER_URL
+    }
+</code></pre>
+<h3 id="authn-and-authz"><a class="header" href="#authn-and-authz">AuthN and AuthZ</a></h3>
+<p>Add context</p>
+<blockquote>
+<p>libs/trpc-server/context.ts</p>
+</blockquote>
+<pre><code class="language-ts">import type { CreateExpressContextOptions } from '@trpc/server/adapters/express';
+
+export const createTRPCContext = ({
+    req,
+    res
+}: CreateExpressContextOptions) =&gt; {
+    const header = req.headers.authorization;
+    const token = header?.split(' ')[1];
+    return { req, res, token };
+};
+
+export type TRPCContext = Awaited&lt;ReturnType&lt;typeof createTRPCContext&gt;&gt;;
+</code></pre>
+<blockquote>
+<p>libs/trpc-server/index.ts</p>
+</blockquote>
+<pre><code class="language-ts">import { createExpressMiddleware } from '@trpc/server/adapters/express';
+import { appRouter } from './routers';
+import { createTRPCContext } from './context';
+
+export const trpcExpress = createExpressMiddleware({
+    router: appRouter,
+    createContext: createTRPCContext
+});
+</code></pre>
+<blockquote>
+<p>libs/trpc-server/trpc.ts</p>
+</blockquote>
+<pre><code class="language-ts">import { initTRPC } from '@trpc/server';
+import type { TRPCContext } from './context';
+
+const t = initTRPC.context&lt;TRPCContext&gt;().create();
+
+export const router = t.router;
+export const publicProcedure = t.procedure;
+</code></pre>
+<p>Add Middleware</p>
+<pre><code class="language-sh">bun add jsonwebtoken
+bun add -D @types/jsonwebtoken
+</code></pre>
+<blockquote>
+<p>libs/trpc-server/middleware.ts</p>
+</blockquote>
+<pre><code class="language-ts">import { TRPCError } from '@trpc/server';
+import { verify, type JwtPayload } from 'jsonwebtoken';
+import { t } from './trpc';
+import type { Role } from './types';
+import { authorizeUser } from './utils';
+
+export const isAuthed = (...roles: Role[]) =&gt;
+    t.middleware(async (opts) =&gt; {
+        const { token } = opts.ctx;
+        if (!token) {
+            throw new TRPCError({
+                code: 'FORBIDDEN',
+                message: 'Token not found.'
+            });
+        }
+
+        let uid;
+
+        try {
+            const user = verify(token, process.env.NEXTAUTH_SECRET || '');
+            uid = (user as JwtPayload).uid;
+        } catch (error) {
+            throw new TRPCError({
+                code: 'FORBIDDEN',
+                message: 'Invalid token.'
+            });
+        }
+
+        await authorizeUser(uid, roles);
+
+        return opts.next({ ...opts, ctx: { ...opts.ctx, uid } });
+    });
+</code></pre>
+<blockquote>
+<p>libs/trpc-server/utils.ts</p>
+</blockquote>
+<pre><code class="language-ts">import { prisma } from '@monorepo/db';
+import { TRPCError } from '@trpc/server';
+import type { Role } from './types';
+
+export const getUserRoles = async (uid: string): Promise&lt;Role[]&gt; =&gt; {
+    const [adminExists, managerExists] = await Promise.all([
+        prisma.admin.findUnique({ where: { uid } }),
+        prisma.manager.findUnique({ where: { uid } })
+    ]);
+
+    const roles: Role[] = [];
+    if (adminExists) roles.push('admin');
+    if (managerExists) roles.push('manager');
+
+    return roles;
+};
+
+export const authorizeUser = async (
+    uid: string,
+    roles: Role[]
+): Promise&lt;void&gt; =&gt; {
+    if (!roles || roles.length === 0) {
+        return; // No specific roles required, access is granted
+    }
+
+    const userRoles = await getUserRoles(uid);
+
+    if (!userRoles.some((role) =&gt; roles.includes(role))) {
+        throw new TRPCError({
+            code: 'FORBIDDEN',
+            message: 'User does not have the required role(s).'
+        });
+    }
+};
+
+export const checkRowLevelPermission = async (
+    uid: string,
+    allowedUids: string | string[],
+    allowedRoles: Role[] = ['admin']
+) =&gt; {
+    const userRoles = await getUserRoles(uid);
+
+    if (userRoles?.some((role) =&gt; allowedRoles.includes(role))) {
+        return true;
+    }
+
+    const uids =
+        typeof allowedUids === 'string'
+            ? [allowedUids]
+            : allowedUids.filter(Boolean);
+
+    if (!uids.includes(uid)) {
+        throw new TRPCError({
+            code: 'FORBIDDEN',
+            message: 'You are not allowed to do this action.'
+        });
+    }
+};
+</code></pre>
+<blockquote>
+<p>libs/trpc-server/types.ts</p>
+</blockquote>
+<pre><code class="language-ts">export type Role = 'admin' | 'manager';
+</code></pre>
+<blockquote>
+<p>trpc.ts</p>
+</blockquote>
+<pre><code class="language-ts">import { initTRPC } from '@trpc/server';
+import type { TRPCContext } from './context';
+import { isAuthed } from './middleware';
+import type { Role } from './types';
+
+export const t = initTRPC.context&lt;TRPCContext&gt;().create();
+
+export const router = t.router;
+export const publicProcedure = t.procedure;
+// export const privateProcedure = t.procedure.use(isAuthed());
+export const privateProcedure = (...roles: Role[]) =&gt;
+    t.procedure.use(isAuthed(...roles));
+</code></pre>
+<p>Test by passing headers</p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="23_React_Query.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="23_React_Query.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+            </nav>
+
+        </div>
+
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="elasticlunr.min.js"></script>
+        <script src="mark.min.js"></script>
+        <script src="searcher.js"></script>
+
+        <script src="clipboard.min.js"></script>
+        <script src="highlight.js"></script>
+        <script src="book.js"></script>
+
+        <!-- Custom JS scripts -->
+
+
+    </div>
+    </body>
+</html>

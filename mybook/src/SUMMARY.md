@@ -24,3 +24,4 @@
 - [21_Mongodb](./21_Mongodb.md)
 - [22_TRPC](./22_TRPC.md)
 - [23_React_Query](./23_React_Query.md)
+- [24_Monorepo](./24_Monorepo.md)
