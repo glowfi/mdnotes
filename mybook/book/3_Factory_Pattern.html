@@ -1,0 +1,1131 @@
+<!DOCTYPE HTML>
+<html lang="en" class="light sidebar-visible" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>3_Factory_Pattern - Markdown Notes</title>
+
+
+        <!-- Custom HTML head -->
+
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="favicon.svg">
+        <link rel="shortcut icon" href="favicon.png">
+        <link rel="stylesheet" href="css/variables.css">
+        <link rel="stylesheet" href="css/general.css">
+        <link rel="stylesheet" href="css/chrome.css">
+        <link rel="stylesheet" href="css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" id="highlight-css" href="highlight.css">
+        <link rel="stylesheet" id="tomorrow-night-css" href="tomorrow-night.css">
+        <link rel="stylesheet" id="ayu-highlight-css" href="ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+
+
+        <!-- Provide site root and default themes to javascript -->
+        <script>
+            const path_to_root = "";
+            const default_light_theme = "light";
+            const default_dark_theme = "navy";
+            window.path_to_searchindex_js = "searchindex.js";
+        </script>
+        <!-- Start loading toc.js asap -->
+        <script src="toc.js"></script>
+    </head>
+    <body>
+    <div id="mdbook-help-container">
+        <div id="mdbook-help-popup">
+            <h2 class="mdbook-help-title">Keyboard shortcuts</h2>
+            <div>
+                <p>Press <kbd>←</kbd> or <kbd>→</kbd> to navigate between chapters</p>
+                <p>Press <kbd>S</kbd> or <kbd>/</kbd> to search in the book</p>
+                <p>Press <kbd>?</kbd> to show this help</p>
+                <p>Press <kbd>Esc</kbd> to hide this help</p>
+            </div>
+        </div>
+    </div>
+    <div id="body-container">
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                let theme = localStorage.getItem('mdbook-theme');
+                let sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            const default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? default_dark_theme : default_light_theme;
+            let theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            const html = document.documentElement;
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add("js");
+        </script>
+
+        <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            let sidebar = null;
+            const sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+                sidebar_toggle.checked = false;
+            }
+            if (sidebar === 'visible') {
+                sidebar_toggle.checked = true;
+            } else {
+                html.classList.remove('sidebar-visible');
+            }
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <!-- populated by js -->
+            <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
+            <noscript>
+                <iframe class="sidebar-iframe-outer" src="toc.html"></iframe>
+            </noscript>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </label>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="default_theme">Auto</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search (`/`)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="/ s" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">Markdown Notes</h1>
+
+                    <div class="right-buttons">
+                        <a href="print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <div class="search-wrapper">
+                            <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                            <div class="spinner-wrapper">
+                                <i class="fa fa-spinner fa-spin"></i>
+                            </div>
+                        </div>
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1 id="simple-factory"><a class="header" href="#simple-factory">Simple Factory</a></h1>
+<blockquote>
+<p>Provides us a factory class which decides which concrete class to create
+Its not a design pattern but just a principle</p>
+</blockquote>
+<h3 id="example"><a class="header" href="#example">Example</a></h3>
+<p>Imagine we have a pizza store which on getting an order of pizza of
+specfic type starts preparing the pizza and does the other jobs like
+baking,cutting,boxing,etc.</p>
+<pre><code class="language-py">from abc import ABC, abstractmethod
+from enum import Enum
+
+
+class Pizza(ABC):
+    @abstractmethod
+    def prepare(self):
+        pass
+
+    @abstractmethod
+    def bake(self):
+        pass
+
+    @abstractmethod
+    def cut(self):
+        pass
+
+    @abstractmethod
+    def box(self):
+        pass
+
+
+class CheesePizza(Pizza):
+    def prepare(self):
+        print("Preparing cheese pizza...")
+
+    def bake(self):
+        print("Baking cheese pizza...")
+
+    def cut(self):
+        print("Cutting cheese pizza...")
+
+    def box(self):
+        print("Boxing cheese pizza...")
+
+
+class PepporoniPizza(Pizza):
+    def prepare(self):
+        print("Preparing pepperoni pizza...")
+
+    def bake(self):
+        print("Baking pepperoni pizza...")
+
+    def cut(self):
+        print("Cutting pepperoni pizza...")
+
+    def box(self):
+        print("Boxing pepperoni pizza...")
+
+
+class ClamPizza(Pizza):
+    def prepare(self):
+        print("Preparing clam pizza...")
+
+    def bake(self):
+        print("Baking clam pizza...")
+
+    def cut(self):
+        print("Cutting clam pizza...")
+
+    def box(self):
+        print("Boxing clam pizza...")
+
+
+class VeggiePizza(Pizza):
+    def prepare(self):
+        print("Preparing veggie pizza...")
+
+    def bake(self):
+        print("Baking veggie pizza...")
+
+    def cut(self):
+        print("Cutting veggie pizza...")
+
+    def box(self):
+        print("Boxing veggie pizza...")
+
+
+class PizzaType(Enum):
+    Cheese = "cheese"
+    Pepporoni = "pepporoni"
+    Clam = "clam"
+    Veggie = "veggie"
+
+
+class PizzaStore:
+    def create_order(self, pizza_type: "PizzaType"):
+        p: Pizza | None = None
+
+        if pizza_type == PizzaType.Cheese:
+            p = CheesePizza()
+        elif pizza_type == PizzaType.Pepporoni:
+            p = PepporoniPizza()
+        elif pizza_type == PizzaType.Clam:
+            p = ClamPizza()
+        elif pizza_type == PizzaType.Veggie:
+            p = VeggiePizza()
+        else:
+            print("Invalid pizza type")
+            return
+
+        p.prepare()
+        p.bake()
+        p.cut()
+        p.box()
+</code></pre>
+<p>There is a downside of above design as the PizzaStore class has to be modified
+everytime a new pizza type is added and we will be breaking OCP principle instead
+we should use a seperate factory class to create the instances of the pizza, by doing
+this we are making the create_order method closed for modification following OCP.</p>
+<pre><code class="language-py">from abc import ABC, abstractmethod
+from enum import Enum
+
+
+class Pizza(ABC):
+    @abstractmethod
+    def prepare(self):
+        pass
+
+    @abstractmethod
+    def bake(self):
+        pass
+
+    @abstractmethod
+    def cut(self):
+        pass
+
+    @abstractmethod
+    def box(self):
+        pass
+
+
+class CheesePizza(Pizza):
+    def prepare(self):
+        print("Preparing cheese pizza...")
+
+    def bake(self):
+        print("Baking cheese pizza...")
+
+    def cut(self):
+        print("Cutting cheese pizza...")
+
+    def box(self):
+        print("Boxing cheese pizza...")
+
+
+class PepporoniPizza(Pizza):
+    def prepare(self):
+        print("Preparing pepperoni pizza...")
+
+    def bake(self):
+        print("Baking pepperoni pizza...")
+
+    def cut(self):
+        print("Cutting pepperoni pizza...")
+
+    def box(self):
+        print("Boxing pepperoni pizza...")
+
+
+class ClamPizza(Pizza):
+    def prepare(self):
+        print("Preparing clam pizza...")
+
+    def bake(self):
+        print("Baking clam pizza...")
+
+    def cut(self):
+        print("Cutting clam pizza...")
+
+    def box(self):
+        print("Boxing clam pizza...")
+
+
+class VeggiePizza(Pizza):
+    def prepare(self):
+        print("Preparing veggie pizza...")
+
+    def bake(self):
+        print("Baking veggie pizza...")
+
+    def cut(self):
+        print("Cutting veggie pizza...")
+
+    def box(self):
+        print("Boxing veggie pizza...")
+
+
+class PizzaType(Enum):
+    Cheese = "cheese"
+    Pepporoni = "pepporoni"
+    Clam = "clam"
+    Veggie = "veggie"
+
+
+class SimplePizzaFactory:
+    def create_pizza(self, pizza_type: "PizzaType") -&gt; Pizza:
+        if pizza_type == PizzaType.Cheese:
+            return CheesePizza()
+        elif pizza_type == PizzaType.Pepporoni:
+            return PepporoniPizza()
+        elif pizza_type == PizzaType.Clam:
+            return ClamPizza()
+        elif pizza_type == PizzaType.Veggie:
+            return VeggiePizza()
+        else:
+            raise Exception("Invalid pizza type")
+
+
+class PizzaStore:
+    def __init__(self, pf: SimplePizzaFactory) -&gt; None:
+        self.pf: SimplePizzaFactory = pf
+
+    def create_order(self, pizza_type: "PizzaType"):
+        p: Pizza = self.pf.create_pizza(pizza_type)
+        p.prepare()
+        p.bake()
+        p.cut()
+        p.box()
+
+
+if __name__ == "__main__":
+    pf = SimplePizzaFactory()
+    store = PizzaStore(pf)
+
+    store.create_order(PizzaType.Cheese)
+    print()
+
+    store.create_order(PizzaType.Pepporoni)
+    print()
+
+    store.create_order(PizzaType.Clam)
+    print()
+
+    store.create_order(PizzaType.Veggie)
+
+    try:
+        store.create_order("Invalid Pizza Type")
+    except Exception as e:
+        print(f"\nError: {e}")
+</code></pre>
+<h3 id="standarduml"><a class="header" href="#standarduml">StandardUML</a></h3>
+<p><img src="https://www.plantuml.com/plantuml/img/RP3B2i8m44NtynMpKv62k7GXhOL2Tq8_G68wIB1DIZ9PrEg_6wgr3vpbkUToOMB7mhAlArXXmMr5w8XPwPi3TrUw4LRKA2lXNC9irTKpvTBeGZq8TqibCvhxP3-Dj2bfca3lujcQqalkNWkG1383foL8nquc91lRTe3XjYWj2QPBy_7McyDGWT3ukXWTVnI6JOoYvuY7uRyqdLE8IPVXVsy0" alt="SimpleFactory" /></p>
+<pre><code class="language-plantuml">@startuml
+' Style settings
+skinparam classAttributeIconSize 0
+skinparam classFontSize 20
+skinparam nodeFontSize 20
+
+class Product{}
+
+class ProductA{}
+class ProductB{}
+class ProductC{}
+
+class Factory{
+    + create_product(): Product
+}
+
+Factory -&gt; Product
+
+ProductA --|&gt; Product
+ProductB --|&gt; Product
+ProductC --|&gt; Product
+
+@enduml
+</code></pre>
+<h1 id="factory-method"><a class="header" href="#factory-method">Factory method</a></h1>
+<blockquote>
+<p>Defines an interface for creating objects but allows subclass to decide
+which concrete class to instantiate</p>
+</blockquote>
+<h3 id="example-1"><a class="header" href="#example-1">Example</a></h3>
+<p>Imagine now we want to create franchise of our store in NewYork and California,
+so we can just extend out Simple factory design and use factory method.But first
+lets understand the current scenario.Out pizza store more or less sells 4 variants
+of pizza veggie,clam,cheese,pepporoni based but for different region it will be in
+different form for example new yorkers when ordeing cheese pizza they mean less cheese
+whereas californians when ordering cheese pizza they mean more pizza.Below code shows
+how to extend our previous design to support factory method.</p>
+<pre><code class="language-py">from abc import ABC, abstractmethod
+from enum import Enum
+
+
+class Pizza(ABC):
+    def __init__(self, name: str, dough: str, sauce: str, topppings: list[str]) -&gt; None:
+        self.name = name
+        self.dough = dough
+        self.sauce = sauce
+        self.topppings = topppings
+
+    @abstractmethod
+    def prepare(self):
+        print(f"preapring {self.name}")
+        print(f"toss {self.dough}")
+        print(f"add {self.sauce}")
+        for topping in self.topppings:
+            print(f"add {topping}")
+
+    @abstractmethod
+    def bake(self):
+        pass
+
+    def cut(self):
+        print("cut pizza diagonally")
+
+    def box(self):
+        print(f"put {self.name} into offical boxes")
+
+
+class PizzaType(Enum):
+    Cheese = "cheese"
+    Pepporoni = "pepporoni"
+    Clam = "clam"
+    Veggie = "veggie"
+
+
+class PizzaStore(ABC):
+    @abstractmethod
+    def create_pizza(self, pizza_type: "PizzaType") -&gt; Pizza:
+        pass
+
+    def create_order(self, pizza_type: "PizzaType"):
+        p: Pizza = self.create_pizza(pizza_type)
+        p.prepare()
+        p.bake()
+        p.cut()
+        p.box()
+
+
+class NYCheesePizza(Pizza):
+    def __init__(self) -&gt; None:
+        super().__init__(
+            "NY Cheese Pizza", "NY-style dough", "Tomato sauce", ["Mozzarella cheese"]
+        )
+
+    def prepare(self):
+        print(f"preparing {self.name}")
+        print(f"toss {self.dough} in a NY-style")
+        print(f"add {self.sauce}")
+        for topping in self.topppings:
+            print(f"add {topping}")
+
+    def bake(self):
+        print("bake NY-style pizza for 20 mins at 400")
+
+
+class NYPepporoniPizza(Pizza):
+    def __init__(self) -&gt; None:
+        super().__init__(
+            "NY Pepporoni Pizza",
+            "NY-style dough",
+            "Tomato sauce",
+            ["Mozzarella cheese", "Pepporoni"],
+        )
+
+    def prepare(self):
+        print(f"preparing {self.name}")
+        print(f"toss {self.dough} in a NY-style")
+        print(f"add {self.sauce}")
+        for topping in self.topppings:
+            print(f"add {topping}")
+
+    def bake(self):
+        print("bake NY-style pizza for 20 mins at 400")
+
+
+class NYClamPizza(Pizza):
+    def __init__(self) -&gt; None:
+        super().__init__(
+            "NY Clam Pizza",
+            "NY-style dough",
+            "Tomato sauce",
+            ["Mozzarella cheese", "Clams"],
+        )
+
+    def prepare(self):
+        print(f"preparing {self.name}")
+        print(f"toss {self.dough} in a NY-style")
+        print(f"add {self.sauce}")
+        for topping in self.topppings:
+            print(f"add {topping}")
+
+    def bake(self):
+        print("bake NY-style pizza for 20 mins at 400")
+
+
+class NYVeggiePizza(Pizza):
+    def __init__(self) -&gt; None:
+        super().__init__(
+            "NY Veggie Pizza",
+            "NY-style dough",
+            "Tomato sauce",
+            ["Mozzarella cheese", "Vegetables"],
+        )
+
+    def prepare(self):
+        print(f"preparing {self.name}")
+        print(f"toss {self.dough} in a NY-style")
+        print(f"add {self.sauce}")
+        for topping in self.topppings:
+            print(f"add {topping}")
+
+    def bake(self):
+        print("bake NY-style pizza for 20 mins at 400")
+
+
+class CaliCheesePizza(Pizza):
+    def __init__(self) -&gt; None:
+        super().__init__(
+            "Cali Cheese Pizza",
+            "Cali-style dough",
+            "Pesto sauce",
+            ["Mozzarella cheese"],
+        )
+
+    def prepare(self):
+        print(f"preparing {self.name}")
+        print(f"toss {self.dough} in a Cali-style")
+        print(f"add {self.sauce}")
+        for topping in self.topppings:
+            print(f"add {topping}")
+
+    def bake(self):
+        print("bake Cali-style pizza for 25 mins at 425")
+
+
+class CaliPepporoniPizza(Pizza):
+    def __init__(self) -&gt; None:
+        super().__init__(
+            "Cali Pepporoni Pizza",
+            "Cali-style dough",
+            "Pesto sauce",
+            ["Mozzarella cheese", "Pepporoni"],
+        )
+
+    def prepare(self):
+        print(f"preparing {self.name}")
+        print(f"toss {self.dough} in a Cali-style")
+        print(f"add {self.sauce}")
+        for topping in self.topppings:
+            print(f"add {topping}")
+
+    def bake(self):
+        print("bake Cali-style pizza for 25 mins at 425")
+
+
+class CaliClamPizza(Pizza):
+    def __init__(self) -&gt; None:
+        super().__init__(
+            "Cali Clam Pizza",
+            "Cali-style dough",
+            "Pesto sauce",
+            ["Mozzarella cheese", "Clams"],
+        )
+
+    def prepare(self):
+        print(f"preparing {self.name}")
+        print(f"toss {self.dough} in a Cali-style")
+        print(f"add {self.sauce}")
+        for topping in self.topppings:
+            print(f"add {topping}")
+
+    def bake(self):
+        print("bake Cali-style pizza for 25 mins at 425")
+
+
+class CaliVeggiePizza(Pizza):
+    def __init__(self) -&gt; None:
+        super().__init__(
+            "Cali Veggie Pizza",
+            "Cali-style dough",
+            "Pesto sauce",
+            ["Mozzarella cheese", "Vegetables"],
+        )
+
+    def prepare(self):
+        print(f"preparing {self.name}")
+        print(f"toss {self.dough} in a Cali-style")
+        print(f"add {self.sauce}")
+        for topping in self.topppings:
+            print(f"add {topping}")
+
+    def bake(self):
+        print("bake Cali-style pizza for 25 mins at 425")
+
+
+class NYPizzaStore(PizzaStore):
+    def create_pizza(self, pizza_type: "PizzaType") -&gt; Pizza:
+        if pizza_type == PizzaType.Cheese:
+            return NYCheesePizza()
+        elif pizza_type == PizzaType.Pepporoni:
+            return NYPepporoniPizza()
+        elif pizza_type == PizzaType.Clam:
+            return NYClamPizza()
+        elif pizza_type == PizzaType.Veggie:
+            return NYVeggiePizza()
+        else:
+            raise Exception("Invalid pizza type")
+
+
+class CaliforniaPizzaStore(PizzaStore):
+    def create_pizza(self, pizza_type: "PizzaType") -&gt; Pizza:
+        if pizza_type == PizzaType.Cheese:
+            return CaliCheesePizza()
+        elif pizza_type == PizzaType.Pepporoni:
+            return CaliPepporoniPizza()
+        elif pizza_type == PizzaType.Clam:
+            return CaliClamPizza()
+        elif pizza_type == PizzaType.Veggie:
+            return CaliVeggiePizza()
+        else:
+            raise Exception("Invalid pizza type")
+
+
+# Example usage:
+if __name__ == "__main__":
+    ny_store = NYPizzaStore()
+    cali_store = CaliforniaPizzaStore()
+
+    ny_cheese_pizza = ny_store.create_order(PizzaType.Cheese)
+    print("\n")
+    cali_cheese_pizza = cali_store.create_order(PizzaType.Cheese)
+
+    ny_pepperoni_pizza = ny_store.create_order(PizzaType.Pepporoni)
+    print("\n")
+    cali_pepperoni_pizza = cali_store.create_order(PizzaType.Pepporoni)
+
+    ny_clam_pizza = ny_store.create_order(PizzaType.Clam)
+    print("\n")
+    cali_clam_pizza = cali_store.create_order(PizzaType.Clam)
+
+    ny_veggie_pizza = ny_store.create_order(PizzaType.Veggie)
+    print("\n")
+    cali_veggie_pizza = cali_store.create_order(PizzaType.Veggie)
+</code></pre>
+<h3 id="standarduml-1"><a class="header" href="#standarduml-1">StandardUML</a></h3>
+<p><img src="https://www.plantuml.com/plantuml/img/bPAn3e8m48RtFaKtDOP4EpeGw43YPi83c5eQquWjQOy1qNUt0O5I6RHRl_-xI-_In08pKDzBjC8vDAN0LW18TRN8tgIgc65tp4jcRGfWvAK6SUHQvV8Xy2vKCgsWIuWVALq8Fq6TYqz65pM7zXM0TE_Gd92Gq2-7agbHnZXeqxG8kxF5t0W6ubprudfp66fGM97-Nq9_AXb7mr7qZCTad6yHqsMR1ZOQ7j_ZpssWT4vzEPuslem9yhl4q_ANiTCJeGhtbzu0" alt="FactoryMethod" /></p>
+<pre><code class="language-plantuml">@startuml
+' Style settings
+skinparam classAttributeIconSize 0
+skinparam classFontSize 20
+skinparam nodeFontSize 20
+
+class Product{}
+
+class ProductA1{}
+class ProductA2{}
+class ProductB1{}
+class ProductB2{}
+
+class Factory{
+    + create_product(): Product
+}
+
+class FactoryA{
+    + create_product(): Product
+}
+
+class FactoryB{
+    + create_product(): Product
+}
+
+ProductA1 --|&gt; Product
+ProductA2 --|&gt; Product
+ProductB1 --|&gt; Product
+ProductB2 --|&gt; Product
+
+FactoryA --|&gt; Factory
+FactoryB --|&gt; Factory
+
+FactoryA --&gt; ProductA1
+FactoryA --&gt; ProductA2
+
+FactoryB --&gt; ProductB1
+FactoryB --&gt; ProductB2
+
+@enduml
+</code></pre>
+<h1 id="abstract-factory"><a class="header" href="#abstract-factory">Abstract Factory</a></h1>
+<blockquote>
+<p>Provides inteface for creating families of related object without specfying concrete classes</p>
+</blockquote>
+<h3 id="example-2"><a class="header" href="#example-2">Example</a></h3>
+<p>Suppose in our pizza store ,different kind of pizza will have different ingredients as
+different regions will use different ingredients to make the pizza.</p>
+<pre><code class="language-py">from abc import ABC, abstractmethod
+from enum import Enum
+
+
+class PizzaIngridentFactory(ABC):
+    def __init__(self):
+        self.dough: str = ""
+        self.sauce: str = ""
+        self.cheese: str = ""
+        self.veggies: list[str] = []
+        self.pepporoni: str = ""
+        self.clam = ""
+
+    @abstractmethod
+    def add_dough(self) -&gt; str:
+        pass
+
+    @abstractmethod
+    def add_sauce(self) -&gt; str:
+        pass
+
+    @abstractmethod
+    def add_cheese(self) -&gt; str:
+        pass
+
+    @abstractmethod
+    def add_veggies(self) -&gt; list[str]:
+        pass
+
+    @abstractmethod
+    def add_pepporoni(self) -&gt; str:
+        pass
+
+    @abstractmethod
+    def add_clams(self) -&gt; str:
+        pass
+
+
+class NYStylePizzaIngredientFactory(PizzaIngridentFactory):
+    def __init__(self):
+        super().__init__()
+
+    def add_dough(self) -&gt; str:
+        self.dough = "NY-style dough"
+        return self.dough
+
+    def add_sauce(self) -&gt; str:
+        self.sauce = "Tomato sauce"
+        return self.sauce
+
+    def add_cheese(self) -&gt; str:
+        self.cheese = "Mozzarella cheese"
+        return self.cheese
+
+    def add_pepporoni(self) -&gt; str:
+        self.pepporoni = "Fresh Pepporoni"
+        return self.pepporoni
+
+    def add_veggies(self) -&gt; list[str]:
+        self.veggies = ["Onions", "Peppers"]
+        return self.veggies
+
+    def add_clams(self) -&gt; str:
+        self.clam = "Fresh clams from Long Island Sound"
+        return self.clam
+
+
+class CaliforniaStylePizzaIngredientFactory(PizzaIngridentFactory):
+    def __init__(self):
+        super().__init__()
+
+    def add_dough(self) -&gt; str:
+        self.dough = "Cali-style dough"
+        return self.dough
+
+    def add_sauce(self) -&gt; str:
+        self.sauce = "Pesto sauce"
+        return self.sauce
+
+    def add_cheese(self) -&gt; str:
+        self.cheese = "Ricotta cheese"
+        return self.cheese
+
+    def add_pepporoni(self) -&gt; str:
+        self.pepporoni = "Fresh Pepporoni"
+        return self.pepporoni
+
+    def add_veggies(self) -&gt; list[str]:
+        self.veggies = ["Spinach", "Mushrooms"]
+        return self.veggies
+
+    def add_clams(self) -&gt; str:
+        self.clam = "Fresh clams from California coast"
+        return self.clam
+
+
+class Pizza(ABC):
+    def __init__(self, name: str, pif: PizzaIngridentFactory) -&gt; None:
+        self.name = name
+        self.pif = pif
+
+    @abstractmethod
+    def prepare(self):
+        pass
+
+    @abstractmethod
+    def bake(self):
+        pass
+
+    def cut(self):
+        print("Cutting pizza...")
+
+    def box(self):
+        print("Boxing pizza...")
+
+
+class CheesePizza(Pizza):
+    def __init__(self, name: str, pif: PizzaIngridentFactory) -&gt; None:
+        super().__init__(name, pif)
+
+    def prepare(self):
+        print(f"Preparing {self.name} cheese pizza...")
+        self.pif.add_dough()
+        self.pif.add_sauce()
+        self.pif.add_cheese()
+        print(
+            f"Adding ingredients: {self.pif.dough}, {self.pif.sauce}, {self.pif.cheese}"
+        )
+
+    def bake(self):
+        print(f"Baking {self.name} cheese pizza...")
+
+
+class PepporoniPizza(Pizza):
+    def __init__(self, name: str, pif: PizzaIngridentFactory) -&gt; None:
+        super().__init__(name, pif)
+
+    def prepare(self):
+        print(f"Preparing {self.name} pepperoni pizza...")
+        self.pif.add_dough()
+        self.pif.add_sauce()
+        self.pif.add_cheese()
+        self.pif.add_pepporoni()
+        print(
+            f"Adding ingredients: {self.pif.dough}, {self.pif.sauce}, {self.pif.cheese}, {self.pif.pepporoni}"
+        )
+
+    def bake(self):
+        print(f"Baking {self.name} pepperoni pizza...")
+
+
+class ClamPizza(Pizza):
+    def __init__(self, name: str, pif: PizzaIngridentFactory) -&gt; None:
+        super().__init__(name, pif)
+
+    def prepare(self):
+        print(f"Preparing {self.name} clam pizza...")
+        self.pif.add_dough()
+        self.pif.add_sauce()
+        self.pif.add_cheese()
+        self.pif.add_clams()
+        self.pif.add_veggies()
+        print(
+            f"Adding ingredients: {self.pif.dough}, {self.pif.sauce}, {self.pif.cheese}, {self.pif.clam}, {self.pif.veggies}"
+        )
+
+    def bake(self):
+        print(f"Baking {self.name} clam pizza...")
+
+
+class VeggiePizza(Pizza):
+    def __init__(self, name: str, pif: PizzaIngridentFactory) -&gt; None:
+        super().__init__(name, pif)
+
+    def prepare(self):
+        print(f"Preparing {self.name} veggie pizza...")
+        self.pif.add_dough()
+        self.pif.add_sauce()
+        self.pif.add_cheese()
+        self.pif.add_veggies()
+        print(
+            f"Adding ingredients: {self.pif.dough}, {self.pif.sauce}, {self.pif.cheese}, {self.pif.veggies}"
+        )
+
+    def bake(self):
+        print(f"Baking {self.name} veggie pizza...")
+
+
+class PizzaType(Enum):
+    Cheese = "cheese"
+    Pepporoni = "pepporoni"
+    Clam = "clam"
+    Veggie = "veggie"
+
+
+class PizzaStore(ABC):
+    @abstractmethod
+    def create_pizza(self, pizza_type: "PizzaType", name: str) -&gt; Pizza:
+        pass
+
+    def create_order(self, pizza_type: "PizzaType", name: str):
+        p = self.create_pizza(pizza_type, name)
+        p.prepare()
+        p.bake()
+        p.cut()
+        p.box()
+
+
+class NYPizzaStore(PizzaStore):
+    def create_pizza(self, pizza_type: "PizzaType", name: str) -&gt; Pizza:
+        pif = NYStylePizzaIngredientFactory()
+        if pizza_type == PizzaType.Cheese:
+            return CheesePizza(name, pif)
+        elif pizza_type == PizzaType.Pepporoni:
+            return PepporoniPizza(name, pif)
+        elif pizza_type == PizzaType.Clam:
+            return ClamPizza(name, pif)
+        elif pizza_type == PizzaType.Veggie:
+            return VeggiePizza(name, pif)
+
+
+class CaliPizzaStore(PizzaStore):
+    def create_pizza(self, pizza_type: "PizzaType", name: str) -&gt; Pizza:
+        pif = CaliforniaStylePizzaIngredientFactory()
+        if pizza_type == PizzaType.Cheese:
+            return CheesePizza(name, pif)
+        elif pizza_type == PizzaType.Pepporoni:
+            return PepporoniPizza(name, pif)
+        elif pizza_type == PizzaType.Clam:
+            return ClamPizza(name, pif)
+        elif pizza_type == PizzaType.Veggie:
+            return VeggiePizza(name, pif)
+
+
+if __name__ == "__main__":
+    ny_store = NYPizzaStore()
+    cali_store = CaliPizzaStore()
+
+    ny_store.create_order(PizzaType.Cheese, "New York Style Cheese Pizza")
+    print()
+
+    cali_store.create_order(PizzaType.Clam, "California Style Clam Pizza")
+    print()
+
+    ny_store.create_order(PizzaType.Pepporoni, "NY Style Pepporoni Pizza")
+    print()
+
+    cali_store.create_order(PizzaType.Veggie, "Cali Veggie Pizza")
+</code></pre>
+<h3 id="standarduml-2"><a class="header" href="#standarduml-2">StandardUML</a></h3>
+<p><img src="https://www.plantuml.com/plantuml/img/bPFDYi8m4CVlUOhSLbc4pHmz53i7OM-23o0n3Kkn9f9C3twzkqMjZKa3RcxvpVy3XcJXIJfgzmtxuciwDffxJLIRFy_yhZO7wUIUgqPwNnAvUjkI_bNMhEkJvZ-nP6aDtISGZeojT3XXTorVELkrYixN29H2TEmTGOe4f2f8mZ0DmpGCqp0CmvPIaNN7C-FT-URAQKbwStWe9zDvRsAne_o_1J-o3BlYizcbU8s6XOrp0HbznDcmlr43PWemKu19GR-X1txUUehlD1GNmJiPvv3X0Z9wO65l4RoTSGuPFXH4-gvWeKtL_R8R" alt="Abstract Factory" /></p>
+<pre><code class="language-plantuml">@startuml
+' Style settings
+skinparam classAttributeIconSize 0
+skinparam classFontSize 20
+skinparam nodeFontSize 20
+
+class Product{}
+
+class ProductA11{}
+class ProductA21{}
+class ProductA12{}
+class ProductA22{}
+
+class ProductB11{}
+class ProductB21{}
+class ProductB12{}
+class ProductB22{}
+
+class Factory{
+    + create_product(): Product
+}
+
+class FactoryA{
+    + create_product(): Product
+}
+
+class FactoryB{
+    + create_product(): Product
+}
+
+ProductA11 --|&gt; Product
+ProductA21 --|&gt; Product
+ProductA12 --|&gt; Product
+ProductA22 --|&gt; Product
+
+ProductB11 --|&gt; Product
+ProductB21 --|&gt; Product
+ProductB12 --|&gt; Product
+ProductB22 --|&gt; Product
+
+FactoryA --|&gt; Factory
+FactoryB --|&gt; Factory
+
+FactoryA --&gt; ProductA11
+FactoryA --&gt; ProductA21
+FactoryA --&gt; ProductA12
+FactoryA --&gt; ProductA22
+
+FactoryB --&gt; ProductB11
+FactoryB --&gt; ProductB21
+FactoryB --&gt; ProductB12
+FactoryB --&gt; ProductB22
+
+@enduml
+</code></pre>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="2_Strategy_Pattern.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+                            <a rel="next prefetch" href="4_Singleton_Pattern.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="2_Strategy_Pattern.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+                    <a rel="next prefetch" href="4_Singleton_Pattern.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="elasticlunr.min.js"></script>
+        <script src="mark.min.js"></script>
+        <script src="searcher.js"></script>
+
+        <script src="clipboard.min.js"></script>
+        <script src="highlight.js"></script>
+        <script src="book.js"></script>
+
+        <!-- Custom JS scripts -->
+
+
+
+    </div>
+    </body>
+</html>

@@ -1,5 +1,5 @@
 <!DOCTYPE HTML>
-<html lang="en" class="light" dir="ltr">
+<html lang="en" class="light sidebar-visible" dir="ltr">
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
@@ -8,7 +8,7 @@
 
 
         <!-- Custom HTML head -->
-        
+
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="theme-color" content="#ffffff">
@@ -25,26 +25,41 @@
         <link rel="stylesheet" href="fonts/fonts.css">
 
         <!-- Highlight.js Stylesheets -->
-        <link rel="stylesheet" href="highlight.css">
-        <link rel="stylesheet" href="tomorrow-night.css">
-        <link rel="stylesheet" href="ayu-highlight.css">
+        <link rel="stylesheet" id="highlight-css" href="highlight.css">
+        <link rel="stylesheet" id="tomorrow-night-css" href="tomorrow-night.css">
+        <link rel="stylesheet" id="ayu-highlight-css" href="ayu-highlight.css">
 
         <!-- Custom theme stylesheets -->
 
-    </head>
-    <body class="sidebar-visible no-js">
-    <div id="body-container">
-        <!-- Provide site root to javascript -->
-        <script>
-            var path_to_root = "";
-            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
-        </script>
 
+        <!-- Provide site root and default themes to javascript -->
+        <script>
+            const path_to_root = "";
+            const default_light_theme = "light";
+            const default_dark_theme = "navy";
+            window.path_to_searchindex_js = "searchindex.js";
+        </script>
+        <!-- Start loading toc.js asap -->
+        <script src="toc.js"></script>
+    </head>
+    <body>
+    <div id="mdbook-help-container">
+        <div id="mdbook-help-popup">
+            <h2 class="mdbook-help-title">Keyboard shortcuts</h2>
+            <div>
+                <p>Press <kbd>←</kbd> or <kbd>→</kbd> to navigate between chapters</p>
+                <p>Press <kbd>S</kbd> or <kbd>/</kbd> to search in the book</p>
+                <p>Press <kbd>?</kbd> to show this help</p>
+                <p>Press <kbd>Esc</kbd> to hide this help</p>
+            </div>
+        </div>
+    </div>
+    <div id="body-container">
         <!-- Work around some values being stored in localStorage wrapped in quotes -->
         <script>
             try {
-                var theme = localStorage.getItem('mdbook-theme');
-                var sidebar = localStorage.getItem('mdbook-sidebar');
+                let theme = localStorage.getItem('mdbook-theme');
+                let sidebar = localStorage.getItem('mdbook-sidebar');
 
                 if (theme.startsWith('"') && theme.endsWith('"')) {
                     localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
@@ -58,70 +73,51 @@
 
         <!-- Set the theme before any content is loaded, prevents flash -->
         <script>
-            var theme;
+            const default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? default_dark_theme : default_light_theme;
+            let theme;
             try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
             if (theme === null || theme === undefined) { theme = default_theme; }
-            var html = document.querySelector('html');
+            const html = document.documentElement;
             html.classList.remove('light')
             html.classList.add(theme);
-            var body = document.querySelector('body');
-            body.classList.remove('no-js')
-            body.classList.add('js');
+            html.classList.add("js");
         </script>
 
         <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
 
         <!-- Hide / unhide sidebar before it is displayed -->
         <script>
-            var body = document.querySelector('body');
-            var sidebar = null;
-            var sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
+            let sidebar = null;
+            const sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
             if (document.body.clientWidth >= 1080) {
                 try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
                 sidebar = sidebar || 'visible';
             } else {
                 sidebar = 'hidden';
+                sidebar_toggle.checked = false;
             }
-            sidebar_toggle.checked = sidebar === 'visible';
-            body.classList.remove('sidebar-visible');
-            body.classList.add("sidebar-" + sidebar);
+            if (sidebar === 'visible') {
+                sidebar_toggle.checked = true;
+            } else {
+                html.classList.remove('sidebar-visible');
+            }
         </script>
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
-            <div class="sidebar-scrollbox">
-                <ol class="chapter"><li class="chapter-item expanded "><a href="1_react_1_fundamentals.html"><strong aria-hidden="true">1.</strong> 1_react_1_fundamentals</a></li><li class="chapter-item expanded "><a href="2_react_2_advanced.html"><strong aria-hidden="true">2.</strong> 2_react_2_advanced</a></li><li class="chapter-item expanded "><a href="3_react_3_axios.html"><strong aria-hidden="true">3.</strong> 3_react_3_axios</a></li><li class="chapter-item expanded "><a href="4_react_4_router_dom.html"><strong aria-hidden="true">4.</strong> 4_react_4_router_dom</a></li><li class="chapter-item expanded "><a href="5_react_5_redux_tookit.html"><strong aria-hidden="true">5.</strong> 5_react_5_redux_tookit</a></li><li class="chapter-item expanded "><a href="6_node_1_fundamentals.html"><strong aria-hidden="true">6.</strong> 6_node_1_fundamentals</a></li><li class="chapter-item expanded "><a href="7_node_2_advanced.html"><strong aria-hidden="true">7.</strong> 7_node_2_advanced</a></li><li class="chapter-item expanded "><a href="8_node_3_orm.html"><strong aria-hidden="true">8.</strong> 8_node_3_orm</a></li><li class="chapter-item expanded "><a href="9_node_4_apollo_graphql_basics.html"><strong aria-hidden="true">9.</strong> 9_node_4_apollo_graphql_basics</a></li><li class="chapter-item expanded "><a href="10_node_5_typescript.html"><strong aria-hidden="true">10.</strong> 10_node_5_typescript</a></li><li class="chapter-item expanded "><a href="11_node_6_graphql_ts_orm.html"><strong aria-hidden="true">11.</strong> 11_node_6_graphql_ts_orm</a></li><li class="chapter-item expanded "><a href="12_sql.html"><strong aria-hidden="true">12.</strong> 12_sql</a></li><li class="chapter-item expanded "><a href="13_sql_alchemy.html"><strong aria-hidden="true">13.</strong> 13_sql_alchemy</a></li><li class="chapter-item expanded "><a href="14_redis.html"><strong aria-hidden="true">14.</strong> 14_redis</a></li><li class="chapter-item expanded "><a href="15_fastapi.html"><strong aria-hidden="true">15.</strong> 15_fastapi</a></li><li class="chapter-item expanded "><a href="16_react_hooks_compressed.html"><strong aria-hidden="true">16.</strong> 16_react_hooks_compressed</a></li><li class="chapter-item expanded "><a href="17_react_Typescript.html"><strong aria-hidden="true">17.</strong> 17_react_Typescript</a></li><li class="chapter-item expanded "><a href="18_next_JS_14.html"><strong aria-hidden="true">18.</strong> 18_next_JS_14</a></li><li class="chapter-item expanded "><a href="19_React+Node_JS_JWT.html"><strong aria-hidden="true">19.</strong> 19_React+Node_JS_JWT</a></li><li class="chapter-item expanded "><a href="20_Fastapi_JWT_Scratch_React.html"><strong aria-hidden="true">20.</strong> 20_Fastapi_JWT_Scratch_React</a></li><li class="chapter-item expanded "><a href="21_Mongodb.html"><strong aria-hidden="true">21.</strong> 21_Mongodb</a></li><li class="chapter-item expanded "><a href="22_TRPC.html"><strong aria-hidden="true">22.</strong> 22_TRPC</a></li><li class="chapter-item expanded "><a href="23_React_Query.html"><strong aria-hidden="true">23.</strong> 23_React_Query</a></li><li class="chapter-item expanded "><a href="24_Monorepo.html"><strong aria-hidden="true">24.</strong> 24_Monorepo</a></li><li class="chapter-item expanded "><a href="25_Golang.html"><strong aria-hidden="true">25.</strong> 25_Golang</a></li></ol>
-            </div>
+            <!-- populated by js -->
+            <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
+            <noscript>
+                <iframe class="sidebar-iframe-outer" src="toc.html"></iframe>
+            </noscript>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle">
                 <div class="sidebar-resize-indicator"></div>
             </div>
         </nav>
 
-        <!-- Track and set sidebar scroll position -->
-        <script>
-            var sidebarScrollbox = document.querySelector('#sidebar .sidebar-scrollbox');
-            sidebarScrollbox.addEventListener('click', function(e) {
-                if (e.target.tagName === 'A') {
-                    sessionStorage.setItem('sidebar-scroll', sidebarScrollbox.scrollTop);
-                }
-            }, { passive: true });
-            var sidebarScrollTop = sessionStorage.getItem('sidebar-scroll');
-            sessionStorage.removeItem('sidebar-scroll');
-            if (sidebarScrollTop) {
-                // preserve sidebar scroll position when navigating via links within sidebar
-                sidebarScrollbox.scrollTop = sidebarScrollTop;
-            } else {
-                // scroll sidebar to current active section when navigating via "next/previous chapter" buttons
-                var activeSection = document.querySelector('#sidebar .active');
-                if (activeSection) {
-                    activeSection.scrollIntoView({ block: 'center' });
-                }
-            }
-        </script>
-
         <div id="page-wrapper" class="page-wrapper">
 
             <div class="page">
-                                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar-hover-placeholder"></div>
                 <div id="menu-bar" class="menu-bar sticky">
                     <div class="left-buttons">
                         <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
@@ -131,13 +127,14 @@
                             <i class="fa fa-paint-brush"></i>
                         </button>
                         <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="default_theme">Auto</button></li>
                             <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
                             <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
                             <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
                             <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
                             <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
                         </ul>
-                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                        <button id="search-toggle" class="icon-button" type="button" title="Search (`/`)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="/ s" aria-controls="searchbar">
                             <i class="fa fa-search"></i>
                         </button>
                     </div>
@@ -154,7 +151,12 @@
 
                 <div id="search-wrapper" class="hidden">
                     <form id="searchbar-outer" class="searchbar-outer">
-                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                        <div class="search-wrapper">
+                            <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                            <div class="spinner-wrapper">
+                                <i class="fa fa-spinner fa-spin"></i>
+                            </div>
+                        </div>
                     </form>
                     <div id="searchresults-outer" class="searchresults-outer hidden">
                         <div id="searchresults-header" class="searchresults-header"></div>
@@ -11670,6 +11672,2796 @@ func DecodeJson() {
 
 }
 </code></pre>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="abstraction"><a class="header" href="#abstraction">Abstraction</a></h1>
+<p>Abstraction focuses on implementation hiding providing the user with
+a simple interface to interact with the object.User does not need to
+know internal working of the object just need to know the behaviour
+of the object. A class has the behaviour(methods) and properties(variables)
+of the object.</p>
+<pre><code class="language-py">from abc import ABC, abstractmethod
+
+
+class Car(
+    ABC
+):  # interface defining the methods , methods are to be implemented by class implementing this abstract class
+    @abstractmethod
+    def start(self):
+        pass
+
+    @abstractmethod
+    def accelerate(self):
+        pass
+
+    @abstractmethod
+    def deccelerate(self):
+        pass
+
+    @abstractmethod
+    def stop(self):
+        pass
+
+
+class SportsCar(Car):
+    def __init__(self) -&gt; None:
+        self.curr_speed = 0
+        self.isEngineOn = False
+
+    def start(self):
+        self.isEngineOn = True
+        print("car engine is on")
+
+    def stop(self):
+        self.curr_speed = 0
+        self.isEngineOn = False
+        print("car stoppped")
+
+    def accelerate(self):
+        self.curr_speed += 20
+        print(f"car is moving at speed of {self.curr_speed}km/h")
+
+    def deccelerate(self):
+        self.curr_speed -= 20
+        print(f"car is moving at speed of {self.curr_speed}km/h")
+
+
+if __name__ == "__main__":
+    spc = SportsCar()
+
+    spc.start()
+    spc.accelerate()
+    spc.accelerate()
+    spc.accelerate()
+    spc.deccelerate()
+    spc.accelerate()
+    spc.stop()
+</code></pre>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="encapsulation"><a class="header" href="#encapsulation">Encapsulation</a></h1>
+<p>Encapsulation is about bundling data and methods to protect the data
+It deals with data security.
+In python we can use access modifier to do data security
+private methods/variables are prefixed with double underscore [can be only accessed within a class]
+normally privated variable modification/viewing are done by using getter and setter
+protected methods/variables are prefixed with single underscore [can be only accessed within a class and child classes]</p>
+<pre><code class="language-py">import uuid
+
+
+class BankAccount:
+    def __init__(self, initial_amount: float) -&gt; None:
+        self.__acount_number: uuid.UUID = uuid.uuid4()
+        self.__curr_balance = initial_amount
+        self.public_var = "sds"
+        self._protected_var = "sds"
+
+    def deposit(self, amount: float):
+        if amount &gt; 0:
+            self.__curr_balance += amount
+            print(f"Deposited ${amount}. New balance: ${self.__curr_balance}")
+        else:
+            print("Invalid deposit amount.")
+
+    def withdraw(self, amount: float):
+        if self.__curr_balance - amount &gt; 0:
+            self.__curr_balance -= amount
+            print(
+                f"Successfuly withdrawn {amount}. New balance: ${self.__curr_balance}"
+            )
+        else:
+            print(f"Insufficient funds.Cannot withdraw {amount}.")
+
+    def get_acc_details(self):  # Using getter to access private variables
+        print("Acc no:", self.__acount_number)
+        print("Curr bal:", self.__curr_balance)
+
+
+class TestChildClass(BankAccount):
+    def __init__(self, initial_amount: float) -&gt; None:
+        super().__init__(
+            initial_amount
+        )  # Must invoke the constructor of parent to access methods/variables
+
+    def test(self):
+        print(self.public_var)
+        print(self._protected_var)
+        self.withdraw(10)
+        super().withdraw(10)
+
+
+if __name__ == "__main__":
+    acc = BankAccount(1000)
+    acc.deposit(100)
+    acc.deposit(100)
+    acc.withdraw(100)
+    acc.withdraw(10000)
+    acc.get_acc_details()
+
+    tc = TestChildClass(100)
+    tc.test()
+</code></pre>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="inheritance"><a class="header" href="#inheritance">Inheritance</a></h1>
+<p>In Inheritance a child class inherits the properties and methods
+of its parent class.Child class has access to all methods of
+the parent class and on the top of that they can have their own
+methods too.Python uses MRO (Method Resolution order) to determine
+ordering of methods whithout ambiguity.MRO uses c3 linearization algo
+under the hood</p>
+<pre><code class="language-py">class Car:
+    def __init__(self, model: str, brand: str) -&gt; None:
+        self.model = model
+        self.brand = brand
+        self.isEngineOn = False
+
+    def start(self):
+        self.isEngineOn = True
+
+    def stop(self):
+        self.isEngineOn = False
+
+
+class ManualCar(Car):
+    def __init__(self, model: str, brand: str) -&gt; None:
+        super().__init__(model, brand)
+
+    def shift_gear(self):  # Own specific methods
+        print("gear shifted")
+
+
+class Electric(Car):
+    def __init__(self, model: str, brand: str) -&gt; None:
+        self.battery = 100
+        super().__init__(model, brand)
+
+    def charge_battery(self):  # Own specific methods
+        print("battery charged!")
+
+
+if __name__ == "__main__":
+    mc = ManualCar("audi", "a8")
+    ec = Electric("byd", "seal")
+
+    mc.start()
+    mc.shift_gear()
+    mc.stop()
+
+    ec.charge_battery()
+    ec.start()
+    ec.stop()
+</code></pre>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="polymorphism"><a class="header" href="#polymorphism">Polymorphism</a></h1>
+<p>Polymorphism means abilty to exists in different form
+We have mainly 2 types of polymorphism</p>
+<ul>
+<li>Dynamic -&gt; method overriding (child class define their own method implementation)</li>
+<li>Static -&gt; method overloading (a single class has multi methods with same name,return type but differnt args),operator overloading</li>
+</ul>
+<pre><code class="language-py">from abc import ABC, abstractmethod
+
+
+class Car(ABC):
+    def __init__(self, brand: str, model: str) -&gt; None:
+        self.brand = brand
+        self.model = model
+        self.isEngineOn = False
+        self.speed = 0
+
+    def start(self):
+        self.isEngineOn = True
+
+    def stop(self):
+        self.isEngineOn = False
+        self.speed = 0
+
+    @abstractmethod
+    def accelerate(
+        self,
+    ):  # Dynamic Polymorphism child class should implement this method
+        pass
+
+    # def accelerate(
+    #     self, speed: float
+    # ):  # Dynamic + Static Polymorphism child class should implement this [not supported in python]
+    #     pass
+
+
+class ManualCar(Car):
+    def __init__(self, brand: str, model: str) -&gt; None:
+        super().__init__(brand, model)
+
+    def accelerate(self):  # Dynamic polymorphism
+        self.speed += 10
+        print(
+            f"{self.brand}{self.model} currently moving at speed at {self.speed}km/hr"
+        )
+
+
+class ElectricCar(Car):
+    def __init__(self, brand: str, model: str) -&gt; None:
+        self.battery = 100
+        super().__init__(brand, model)
+
+    def accelerate(self):  # Dynamic polymorphism
+        self.speed += 10
+        self.battery -= 1
+        print(
+            f"{self.brand}{self.model} currently moving at speed at {self.speed}km/hr, battery :{self.battery}%"
+        )
+
+
+if __name__ == "__main__":
+    mc = ManualCar("audi", "a8")
+    mc.start()
+    mc.accelerate()
+    mc.accelerate()
+    mc.stop()
+
+    ec = ElectricCar("byd", "seal")
+    ec.start()
+    ec.accelerate()
+    ec.accelerate()
+    ec.stop()
+</code></pre>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="uml"><a class="header" href="#uml">UML</a></h1>
+<h3 id="types-of-diagram-most-commonly-used"><a class="header" href="#types-of-diagram-most-commonly-used">Types of diagram (most commonly used)</a></h3>
+<ul>
+<li><strong>Structural</strong> (class diagrams represent classes and their relationships)</li>
+<li><strong>Behaviour</strong> (sequence diagrams show how different objects interact with each other)</li>
+</ul>
+<h2 id="class-diagram"><a class="header" href="#class-diagram">Class Diagram</a></h2>
+<p><img src="./class_diag.png" alt="Class_Diagram" /></p>
+<ul>
+<li>User <code>+</code> for public member/method</li>
+<li>User <code>-</code> for private member/method</li>
+<li>User <code>#</code> for protected member/method</li>
+</ul>
+<h3 id="association-types"><a class="header" href="#association-types">Association Types</a></h3>
+<ul>
+<li>
+<p><strong>Class Association</strong></p>
+<ul>
+<li><strong>Inheritance (extends) (is-a relation)</strong>
+<ul>
+<li>Example: Example: A dog is a animal,A cat is a animal.</li>
+</ul>
+</li>
+</ul>
+<p><img src="./inheritance.png" alt="Inheritance" /></p>
+</li>
+<li>
+<p><strong>Object Association (has-a/uses-a relationship)</strong></p>
+<ul>
+<li>
+<p><strong>Simple</strong> : A general relationship between two classes where one class uses or interacts with another.</p>
+<ul>
+<li><strong>Example</strong> : XYZ person has a house</li>
+<li><strong>Example</strong> : XYZ person has a car</li>
+<li><strong>Example</strong> : Customer and Order</li>
+<li><strong>Example</strong> : Student and Course</li>
+</ul>
+</li>
+<li>
+<p><strong>Aggregation</strong> : In this type of relation we have a parent/aggregator object inside which we have small objects.
+Each components in this relation can exist individually.</p>
+<ul>
+<li><strong>Example</strong> : A room consisits of sofa,bed,chair.A library has books. Each components can exist individually.</li>
+<li><strong>Example</strong> : A sports team consisting of players</li>
+<li><strong>Example</strong> : A car has an engine, but the engine can exist independently and be used in different cars.</li>
+</ul>
+</li>
+<li>
+<p><strong>Composition</strong> : In this type of relation we have a main object,and some other small objects,these small objects
+cannot exist individually without the main object.</p>
+<ul>
+<li><strong>Example</strong> : A house is made up of rooms, and if the house is destroyed, the rooms cease to exist as well.</li>
+<li><strong>Example</strong> : Parts of a chair -&gt; arms,wheels</li>
+<li><strong>Example</strong> : A human body contains a heart. If the body is no longer alive, the heart cannot function independently.</li>
+<li><strong>Example</strong> : A computer consists of a motherboard. If the computer is dismantled, the motherboard is no longer part of a functioning system.</li>
+</ul>
+</li>
+</ul>
+<p><img src="./association.png" alt="Association" /></p>
+</li>
+</ul>
+<h2 id="sequence-diagram"><a class="header" href="#sequence-diagram">Sequence Diagram</a></h2>
+<ul>
+<li><strong>Lifeline</strong> : Lifeline indicates the existence of an object over time during the interaction</li>
+<li><strong>Activation bar</strong> : Indicates the period during which an object is active</li>
+</ul>
+<p><img src="./activation_bar_lifeline.png" alt="SeqDiagBasic" /></p>
+<blockquote>
+<p>Types of messages</p>
+</blockquote>
+<ul>
+<li><strong>Synchronous message</strong></li>
+<li><strong>Asynchronous message</strong></li>
+</ul>
+<p><img src="./message.png" alt="SeqDiagMessage1" /></p>
+<ul>
+<li><strong>Create Msg</strong></li>
+<li><strong>Destroy Msg</strong></li>
+</ul>
+<p><img src="./create_destroy_msg.png" alt="SeqDiagMessage2" /></p>
+<ul>
+<li><strong>Lost Msg</strong></li>
+<li><strong>Found Msg</strong></li>
+</ul>
+<p><img src="./lost_found_msg.png" alt="SeqDiagMessage3" /></p>
+<h3 id="basic-sequence-diagram-of-atm-transaction"><a class="header" href="#basic-sequence-diagram-of-atm-transaction">Basic Sequence Diagram of ATM transaction</a></h3>
+<ul>
+<li>User will insert card</li>
+<li>ATM will ask for pin</li>
+<li>User will enter pin</li>
+<li>if wrong pin inserted then end</li>
+<li>if right pin inserted then validate pin with bank</li>
+<li>atm asks select transaction type</li>
+<li>user enters withdraw</li>
+<li>atm speak with bank server and checks amount availibility</li>
+<li>if available create transaction &amp; dispense cash</li>
+<li>if not available end</li>
+</ul>
+<p>@startuml
+skinparam defaultFontSize 20
+skinparam ParticipantPadding 20
+skinparam Shadowing false
+skinparam SequenceMessageAlign center
+skinparam participantNameAlignment top</p>
+<p>participant User as "ATM User"
+participant ATM as "ATM Machine"
+participant Transaction as "Transaction"
+participant Bank as "Bank Server"</p>
+<p>activate ATM
+activate User
+User -&gt; ATM : Insert Card
+ATM -&gt; User : Request PIN
+User -&gt; ATM : Enter PIN</p>
+<p>activate Bank
+ATM -&gt; Bank : Validate PIN</p>
+<p>alt#Gold #LightBlue Correct PIN
+Bank -&gt; ATM : PIN Validated</p>
+<pre><code>activate Transaction
+ATM -&gt; Transaction : &lt;&lt;Create Transaction&gt;&gt;
+Transaction -&gt; ATM : Get Transaction Type
+
+ATM -&gt; User : Select Transaction Type
+User -&gt; ATM : Request Withdraw Cash
+
+ATM -&gt; Transaction : Check Cash Availability
+Transaction -&gt; Bank : Check Cash Availability
+
+alt#Gold #Orange Cash Available
+    Bank -&gt; Transaction : Cash is Available
+    Transaction -&gt; ATM : Cash is Available
+    ATM -&gt; User : Dispense Cash
+    User -&gt; ATM : Collect Cash
+    ATM -&gt; User : Eject Card
+else #Grey Cash Unavailable
+    Bank -&gt; Transaction : Cash is Unavailable
+    Transaction -&gt; ATM : Cash is Unavailable
+    ATM -&gt; User : Eject Card
+end
+
+destroy Transaction
+deactivate Transaction
+</code></pre>
+<p>else #Pink Wrong PIN
+Bank -&gt; ATM : Wrong PIN Entered
+ATM -&gt; User : Eject Card
+end</p>
+<p>deactivate Bank
+deactivate ATM
+deactivate User</p>
+<p>@enduml</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="single-responsibility-principle"><a class="header" href="#single-responsibility-principle">Single Responsibility Principle</a></h1>
+<p>SRP states that a class should do only one thing.
+It should have only one reason to change such that
+if in the future we need to add some feature we can
+easily do it without affecting other parts of the system.
+We typically use composition when following this principle.
+We basically break down functionailites into different classes,
+and each class will be responsible for one thing only and
+it may have reference of some other class to fulfill its
+responsibilities. (composition is used)</p>
+<blockquote>
+<p>SRP violated</p>
+</blockquote>
+<p>Below i have taken an example of a payment processor,
+which is now handling multiple responsibilites like
+process payment,handle refund,send receipt.Now its
+completely violating SRP as it has 3 reasons to change
+because if payment processor changes(e.g., from Stripe to PayPal) process_payment methods needs
+to be changed,if refund policy changes then handle_refund
+needs to be changed,if email service changes(e.g., from SendGrid to Mailgun), then send receipt
+needs to be changed.
+Violating SRP as it handles multiple responsibilites</p>
+<pre><code class="language-py">class PaymentGateway:
+    def process_payment(self, amount):
+        # code to process payment using a specific payment processor
+        pass
+
+    def handle_refund(self, amount):
+        # code to handle refund using a specific refund policy
+        pass
+
+    def send_receipt(self, email):
+        # code to send receipt via email
+        pass
+</code></pre>
+<blockquote>
+<p>SRP Followed</p>
+</blockquote>
+<pre><code class="language-py">class PaymentProcessor:
+    def process_payment(self, amount):
+        # code to process payment using a specific payment processor
+        pass
+
+
+class RefundHandler:
+    def handle_refund(self, amount):
+        # code to handle refund using a specific refund policy
+        pass
+
+
+class EmailService:
+    def send_receipt(self, email):
+        # code to send receipt via email
+        pass
+
+
+# PaymentGateway class acts as a facade, providing a simple interface to the other classes, while still maintaining the SRP.
+class PaymentGateway:
+    def __init__(self, payment_processor, refund_handler, email_service):
+        self.payment_processor = payment_processor
+        self.refund_handler = refund_handler
+        self.email_service = email_service
+
+    def process_payment(self, amount):
+        self.payment_processor.process_payment(amount)
+
+    def handle_refund(self, amount):
+        self.refund_handler.handle_refund(amount)
+
+    def send_receipt(self, email):
+        self.email_service.send_receipt(email)
+</code></pre>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="open-close-principle"><a class="header" href="#open-close-principle">Open close principle</a></h1>
+<p>Open close principle states that a class should be Open
+for extension but close for modification.
+This means that you should be able to add new functionality to a class
+without changing its existing code.</p>
+<blockquote>
+<p>OCP violated</p>
+</blockquote>
+<p>In below example in PaymentProcessor everytime we need to add a new
+payment processor we need to modify existing code of PaymentProcessor
+class.For following OCP we should be able to integrate new payment
+processor whithout modifying existing code</p>
+<pre><code class="language-py">class PaymentProcessor:
+    def process_payment(self, amount: float, payment_method: str):
+        if payment_method == "stripe":
+            # code to process payment using Stripe
+            pass
+        elif payment_method == "paypal":
+            # code to process payment using PayPal
+            pass
+
+
+class RefundHandler:
+    def handle_refund(self, amount: float):
+        # code to handle refund using a specific refund policy
+        pass
+
+
+class EmailService:
+    def send_receipt(self, email: str):
+        # code to send receipt via email
+        pass
+
+
+class PaymentGateway:
+    def __init__(
+        self,
+        payment_processor: PaymentProcessor,
+        refund_handler: RefundHandler,
+        email_service: EmailService,
+    ):
+        self.payment_processor = payment_processor
+        self.refund_handler = refund_handler
+        self.email_service = email_service
+
+    def process_payment(self, amount: float, payment_method: str):
+        if payment_method == "stripe":
+            # code to process payment using Stripe
+            pass
+        elif payment_method == "paypal":
+            # code to process payment using PayPal
+            pass
+
+    def handle_refund(self, amount: float):
+        self.refund_handler.handle_refund(amount)
+
+    def send_receipt(self, email: str):
+        self.email_service.send_receipt(email)
+</code></pre>
+<blockquote>
+<p>OCP follwed</p>
+</blockquote>
+<p>Now, OCP is satisfied:</p>
+<ul>
+<li>The PaymentGateway class is open for extension because we can add new payment methods without changing its code.</li>
+<li>The PaymentGateway class is closed for modification because we don't need to change its existing code to add new functionality.</li>
+</ul>
+<pre><code class="language-py">from abc import ABC, abstractmethod
+
+
+class PaymentProcessor(ABC):
+   @abstractmethod
+   def process_payment(self, amount: float):
+       pass
+
+
+class StripePaymentProcessor(PaymentProcessor):
+   def process_payment(self, amount: float):
+       pass
+
+
+class PaypalPaymentProcessor(PaymentProcessor):
+   def process_payment(self, amount: float):
+       pass
+
+
+class UPIPaymentProcessor(PaymentProcessor):
+   def process_payment(self, amount: float):
+       pass
+
+
+class RefundHandler:
+   def handle_refund(self, amount: float):
+       # code to handle refund using a specific refund policy
+       pass
+
+
+class EmailService:
+   def send_receipt(self, email: str):
+       # code to send receipt via email
+       pass
+
+
+class PaymentGateway:
+   def __init__(
+       self,
+       payment_processor: PaymentProcessor,
+       refund_handler: RefundHandler,
+       email_service: EmailService,
+   ):
+       self.payment_processor = payment_processor
+       self.refund_handler = refund_handler
+       self.email_service = email_service
+
+   def process_payment(self, amount: float):
+       self.payment_processor.process_payment(amount)
+
+   def handle_refund(self, amount):
+       self.refund_handler.handle_refund(amount)
+
+   def send_receipt(self, email):
+       self.email_service.send_receipt(email)
+</code></pre>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="liskov-substituition-principle"><a class="header" href="#liskov-substituition-principle">Liskov Substituition Principle</a></h1>
+<p>LSP states that we should be able to replace a base class
+with its child class easily without breaking any part of
+the system. A child class should always extend the features
+of its parent class but it should not narrow down the features
+of its parent class.</p>
+<blockquote>
+<p>LSP violated</p>
+</blockquote>
+<p>Below i have taken an example of bank account,A bank account
+is an abstract class from which we have 3 child class implementing
+it.We have a savings account,salary account and fixed deposit account.
+But one thing to consider that a fixed deposit account does not have
+withdraw functionality in real life but we are overrding the method
+but not implementing it just throwing an error but this breaks LSP
+because when the client will call its withdraw function it will get an
+error.</p>
+<pre><code class="language-py">from abc import ABC, abstractmethod
+
+
+class BankAccount(ABC):
+    @abstractmethod
+    def deposit(self):
+        pass
+
+    @abstractmethod
+    def withdraw(self):
+        pass
+
+
+class SavingsAcount(BankAccount):
+    def deposit(self):
+        pass
+
+    def withdraw(self):
+        pass
+
+
+class SalaryAcount(BankAccount):
+    def deposit(self):
+        pass
+
+    def withdraw(self):
+        pass
+
+
+class FixedTermAccound(BankAccount):
+    def deposit(self):
+        pass
+
+    def withdraw(self):
+        raise Exception("cannot withdraw from fixed account")
+
+
+class BankAccountClient:
+    def __init__(self) -&gt; None:
+        self.accounts: list[BankAccount] = []
+
+    def add_bank_account(self, account: BankAccount):
+        self.accounts.append(account)
+
+    def withdraw_from_all(self):
+        for account in self.accounts:
+            # Will get an exception for fixed deposit accounts
+            # Wrong way of handling it and breaks LSP
+            if isinstance(account, FixedTermAccound):
+                continue
+            else:
+                account.withdraw()
+</code></pre>
+<blockquote>
+<p>LSP followed</p>
+</blockquote>
+<pre><code class="language-py">from abc import ABC, abstractmethod
+
+
+class DepositableBankAccount(ABC):
+    @abstractmethod
+    def deposit(self):
+        pass
+
+
+class WithdrawableBankAccount(DepositableBankAccount, ABC):
+    @abstractmethod
+    def withdraw(self):
+        pass
+
+
+class SavingsAcount(WithdrawableBankAccount):
+    def deposit(self):
+        pass
+
+    def withdraw(self):
+        pass
+
+
+class SalaryAcount(WithdrawableBankAccount):
+    def deposit(self):
+        pass
+
+    def withdraw(self):
+        pass
+
+
+class FixedTermAccound(DepositableBankAccount):
+    def deposit(self):
+        pass
+
+
+class BankAccountClient:
+    def __init__(self) -&gt; None:
+        self.withdrwable_accounts: list[WithdrawableBankAccount] = []
+        self.depositable_accounts: list[DepositableBankAccount] = []
+
+    def add_withdrawable_bank_account(self, account: WithdrawableBankAccount):
+        self.withdrwable_accounts.append(account)
+
+    def add_depositable_bank_account(self, account: DepositableBankAccount):
+        self.depositable_accounts.append(account)
+
+    def withdraw_from_all(self):
+        # Following LSP
+        for account in self.withdrwable_accounts:
+            account.withdraw()
+</code></pre>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="lsp-signature-rule"><a class="header" href="#lsp-signature-rule">LSP Signature Rule</a></h1>
+<h3 id="method-argument-rule"><a class="header" href="#method-argument-rule">Method argument rule</a></h3>
+<p>When overriding methods in subclasses, the types of the method arguments must be the
+same or broader than those in the parent class (contravariance).
+Narrowing them breaks substitutability and violates LSP.</p>
+<blockquote>
+<p>Method argument rule violated</p>
+</blockquote>
+<pre><code class="language-py">class Animal:
+    def eat(self, food: str):
+        print(f"Eating {food}")
+
+
+class Bone:
+    def __str__(self):
+        return "a bone"
+
+
+class Dog(Animal):
+    # Narrowed argument type: only accepts "Bone" objects
+    def eat(self, food: "Bone"):  #  Not LSP-compliant
+        print(f"Dog chewing {food}")
+
+
+if __name__ == "__main__":
+    b = Bone()
+    d = Dog()
+    d.eat(b)
+</code></pre>
+<blockquote>
+<p>Method argument rule followed</p>
+</blockquote>
+<pre><code class="language-py">class Animal:
+    def eat(self, food: str):
+        print(f"Eating {food}")
+
+
+class Dog(Animal):
+    # broader argument type
+    def eat(self, food: str):  #  LSP-compliant
+        print(f"Dog chewing {food}")
+
+
+if __name__ == "__main__":
+    d = Dog()
+    d.eat("a bone")
+</code></pre>
+<h3 id="method-return-type-rule"><a class="header" href="#method-return-type-rule">Method return type rule</a></h3>
+<p>When overriding methods in subclasses, the return type must be the same as,
+or a narrowed down type, the parent’s return type. Returning a broader
+or unrelated type breaks substitutability and violates LSP.</p>
+<blockquote>
+<p>Method return type violated</p>
+</blockquote>
+<pre><code class="language-py">from abc import ABC, abstractmethod
+
+
+class Organism:
+    def __str__(self):
+        return "Organism"
+
+
+class Animal(Organism):
+    def __str__(self):
+        return "Generic Animal"
+
+
+class Dog(Animal):
+    def __str__(self):
+        return "Dog"
+
+
+class Cat(Animal):
+    def __str__(self):
+        return "Cat"
+
+
+class AnimalFeeder(ABC):
+    # Parent contract:
+    # - Argument: can feed ANY Animal
+    # - Return: gives back an Animal
+    @abstractmethod
+    def feed(self, animal: Animal) -&gt; Animal:
+        pass
+
+
+class DogOnlyFeeder(AnimalFeeder):
+    # Return Type Rule violated:
+    # Parent promised -&gt; Animal
+    # But child broadens it -&gt; Organism (superclass of Animal)
+    def feed(self, animal: Animal) -&gt; Organism:
+        if isinstance(animal, Dog):
+            print(f"Feeding {animal}")
+            return animal
+        raise Exception("animal is not of type Dog")
+
+
+if __name__ == "__main__":
+    d = Dog()
+    c = Cat()
+    df = DogOnlyFeeder()
+    df.feed(d)
+</code></pre>
+<blockquote>
+<p>Method return type followed</p>
+</blockquote>
+<pre><code class="language-py">from abc import ABC, abstractmethod
+
+
+class Organism:
+    def __str__(self):
+        return "Organism"
+
+
+class Animal(Organism):
+    def __str__(self):
+        return "Generic Animal"
+
+
+class Dog(Animal):
+    def __str__(self):
+        return "Dog"
+
+
+class Cat(Animal):
+    def __str__(self):
+        return "Cat"
+
+
+class AnimalFeeder(ABC):
+    # Parent contract:
+    # - Argument: can feed ANY Animal
+    # - Return: gives back an Animal
+    @abstractmethod
+    def feed(self, animal: Animal) -&gt; Animal:
+        pass
+
+
+class DogOnlyFeeder(AnimalFeeder):
+    # Return Type Rule follwed:
+    # Parent promised -&gt; Animal
+    # But child narrows it
+    def feed(self, animal: Animal) -&gt; Dog:
+        if isinstance(animal, Dog):
+            print(f"Feeding {animal}")
+            return animal
+        raise Exception("animal is not of type Dog")
+
+
+if __name__ == "__main__":
+    d = Dog()
+    c = Cat()
+    df = DogOnlyFeeder()
+    df.feed(d)
+</code></pre>
+<h3 id="exception-rule"><a class="header" href="#exception-rule">Exception rule</a></h3>
+<p>When overriding a method in a subclass , it should not throw new exceptions or broader exceptions than its base class.
+It may throw fewer or narrower ones. Doing otherwise breaks Liskov Substitution Principle.</p>
+<blockquote>
+<p>Exception rule violated</p>
+</blockquote>
+<pre><code class="language-py">class AnimalFeeder:
+    def feed(self, food: str) -&gt; None:
+        if food == "":
+            raise ValueError("Food cannot be empty")
+        print(f"Feeding animal with {food}")
+
+
+class ExoticAnimalFeeder(AnimalFeeder):
+    def feed(self, food: str) -&gt; None:
+        if food == "":
+            # Broader exception than parent promised
+            raise Exception("Something went wrong: no food!")
+</code></pre>
+<blockquote>
+<p>Exception rule followed</p>
+</blockquote>
+<pre><code class="language-py">class AnimalFeeder:
+    def feed(self, food: str) -&gt; None:
+        if food == "":
+            raise ValueError("Food cannot be empty")
+        print(f"Feeding animal with {food}")
+
+
+class CarefulExoticAnimalFeeder(AnimalFeeder):
+    def feed(self, food: str) -&gt; None:
+        if food == "":
+            # Same exception type as parent, still safe
+            raise ValueError("Food cannot be empty")
+        print(f"Feeding animal with {food}")
+</code></pre>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="lsp-property-rule"><a class="header" href="#lsp-property-rule">LSP Property Rule</a></h1>
+<h3 id="class-invariant-rule"><a class="header" href="#class-invariant-rule">Class Invariant Rule</a></h3>
+<p>A class invariant is a condition (or set of properties) that must
+always hold true for valid objects of that class.
+A subclass must honor (preserve) all invariants of its parent.</p>
+<blockquote>
+<p>Class Invariant Rule violated</p>
+</blockquote>
+<pre><code class="language-py">class BankAccount:
+    def __init__(self) -&gt; None:
+        self.balance: int = 0
+
+    def set_balance(self, b: int):
+        # bank balance cannot be negative
+        assert b &gt;= 0, "Dimensions must be non-negative"
+        self.balance = b
+
+
+class FunnyAccount(BankAccount):
+    def __init__(self) -&gt; None:
+        self.balance: int = 0
+
+    def set_balance(self, b: int):
+        # CIR violated as it allows negative balance as well
+        self.balance = b
+</code></pre>
+<blockquote>
+<p>Class Invariant Rule followed</p>
+</blockquote>
+<pre><code class="language-py">class BankAccount:
+    def __init__(self) -&gt; None:
+        self.balance: int = 0
+
+    def set_balance(self, b: int):
+        # bank balance cannot be negative
+        assert b &gt;= 0, "Dimensions must be non-negative"
+        self.balance = b
+
+
+class FunnyAccount(BankAccount):
+    def __init__(self) -&gt; None:
+        self.balance: int = 0
+
+    def set_balance(self, b: int):
+        # bank balance cannot be negative
+        assert b &gt;= 0, "Dimensions must be non-negative"
+        self.balance = b
+</code></pre>
+<h3 id="history-constraint"><a class="header" href="#history-constraint">History Constraint</a></h3>
+<p>A subclass must not change how the object’s state is supposed to evolve over time compared to its parent class.
+Parent’s promise: “If you deposit, balance goes up. If you withdraw, balance goes down.”
+Child must follow the same story.
+The subclass can add harmless side quests but not change the behaviour by increasing balance
+on withdrawing</p>
+<blockquote>
+<p>History Constraint violated</p>
+</blockquote>
+<pre><code class="language-py">class BankAccount:
+    def __init__(self):
+        self.balance = 0
+
+    # Balance can only increase on deposit, or decrease on valid withdraw.
+
+    def deposit(self, amount: int):
+        assert amount &gt;= 0
+        self.balance += amount
+
+    def withdraw(self, amount: int):
+        assert 0 &lt;= amount &lt;= self.balance
+        self.balance -= amount
+
+    def get_balance(self):
+        return self.balance
+
+
+class FunnyAccount(BankAccount):
+    def withdraw(self, amount: int):
+        # Breaks history: adds cashback surprise!
+        super().withdraw(amount)
+        self.balance += 1000  # Magical free bonus
+</code></pre>
+<blockquote>
+<p>History Constraint followed</p>
+</blockquote>
+<pre><code class="language-py">class BankAccount:
+    def __init__(self):
+        self.balance = 0
+
+    # Balance can only increase on deposit, or decrease on valid withdraw.
+
+    def deposit(self, amount: int):
+        assert amount &gt;= 0
+        self.balance += amount
+
+    def withdraw(self, amount: int):
+        assert 0 &lt;= amount &lt;= self.balance
+        self.balance -= amount
+
+    def get_balance(self):
+        return self.balance
+
+
+class PremiumAccount(BankAccount):
+    def __init__(self):
+        super().__init__()
+        self.reward_points = 0
+
+    def withdraw(self, amount: int):
+        super().withdraw(amount)
+        # Adds side-effect: gives reward points,
+        # but doesn't mess with balance history
+        self.reward_points += amount // 10
+</code></pre>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="lsp-method-rule"><a class="header" href="#lsp-method-rule">LSP Method Rule</a></h1>
+<h3 id="pre-condition-rule"><a class="header" href="#pre-condition-rule">Pre condition rule</a></h3>
+<p>A precondition is something that must be true before a method can be safely called.
+When you override a method in a subclass:
+You must not strengthen (make stricter) the preconditions.</p>
+<blockquote>
+<p>Precondition rule violated</p>
+</blockquote>
+<pre><code class="language-py">class User:
+    def __init__(self) -&gt; None:
+        self.pw = ""
+
+    def set_password(self, pw: str):
+        assert len(pw) &gt;= 8, "password must be greater than 8 characters"
+        self.pw = pw
+
+
+class AdminUser(User):
+    def __init__(self) -&gt; None:
+        super().__init__()
+
+    def set_password(self, pw: str):
+        # precondition rule broken as we have strengthened the condition
+        assert len(pw) &gt;= 100, "password must be greater than 100 characters"
+        self.pw = pw
+</code></pre>
+<blockquote>
+<p>Precondition rule followed</p>
+</blockquote>
+<pre><code class="language-py">class User:
+    def __init__(self) -&gt; None:
+        self.pw = ""
+
+    def set_password(self, pw: str):
+        assert len(pw) &gt;= 8, "password must be greater than 8 characters"
+        self.pw = pw
+
+
+class AdminUser(User):
+    def __init__(self) -&gt; None:
+        super().__init__()
+
+    def set_password(self, pw: str):
+        # precondition rule followed as we have weakend the condition
+        assert len(pw) &gt;= 16, "password must be greater than 6 characters"
+        self.pw = pw
+
+</code></pre>
+<h3 id="post-condition-rule"><a class="header" href="#post-condition-rule">Post condition rule</a></h3>
+<p>A postcondition defines what is guaranteed to hold after a method finishes.
+When you override a method in a subclass:
+You must not weaken (relax) the postconditions.
+Subclasses must honor or strengthen the postconditions defined by their parent. They may
+guarantee more, but they must never promise less.</p>
+<blockquote>
+<p>Post condition rule violated</p>
+</blockquote>
+<pre><code class="language-py">
+class BankAccount:
+    def __init__(self):
+        self.balance = 0
+
+    # When you deposit an amount amt then it get deposited
+    def deposit(self, amount: int):
+        if amount &lt; 0:
+            raise ValueError("Deposit must be non-negative")
+        self.balance += amount
+
+
+class FunnyAccount(BankAccount):
+    def deposit(self, amount: int):
+        if amount &lt; 0:
+            raise ValueError("Deposit must be non-negative")
+        # Violates postcondition: only half is deposited!
+        self.balance += amount // 2
+</code></pre>
+<blockquote>
+<p>Post condition rule followed</p>
+</blockquote>
+<pre><code class="language-py">
+class BankAccount:
+    def __init__(self):
+        self.balance = 0
+
+    # When you deposit an amount amt then it get deposited
+    def deposit(self, amount: int):
+        if amount &lt; 0:
+            raise ValueError("Deposit must be non-negative")
+        self.balance += amount
+
+
+class FunnyAccount(BankAccount):
+    def deposit(self, amount: int):
+        if amount &lt; 0:
+            raise ValueError("Deposit must be non-negative")
+        self.balance += amount
+        # Stronger guarantee: add bonus interest too
+        self.balance += 10
+</code></pre>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="interface-segregation-principle"><a class="header" href="#interface-segregation-principle">Interface Segregation Principle</a></h1>
+<h3 id="isp"><a class="header" href="#isp">ISP</a></h3>
+<p>ISP states that we should not force our client to implement our interface
+Instead of having one general purpose interface we should have multiple
+client specific interface</p>
+<blockquote>
+<p>ISP violated</p>
+</blockquote>
+<pre><code class="language-py">from abc import ABC, abstractmethod
+
+
+class Shape(ABC):
+    @abstractmethod
+    def area(self) -&gt; float:
+        pass
+
+    @abstractmethod
+    def volume(self) -&gt; float:
+        pass
+
+
+class Rectange(Shape):
+    def __init__(self, length: float, breadth: float) -&gt; None:
+        self.l = length
+        self.b = breadth
+
+    def area(self) -&gt; float:
+        return self.l * self.b
+
+    # violates ISP as it forces client to implement an interface
+    def volume(self) -&gt; float:
+        raise Exception("Rectange does not support volume as its not a 3d shape")
+
+
+class Cube(Shape):
+    def __init__(self, side: float) -&gt; None:
+        self.side = side
+
+    def area(self) -&gt; float:
+        return 6 * (self.side**2)
+
+    def volume(self) -&gt; float:
+        return self.side**3
+</code></pre>
+<blockquote>
+<p>ISP followed</p>
+</blockquote>
+<p>Now we have segregated the interface into multiple
+client specific interface,namely 2d shape and 3d
+shape interfaces</p>
+<pre><code class="language-py">from abc import ABC, abstractmethod
+
+
+class TwoDShape(ABC):
+    @abstractmethod
+    def area(self) -&gt; float:
+        pass
+
+
+class ThreeDShape(ABC):
+    @abstractmethod
+    def volume(self) -&gt; float:
+        pass
+
+    @abstractmethod
+    def area(self) -&gt; float:
+        pass
+
+
+class Rectangle(TwoDShape):
+    def __init__(self, length: float, breadth: float):
+        self.l = length
+        self.b = breadth
+
+    def area(self) -&gt; float:
+        return self.l * self.b
+
+
+class Cube(ThreeDShape):
+    def __init__(self, side: float):
+        self.side = side
+
+    def area(self) -&gt; float:
+        return 6 * (self.side**2)
+
+    def volume(self) -&gt; float:
+        return self.side**3
+</code></pre>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="dependency-inversion-principle"><a class="header" href="#dependency-inversion-principle">Dependency Inversion Principle</a></h1>
+<h3 id="dip"><a class="header" href="#dip">DIP</a></h3>
+<p>DIP states that high level modules and low level modules
+should interact with each other through an interface,
+high level module should not depend on low level modules,
+rather they should depend on interface.
+If you want to do OCP then do DIP</p>
+<blockquote>
+<p>DIP violated</p>
+</blockquote>
+<pre><code class="language-py">class MongoDB:
+    def save(self, data):
+        print(f"Saving {data} into MongoDB")
+
+
+class SQLDB:
+    def save(self, data):
+        print(f"Saving {data} into SQLDB")
+
+
+class Client:
+    # Client is heavily dependent on low level module details
+    def __init__(self, mongo: MongoDB, sql: SQLDB) -&gt; None:
+        self.mongo = mongo
+        self.sql = sql
+
+    def save_to_mongo(self, data):
+        self.mongo.save(data)
+
+    def save_to_sql(self, data):
+        self.sql.save(data)
+</code></pre>
+<blockquote>
+<p>DIP followed</p>
+</blockquote>
+<p>Now the high level module just need to know
+about the contract/interface instead of being
+heavily dependent on low level modules</p>
+<pre><code class="language-py">from abc import ABC, abstractmethod
+
+
+class Persistence(ABC):
+    @abstractmethod
+    def save(self, data):
+        pass
+
+
+class MongoDB(Persistence):
+    def save(self, data):
+        print(f"Saving {data} into MongoDB")
+
+
+class SQLDB(Persistence):
+    def save(self, data):
+        print(f"Saving {data} into SQLDB")
+
+
+class Client:
+    def __init__(self, db: Persistence) -&gt; None:
+        self.db = db
+
+    def save(self, data):
+        self.db.save(data)
+</code></pre>
+<div style="break-before: page; page-break-before: always;"></div><h3 id="requirement"><a class="header" href="#requirement">Requirement</a></h3>
+<ul>
+<li>User should able to add text,image</li>
+<li>Design in such a way user should able to other kinds of element</li>
+<li>Save the document to a db or file</li>
+</ul>
+<h3 id="uml-1"><a class="header" href="#uml-1">UML</a></h3>
+<p><img src="https://www.plantuml.com/plantuml/img/ZLHDQ-Cm4BthLmovrAMab3sQDZImBGHww9AzbM8czj28jQKWJSfss_tlbMn9iTtYH1UZcVVcusd6jvRHyBwfnHci-QqciCGirOiLzezKEpJOG5cZjKjc8pTxfbMfrLh-8xWQG-wrujRpuqguU3TJn_cN6yi6IuODMkeYv71NKqEAZz8nabjUfC7rzT2nMC2x07Skm92go6JdEJY0-2z4n_nDVpbWvi3kqladEQi6NoYHfByLE-Jj9FKCLcfBHZAgal8kBweg19FDBhGG5MW1bvSVYsJfa0FJCPqcb7uaOwLbSjMS4cKaU8yz9Rh5LyegPCmTm6dngcLrq77zw-54vBsiwIXqfB2FxWLkkGTz-trxIAjdtzZYlrXF6EYVkjotANpMUBch96jpbDsrcIB4sQAkQFTSjIlaAJpxSn02gwe8Y2nyqmP5NVhJM61TVndcOQ4fSwNBFFc2pJg06y7Xx1nAyTkJfHKQ5k3zxQ9aetKPmlpJ5goBa2aRlExIMbrAPAdLeJJOeeK6rLjit8haci_Jfa0EiuYS2J5gsWCJgqFEliFqfpx2nAtJrlr1Fm40" alt="image" /></p>
+<pre><code class="language-plantuml">@startuml
+' Style settings
+skinparam classAttributeIconSize 0
+skinparam classFontSize 20
+
+' =============================
+' Abstract base class: Element
+' =============================
+abstract class Element &lt;&lt;abstract class&gt;&gt; {
+    + render(): str
+}
+
+class Text {
+    - text: str
+    + render(): str
+}
+
+class Image {
+    - image_path: str
+    + render(): str
+}
+
+' Inheritance: Text and Image implement Element
+Text ..|&gt; Element
+Image ..|&gt; Element
+
+' ================================
+' Abstract base class: Persistence
+' ================================
+abstract class Persistence &lt;&lt;abstract class&gt;&gt; {
+    + save(data:str): void
+}
+
+class SQL {
+    + save(data:str): void
+}
+
+class File {
+    + save(data:str): void
+}
+
+' Inheritance: SQL and File implement Persistence
+SQL ..|&gt; Persistence
+File ..|&gt; Persistence
+
+' =============================
+' Document and DocumentEditor
+' =============================
+class Document {
+    - elements: list[Element]
+    + add_element(element: Element): void
+    + render_all(): str
+}
+
+class DocumentEditor {
+    - doc: Document
+    - storage: Persistence
+    + add_text(text: str): void
+    + add_image(image_path: str): void
+    + save_to_storage(): void
+}
+
+' Association: Document has many Elements
+Document --&gt; Element : "has many"
+
+DocumentEditor --&gt; Document : "has"
+DocumentEditor --&gt; Persistence : "has"
+
+@enduml
+</code></pre>
+<h3 id="code"><a class="header" href="#code">Code</a></h3>
+<pre><code class="language-py">from abc import ABC, abstractmethod
+
+
+class Element(ABC):
+    @abstractmethod
+    def render(self) -&gt; str:
+        pass
+
+
+class Text(Element):
+    def __init__(self, txt: str) -&gt; None:
+        self.__text = txt
+
+    def render(self) -&gt; str:
+        return self.__text
+
+
+class Image(Element):
+    def __init__(self, image_path: str) -&gt; None:
+        self.__image_path = image_path
+
+    def render(self) -&gt; str:
+        return f"[image : {self.__image_path}]"
+
+
+class Persistence(ABC):
+    @abstractmethod
+    def save(self, data: str) -&gt; None:
+        pass
+
+
+class SQL(Persistence):
+    def save(self, data: str) -&gt; None:
+        print("saving data to sql db")
+
+
+class File(Persistence):
+    def save(self, data: str) -&gt; None:
+        print("saving data to file")
+
+
+class Document:
+    def __init__(self) -&gt; None:
+        self.__elements: list[Element] = []
+
+    def add_element(self, element: Element) -&gt; None:
+        self.__elements.append(element)
+
+    def render_all(self) -&gt; str:
+        res = ""
+        for element in self.__elements:
+            res += element.render()
+        return res
+
+
+class DocumentEditor:
+    def __init__(self, doc: Document, storage: Persistence) -&gt; None:
+        self.__doc = doc
+        self.__storage = storage
+
+    def add_text(self, txt: str) -&gt; None:
+        self.__doc.add_element(Text(txt))
+
+    def add_image(self, image_path: str) -&gt; None:
+        self.__doc.add_element(Image(image_path))
+
+    def save(self) -&gt; None:
+        data = self.__doc.render_all()
+        self.__storage.save(data)
+
+
+# Usage
+if __name__ == "__main__":
+    document = Document()
+    storage = File()
+    editor = DocumentEditor(document, storage)
+    editor.add_text("Hello, world!")
+    editor.add_image("path/to/image.jpg")
+    editor.save()
+</code></pre>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="strategy-pattern"><a class="header" href="#strategy-pattern">Strategy Pattern</a></h1>
+<blockquote>
+<p>Defines a family of algorithm,encapsulates each one and makes them interchangeble.
+We can change the strategy at runtime</p>
+</blockquote>
+<h3 id="example"><a class="header" href="#example">Example</a></h3>
+<p>Imagine this scenario we are a company making duck simulator app.
+We have a following code setup below.We have a duck abstract
+class which gets inherited by different kinds of duck.Currently
+quack,swim function is defined in the parent class but since each
+duck look differently they override the display method respectively.
+Currently we are having pure inheritance based setup.</p>
+<pre><code class="language-py">from abc import ABC, abstractmethod
+
+
+class Duck(ABC):
+    def quack(self):
+        print("quack")
+
+    def swim(self):
+        print("swim")
+
+    @abstractmethod
+    def display(self):
+        pass
+
+
+class MallardDuck(Duck):
+    def display(self):
+        print("I am MallardDuck")
+
+
+class RedHeadDuck(Duck):
+    def display(self):
+        print("I am RedHeadDuck")
+
+
+class RubberDuck(Duck):
+    def display(self):
+        print("I am RubberDuck")
+</code></pre>
+<p>But suddenly a requirements come up and we have to integrate a
+fly method but there is one problem not all ducks fly what we can
+do is that add another normal class called flyable duck and make
+the mallard,red head duck inherit it.What we can do is define the
+fly behaviour over the flyable duck class.Then the code will look
+something like this.</p>
+<pre><code class="language-py">from abc import ABC, abstractmethod
+
+
+class Duck(ABC):
+    def quack(self):
+        print("quack")
+
+    def swim(self):
+        print("swim")
+
+    @abstractmethod
+    def display(self):
+        pass
+
+
+class Flyable:
+    def fly(self):
+        print("fly")
+
+
+class MallardDuck(Duck, Flyable):
+    def display(self):
+        print("I am MallardDuck")
+
+
+class RedHeadDuck(Duck, Flyable):
+    def display(self):
+        print("I am RedHeadDuck")
+
+
+class RubberDuck(Duck):
+    def display(self):
+        print("I am RubberDuck")
+</code></pre>
+<p>But there is a problem because suppose we integrate some other
+ducks that fly with jet.Then again if we use inheritance then
+we have to again create 2 seperate classes flywithwing and
+flywithJet which in the long run will create a mess as for
+single behaviour(fly behaviour) we can multiple implementations
+and it will be a burden to maintain this.</p>
+<h3 id="inheritance-mess"><a class="header" href="#inheritance-mess">Inheritance Mess</a></h3>
+<p><img src="https://www.plantuml.com/plantuml/img/ZPFDJiCm48JlVegz0KAL44TKHKL25I2113tql8bDiU8unLw3qiAxanz8DaaBoN5cxFbMwomyeQEG6N42AogC0g-8jDruuLDjj-WmWyIWzzT4JiU1r5sIsvNUARWOHfQvfTgvv9RDfUAEmDYJmuIQGt0JaXJcyxuQHR0NK7xdu3zqTdfs1U-vbZ_IMy0a7MZjUQdzrc3Hsbz2D4LBKwmrlQwhwNulVp77W_UA_emzLHGL_VuWLfjxpEjaMJiX_836e9CyUNIWPoLl5KxCXZXMRbAqd9kcHtV5Fqas4Sncdr6zSC7OkTfICh7ZwOjDCzF6LUsAndsTDRo_v_2IpXY1zdTyW8G_lZ5Cpnq1TUznICGSiL1MbZ_oDm00" alt="Inheritance Mess" /></p>
+<pre><code class="language-plantuml">@startuml
+' Style settings
+skinparam classAttributeIconSize 0
+skinparam classFontSize 20
+skinparam nodeFontSize 20
+
+abstract class Duck &lt;&lt;abstract class&gt;&gt; {
+    + swim(): void
+    + quack(): void
+    + abstract display(): void
+}
+
+class FlyWithWings{
+    + fly(): void
+}
+
+class FlyWithJet{
+    + fly(): void
+}
+
+class QuackDuck{
+    + quack(): void
+}
+
+class NoQuackingDuck{
+    + quack(): void
+}
+
+class MallardDuck{
+    + display(): void
+}
+
+class RedHeadDuck{
+    + display(): void
+}
+
+class RubberDuck{
+    + display(): void
+}
+
+class JetterDuck{
+    + display(): void
+}
+
+class JetzyDuck{
+    + display(): void
+}
+
+MallardDuck --|&gt; Duck
+RedHeadDuck --|&gt; Duck
+RubberDuck --|&gt; Duck
+JetterDuck --|&gt; Duck
+JetzyDuck --|&gt; Duck
+
+MallardDuck --|&gt; QuackDuck
+RedHeadDuck --|&gt; QuackDuck
+JetterDuck --|&gt; QuackDuck
+JetzyDuck --|&gt; QuackDuck
+
+RubberDuck --|&gt; NoQuackingDuck
+
+MallardDuck --|&gt; FlyWithWings
+RedHeadDuck --|&gt; FlyWithWings
+
+JetterDuck --|&gt; FlyWithJet
+JetzyDuck --|&gt; FlyWithJet
+
+@enduml
+</code></pre>
+<p>After careful analysis what we can do is extrac the behaviour that
+is changing and encapsulate it into classes.We can use composition
+in place of inheritance as it will help us change duck behaviour
+in runtime.We are going to extract swim,fly and quack behaviour as
+it varies from duck to duck</p>
+<pre><code class="language-py">from abc import ABC, abstractmethod
+
+
+class SwimBehaviour(ABC):
+    @abstractmethod
+    def swim(self):
+        pass
+
+
+class SwimNormal(SwimBehaviour):
+    def swim(self):
+        print("swim normally")
+
+
+class SwimBackwards(SwimBehaviour):
+    def swim(self):
+        print("swim backwards manner")
+
+
+class FlyBehaviour(ABC):
+    @abstractmethod
+    def fly(self):
+        pass
+
+
+class FlyWithWings(FlyBehaviour):
+    def fly(self):
+        print("fly with wings")
+
+
+class FlyWithJet(FlyBehaviour):
+    def fly(self):
+        print("fly with jet")
+
+
+class NoFly(FlyBehaviour):
+    def fly(self):
+        print("cant fly")
+
+
+class QuackBehaviour(ABC):
+    @abstractmethod
+    def quack(self):
+        pass
+
+
+class QuackNormal(QuackBehaviour):
+    def quack(self):
+        print("quack")
+
+
+class QuackSqueak(QuackBehaviour):
+    def quack(self):
+        print("squeak")
+
+
+class Duck(ABC):
+    def __init__(self, s: SwimBehaviour, f: FlyBehaviour, q: QuackBehaviour) -&gt; None:
+        self.s: SwimBehaviour = s
+        self.f: FlyBehaviour = f
+        self.q: QuackBehaviour = q
+
+    def swim(self):
+        self.s.swim()
+
+    def fly(self):
+        self.f.fly()
+
+    def quack(self):
+        self.q.quack()
+
+
+class MallardDuck(Duck):
+    def __init__(self, s: SwimBehaviour, f: FlyBehaviour, q: QuackBehaviour) -&gt; None:
+        super().__init__(s, f, q)
+
+
+class RubberDuck(Duck):
+    def __init__(self, s: SwimBehaviour, f: FlyBehaviour, q: QuackBehaviour) -&gt; None:
+        super().__init__(s, f, q)
+
+
+if __name__ == "__main__":
+    md = MallardDuck(SwimNormal(), FlyWithWings(), QuackNormal())
+    rd = RubberDuck(SwimBackwards(), NoFly(), QuackSqueak())
+</code></pre>
+<h3 id="uml-with-strategy-pattern-applied"><a class="header" href="#uml-with-strategy-pattern-applied">UML with Strategy Pattern applied</a></h3>
+<p><img src="https://www.plantuml.com/plantuml/img/ZPJBJiCm44NtynNUyL8an19LLQbG9P2e15bqxII6Md5iQezRXSU_uxe2_6YgP3dtZ6SySvsPGQhHTWBEI8czOCGmH2xV39YMotUgQKTgGOsvGzIyiiWUQYLB_i78TOeib4Ilt8IIL0qB5Q2LGKrhF2IHSiUxELlJBLTMayaabgTJyWd4VLV4EF3yufPi5M_W6-0_VQbqHyK8S4xhTaTrOmRPfBc5w4VrzYhwlA9BNd5Sh_RZ74K-CZpDBPKZXv2azMVhBZkg-SsUp8lv0vBHdaBBZMMq7KQJ_kvjtOvUTtxXWI9FL0YtO7zuKNnDVHbuiLN5T1ACsCkY2AoKIU4gCp4O58IbVi_ySrqg-dMcmM2M086xVUFHOu7OqaS0Y2peWT3H4FWk5mzco-CG6iFBiTKWTCCn7MPCDkwVymC0" alt="Strategy Pattern" /></p>
+<pre><code class="language-plantuml">@startuml
+' Style settings
+skinparam classAttributeIconSize 0
+skinparam classFontSize 20
+skinparam nodeFontSize 20
+
+abstract class SwimBehaviour &lt;&lt;abstract class&gt;&gt; {
+    + swim(): void
+}
+
+class SwimNormal {
+    + swim(): void
+}
+
+class SwimBackwards {
+    + swim(): void
+}
+
+abstract class FlyBehaviour &lt;&lt;abstract class&gt;&gt; {
+    + fly(): void
+}
+
+class FlyWithWings {
+    + fly(): void
+}
+
+class FlyWithJet {
+    + fly(): void
+}
+
+class NoFly {
+    + fly(): void
+}
+
+abstract class QuackBehaviour &lt;&lt;abstract class&gt;&gt; {
+    + quack(): void
+}
+
+class QuackNormal {
+    + quack(): void
+}
+
+class QuackSqueak {
+    + quack(): void
+}
+
+abstract class Duck &lt;&lt;abstract class&gt;&gt; {
+    + swim(): void
+    + fly(): void
+    + quack(): void
+}
+
+MallardDuck --|&gt; Duck
+RubberDuck --|&gt; Duck
+
+MallardDuck *-- SwimNormal
+MallardDuck *-- FlyWithWings
+MallardDuck *-- QuackNormal
+
+RubberDuck *-- SwimBackwards
+RubberDuck *-- NoFly
+RubberDuck *-- QuackSqueak
+
+SwimNormal --|&gt; SwimBehaviour
+SwimBackwards --|&gt; SwimBehaviour
+
+FlyWithWings --|&gt; FlyBehaviour
+FlyWithJet --|&gt; FlyBehaviour
+NoFly --|&gt; FlyBehaviour
+
+QuackNormal --|&gt; QuackBehaviour
+QuackSqueak --|&gt; QuackBehaviour
+
+@enduml
+</code></pre>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="simple-factory"><a class="header" href="#simple-factory">Simple Factory</a></h1>
+<blockquote>
+<p>Provides us a factory class which decides which concrete class to create
+Its not a design pattern but just a principle</p>
+</blockquote>
+<h3 id="example-1"><a class="header" href="#example-1">Example</a></h3>
+<p>Imagine we have a pizza store which on getting an order of pizza of
+specfic type starts preparing the pizza and does the other jobs like
+baking,cutting,boxing,etc.</p>
+<pre><code class="language-py">from abc import ABC, abstractmethod
+from enum import Enum
+
+
+class Pizza(ABC):
+    @abstractmethod
+    def prepare(self):
+        pass
+
+    @abstractmethod
+    def bake(self):
+        pass
+
+    @abstractmethod
+    def cut(self):
+        pass
+
+    @abstractmethod
+    def box(self):
+        pass
+
+
+class CheesePizza(Pizza):
+    def prepare(self):
+        print("Preparing cheese pizza...")
+
+    def bake(self):
+        print("Baking cheese pizza...")
+
+    def cut(self):
+        print("Cutting cheese pizza...")
+
+    def box(self):
+        print("Boxing cheese pizza...")
+
+
+class PepporoniPizza(Pizza):
+    def prepare(self):
+        print("Preparing pepperoni pizza...")
+
+    def bake(self):
+        print("Baking pepperoni pizza...")
+
+    def cut(self):
+        print("Cutting pepperoni pizza...")
+
+    def box(self):
+        print("Boxing pepperoni pizza...")
+
+
+class ClamPizza(Pizza):
+    def prepare(self):
+        print("Preparing clam pizza...")
+
+    def bake(self):
+        print("Baking clam pizza...")
+
+    def cut(self):
+        print("Cutting clam pizza...")
+
+    def box(self):
+        print("Boxing clam pizza...")
+
+
+class VeggiePizza(Pizza):
+    def prepare(self):
+        print("Preparing veggie pizza...")
+
+    def bake(self):
+        print("Baking veggie pizza...")
+
+    def cut(self):
+        print("Cutting veggie pizza...")
+
+    def box(self):
+        print("Boxing veggie pizza...")
+
+
+class PizzaType(Enum):
+    Cheese = "cheese"
+    Pepporoni = "pepporoni"
+    Clam = "clam"
+    Veggie = "veggie"
+
+
+class PizzaStore:
+    def create_order(self, pizza_type: "PizzaType"):
+        p: Pizza | None = None
+
+        if pizza_type == PizzaType.Cheese:
+            p = CheesePizza()
+        elif pizza_type == PizzaType.Pepporoni:
+            p = PepporoniPizza()
+        elif pizza_type == PizzaType.Clam:
+            p = ClamPizza()
+        elif pizza_type == PizzaType.Veggie:
+            p = VeggiePizza()
+        else:
+            print("Invalid pizza type")
+            return
+
+        p.prepare()
+        p.bake()
+        p.cut()
+        p.box()
+</code></pre>
+<p>There is a downside of above design as the PizzaStore class has to be modified
+everytime a new pizza type is added and we will be breaking OCP principle instead
+we should use a seperate factory class to create the instances of the pizza, by doing
+this we are making the create_order method closed for modification following OCP.</p>
+<pre><code class="language-py">from abc import ABC, abstractmethod
+from enum import Enum
+
+
+class Pizza(ABC):
+    @abstractmethod
+    def prepare(self):
+        pass
+
+    @abstractmethod
+    def bake(self):
+        pass
+
+    @abstractmethod
+    def cut(self):
+        pass
+
+    @abstractmethod
+    def box(self):
+        pass
+
+
+class CheesePizza(Pizza):
+    def prepare(self):
+        print("Preparing cheese pizza...")
+
+    def bake(self):
+        print("Baking cheese pizza...")
+
+    def cut(self):
+        print("Cutting cheese pizza...")
+
+    def box(self):
+        print("Boxing cheese pizza...")
+
+
+class PepporoniPizza(Pizza):
+    def prepare(self):
+        print("Preparing pepperoni pizza...")
+
+    def bake(self):
+        print("Baking pepperoni pizza...")
+
+    def cut(self):
+        print("Cutting pepperoni pizza...")
+
+    def box(self):
+        print("Boxing pepperoni pizza...")
+
+
+class ClamPizza(Pizza):
+    def prepare(self):
+        print("Preparing clam pizza...")
+
+    def bake(self):
+        print("Baking clam pizza...")
+
+    def cut(self):
+        print("Cutting clam pizza...")
+
+    def box(self):
+        print("Boxing clam pizza...")
+
+
+class VeggiePizza(Pizza):
+    def prepare(self):
+        print("Preparing veggie pizza...")
+
+    def bake(self):
+        print("Baking veggie pizza...")
+
+    def cut(self):
+        print("Cutting veggie pizza...")
+
+    def box(self):
+        print("Boxing veggie pizza...")
+
+
+class PizzaType(Enum):
+    Cheese = "cheese"
+    Pepporoni = "pepporoni"
+    Clam = "clam"
+    Veggie = "veggie"
+
+
+class SimplePizzaFactory:
+    def create_pizza(self, pizza_type: "PizzaType") -&gt; Pizza:
+        if pizza_type == PizzaType.Cheese:
+            return CheesePizza()
+        elif pizza_type == PizzaType.Pepporoni:
+            return PepporoniPizza()
+        elif pizza_type == PizzaType.Clam:
+            return ClamPizza()
+        elif pizza_type == PizzaType.Veggie:
+            return VeggiePizza()
+        else:
+            raise Exception("Invalid pizza type")
+
+
+class PizzaStore:
+    def __init__(self, pf: SimplePizzaFactory) -&gt; None:
+        self.pf: SimplePizzaFactory = pf
+
+    def create_order(self, pizza_type: "PizzaType"):
+        p: Pizza = self.pf.create_pizza(pizza_type)
+        p.prepare()
+        p.bake()
+        p.cut()
+        p.box()
+
+
+if __name__ == "__main__":
+    pf = SimplePizzaFactory()
+    store = PizzaStore(pf)
+
+    store.create_order(PizzaType.Cheese)
+    print()
+
+    store.create_order(PizzaType.Pepporoni)
+    print()
+
+    store.create_order(PizzaType.Clam)
+    print()
+
+    store.create_order(PizzaType.Veggie)
+
+    try:
+        store.create_order("Invalid Pizza Type")
+    except Exception as e:
+        print(f"\nError: {e}")
+</code></pre>
+<h3 id="standarduml"><a class="header" href="#standarduml">StandardUML</a></h3>
+<p><img src="https://www.plantuml.com/plantuml/img/RP3B2i8m44NtynMpKv62k7GXhOL2Tq8_G68wIB1DIZ9PrEg_6wgr3vpbkUToOMB7mhAlArXXmMr5w8XPwPi3TrUw4LRKA2lXNC9irTKpvTBeGZq8TqibCvhxP3-Dj2bfca3lujcQqalkNWkG1383foL8nquc91lRTe3XjYWj2QPBy_7McyDGWT3ukXWTVnI6JOoYvuY7uRyqdLE8IPVXVsy0" alt="SimpleFactory" /></p>
+<pre><code class="language-plantuml">@startuml
+' Style settings
+skinparam classAttributeIconSize 0
+skinparam classFontSize 20
+skinparam nodeFontSize 20
+
+class Product{}
+
+class ProductA{}
+class ProductB{}
+class ProductC{}
+
+class Factory{
+    + create_product(): Product
+}
+
+Factory -&gt; Product
+
+ProductA --|&gt; Product
+ProductB --|&gt; Product
+ProductC --|&gt; Product
+
+@enduml
+</code></pre>
+<h1 id="factory-method"><a class="header" href="#factory-method">Factory method</a></h1>
+<blockquote>
+<p>Defines an interface for creating objects but allows subclass to decide
+which concrete class to instantiate</p>
+</blockquote>
+<h3 id="example-2"><a class="header" href="#example-2">Example</a></h3>
+<p>Imagine now we want to create franchise of our store in NewYork and California,
+so we can just extend out Simple factory design and use factory method.But first
+lets understand the current scenario.Out pizza store more or less sells 4 variants
+of pizza veggie,clam,cheese,pepporoni based but for different region it will be in
+different form for example new yorkers when ordeing cheese pizza they mean less cheese
+whereas californians when ordering cheese pizza they mean more pizza.Below code shows
+how to extend our previous design to support factory method.</p>
+<pre><code class="language-py">from abc import ABC, abstractmethod
+from enum import Enum
+
+
+class Pizza(ABC):
+    def __init__(self, name: str, dough: str, sauce: str, topppings: list[str]) -&gt; None:
+        self.name = name
+        self.dough = dough
+        self.sauce = sauce
+        self.topppings = topppings
+
+    @abstractmethod
+    def prepare(self):
+        print(f"preapring {self.name}")
+        print(f"toss {self.dough}")
+        print(f"add {self.sauce}")
+        for topping in self.topppings:
+            print(f"add {topping}")
+
+    @abstractmethod
+    def bake(self):
+        pass
+
+    def cut(self):
+        print("cut pizza diagonally")
+
+    def box(self):
+        print(f"put {self.name} into offical boxes")
+
+
+class PizzaType(Enum):
+    Cheese = "cheese"
+    Pepporoni = "pepporoni"
+    Clam = "clam"
+    Veggie = "veggie"
+
+
+class PizzaStore(ABC):
+    @abstractmethod
+    def create_pizza(self, pizza_type: "PizzaType") -&gt; Pizza:
+        pass
+
+    def create_order(self, pizza_type: "PizzaType"):
+        p: Pizza = self.create_pizza(pizza_type)
+        p.prepare()
+        p.bake()
+        p.cut()
+        p.box()
+
+
+class NYCheesePizza(Pizza):
+    def __init__(self) -&gt; None:
+        super().__init__(
+            "NY Cheese Pizza", "NY-style dough", "Tomato sauce", ["Mozzarella cheese"]
+        )
+
+    def prepare(self):
+        print(f"preparing {self.name}")
+        print(f"toss {self.dough} in a NY-style")
+        print(f"add {self.sauce}")
+        for topping in self.topppings:
+            print(f"add {topping}")
+
+    def bake(self):
+        print("bake NY-style pizza for 20 mins at 400")
+
+
+class NYPepporoniPizza(Pizza):
+    def __init__(self) -&gt; None:
+        super().__init__(
+            "NY Pepporoni Pizza",
+            "NY-style dough",
+            "Tomato sauce",
+            ["Mozzarella cheese", "Pepporoni"],
+        )
+
+    def prepare(self):
+        print(f"preparing {self.name}")
+        print(f"toss {self.dough} in a NY-style")
+        print(f"add {self.sauce}")
+        for topping in self.topppings:
+            print(f"add {topping}")
+
+    def bake(self):
+        print("bake NY-style pizza for 20 mins at 400")
+
+
+class NYClamPizza(Pizza):
+    def __init__(self) -&gt; None:
+        super().__init__(
+            "NY Clam Pizza",
+            "NY-style dough",
+            "Tomato sauce",
+            ["Mozzarella cheese", "Clams"],
+        )
+
+    def prepare(self):
+        print(f"preparing {self.name}")
+        print(f"toss {self.dough} in a NY-style")
+        print(f"add {self.sauce}")
+        for topping in self.topppings:
+            print(f"add {topping}")
+
+    def bake(self):
+        print("bake NY-style pizza for 20 mins at 400")
+
+
+class NYVeggiePizza(Pizza):
+    def __init__(self) -&gt; None:
+        super().__init__(
+            "NY Veggie Pizza",
+            "NY-style dough",
+            "Tomato sauce",
+            ["Mozzarella cheese", "Vegetables"],
+        )
+
+    def prepare(self):
+        print(f"preparing {self.name}")
+        print(f"toss {self.dough} in a NY-style")
+        print(f"add {self.sauce}")
+        for topping in self.topppings:
+            print(f"add {topping}")
+
+    def bake(self):
+        print("bake NY-style pizza for 20 mins at 400")
+
+
+class CaliCheesePizza(Pizza):
+    def __init__(self) -&gt; None:
+        super().__init__(
+            "Cali Cheese Pizza",
+            "Cali-style dough",
+            "Pesto sauce",
+            ["Mozzarella cheese"],
+        )
+
+    def prepare(self):
+        print(f"preparing {self.name}")
+        print(f"toss {self.dough} in a Cali-style")
+        print(f"add {self.sauce}")
+        for topping in self.topppings:
+            print(f"add {topping}")
+
+    def bake(self):
+        print("bake Cali-style pizza for 25 mins at 425")
+
+
+class CaliPepporoniPizza(Pizza):
+    def __init__(self) -&gt; None:
+        super().__init__(
+            "Cali Pepporoni Pizza",
+            "Cali-style dough",
+            "Pesto sauce",
+            ["Mozzarella cheese", "Pepporoni"],
+        )
+
+    def prepare(self):
+        print(f"preparing {self.name}")
+        print(f"toss {self.dough} in a Cali-style")
+        print(f"add {self.sauce}")
+        for topping in self.topppings:
+            print(f"add {topping}")
+
+    def bake(self):
+        print("bake Cali-style pizza for 25 mins at 425")
+
+
+class CaliClamPizza(Pizza):
+    def __init__(self) -&gt; None:
+        super().__init__(
+            "Cali Clam Pizza",
+            "Cali-style dough",
+            "Pesto sauce",
+            ["Mozzarella cheese", "Clams"],
+        )
+
+    def prepare(self):
+        print(f"preparing {self.name}")
+        print(f"toss {self.dough} in a Cali-style")
+        print(f"add {self.sauce}")
+        for topping in self.topppings:
+            print(f"add {topping}")
+
+    def bake(self):
+        print("bake Cali-style pizza for 25 mins at 425")
+
+
+class CaliVeggiePizza(Pizza):
+    def __init__(self) -&gt; None:
+        super().__init__(
+            "Cali Veggie Pizza",
+            "Cali-style dough",
+            "Pesto sauce",
+            ["Mozzarella cheese", "Vegetables"],
+        )
+
+    def prepare(self):
+        print(f"preparing {self.name}")
+        print(f"toss {self.dough} in a Cali-style")
+        print(f"add {self.sauce}")
+        for topping in self.topppings:
+            print(f"add {topping}")
+
+    def bake(self):
+        print("bake Cali-style pizza for 25 mins at 425")
+
+
+class NYPizzaStore(PizzaStore):
+    def create_pizza(self, pizza_type: "PizzaType") -&gt; Pizza:
+        if pizza_type == PizzaType.Cheese:
+            return NYCheesePizza()
+        elif pizza_type == PizzaType.Pepporoni:
+            return NYPepporoniPizza()
+        elif pizza_type == PizzaType.Clam:
+            return NYClamPizza()
+        elif pizza_type == PizzaType.Veggie:
+            return NYVeggiePizza()
+        else:
+            raise Exception("Invalid pizza type")
+
+
+class CaliforniaPizzaStore(PizzaStore):
+    def create_pizza(self, pizza_type: "PizzaType") -&gt; Pizza:
+        if pizza_type == PizzaType.Cheese:
+            return CaliCheesePizza()
+        elif pizza_type == PizzaType.Pepporoni:
+            return CaliPepporoniPizza()
+        elif pizza_type == PizzaType.Clam:
+            return CaliClamPizza()
+        elif pizza_type == PizzaType.Veggie:
+            return CaliVeggiePizza()
+        else:
+            raise Exception("Invalid pizza type")
+
+
+# Example usage:
+if __name__ == "__main__":
+    ny_store = NYPizzaStore()
+    cali_store = CaliforniaPizzaStore()
+
+    ny_cheese_pizza = ny_store.create_order(PizzaType.Cheese)
+    print("\n")
+    cali_cheese_pizza = cali_store.create_order(PizzaType.Cheese)
+
+    ny_pepperoni_pizza = ny_store.create_order(PizzaType.Pepporoni)
+    print("\n")
+    cali_pepperoni_pizza = cali_store.create_order(PizzaType.Pepporoni)
+
+    ny_clam_pizza = ny_store.create_order(PizzaType.Clam)
+    print("\n")
+    cali_clam_pizza = cali_store.create_order(PizzaType.Clam)
+
+    ny_veggie_pizza = ny_store.create_order(PizzaType.Veggie)
+    print("\n")
+    cali_veggie_pizza = cali_store.create_order(PizzaType.Veggie)
+</code></pre>
+<h3 id="standarduml-1"><a class="header" href="#standarduml-1">StandardUML</a></h3>
+<p><img src="https://www.plantuml.com/plantuml/img/bPAn3e8m48RtFaKtDOP4EpeGw43YPi83c5eQquWjQOy1qNUt0O5I6RHRl_-xI-_In08pKDzBjC8vDAN0LW18TRN8tgIgc65tp4jcRGfWvAK6SUHQvV8Xy2vKCgsWIuWVALq8Fq6TYqz65pM7zXM0TE_Gd92Gq2-7agbHnZXeqxG8kxF5t0W6ubprudfp66fGM97-Nq9_AXb7mr7qZCTad6yHqsMR1ZOQ7j_ZpssWT4vzEPuslem9yhl4q_ANiTCJeGhtbzu0" alt="FactoryMethod" /></p>
+<pre><code class="language-plantuml">@startuml
+' Style settings
+skinparam classAttributeIconSize 0
+skinparam classFontSize 20
+skinparam nodeFontSize 20
+
+class Product{}
+
+class ProductA1{}
+class ProductA2{}
+class ProductB1{}
+class ProductB2{}
+
+class Factory{
+    + create_product(): Product
+}
+
+class FactoryA{
+    + create_product(): Product
+}
+
+class FactoryB{
+    + create_product(): Product
+}
+
+ProductA1 --|&gt; Product
+ProductA2 --|&gt; Product
+ProductB1 --|&gt; Product
+ProductB2 --|&gt; Product
+
+FactoryA --|&gt; Factory
+FactoryB --|&gt; Factory
+
+FactoryA --&gt; ProductA1
+FactoryA --&gt; ProductA2
+
+FactoryB --&gt; ProductB1
+FactoryB --&gt; ProductB2
+
+@enduml
+</code></pre>
+<h1 id="abstract-factory"><a class="header" href="#abstract-factory">Abstract Factory</a></h1>
+<blockquote>
+<p>Provides inteface for creating families of related object without specfying concrete classes</p>
+</blockquote>
+<h3 id="example-3"><a class="header" href="#example-3">Example</a></h3>
+<p>Suppose in our pizza store ,different kind of pizza will have different ingredients as
+different regions will use different ingredients to make the pizza.</p>
+<pre><code class="language-py">from abc import ABC, abstractmethod
+from enum import Enum
+
+
+class PizzaIngridentFactory(ABC):
+    def __init__(self):
+        self.dough: str = ""
+        self.sauce: str = ""
+        self.cheese: str = ""
+        self.veggies: list[str] = []
+        self.pepporoni: str = ""
+        self.clam = ""
+
+    @abstractmethod
+    def add_dough(self) -&gt; str:
+        pass
+
+    @abstractmethod
+    def add_sauce(self) -&gt; str:
+        pass
+
+    @abstractmethod
+    def add_cheese(self) -&gt; str:
+        pass
+
+    @abstractmethod
+    def add_veggies(self) -&gt; list[str]:
+        pass
+
+    @abstractmethod
+    def add_pepporoni(self) -&gt; str:
+        pass
+
+    @abstractmethod
+    def add_clams(self) -&gt; str:
+        pass
+
+
+class NYStylePizzaIngredientFactory(PizzaIngridentFactory):
+    def __init__(self):
+        super().__init__()
+
+    def add_dough(self) -&gt; str:
+        self.dough = "NY-style dough"
+        return self.dough
+
+    def add_sauce(self) -&gt; str:
+        self.sauce = "Tomato sauce"
+        return self.sauce
+
+    def add_cheese(self) -&gt; str:
+        self.cheese = "Mozzarella cheese"
+        return self.cheese
+
+    def add_pepporoni(self) -&gt; str:
+        self.pepporoni = "Fresh Pepporoni"
+        return self.pepporoni
+
+    def add_veggies(self) -&gt; list[str]:
+        self.veggies = ["Onions", "Peppers"]
+        return self.veggies
+
+    def add_clams(self) -&gt; str:
+        self.clam = "Fresh clams from Long Island Sound"
+        return self.clam
+
+
+class CaliforniaStylePizzaIngredientFactory(PizzaIngridentFactory):
+    def __init__(self):
+        super().__init__()
+
+    def add_dough(self) -&gt; str:
+        self.dough = "Cali-style dough"
+        return self.dough
+
+    def add_sauce(self) -&gt; str:
+        self.sauce = "Pesto sauce"
+        return self.sauce
+
+    def add_cheese(self) -&gt; str:
+        self.cheese = "Ricotta cheese"
+        return self.cheese
+
+    def add_pepporoni(self) -&gt; str:
+        self.pepporoni = "Fresh Pepporoni"
+        return self.pepporoni
+
+    def add_veggies(self) -&gt; list[str]:
+        self.veggies = ["Spinach", "Mushrooms"]
+        return self.veggies
+
+    def add_clams(self) -&gt; str:
+        self.clam = "Fresh clams from California coast"
+        return self.clam
+
+
+class Pizza(ABC):
+    def __init__(self, name: str, pif: PizzaIngridentFactory) -&gt; None:
+        self.name = name
+        self.pif = pif
+
+    @abstractmethod
+    def prepare(self):
+        pass
+
+    @abstractmethod
+    def bake(self):
+        pass
+
+    def cut(self):
+        print("Cutting pizza...")
+
+    def box(self):
+        print("Boxing pizza...")
+
+
+class CheesePizza(Pizza):
+    def __init__(self, name: str, pif: PizzaIngridentFactory) -&gt; None:
+        super().__init__(name, pif)
+
+    def prepare(self):
+        print(f"Preparing {self.name} cheese pizza...")
+        self.pif.add_dough()
+        self.pif.add_sauce()
+        self.pif.add_cheese()
+        print(
+            f"Adding ingredients: {self.pif.dough}, {self.pif.sauce}, {self.pif.cheese}"
+        )
+
+    def bake(self):
+        print(f"Baking {self.name} cheese pizza...")
+
+
+class PepporoniPizza(Pizza):
+    def __init__(self, name: str, pif: PizzaIngridentFactory) -&gt; None:
+        super().__init__(name, pif)
+
+    def prepare(self):
+        print(f"Preparing {self.name} pepperoni pizza...")
+        self.pif.add_dough()
+        self.pif.add_sauce()
+        self.pif.add_cheese()
+        self.pif.add_pepporoni()
+        print(
+            f"Adding ingredients: {self.pif.dough}, {self.pif.sauce}, {self.pif.cheese}, {self.pif.pepporoni}"
+        )
+
+    def bake(self):
+        print(f"Baking {self.name} pepperoni pizza...")
+
+
+class ClamPizza(Pizza):
+    def __init__(self, name: str, pif: PizzaIngridentFactory) -&gt; None:
+        super().__init__(name, pif)
+
+    def prepare(self):
+        print(f"Preparing {self.name} clam pizza...")
+        self.pif.add_dough()
+        self.pif.add_sauce()
+        self.pif.add_cheese()
+        self.pif.add_clams()
+        self.pif.add_veggies()
+        print(
+            f"Adding ingredients: {self.pif.dough}, {self.pif.sauce}, {self.pif.cheese}, {self.pif.clam}, {self.pif.veggies}"
+        )
+
+    def bake(self):
+        print(f"Baking {self.name} clam pizza...")
+
+
+class VeggiePizza(Pizza):
+    def __init__(self, name: str, pif: PizzaIngridentFactory) -&gt; None:
+        super().__init__(name, pif)
+
+    def prepare(self):
+        print(f"Preparing {self.name} veggie pizza...")
+        self.pif.add_dough()
+        self.pif.add_sauce()
+        self.pif.add_cheese()
+        self.pif.add_veggies()
+        print(
+            f"Adding ingredients: {self.pif.dough}, {self.pif.sauce}, {self.pif.cheese}, {self.pif.veggies}"
+        )
+
+    def bake(self):
+        print(f"Baking {self.name} veggie pizza...")
+
+
+class PizzaType(Enum):
+    Cheese = "cheese"
+    Pepporoni = "pepporoni"
+    Clam = "clam"
+    Veggie = "veggie"
+
+
+class PizzaStore(ABC):
+    @abstractmethod
+    def create_pizza(self, pizza_type: "PizzaType", name: str) -&gt; Pizza:
+        pass
+
+    def create_order(self, pizza_type: "PizzaType", name: str):
+        p = self.create_pizza(pizza_type, name)
+        p.prepare()
+        p.bake()
+        p.cut()
+        p.box()
+
+
+class NYPizzaStore(PizzaStore):
+    def create_pizza(self, pizza_type: "PizzaType", name: str) -&gt; Pizza:
+        pif = NYStylePizzaIngredientFactory()
+        if pizza_type == PizzaType.Cheese:
+            return CheesePizza(name, pif)
+        elif pizza_type == PizzaType.Pepporoni:
+            return PepporoniPizza(name, pif)
+        elif pizza_type == PizzaType.Clam:
+            return ClamPizza(name, pif)
+        elif pizza_type == PizzaType.Veggie:
+            return VeggiePizza(name, pif)
+
+
+class CaliPizzaStore(PizzaStore):
+    def create_pizza(self, pizza_type: "PizzaType", name: str) -&gt; Pizza:
+        pif = CaliforniaStylePizzaIngredientFactory()
+        if pizza_type == PizzaType.Cheese:
+            return CheesePizza(name, pif)
+        elif pizza_type == PizzaType.Pepporoni:
+            return PepporoniPizza(name, pif)
+        elif pizza_type == PizzaType.Clam:
+            return ClamPizza(name, pif)
+        elif pizza_type == PizzaType.Veggie:
+            return VeggiePizza(name, pif)
+
+
+if __name__ == "__main__":
+    ny_store = NYPizzaStore()
+    cali_store = CaliPizzaStore()
+
+    ny_store.create_order(PizzaType.Cheese, "New York Style Cheese Pizza")
+    print()
+
+    cali_store.create_order(PizzaType.Clam, "California Style Clam Pizza")
+    print()
+
+    ny_store.create_order(PizzaType.Pepporoni, "NY Style Pepporoni Pizza")
+    print()
+
+    cali_store.create_order(PizzaType.Veggie, "Cali Veggie Pizza")
+</code></pre>
+<h3 id="standarduml-2"><a class="header" href="#standarduml-2">StandardUML</a></h3>
+<p><img src="https://www.plantuml.com/plantuml/img/bPFDYi8m4CVlUOhSLbc4pHmz53i7OM-23o0n3Kkn9f9C3twzkqMjZKa3RcxvpVy3XcJXIJfgzmtxuciwDffxJLIRFy_yhZO7wUIUgqPwNnAvUjkI_bNMhEkJvZ-nP6aDtISGZeojT3XXTorVELkrYixN29H2TEmTGOe4f2f8mZ0DmpGCqp0CmvPIaNN7C-FT-URAQKbwStWe9zDvRsAne_o_1J-o3BlYizcbU8s6XOrp0HbznDcmlr43PWemKu19GR-X1txUUehlD1GNmJiPvv3X0Z9wO65l4RoTSGuPFXH4-gvWeKtL_R8R" alt="Abstract Factory" /></p>
+<pre><code class="language-plantuml">@startuml
+' Style settings
+skinparam classAttributeIconSize 0
+skinparam classFontSize 20
+skinparam nodeFontSize 20
+
+class Product{}
+
+class ProductA11{}
+class ProductA21{}
+class ProductA12{}
+class ProductA22{}
+
+class ProductB11{}
+class ProductB21{}
+class ProductB12{}
+class ProductB22{}
+
+class Factory{
+    + create_product(): Product
+}
+
+class FactoryA{
+    + create_product(): Product
+}
+
+class FactoryB{
+    + create_product(): Product
+}
+
+ProductA11 --|&gt; Product
+ProductA21 --|&gt; Product
+ProductA12 --|&gt; Product
+ProductA22 --|&gt; Product
+
+ProductB11 --|&gt; Product
+ProductB21 --|&gt; Product
+ProductB12 --|&gt; Product
+ProductB22 --|&gt; Product
+
+FactoryA --|&gt; Factory
+FactoryB --|&gt; Factory
+
+FactoryA --&gt; ProductA11
+FactoryA --&gt; ProductA21
+FactoryA --&gt; ProductA12
+FactoryA --&gt; ProductA22
+
+FactoryB --&gt; ProductB11
+FactoryB --&gt; ProductB21
+FactoryB --&gt; ProductB12
+FactoryB --&gt; ProductB22
+
+@enduml
+</code></pre>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="singleton-pattern"><a class="header" href="#singleton-pattern">Singleton Pattern</a></h1>
+<blockquote>
+<p>The Singleton Pattern ensures a class has only one instance, and provides a global point of access to it</p>
+</blockquote>
+<ul>
+<li>Used by logging,caching,database connections</li>
+</ul>
+<h3 id="example-4"><a class="header" href="#example-4">Example</a></h3>
+<blockquote>
+<p>Way of creating Singleton in python</p>
+</blockquote>
+<pre><code class="language-py">class Singleton:
+    __instance = None
+
+    @staticmethod
+    def get_instance() -&gt; "Singleton":
+        if Singleton.__instance is None:
+            Singleton.__instance = Singleton()
+        return Singleton.__instance
+
+
+s1 = Singleton.get_instance()
+s2 = Singleton.get_instance()
+s3 = Singleton.get_instance()
+s4 = Singleton.get_instance()
+s5 = Singleton.get_instance()
+
+print(id(s1) == id(s3) == id(s5) == id(s2))
+</code></pre>
+<blockquote>
+<p>Way of creating Singleton in python [thread safe]</p>
+</blockquote>
+<pre><code class="language-py">import threading
+
+
+class Singleton:
+    __instance = None
+    __lock = threading.Lock()
+
+    @staticmethod
+    def get_instance() -&gt; "Singleton":
+        with Singleton.__lock:
+            if Singleton.__instance is None:
+                Singleton.__instance = Singleton()
+            return Singleton.__instance
+
+
+s1 = Singleton.get_instance()
+s2 = Singleton.get_instance()
+s3 = Singleton.get_instance()
+s4 = Singleton.get_instance()
+s5 = Singleton.get_instance()
+
+print(id(s1) == id(s3) == id(s5) == id(s2))
+</code></pre>
+<blockquote>
+<p>Way of creating Singleton in python [thread safe double locking]</p>
+</blockquote>
+<pre><code class="language-py">import threading
+
+
+class Singleton:
+    __instance = None
+    __lock = threading.Lock()
+
+    @staticmethod
+    def get_instance() -&gt; "Singleton":
+        if Singleton.__instance is None:  # First check (no lock)
+            with Singleton.__lock:
+                if Singleton.__instance is None:  # Second check (with lock)
+                    Singleton.__instance = Singleton()
+        return Singleton.__instance
+
+
+# Testing
+s1 = Singleton.get_instance()
+s2 = Singleton.get_instance()
+s3 = Singleton.get_instance()
+s4 = Singleton.get_instance()
+s5 = Singleton.get_instance()
+
+print(id(s1) == id(s2) == id(s3) == id(s4) == id(s5))
+</code></pre>
+<blockquote>
+<p>Way of creating Singleton in golang [thread safe double locking]</p>
+</blockquote>
+<pre><code class="language-go">package main
+
+import (
+	"fmt"
+	"sync"
+)
+
+type Singleton struct {
+	val int
+}
+
+var (
+	singletonInstance *Singleton
+	mu                sync.Mutex
+)
+
+var c int
+
+func getInstance() *Singleton {
+	if singletonInstance == nil {
+		mu.Lock()
+		defer mu.Unlock()
+
+		if singletonInstance == nil {
+			singletonInstance = &amp;Singleton{
+				val: c,
+			}
+			c += 1
+		}
+	}
+	return singletonInstance
+}
+
+func main() {
+	wg := new(sync.WaitGroup)
+	c := 100
+	wg.Add(c)
+
+	for i := 0; i &lt; c; i++ {
+		fmt.Println(getInstance())
+		wg.Done()
+	}
+
+	wg.Wait()
+}
+</code></pre>
 
                     </main>
 
@@ -11711,6 +14503,7 @@ func DecodeJson() {
             window.setTimeout(window.print, 100);
         });
         </script>
+
 
     </div>
     </body>

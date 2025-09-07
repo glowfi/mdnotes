@@ -19,15 +19,16 @@ mdbook init --title="Markdown Notes" --ignore=none mybook
 
 ######### Determine Markdowns present #########
 
-markdownCount=$(ls ./notes/*.md | wc -l)
-markdownCount=$((markdownCount - 1))
-
-markdownList=$(ls ./notes/*.md | sort -Vk1 | sed '/^$/d' | tr "\n" "," | sed 's/.$//')
-IFS=',' read -r -a array <<<"$markdownList"
+fileList=$(find ./notes -type f -iname "*.png" -o -iname "*.md" | sort -Vk1 | sed '/^$/d' | tr "\n" "," | sed 's/.$//')
+fileCount=$(echo "$fileList" | wc -l)
+IFS=',' read -r -a array <<<"$fileList"
 
 ######### Copy Markdown #########
 
-cp -r ./notes/*.md ./mybook/src/
+for file in "${array[@]}"; do
+	cp -r "${file}" ./mybook/src/
+done
+
 rm -rf ./mybook/src/notes
 rm ./mybook/src/chapter_1.md
 
@@ -37,13 +38,24 @@ echo "# Summary
 
 " >./mybook/src/SUMMARY.md
 
-for VAR in $(seq 0 "$markdownCount"); do
-	file="${array["$VAR"]}"
+for file in "${array[@]}"; do
+	case "${file##*.}" in
+	[Pp][Nn][Gg]) continue ;;
+	esac
+	echo "$file"
 	chapterName=$(basename "$file" | sed 's/\.[^.]*$//')
 	fileName=$(basename "${file}")
-	echo "$chapterName"
 	echo "- ["${chapterName}"](./${fileName})" >>./mybook/src/SUMMARY.md
 done
+
+# for VAR in $(seq 0 "$fileCount"); do
+# file="${array["$VAR"]}"
+# echo "$file"
+# chapterName=$(basename "$file" | sed 's/\.[^.]*$//')
+# fileName=$(basename "${file}")
+# echo "$chapterName"
+# echo "- ["${chapterName}"](./${fileName})" >>./mybook/src/SUMMARY.md
+# done
 
 ######### Build book #########
 
