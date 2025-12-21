@@ -48,15 +48,6 @@ for file in "${array[@]}"; do
 	echo "- ["${chapterName}"](./${fileName})" >>./mybook/src/SUMMARY.md
 done
 
-# for VAR in $(seq 0 "$fileCount"); do
-# file="${array["$VAR"]}"
-# echo "$file"
-# chapterName=$(basename "$file" | sed 's/\.[^.]*$//')
-# fileName=$(basename "${file}")
-# echo "$chapterName"
-# echo "- ["${chapterName}"](./${fileName})" >>./mybook/src/SUMMARY.md
-# done
-
 ######### Build book #########
 
 mdbook build ./mybook/
