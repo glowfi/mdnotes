@@ -26,6 +26,7 @@
 - [23_React_Query](./23_React_Query.md)
 - [24_Monorepo](./24_Monorepo.md)
 - [25_Golang](./25_Golang.md)
+- [1_Indexes](./1_Indexes.md)
 - [1_Abstraction](./1_Abstraction.md)
 - [2_Encapsulation](./2_Encapsulation.md)
 - [3_Inheritance](./3_Inheritance.md)
@@ -43,3 +44,4 @@
 - [2_Strategy_Pattern](./2_Strategy_Pattern.md)
 - [3_Factory_Pattern](./3_Factory_Pattern.md)
 - [4_Singleton_Pattern](./4_Singleton_Pattern.md)
+- [5_Design_Zomato](./5_Design_Zomato.md)

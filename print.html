@@ -13,21 +13,20 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="theme-color" content="#ffffff">
 
-        <link rel="icon" href="favicon.svg">
-        <link rel="shortcut icon" href="favicon.png">
-        <link rel="stylesheet" href="css/variables.css">
-        <link rel="stylesheet" href="css/general.css">
-        <link rel="stylesheet" href="css/chrome.css">
-        <link rel="stylesheet" href="css/print.css" media="print">
+        <link rel="icon" href="favicon-de23e50b.svg">
+        <link rel="shortcut icon" href="favicon-8114d1fc.png">
+        <link rel="stylesheet" href="css/variables-8adf115d.css">
+        <link rel="stylesheet" href="css/general-2459343d.css">
+        <link rel="stylesheet" href="css/chrome-ae938929.css">
+        <link rel="stylesheet" href="css/print-9e4910d8.css" media="print">
 
         <!-- Fonts -->
-        <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
-        <link rel="stylesheet" href="fonts/fonts.css">
+        <link rel="stylesheet" href="fonts/fonts-9644e21d.css">
 
         <!-- Highlight.js Stylesheets -->
-        <link rel="stylesheet" id="highlight-css" href="highlight.css">
-        <link rel="stylesheet" id="tomorrow-night-css" href="tomorrow-night.css">
-        <link rel="stylesheet" id="ayu-highlight-css" href="ayu-highlight.css">
+        <link rel="stylesheet" id="mdbook-highlight-css" href="highlight-493f70e1.css">
+        <link rel="stylesheet" id="mdbook-tomorrow-night-css" href="tomorrow-night-4c0ae647.css">
+        <link rel="stylesheet" id="mdbook-ayu-highlight-css" href="ayu-highlight-3fdfc3ac.css">
 
         <!-- Custom theme stylesheets -->
 
@@ -37,10 +36,10 @@
             const path_to_root = "";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "searchindex.js";
+            window.path_to_searchindex_js = "searchindex-5f26ac60.js";
         </script>
         <!-- Start loading toc.js asap -->
-        <script src="toc.js"></script>
+        <script src="toc-fdf512c0.js"></script>
     </head>
     <body>
     <div id="mdbook-help-container">
@@ -54,7 +53,7 @@
             </div>
         </div>
     </div>
-    <div id="body-container">
+    <div id="mdbook-body-container">
         <!-- Work around some values being stored in localStorage wrapped in quotes -->
         <script>
             try {
@@ -83,12 +82,12 @@
             html.classList.add("js");
         </script>
 
-        <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
+        <input type="checkbox" id="mdbook-sidebar-toggle-anchor" class="hidden">
 
         <!-- Hide / unhide sidebar before it is displayed -->
         <script>
             let sidebar = null;
-            const sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
+            const sidebar_toggle = document.getElementById("mdbook-sidebar-toggle-anchor");
             if (document.body.clientWidth >= 1080) {
                 try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
                 sidebar = sidebar || 'visible';
@@ -103,39 +102,39 @@
             }
         </script>
 
-        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+        <nav id="mdbook-sidebar" class="sidebar" aria-label="Table of contents">
             <!-- populated by js -->
             <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
             <noscript>
                 <iframe class="sidebar-iframe-outer" src="toc.html"></iframe>
             </noscript>
-            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
+            <div id="mdbook-sidebar-resize-handle" class="sidebar-resize-handle">
                 <div class="sidebar-resize-indicator"></div>
             </div>
         </nav>
 
-        <div id="page-wrapper" class="page-wrapper">
+        <div id="mdbook-page-wrapper" class="page-wrapper">
 
             <div class="page">
-                <div id="menu-bar-hover-placeholder"></div>
-                <div id="menu-bar" class="menu-bar sticky">
+                <div id="mdbook-menu-bar-hover-placeholder"></div>
+                <div id="mdbook-menu-bar" class="menu-bar sticky">
                     <div class="left-buttons">
-                        <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
-                            <i class="fa fa-bars"></i>
+                        <label id="mdbook-sidebar-toggle" class="icon-button" for="mdbook-sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="mdbook-sidebar">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M0 96C0 78.3 14.3 64 32 64H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32C14.3 128 0 113.7 0 96zM0 256c0-17.7 14.3-32 32-32H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32c-17.7 0-32-14.3-32-32zM448 416c0 17.7-14.3 32-32 32H32c-17.7 0-32-14.3-32-32s14.3-32 32-32H416c17.7 0 32 14.3 32 32z"/></svg></span>
                         </label>
-                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
-                            <i class="fa fa-paint-brush"></i>
+                        <button id="mdbook-theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="mdbook-theme-list">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M371.3 367.1c27.3-3.9 51.9-19.4 67.2-42.9L600.2 74.1c12.6-19.5 9.4-45.3-7.6-61.2S549.7-4.4 531.1 9.6L294.4 187.2c-24 18-38.2 46.1-38.4 76.1L371.3 367.1zm-19.6 25.4l-116-104.4C175.9 290.3 128 339.6 128 400c0 3.9 .2 7.8 .6 11.6c1.8 17.5-10.2 36.4-27.8 36.4H96c-17.7 0-32 14.3-32 32s14.3 32 32 32H240c61.9 0 112-50.1 112-112c0-2.5-.1-5-.2-7.5z"/></svg></span>
                         </button>
-                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
-                            <li role="none"><button role="menuitem" class="theme" id="default_theme">Auto</button></li>
-                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
-                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
-                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
-                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
-                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        <ul id="mdbook-theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-default_theme">Auto</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-ayu">Ayu</button></li>
                         </ul>
-                        <button id="search-toggle" class="icon-button" type="button" title="Search (`/`)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="/ s" aria-controls="searchbar">
-                            <i class="fa fa-search"></i>
+                        <button id="mdbook-search-toggle" class="icon-button" type="button" title="Search (`/`)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="/ s" aria-controls="mdbook-searchbar">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M416 208c0 45.9-14.9 88.3-40 122.7L502.6 457.4c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L330.7 376c-34.4 25.2-76.8 40-122.7 40C93.1 416 0 322.9 0 208S93.1 0 208 0S416 93.1 416 208zM208 352c79.5 0 144-64.5 144-144s-64.5-144-144-144S64 128.5 64 208s64.5 144 144 144z"/></svg></span>
                         </button>
                     </div>
 
@@ -143,38 +142,38 @@
 
                     <div class="right-buttons">
                         <a href="print.html" title="Print this book" aria-label="Print this book">
-                            <i id="print-button" class="fa fa-print"></i>
+                            <span class=fa-svg id="print-button"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M128 0C92.7 0 64 28.7 64 64v96h64V64H354.7L384 93.3V160h64V93.3c0-17-6.7-33.3-18.7-45.3L400 18.7C388 6.7 371.7 0 354.7 0H128zM384 352v32 64H128V384 368 352H384zm64 32h32c17.7 0 32-14.3 32-32V256c0-35.3-28.7-64-64-64H64c-35.3 0-64 28.7-64 64v96c0 17.7 14.3 32 32 32H64v64c0 35.3 28.7 64 64 64H384c35.3 0 64-28.7 64-64V384zm-16-88c-13.3 0-24-10.7-24-24s10.7-24 24-24s24 10.7 24 24s-10.7 24-24 24z"/></svg></span>
                         </a>
 
                     </div>
                 </div>
 
-                <div id="search-wrapper" class="hidden">
-                    <form id="searchbar-outer" class="searchbar-outer">
+                <div id="mdbook-search-wrapper" class="hidden">
+                    <form id="mdbook-searchbar-outer" class="searchbar-outer">
                         <div class="search-wrapper">
-                            <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                            <input type="search" id="mdbook-searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="mdbook-searchresults-outer" aria-describedby="searchresults-header">
                             <div class="spinner-wrapper">
-                                <i class="fa fa-spinner fa-spin"></i>
+                                <span class=fa-svg id="fa-spin"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M304 48c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zm0 416c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zM48 304c26.5 0 48-21.5 48-48s-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48zm464-48c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zM142.9 437c18.7-18.7 18.7-49.1 0-67.9s-49.1-18.7-67.9 0s-18.7 49.1 0 67.9s49.1 18.7 67.9 0zm0-294.2c18.7-18.7 18.7-49.1 0-67.9S93.7 56.2 75 75s-18.7 49.1 0 67.9s49.1 18.7 67.9 0zM369.1 437c18.7 18.7 49.1 18.7 67.9 0s18.7-49.1 0-67.9s-49.1-18.7-67.9 0s-18.7 49.1 0 67.9z"/></svg></span>
                             </div>
                         </div>
                     </form>
-                    <div id="searchresults-outer" class="searchresults-outer hidden">
-                        <div id="searchresults-header" class="searchresults-header"></div>
-                        <ul id="searchresults">
+                    <div id="mdbook-searchresults-outer" class="searchresults-outer hidden">
+                        <div id="mdbook-searchresults-header" class="searchresults-header"></div>
+                        <ul id="mdbook-searchresults">
                         </ul>
                     </div>
                 </div>
 
                 <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
                 <script>
-                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
-                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
-                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                    document.getElementById('mdbook-sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('mdbook-sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#mdbook-sidebar a')).forEach(function(link) {
                         link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
                     });
                 </script>
 
-                <div id="content" class="content">
+                <div id="mdbook-content" class="content">
                     <main>
                         <h1 id="react-i"><a class="header" href="#react-i">React I</a></h1>
 <blockquote>
@@ -264,13 +263,19 @@ It keeps track of the exact versions of all the dependencies
 installed in the project.</p>
 </li>
 </ul>
-<hr />
+<hr>
 <h2 id="react-fundamentals"><a class="header" href="#react-fundamentals">React Fundamentals</a></h2>
 <p><strong>export vs export default</strong></p>
-<div class="table-wrapper"><table><thead><tr><th>export (named export)</th><th>export default</th></tr></thead><tbody>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>export (named export)</th><th>export default</th></tr>
+</thead>
+<tbody>
 <tr><td>Can have muliple export in a single file</td><td>Can have only single</td></tr>
 <tr><td>Imported module should have the same name as the exported module</td><td>Imported module can have any name</td></tr>
-</tbody></table>
+</tbody>
+</table>
 </div>
 <blockquote>
 <p>Boiler Plate</p>
@@ -289,7 +294,7 @@ Example : &lt;/Hello&gt;</li>
 <p><strong>What is JSX</strong></p>
 <p>JSX stands for JavaScript XML.
 JSX is a syntax extension for JavaScript that allows you to
-write HTML-like code in your JavaScript files. It's used
+write HTML-like code in your JavaScript files. It’s used
 in popular frameworks like React and Vue.js.
 JSX code is transpiled into regular JavaScript
 code before being executed by the browser.</p>
@@ -298,7 +303,7 @@ code before being executed by the browser.</p>
 <li>
 <p><strong>Must return one single parent element</strong>. Either enclose the JSX
 return entire with inbuilt html tags or react Fragments.
-React Fragments helps us to let's us to group elements without
+React Fragments helps us to let’s us to group elements without
 adding extra node</p>
 <pre><code class="language-js">// One way
 return &lt;React.Fragment&gt;...rest of the return&lt;/React.Fragment&gt;;
@@ -373,7 +378,7 @@ root.render(&lt;Hello /&gt;);
 </code></pre>
 <p><strong>Create element in react</strong></p>
 <blockquote>
-<p>Using JSX is easier to read than using react's createElement</p>
+<p>Using JSX is easier to read than using react’s createElement</p>
 </blockquote>
 <pre><code class="language-js">import React from 'react';
 import ReactDOM from 'react-dom/client';
@@ -400,7 +405,7 @@ const Hello = () =&gt; {
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(&lt;Hello /&gt;);
 </code></pre>
-<hr />
+<hr>
 <h3 id="simple-booklist-app"><a class="header" href="#simple-booklist-app">Simple Booklist App</a></h3>
 <ul>
 <li><strong>1. First Steps</strong></li>
@@ -549,7 +554,7 @@ appear that you have placed in the public/image folder.</b></p>
 <h3 id="jsx-css"><a class="header" href="#jsx-css">JSX CSS</a></h3>
 <ul>
 <li>{} in JSX means going back to JS Land</li>
-<li>value is an object with key/value pairs - capitalized and with ''</li>
+<li>value is an object with key/value pairs - capitalized and with ‘’</li>
 <li>property names should be in camel case</li>
 </ul>
 <blockquote>
@@ -576,7 +581,7 @@ appear that you have placed in the public/image folder.</b></p>
 <h3 id="jsx-js"><a class="header" href="#jsx-js">JSX JS</a></h3>
 <ul>
 <li>{} in JSX means going back to JS Land</li>
-<li>value inside must be an expression (return value), can't be a statement</li>
+<li>value inside must be an expression (return value), can’t be a statement</li>
 </ul>
 <pre><code class="language-js">import React from 'react';
 import ReactDOM from 'react-dom/client';
@@ -670,7 +675,7 @@ root.render(&lt;Booklist /&gt;);
 <ul>
 <li>everything we render between component tags</li>
 <li>mostly use it in Context API</li>
-<li>special prop, has to be named "children"</li>
+<li>special prop, has to be named “children”</li>
 <li>can place anywhere in JSX</li>
 </ul>
 <pre><code class="language-js">import React from 'react';
@@ -714,7 +719,7 @@ const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(&lt;Booklist /&gt;);
 </code></pre>
 <h3 id="simple-list"><a class="header" href="#simple-list">Simple List</a></h3>
-<p>Note : <strong>map - creates a new array from calling a function for every array element.</strong> <br/></p>
+<p>Note : <strong>map - creates a new array from calling a function for every array element.</strong> <br /></p>
 <p>Note: <strong>Use Keyprop to assign unique value.The key prop in React is used to uniquely identify
 each element in a list of elements that have the same type. This is necessary because React
 needs a way to keep track of which elements have changed so that it can efficiently update the UI.</strong></p>
@@ -960,10 +965,11 @@ import img3 from './images/book-3.jpg';
 <li>index.html in the source instead of public</li>
 <li>assets still in public</li>
 <li>instead of index.js, need to use main.jsx</li>
-<li>to spin up dev server - "npm run dev"</li>
-<li>rest the same - imports/exports, deployment, assets, etc...</li>
+<li>to spin up dev server - “npm run dev”</li>
+<li>rest the same - imports/exports, deployment, assets, etc…</li>
 </ul>
-<div style="break-before: page; page-break-before: always;"></div><h1 id="react-ii"><a class="header" href="#react-ii">React II</a></h1>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="react-ii"><a class="header" href="#react-ii">React II</a></h1>
 <p><strong>Note : When a state value changes in a React component, the component will
 re-render to reflect the new changes. This includes both unmounting
 and mounting the component.</strong></p>
@@ -1031,10 +1037,10 @@ export default App;
 time that the component tree is rendered to the DOM. It
 happens when the application first loads, or when the root
 component is first rendered. This is also known as
-"mounting" the components.</p>
+“mounting” the components.</p>
 </li>
 <li>
-<p>Re-renders, on the other hand, happen when the component's
+<p>Re-renders, on the other hand, happen when the component’s
 state or props change, and the component needs to be
 updated in the DOM to reflect these changes. React uses a
 virtual DOM to optimize the process of updating the actual
@@ -1045,18 +1051,18 @@ DOM, so that only the necessary changes are made.</p>
 React component:</p>
 <ul>
 <li>
-<p>By changing the component's state or props. When the
-component's state or props change, React will re-render
+<p>By changing the component’s state or props. When the
+component’s state or props change, React will re-render
 the component to reflect these changes.</p>
 </li>
 <li>
 <p>When the parent element re-renders, even if the
-component's state or props have not changed.</p>
+component’s state or props have not changed.</p>
 </li>
 </ul>
 <p><strong>Hooks rules</strong></p>
 <ul>
-<li><strong>starts with "use" (both custom and react inbuilt hooks)</strong></li>
+<li><strong>starts with “use” (both custom and react inbuilt hooks)</strong></li>
 <li><strong>must be invoked inside a component</strong></li>
 <li><strong>dont call hooks conditionally</strong></li>
 <li><strong>set function do not update immediately. Do not expect synchronous behaviour.</strong>
@@ -1114,12 +1120,12 @@ const App = () =&gt; {
 export default App;
 </code></pre>
 <h4 id="automatic-batching"><a class="header" href="#automatic-batching">Automatic Batching</a></h4>
-<p>In React, "batching" refers to the process of grouping
+<p>In React, “batching” refers to the process of grouping
 multiple state updates into a single update. This can be
 useful in certain cases because it allows React to
 optimize the rendering of your components by minimizing
 the number of DOM updates that it has to perform.</p>
-<p>By default, React uses a technique called "auto-batching"
+<p>By default, React uses a technique called “auto-batching”
 to group state updates that occur within the same event
 loop into a single update. This means that if you call the
 state update function multiple times in a short period of
@@ -1180,7 +1186,7 @@ the component is first rendered. So when you click the button, the value
 of count is not the new value, but the one it was when it was
 first rendered (i.e. -&gt; always going to be one less than you expect).</li>
 </ul>
-<p><strong>[When inside function it will have the same value as it had in its first render]</strong><br/>
+<p><strong>[When inside function it will have the same value as it had in its first render]</strong><br />
 <strong>Refer closures</strong>
 <a href="https://github.com/facebook/react/issues/14010">Issue</a></p>
 <ul>
@@ -1303,7 +1309,7 @@ export default App;
 <li>first argument - callback function</li>
 <li>second argument — dependency array</li>
 <li><strong>by default runs on each render (initial and re-render)
-cb can't return promise (so can't make it async)</strong></li>
+cb can’t return promise (so can’t make it async)</strong></li>
 <li><strong>dont make the callback of useEffect async ever</strong></li>
 <li>if dependency array empty [I runs only on initial render]</li>
 </ul>
@@ -1318,7 +1324,7 @@ executed after every render of the component. This function can perform any
 necessary side effects. It can also return a cleanup function that will be
 executed before the component is unmounted or before the next render.</p>
 <p>By using useEffect, you can ensure that side effects are only performed when
-necessary and avoid unnecessary re-renders. It helps to keep the component's
+necessary and avoid unnecessary re-renders. It helps to keep the component’s
 logic organized and separate from the rendering logic.</p>
 <blockquote>
 <p>Why useEffect runs twice {You will see this behaviour while fetching and logging data from API}?</p>
@@ -1613,8 +1619,8 @@ export default App;
       - first component
       - second component
 </code></pre>
-<p>Now from App.jsx we just now import components like<br/>
-<code>import {first,second} from ./Navbar</code><br/>
+<p>Now from App.jsx we just now import components like<br />
+<code>import {first,second} from ./Navbar</code><br />
 No need to mention any file name as index.js is entrypoint</p>
 <h4 id="leverage-everything-known-till-now"><a class="header" href="#leverage-everything-known-till-now">Leverage everything known till now</a></h4>
 <blockquote>
@@ -1818,7 +1824,7 @@ const Person = (props) =&gt; {
 export default Person;
 </code></pre>
 <h3 id="multiple-inputs"><a class="header" href="#multiple-inputs">Multiple inputs</a></h3>
-<p>For multiple inputs use square bracket notation to use the Javascript's
+<p>For multiple inputs use square bracket notation to use the Javascript’s
 inbuilt dynamic object key feature.</p>
 <h3 id="checkbox"><a class="header" href="#checkbox">Checkbox</a></h3>
 <p>To access checkbox make checked = the state value and
@@ -1839,7 +1845,7 @@ onChange make the e.target.checked = current state value</p>
 <p>Difference b/w e.target &amp; e.currentTarget</p>
 </blockquote>
 <ul>
-<li><strong>e.target</strong> refers to the element that triggered the event,<br/></li>
+<li><strong>e.target</strong> refers to the element that triggered the event,<br /></li>
 <li><strong>e.currentTarget</strong> refers to the element that the event listener is attached to.</li>
 </ul>
 <pre><code class="language-js">const handleSubmit = (e) =&gt; {
@@ -2119,7 +2125,7 @@ export default Person;
 <li>setup a global context - GlobalContext</li>
 <li>setup a component (AppContext) with one state value</li>
 <li>return GlobalContext.Provider from AppContext</li>
-<li>wrap then entire application (main.jsx) - children prop "gotcha"</li>
+<li>wrap then entire application (main.jsx) - children prop “gotcha”</li>
 <li>setup a custom hook</li>
 <li>access in App.jsx</li>
 <li>log result</li>
@@ -2248,10 +2254,10 @@ export default App;
 <p>When Component Re-Renders :</p>
 <ul>
 <li>
-<p>When the component's state or props change, React will re-render the component to reflect these changes.</p>
+<p>When the component’s state or props change, React will re-render the component to reflect these changes.</p>
 </li>
 <li>
-<p>When the parent element re-renders, even if the component's state or props have not changed.</p>
+<p>When the parent element re-renders, even if the component’s state or props have not changed.</p>
 </li>
 </ul>
 <p>If u take the below example the Counter componet fixes the issue of re-rendering everytime
@@ -2529,7 +2535,9 @@ const processedData = useMemo(() =&gt; {
     slowFunction();
 }, []);
 </code></pre>
-<div style="break-before: page; page-break-before: always;"></div><h3 id="axios"><a class="header" href="#axios">Axios</a></h3>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="3_react_3_axios"><a href="#3_react_3_axios" class="header">3_react_3_axios</a></h1>
+<h3 id="axios"><a class="header" href="#axios">Axios</a></h3>
 <h4 id="docs"><a class="header" href="#docs">Docs</a></h4>
 <p><a href="https://axios-http.com/docs/intro">Axios Docs</a></p>
 <h4 id="install"><a class="header" href="#install">Install</a></h4>
@@ -2667,7 +2675,8 @@ authFetch.interceptors.response.use(
     }
 );
 </code></pre>
-<div style="break-before: page; page-break-before: always;"></div><h1 id="react-router"><a class="header" href="#react-router">React Router</a></h1>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="react-router"><a class="header" href="#react-router">React Router</a></h1>
 <h3 id="install-1"><a class="header" href="#install-1">Install</a></h3>
 <pre><code class="language-sh">npm install react-router-dom@6
 </code></pre>
@@ -2756,7 +2765,7 @@ export default App;
 </ul>
 <h3 id="dynamic-routes"><a class="header" href="#dynamic-routes">Dynamic Routes</a></h3>
 <p>Create Booklist and Book Component
-Goal is read the route paramete like :id.Example: "/abc/xyz/book/:id"</p>
+Goal is read the route paramete like :id.Example: “/abc/xyz/book/:id”</p>
 <blockquote>
 <p>App.jsx</p>
 </blockquote>
@@ -2835,7 +2844,7 @@ const Book = () =&gt; {
 export default Book;
 </code></pre>
 <h3 id="route-specificity"><a class="header" href="#route-specificity">Route Specificity</a></h3>
-<p>Suppose we have two routes "/books/:id" [1st] "/books/new" [2nd].
+<p>Suppose we have two routes “/books/:id” [1st] “/books/new” [2nd].
 In previous version of react router dom what it would had done is gone
 with the first match.But newer version will take the hardcoded value as
 the possible route option.</p>
@@ -2900,7 +2909,7 @@ export default App;
 <blockquote>
 <p>Layout.jsx</p>
 </blockquote>
-<p>Outlet must be added otherwise the dom will painter only with layout's jsx.</p>
+<p>Outlet must be added otherwise the dom will painter only with layout’s jsx.</p>
 <pre><code class="language-js">import React from 'react';
 import { Outlet } from 'react-router-dom';
 
@@ -3144,7 +3153,9 @@ export default Books;
 <p>access state data passed from another route</p>
 <pre><code class="language-js">const location = useLocation();
 </code></pre>
-<div style="break-before: page; page-break-before: always;"></div><h3 id="redux-with-redux-toolkit"><a class="header" href="#redux-with-redux-toolkit">Redux with redux-toolkit</a></h3>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="5_react_5_redux_tookit"><a href="#5_react_5_redux_tookit" class="header">5_react_5_redux_tookit</a></h1>
+<h3 id="redux-with-redux-toolkit"><a class="header" href="#redux-with-redux-toolkit">Redux with redux-toolkit</a></h3>
 <h4 id="docs-1"><a class="header" href="#docs-1">Docs</a></h4>
 <p><a href="https://redux-toolkit.js.org/introduction/getting-started">Redux Toolkit Docs</a></p>
 <h4 id="install-template"><a class="header" href="#install-template">Install Template</a></h4>
@@ -3802,7 +3813,7 @@ export default App;
     }
 );
 </code></pre>
-<h4 id="the-extrareducers-builder-callback-notation"><a class="header" href="#the-extrareducers-builder-callback-notation">The extraReducers "builder callback" notation</a></h4>
+<h4 id="the-extrareducers-builder-callback-notation"><a class="header" href="#the-extrareducers-builder-callback-notation">The extraReducers “builder callback” notation</a></h4>
 <p>cart/cartSlice</p>
 <pre><code class="language-js">const cartSlice = createSlice({
     name: 'cart',
@@ -3827,7 +3838,8 @@ export default App;
     }
 });
 </code></pre>
-<div style="break-before: page; page-break-before: always;"></div><h1 id="node-i"><a class="header" href="#node-i">Node I</a></h1>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="node-i"><a class="header" href="#node-i">Node I</a></h1>
 <blockquote>
 <p>What is nodejs ?</p>
 </blockquote>
@@ -3840,13 +3852,19 @@ export default App;
 <blockquote>
 <p>Difference b/w Browser js &amp; NodeJS</p>
 </blockquote>
-<div class="table-wrapper"><table><thead><tr><th>Browser js</th><th>nodejs</th></tr></thead><tbody>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Browser js</th><th>nodejs</th></tr>
+</thead>
+<tbody>
 <tr><td>Acess to browser APIs like DOM,window object</td><td>No access to browser APIs</td></tr>
 <tr><td>Use to make Interactive Apps</td><td>Use to make Server side Apps</td></tr>
 <tr><td>No filesystem</td><td>Has access to filesystem</td></tr>
-<tr><td>Depends on users browser's version</td><td>Depends on NodeJS version</td></tr>
+<tr><td>Depends on users browser’s version</td><td>Depends on NodeJS version</td></tr>
 <tr><td>ES6 modules</td><td>CommonJS</td></tr>
-</tbody></table>
+</tbody>
+</table>
 </div>
 <h3 id="globals"><a class="header" href="#globals">Globals</a></h3>
 <ul>
@@ -3868,7 +3886,7 @@ be imported and used in other parts of a program</p>
 <h3 id="packagejson-vs-package-lockjson"><a class="header" href="#packagejson-vs-package-lockjson">package.json vs package-lock.json</a></h3>
 <ul>
 <li>
-<p>package.json describes the project's dependencies at a high level</p>
+<p>package.json describes the project’s dependencies at a high level</p>
 </li>
 <li>
 <p>package-lock.json provides a detailed record of the exact versions of those dependencies
@@ -4109,15 +4127,22 @@ http.createServer(function (req, res) {
     });
 }).listen(5000);
 </code></pre>
-<div style="break-before: page; page-break-before: always;"></div><h1 id="node-ii"><a class="header" href="#node-ii">Node II</a></h1>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="node-ii"><a class="header" href="#node-ii">Node II</a></h1>
 <p><strong>Difference b/w res.end() vs res.send()</strong></p>
-<div class="table-wrapper"><table><thead><tr><th>res.end()</th><th>res.send()</th></tr></thead><tbody>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>res.end()</th><th>res.send()</th></tr>
+</thead>
+<tbody>
 <tr><td>Used to end the response and send a body as response</td><td>used to send a response body</td></tr>
 <tr><td>Cannot set header and status code</td><td>Automatically sets content-type header based on the data passed as an argument</td></tr>
 <tr><td>Immediately terminates the connection with client</td><td>Waits for the response to be send and then terminates the connection</td></tr>
 <tr><td>Cannot do this</td><td>Sets Eh-tag header which is used for cache validation</td></tr>
 <tr><td>Used to end the response stream and flush any remaining data to the client synchronously. It does not return a promise.</td><td>Used to send data to the client asynchronously. It returns a promise that resolves when the data has been sent.</td></tr>
-</tbody></table>
+</tbody>
+</table>
 </div>
 <h3 id="request"><a class="header" href="#request">Request</a></h3>
 <p>Contains:</p>
@@ -4337,10 +4362,16 @@ app.listen(5000, (req, res) =&gt; {
 });
 </code></pre>
 <h3 id="api-vs-ssr-difference"><a class="header" href="#api-vs-ssr-difference">API vs SSR difference</a></h3>
-<div class="table-wrapper"><table><thead><tr><th>API</th><th>SSR</th></tr></thead><tbody>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>API</th><th>SSR</th></tr>
+</thead>
+<tbody>
 <tr><td>We send data through json</td><td>We send data through templates</td></tr>
 <tr><td>We use res.json()</td><td>We use res.render()</td></tr>
-</tbody></table>
+</tbody>
+</table>
 </div>
 <h3 id="route-params"><a class="header" href="#route-params">Route Params</a></h3>
 <pre><code class="language-js">const express = require('express');
@@ -4648,7 +4679,8 @@ app.listen(5000, () =&gt; {
     maxAge: 2 * 3600 * 1000
 });
 </code></pre>
-<div style="break-before: page; page-break-before: always;"></div><h1 id="a-basic-app-with-nodejsprisma"><a class="header" href="#a-basic-app-with-nodejsprisma">A Basic App with nodejs+prisma</a></h1>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="a-basic-app-with-nodejsprisma"><a class="header" href="#a-basic-app-with-nodejsprisma">A Basic App with nodejs+prisma</a></h1>
 <h3 id="install-express-and-prisma"><a class="header" href="#install-express-and-prisma">Install express and prisma</a></h3>
 <pre><code class="language-sh">npm i @prisma/client express dotenv nodemon
 </code></pre>
@@ -4816,7 +4848,8 @@ app.listen(5000, () =&gt; {
     console.log('hello');
 });
 </code></pre>
-<div style="break-before: page; page-break-before: always;"></div><h1 id="graphql-basics-with-apolloserver-and-nodejs"><a class="header" href="#graphql-basics-with-apolloserver-and-nodejs">GraphQL Basics with Apolloserver and nodeJS</a></h1>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="graphql-basics-with-apolloserver-and-nodejs"><a class="header" href="#graphql-basics-with-apolloserver-and-nodejs">GraphQL Basics with Apolloserver and nodeJS</a></h1>
 <h3 id="install-dependencies"><a class="header" href="#install-dependencies">Install Dependencies</a></h3>
 <pre><code class="language-sh">npm i @apollo/server graphql nodemon
 </code></pre>
@@ -5070,7 +5103,8 @@ email
 
 }
 </code></pre>
-<div style="break-before: page; page-break-before: always;"></div><h1 id="typescript"><a class="header" href="#typescript">Typescript</a></h1>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="typescript"><a class="header" href="#typescript">Typescript</a></h1>
 <h2 id="typescript-basics"><a class="header" href="#typescript-basics">Typescript Basics</a></h2>
 <h3 id="compiling"><a class="header" href="#compiling">Compiling</a></h3>
 <pre><code class="language-sh">tsc &lt;name_of_file&gt;
@@ -5179,7 +5213,8 @@ npx tsc --init
     "include": ["src/**/*"]
 }
 </code></pre>
-<div style="break-before: page; page-break-before: always;"></div><h1 id="nodejs--apollo-graphql--typescript--postgressql"><a class="header" href="#nodejs--apollo-graphql--typescript--postgressql">NodeJS + Apollo GraphQL + Typescript + PostgresSQL</a></h1>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="nodejs--apollo-graphql--typescript--postgressql"><a class="header" href="#nodejs--apollo-graphql--typescript--postgressql">NodeJS + Apollo GraphQL + Typescript + PostgresSQL</a></h1>
 <h3 id="install-dependencies-2"><a class="header" href="#install-dependencies-2">Install Dependencies</a></h3>
 <pre><code class="language-sh">npm init -y
 npm i typescript @types/node --save-dev
@@ -5622,7 +5657,8 @@ export const resolvers = {
     }
 };
 </code></pre>
-<div style="break-before: page; page-break-before: always;"></div><h1 id="sql"><a class="header" href="#sql">SQL</a></h1>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="sql"><a class="header" href="#sql">SQL</a></h1>
 <ul>
 <li>Domain Specific (Can be used in RDBMS only)</li>
 <li>Declarative Language (We have to mention just what to do not how to do)</li>
@@ -5663,12 +5699,18 @@ SET column1 = value1,
 WHERE condition;
 </code></pre>
 <h3 id="difference-bw-alter-and-update"><a class="header" href="#difference-bw-alter-and-update">Difference b/w ALTER and UPDATE</a></h3>
-<div class="table-wrapper"><table><thead><tr><th>ALTER</th><th>UPDATE</th></tr></thead><tbody>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>ALTER</th><th>UPDATE</th></tr>
+</thead>
+<tbody>
 <tr><td>DDL</td><td>DML</td></tr>
 <tr><td>Works with structure schema</td><td>Works with change in data</td></tr>
 <tr><td>Example : Renaming a column,Changing datatype of a column,droping a column</td><td>Update a value inside the column.</td></tr>
 <tr><td>No condition</td><td>Can give condition with where clause</td></tr>
-</tbody></table>
+</tbody>
+</table>
 </div>
 <h3 id="delete"><a class="header" href="#delete">DELETE</a></h3>
 <p>Link : https://www.postgresqltutorial.com/postgresql-tutorial/postgresql-delete/</p>
@@ -5685,12 +5727,18 @@ WHERE condition;
 <pre><code class="language-sql">TRUNCATE TABLE table_name;
 </code></pre>
 <h3 id="difference-bw-deletedroptruncate"><a class="header" href="#difference-bw-deletedroptruncate">Difference b/w DELETE,DROP,TRUNCATE</a></h3>
-<div class="table-wrapper"><table><thead><tr><th>DELETE</th><th>DROP</th><th>TRUNCATE</th></tr></thead><tbody>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>DELETE</th><th>DROP</th><th>TRUNCATE</th></tr>
+</thead>
+<tbody>
 <tr><td>DML</td><td>DDL</td><td>DDL</td></tr>
 <tr><td>Deletes only rows row</td><td>Deletes every row+schema</td><td>Deletes only rows</td></tr>
 <tr><td>Deletes rows one by one (can give where clause)</td><td>-</td><td>Deletes rows in one go</td></tr>
 <tr><td>Slower, Rollback possible if done before commit as it maintains logs</td><td>-</td><td>Faster, Rollback not possible as it maintains no logs</td></tr>
-</tbody></table>
+</tbody>
+</table>
 </div>
 <h3 id="constraints"><a class="header" href="#constraints">Constraints</a></h3>
 <ul>
@@ -5766,11 +5814,17 @@ Primarily Used for maintaining referential integrity.</p>
 <p>Supeset of any candidate key (all possible values to uniquely identify two tuples in a table)</p>
 <p>Formula : 2^n-k-(2^n-commonsets) , k no of candiate keys</p>
 <h3 id="difference-bw-nested-subqueries--correlated-subqueries"><a class="header" href="#difference-bw-nested-subqueries--correlated-subqueries">Difference b/w Nested Subqueries , Correlated Subqueries</a></h3>
-<div class="table-wrapper"><table><thead><tr><th>Nested</th><th>Correlated</th></tr></thead><tbody>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Nested</th><th>Correlated</th></tr>
+</thead>
+<tbody>
 <tr><td>Inner query runs first once and acts as a result for the outer query</td><td>Outer query runs first and for each outer query inner query runs multiple times</td></tr>
 <tr><td>Example : IN , NOT IN</td><td>Example : EXISTS , NOT EXISTS</td></tr>
 <tr><td>Bottom up approach</td><td>Top Down approach</td></tr>
-</tbody></table>
+</tbody>
+</table>
 </div>
 <h3 id="common-things-to-do"><a class="header" href="#common-things-to-do">Common things to do</a></h3>
 <ul>
@@ -5835,7 +5889,8 @@ WHERE
   a.diagnosis = 'Epilepsy'
 </code></pre>
 <p>Link : https://www.postgresqltutorial.com/postgresql-tutorial/postgresql-joins/</p>
-<div style="break-before: page; page-break-before: always;"></div><h1 id="sql-alchemy"><a class="header" href="#sql-alchemy">SQL Alchemy</a></h1>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="sql-alchemy"><a class="header" href="#sql-alchemy">SQL Alchemy</a></h1>
 <h2 id="install-2"><a class="header" href="#install-2">Install</a></h2>
 <pre><code class="language-sh">pip install virtualenv
 mkdir sqlalc
@@ -6004,7 +6059,7 @@ SQL queries directly.</p>
 <li>Limited query capabilities: ORMs may not support all SQL queries or features, limiting the flexibility of the developer when working with complex data.</li>
 <li>Learning curve: ORMs can have a steep learning curve, especially for developers who are new to object-relational mapping.</li>
 <li>Complexity: ORMs can add complexity to the application, making it harder to debug and maintain.</li>
-<li>Lazy loading: ORMs often use lazy loading to fetch related data only when it's needed, but this can result in multiple round trips to the database, leading to performance issues.</li>
+<li>Lazy loading: ORMs often use lazy loading to fetch related data only when it’s needed, but this can result in multiple round trips to the database, leading to performance issues.</li>
 </ul>
 <h4 id="connecting-with-a-database-1"><a class="header" href="#connecting-with-a-database-1">Connecting with a database</a></h4>
 <pre><code class="language-py">from sqlalchemy import create_engine, text
@@ -6258,9 +6313,9 @@ async def main():
 asyncio.run(main())
 </code></pre>
 <h1 id="note-1"><a class="header" href="#note-1">Note:</a></h1>
-<p>In SQLAlchemy, the term "expire on commit" refers to a configuration option for a session object
+<p>In SQLAlchemy, the term “expire on commit” refers to a configuration option for a session object
 that determines whether or not the state of objects loaded from the database will be set to
-"expired" when a transaction is committed. When an object's state is expired, it means that any
+“expired” when a transaction is committed. When an object’s state is expired, it means that any
 changes made to the object during the transaction will be discarded, and the next time the object is
 accessed, its state will be reloaded from the database.</p>
 <h4 id="orm"><a class="header" href="#orm">ORM</a></h4>
@@ -6322,7 +6377,8 @@ async def main():
 
 asyncio.run(main())
 </code></pre>
-<div style="break-before: page; page-break-before: always;"></div><h1 id="redis"><a class="header" href="#redis">Redis</a></h1>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="redis"><a class="header" href="#redis">Redis</a></h1>
 <blockquote>
 <p>Redis is a memory-based database that is commonly used for caching purposes.
 When we have a value that takes a long time to compute, we can cache it in Redis and
@@ -6397,7 +6453,8 @@ HDEL person name
 # delete hashset
 DEL person
 </code></pre>
-<div style="break-before: page; page-break-before: always;"></div><h1 id="fastapi"><a class="header" href="#fastapi">FastAPI</a></h1>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="fastapi"><a class="header" href="#fastapi">FastAPI</a></h1>
 <h3 id="install-dependencies-3"><a class="header" href="#install-dependencies-3">Install dependencies</a></h3>
 <pre><code class="language-sh">pip install fastapi uvicorn sqlalchemy strawberry-graphql[debug-server] asyncio python-dotenv asyncpg
 </code></pre>
@@ -6824,7 +6881,8 @@ async def delete_(sessmaker: async_sessionmaker[AsyncSession], id):
         await session.commit()
         return res
 </code></pre>
-<div style="break-before: page; page-break-before: always;"></div><h1 id="react-hooks-1"><a class="header" href="#react-hooks-1">React Hooks</a></h1>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="react-hooks-1"><a class="header" href="#react-hooks-1">React Hooks</a></h1>
 <p><strong>Basic Hooks</strong></p>
 <h2 id="usestate-1"><a class="header" href="#usestate-1">useState</a></h2>
 <p><strong>Note : State updates are not immediate.</strong></p>
@@ -7084,7 +7142,7 @@ export default App;
 <p>Some note :</p>
 <ul>
 <li>Custom Hooks can have any arbitary name. Good Convention is
-to give the "use" prefix to make the developer understand its
+to give the “use” prefix to make the developer understand its
 a hook.It is not a mandatory thing.</li>
 </ul>
 <ul>
@@ -7534,14 +7592,17 @@ const About = () =&gt; {
 
 export default About;
 </code></pre>
-<div style="break-before: page; page-break-before: always;"></div><h1 id="react-typescript"><a class="header" href="#react-typescript">React Typescript</a></h1>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="react-typescript"><a class="header" href="#react-typescript">React Typescript</a></h1>
 <p>use React.FC to declare component type</p>
 <h3 id="props"><a class="header" href="#props">Props</a></h3>
 <p>Use interface</p>
 <h3 id="hooks"><a class="header" href="#hooks">Hooks</a></h3>
 <p>Types are declared using &lt;&gt;</p>
 <h3 id="render-props"><a class="header" href="#render-props">Render props</a></h3>
-<div style="break-before: page; page-break-before: always;"></div><h3 id="nextjs-14"><a class="header" href="#nextjs-14">NextJS 14</a></h3>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="18_next_js_14"><a href="#18_next_js_14" class="header">18_next_JS_14</a></h1>
+<h3 id="nextjs-14"><a class="header" href="#nextjs-14">NextJS 14</a></h3>
 <h2 id="getting-started"><a class="header" href="#getting-started">Getting Started</a></h2>
 <p><a href="https://nextjs.org/docs/getting-started/installation">NextJS</a></p>
 <h3 id="create-app"><a class="header" href="#create-app">Create APP</a></h3>
@@ -7559,7 +7620,7 @@ export default About;
 <li>.gitignore - sets which will be ignored by source control</li>
 <li>bunch of config files (will discuss as we go)</li>
 <li>in package.json look scripts</li>
-<li>'npm run dev' to spin up the project on http://localhost:3000</li>
+<li>‘npm run dev’ to spin up the project on http://localhost:3000</li>
 </ul>
 <h2 id="home-page"><a class="header" href="#home-page">Home Page</a></h2>
 <ul>
@@ -7568,7 +7629,7 @@ export default About;
 </li>
 <li>
 <p>represents root of our application
-'/' local domain or production domain</p>
+‘/’ local domain or production domain</p>
 </li>
 <li>
 <p>react component (server component)</p>
@@ -7580,7 +7641,7 @@ export default About;
 <p>export component as default</p>
 </li>
 <li>
-<p>file name "page" has a special meaning</p>
+<p>file name “page” has a special meaning</p>
 </li>
 <li>
 <p>snippets extension</p>
@@ -7619,7 +7680,7 @@ export default AboutPage;
 <h2 id="link-component"><a class="header" href="#link-component">Link Component</a></h2>
 <ul>
 <li>navigate around the project</li>
-<li>import Link from 'next/link'
+<li>import Link from ‘next/link’
 home page</li>
 </ul>
 <pre><code class="language-js">import Link from 'next/link';
@@ -7684,7 +7745,7 @@ module.exports = {
 </li>
 <li>
 <p>template.js</p>
-<p>Layout is a component which wraps other pages and layouts. Allow to share UI. Even when the route changes, layout DOES NOT re-render. Can fetch data but can't pass it down to children. Templates are the same but they re-render.</p>
+<p>Layout is a component which wraps other pages and layouts. Allow to share UI. Even when the route changes, layout DOES NOT re-render. Can fetch data but can’t pass it down to children. Templates are the same but they re-render.</p>
 </li>
 <li>
 <p>the top-most layout is called the Root Layout. This required layout is shared across all pages in an application. Root layouts must contain html and body tags.</p>
@@ -7798,7 +7859,7 @@ export default function RootLayout({
 <p>BY DEFAULT, NEXT.JS USES SERVER COMPONENTS !!!!</p>
 </li>
 <li>
-<p>To use Client Components, you can add the React "use client" directive</p>
+<p>To use Client Components, you can add the React “use client” directive</p>
 </li>
 </ul>
 <h3 id="server-components"><a class="header" href="#server-components">Server Components</a></h3>
@@ -7914,7 +7975,7 @@ export default DrinksPage;
 <p>The error.js file convention allows you to gracefully handle unexpected runtime errors in nested routes.</p>
 <ul>
 <li>drinks/error.js</li>
-<li>'use client'</li>
+<li>‘use client’</li>
 </ul>
 <pre><code class="language-js">'use client';
 const error = (err: any) =&gt; {
@@ -7931,11 +7992,11 @@ export default error;
 <p>UI will be applied to app/drinks - segment</p>
 </li>
 <li>
-<p>don't forget about the "children"</p>
+<p>don’t forget about the “children”</p>
 </li>
 <li>
-<p>we can fetch data in the layout but...
-at the moment can't pass data down to children (pages) 😞</p>
+<p>we can fetch data in the layout but…
+at the moment can’t pass data down to children (pages) 😞</p>
 <p>layout.js</p>
 </li>
 </ul>
@@ -8103,7 +8164,7 @@ export default SingleDrink;
 <p>To use a remote image, the src property should be a URL string.</p>
 </li>
 <li>
-<p>Since Next.js does not have access to remote files during the build process, you'll need to provide the width, height and optional blurDataURL props manually.</p>
+<p>Since Next.js does not have access to remote files during the build process, you’ll need to provide the width, height and optional blurDataURL props manually.</p>
 </li>
 <li>
 <p>The width and height attributes are used to infer the correct aspect ratio of image and avoid layout shift from the image loading in. The width and height do not determine the rendered size of the image file.</p>
@@ -8165,7 +8226,7 @@ module.exports = nextConfig;
 <p>The fill prop allows your image to be sized by its parent element</p>
 </li>
 <li>
-<p>sizes property helps the browser select the most appropriate image size to load based on the user's device and screen size, improving website performance and user experience.</p>
+<p>sizes property helps the browser select the most appropriate image size to load based on the user’s device and screen size, improving website performance and user experience.</p>
 <p>DrinksList.jsx</p>
 </li>
 </ul>
@@ -8212,8 +8273,8 @@ _folder</p>
 <li>
 <p>Dynamic Routes</p>
 <ul>
-<li>[...folder] - Catch-all route segment</li>
-<li>[[...folder]] Optional catch-all route segment (used by Clerk)</li>
+<li>[…folder] - Catch-all route segment</li>
+<li>[[…folder]] Optional catch-all route segment (used by Clerk)</li>
 </ul>
 </li>
 <li>
@@ -8222,7 +8283,7 @@ _folder</p>
 <li>
 <p>create app/(dashboard)/auth</p>
 <ul>
-<li>the url is just '/auth'</li>
+<li>the url is just ‘/auth’</li>
 </ul>
 </li>
 <li>
@@ -8236,8 +8297,8 @@ _folder</p>
 export default SignInPage;
 </code></pre>
 <ul>
-<li>create app/(dashboard)/auth/[...sign-in]</li>
-<li>create app/(dashboard)/auth/[[...sign-in]]</li>
+<li>create app/(dashboard)/auth/[…sign-in]</li>
+<li>create app/(dashboard)/auth/[[…sign-in]]</li>
 </ul>
 <h2 id="prisma"><a class="header" href="#prisma">Prisma</a></h2>
 <ul>
@@ -8254,7 +8315,7 @@ npm install @prisma/client
 </code></pre>
 <pre><code class="language-sh">npx prisma init
 </code></pre>
-<p>This creates a new prisma directory with your Prisma schema file and configures SQLite as your database. You're now ready to model your data and create your database with some tables.</p>
+<p>This creates a new prisma directory with your Prisma schema file and configures SQLite as your database. You’re now ready to model your data and create your database with some tables.</p>
 <pre><code class="language-prisma">generator client {
   provider = "prisma-client-js"
 }
@@ -8308,13 +8369,13 @@ if (process.env.NODE_ENV !== 'production') globalForPrisma.prisma = prisma;
 <pre><code class="language-sh">npx prisma migrate dev
 </code></pre>
 <h3 id="prisma-model"><a class="header" href="#prisma-model">Prisma Model</a></h3>
-<p>The Prisma model provided is a representation of a Task entity in the context of a database schema. Here's a detailed description of each component within this model:</p>
-<p>model Task { ... }: This is the definition of the Task model. In Prisma, a model represents a table in the database. It serves as a blueprint for the records that will be stored in the corresponding table, defining the structure and behavior of the data.</p>
+<p>The Prisma model provided is a representation of a Task entity in the context of a database schema. Here’s a detailed description of each component within this model:</p>
+<p>model Task { … }: This is the definition of the Task model. In Prisma, a model represents a table in the database. It serves as a blueprint for the records that will be stored in the corresponding table, defining the structure and behavior of the data.</p>
 <p>id String @id @default(uuid()): This line defines a field named id of type String which is marked with @id, signifying that this field is the primary key of the model. The @default(uuid()) directive indicates that the default value for this field will be a UUID (Universally Unique Identifier) generated by Prisma.</p>
 <p>content String: This line declares a field named content of type String. This field will store textual data, presumably the details or description of the task.</p>
 <p>createdAt DateTime @default(now()): This field is named createdAt and is of type DateTime. It has a default value set to the current timestamp at the time of record creation, indicated by the @default(now()) directive.</p>
 <p>completed Boolean @default(false): Lastly, the completed field is of type Boolean and is used to indicate whether the task has been completed. It defaults to false, meaning when a new task record is created, it is considered incomplete by default.</p>
-<p>In Prisma, the term "model" refers to an abstraction that maps to a table in your database. Prisma models are defined in the Prisma schema, which is a declarative representation of your database's structure. Each model in the Prisma schema corresponds to a table in the database, and each field within a model corresponds to a column in that table. This schema plays a central role in Prisma's features, such as type-safe database access and migrations.</p>
+<p>In Prisma, the term “model” refers to an abstraction that maps to a table in your database. Prisma models are defined in the Prisma schema, which is a declarative representation of your database’s structure. Each model in the Prisma schema corresponds to a table in the database, and each field within a model corresponds to a column in that table. This schema plays a central role in Prisma’s features, such as type-safe database access and migrations.</p>
 <h2 id="prisma-example"><a class="header" href="#prisma-example">Prisma Example</a></h2>
 <ul>
 <li>remove query</li>
@@ -8512,7 +8573,7 @@ export default TaskList;
 <p>Rules :</p>
 <ul>
 <li>must be async</li>
-<li>add 'use server' in function body
+<li>add ‘use server’ in function body
 <ul>
 <li>use only in React Server Component</li>
 </ul>
@@ -8531,7 +8592,7 @@ export default TaskList;
 }
 </code></pre>
 <ul>
-<li>or setup in a separate file ('use server' at the top)
+<li>or setup in a separate file (‘use server’ at the top)
 <ul>
 <li>can use in both (RSC and RCC)</li>
 </ul>
@@ -8628,7 +8689,7 @@ export const createTask = async (formData) =&gt; {
 </code></pre>
 <h2 id="deleteform"><a class="header" href="#deleteform">DeleteForm</a></h2>
 <ul>
-<li>will use "action" approach since it works without JS</li>
+<li>will use “action” approach since it works without JS</li>
 <li>invoke by using startTransition (useTransition hook)</li>
 </ul>
 <pre><code class="language-js">import { deleteTask } from '@/utils/actions';
@@ -9059,8 +9120,8 @@ export default DeleteForm;
 </ul>
 <p>Route Handlers allow you to create custom request handlers for a given route using the Web Request and Response APIs.</p>
 <ul>
-<li>in app create folder "api"</li>
-<li>in there create folder "tasks" with route.js file</li>
+<li>in app create folder “api”</li>
+<li>in there create folder “tasks” with route.js file</li>
 </ul>
 <p>The following HTTP methods are supported: GET, POST, PUT, PATCH, DELETE, HEAD, and OPTIONS. If an unsupported method is called, Next.js will return a 405 Method Not Allowed response.</p>
 <p>In addition to supporting native Request and Response. Next.js extends them with NextRequest and NextResponse to provide convenient helpers for advanced use cases.</p>
@@ -9192,7 +9253,9 @@ export default PrismaExample;
 <li>sign up for account</li>
 <li>create github repo</li>
 </ul>
-<div style="break-before: page; page-break-before: always;"></div><h3 id="backend"><a class="header" href="#backend">Backend</a></h3>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="19_reactnode_js_jwt"><a href="#19_reactnode_js_jwt" class="header">19_React+Node_JS_JWT</a></h1>
+<h3 id="backend"><a class="header" href="#backend">Backend</a></h3>
 <pre><code class="language-sh">mkdir jwt-backend
 cd jwt-backend
 npm init -y
@@ -9436,7 +9499,9 @@ const App = () =&gt; {
 
 export default App;
 </code></pre>
-<div style="break-before: page; page-break-before: always;"></div><h3 id="install-dependencies-4"><a class="header" href="#install-dependencies-4">Install Dependencies</a></h3>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="20_fastapi_jwt_scratch_react"><a href="#20_fastapi_jwt_scratch_react" class="header">20_Fastapi_JWT_Scratch_React</a></h1>
+<h3 id="install-dependencies-4"><a class="header" href="#install-dependencies-4">Install Dependencies</a></h3>
 <pre><code class="language-sh">pip install fastapi uvicorn gunicorn pyjwt
 </code></pre>
 <blockquote>
@@ -9680,7 +9745,8 @@ const App = () =&gt; {
 
 export default App;
 </code></pre>
-<div style="break-before: page; page-break-before: always;"></div><h1 id="mongodb"><a class="header" href="#mongodb">MongoDB</a></h1>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="mongodb"><a class="header" href="#mongodb">MongoDB</a></h1>
 <blockquote>
 <p>Connecting to mongodb</p>
 </blockquote>
@@ -9753,12 +9819,18 @@ db.coll.deleteOne({name: "John Doe"}) // remove one document with name "John Doe
 <blockquote>
 <p>ACID Compliance</p>
 </blockquote>
-<div class="table-wrapper"><table><thead><tr><th>Properties</th><th>Points</th></tr></thead><tbody>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Properties</th><th>Points</th></tr>
+</thead>
+<tbody>
 <tr><td>Atomicity</td><td>Means: A single transaction will take place or it will not take place.On error rollback will happen and on success data will be commited. mongodb historically supported for single documents only,now supports multi document</td></tr>
 <tr><td>Consistency</td><td>Means: MongoDB uses schema validation, a feature that allows you to define the specific structure of documents in each MongoDB collection. If the document structure deviates from the defined schema, MongoDB will return an error. This is how MongoDB enforces its version of consistency</td></tr>
 <tr><td>Isolation</td><td>Means: Concurrent transaction run in some serial order to prevent data corruption and race condition.</td></tr>
 <tr><td>Durability</td><td>Measn : Data perssitence.If a data has been commited evn if the coputer crashes we will have the data stored into the disk</td></tr>
-</tbody></table>
+</tbody>
+</table>
 </div>
 <blockquote>
 <p>Jsonschema</p>
@@ -9784,7 +9856,9 @@ db.createCollection("hosts", {
 })
 
 </code></pre>
-<div style="break-before: page; page-break-before: always;"></div><h3 id="integrate-trpc-with-bun"><a class="header" href="#integrate-trpc-with-bun">Integrate TRPC with bun</a></h3>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="22_trpc"><a href="#22_trpc" class="header">22_TRPC</a></h1>
+<h3 id="integrate-trpc-with-bun"><a class="header" href="#integrate-trpc-with-bun">Integrate TRPC with bun</a></h3>
 <h4 id="install-3"><a class="header" href="#install-3">Install</a></h4>
 <pre><code class="language-sh">bun add dotenv @types/dotenv @types/express express @types/cookie-parser cookie-parser cors @types/cors zod @trpc/server
 </code></pre>
@@ -9843,7 +9917,7 @@ export const appRouter = t.router({
 export type AppRouter = typeof appRouter;
 </code></pre>
 <h3 id="basic-integration-client"><a class="header" href="#basic-integration-client">Basic Integration client</a></h3>
-<h4 id="install-4"><a class="header" href="#install-4">Install</a></h4>
+<h4 id="install-1-1"><a class="header" href="#install-1-1">Install</a></h4>
 <pre><code class="language-sh">bun add @trpc/server@next @trpc/client@next @trpc/react-query@next @trpc/next@next @tanstack/react-query@latest zod
 bun remove @trpc/server
 </code></pre>
@@ -10033,7 +10107,9 @@ export const isAdminMiddleware = t.middleware(({ ctx, next }) =&gt; {
 
 export const adminProcedure = t.procedure.use(isAdminMiddleware);
 </code></pre>
-<div style="break-before: page; page-break-before: always;"></div><h3 id="react-query"><a class="header" href="#react-query">React Query</a></h3>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="23_react_query"><a href="#23_react_query" class="header">23_React_Query</a></h1>
+<h3 id="react-query"><a class="header" href="#react-query">React Query</a></h3>
 <pre><code class="language-sh">npm create vite@latest myapp
 npm i @tanstack/react-query @tanstack/react-query-devtools
 cd myapp
@@ -10298,7 +10374,9 @@ async def create_post(data: Data):
 if __name__ == "__main__":
     uvicorn.run("main:app", port=5000, reload=True)
 </code></pre>
-<div style="break-before: page; page-break-before: always;"></div><h3 id="monorepo-setup"><a class="header" href="#monorepo-setup">Monorepo setup</a></h3>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="24_monorepo"><a href="#24_monorepo" class="header">24_Monorepo</a></h1>
+<h3 id="monorepo-setup"><a class="header" href="#monorepo-setup">Monorepo setup</a></h3>
 <pre><code class="language-sh">mkdir monorepo
 cd monorepo
 bun init -y
@@ -10804,7 +10882,8 @@ export const privateProcedure = (...roles: Role[]) =&gt;
 <p>Test by passing headers</p>
 <pre><code>t.procedure.use(isAuthed("")).query()
 </code></pre>
-<div style="break-before: page; page-break-before: always;"></div><h1 id="golang"><a class="header" href="#golang">Golang</a></h1>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="golang"><a class="header" href="#golang">Golang</a></h1>
 <h1 id="01hello"><a class="header" href="#01hello">01hello</a></h1>
 <blockquote>
 <p>Code</p>
@@ -11672,7 +11751,264 @@ func DecodeJson() {
 
 }
 </code></pre>
-<div style="break-before: page; page-break-before: always;"></div><h1 id="abstraction"><a class="header" href="#abstraction">Abstraction</a></h1>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="disk-fundamentals"><a class="header" href="#disk-fundamentals">Disk Fundamentals</a></h1>
+<ul>
+<li>disk have sectors,tracks</li>
+<li>intersection of them is blocks</li>
+<li>eacn block can be 4-16kb.</li>
+</ul>
+<h1 id="indexing-techniques"><a class="header" href="#indexing-techniques">Indexing Techniques</a></h1>
+<h2 id="1-hash-index"><a class="header" href="#1-hash-index">1. Hash Index</a></h2>
+<ul>
+<li>Basic hashmap stored entirely in memory</li>
+<li>Requires instant random access, cannot afford disk seek latency</li>
+<li>Limited by available RAM, expensive to scale</li>
+<li>Fastest reads and writes among all techniques</li>
+<li>Cannot handle range queries efficiently</li>
+<li>Durability achieved through WAL
+<ul>
+<li>Append-only log on disk</li>
+<li>Easy writes as pointer always at end</li>
+<li>Replay log to rebuild hashmap after crash</li>
+</ul>
+</li>
+</ul>
+<h2 id="2-b-trees"><a class="header" href="#2-b-trees">2. B-Trees</a></h2>
+<ul>
+<li>Self-balancing tree structure stored on disk</li>
+<li>No size limitation since disk-based</li>
+<li>Durability is inherent, less complex to manage</li>
+<li>Slower reads than hash index due to disk access</li>
+<li>Read complexity is O(logN)</li>
+<li>Write operations are slow due to tree rebalancing</li>
+<li>Excellent for range queries due to sorted tree structure</li>
+<li>Durability strategy
+<ul>
+<li>Avoid in-place updates</li>
+<li>Write to separate pages first</li>
+<li>Update references atomically afterward</li>
+</ul>
+</li>
+</ul>
+<h2 id="3-lsm-tree-with-sstable"><a class="header" href="#3-lsm-tree-with-sstable">3. LSM Tree with SSTable</a></h2>
+<h3 id="core-structure"><a class="header" href="#core-structure">Core Structure</a></h3>
+<ul>
+<li>In-memory balanced tree called Memtable</li>
+<li>Uses AVL or Red-Black tree implementation</li>
+<li>Memtable flushes to disk as SSTable when threshold reached</li>
+</ul>
+<h3 id="performance-characteristics"><a class="header" href="#performance-characteristics">Performance Characteristics</a></h3>
+<ul>
+<li>Writes faster than B-Trees but slower than hash index</li>
+<li>Reads slower than B-Trees</li>
+<li>Must check Memtable first then all SSTables</li>
+<li>Range queries slower due to scattered data across SSTables</li>
+</ul>
+<h3 id="durability-and-storage"><a class="header" href="#durability-and-storage">Durability and Storage</a></h3>
+<ul>
+<li>WAL handles crash recovery</li>
+<li>Replay WAL to restore Memtable state</li>
+<li>SSTables stored on disk removes memory size constraints</li>
+<li>No practical limit on total keys stored</li>
+</ul>
+<h3 id="sstable-properties"><a class="header" href="#sstable-properties">SSTable Properties</a></h3>
+<ul>
+<li>Sorted by key</li>
+<li>Immutable once written</li>
+<li>Never modified in place</li>
+</ul>
+<h3 id="read-path"><a class="header" href="#read-path">Read Path</a></h3>
+<ul>
+<li>Check Memtable first</li>
+<li>Search SSTables from newest to oldest</li>
+<li>Stop when key found</li>
+</ul>
+<h3 id="delete-operation"><a class="header" href="#delete-operation">Delete Operation</a></h3>
+<ul>
+<li>Tombstone marker written as value</li>
+<li>Added to latest SSTable</li>
+<li>Actual removal happens during compaction</li>
+</ul>
+<hr>
+<h2 id="lsm-optimizations"><a class="header" href="#lsm-optimizations">LSM Optimizations</a></h2>
+<h3 id="sparse-index"><a class="header" href="#sparse-index">Sparse Index</a></h3>
+<ul>
+<li>Index containing subset of SSTable keys</li>
+<li>Stores memory location for indexed keys</li>
+<li>Binary search locates keys between indexed entries</li>
+<li>Reduces memory overhead compared to full index</li>
+</ul>
+<h3 id="bloom-filters"><a class="header" href="#bloom-filters">Bloom Filters</a></h3>
+<ul>
+<li>Probabilistic data structure per SSTable</li>
+<li>Answers whether key possibly exists or definitely absent</li>
+<li>Avoids unnecessary SSTable reads for missing keys</li>
+</ul>
+<h3 id="compaction"><a class="header" href="#compaction">Compaction</a></h3>
+<ul>
+<li>Background process merging multiple SSTables</li>
+<li>O(N) time complexity</li>
+<li>Removes duplicate and deleted keys</li>
+<li>Reduces total SSTable count</li>
+<li>Trade-off is CPU overhead affecting foreground operations</li>
+</ul>
+<hr>
+<h2 id="lsm-write-flow"><a class="header" href="#lsm-write-flow">LSM Write Flow</a></h2>
+<h3 id="step-1-incoming-write"><a class="header" href="#step-1-incoming-write">Step 1: Incoming Write</a></h3>
+<ul>
+<li>Key-value pair arrives at LSM Tree</li>
+<li>Written to active Memtable in sorted order</li>
+<li>Simultaneously appended to WAL for durability</li>
+</ul>
+<h3 id="step-2-memtable-flush-trigger"><a class="header" href="#step-2-memtable-flush-trigger">Step 2: Memtable Flush Trigger</a></h3>
+<ul>
+<li>Memtable reaches size threshold</li>
+<li>Current Memtable frozen, no new writes accepted</li>
+<li>New empty Memtable created for incoming writes</li>
+<li>Frozen Memtable flushed to disk as immutable SSTable</li>
+<li>Flush happens in background, non-blocking</li>
+</ul>
+<h3 id="step-3-continuous-operation"><a class="header" href="#step-3-continuous-operation">Step 3: Continuous Operation</a></h3>
+<ul>
+<li>New writes target active Memtable only</li>
+<li>Never written directly to existing SSTables</li>
+<li>Multiple SSTables accumulate over time</li>
+</ul>
+<h3 id="step-4-compaction-process"><a class="header" href="#step-4-compaction-process">Step 4: Compaction Process</a></h3>
+<ul>
+<li>Triggered as SSTable count grows</li>
+<li>Merges multiple SSTables into fewer larger ones</li>
+<li>Discards overwritten key versions</li>
+<li>Removes tombstoned deletions</li>
+<li>Output is sorted, compacted SSTables</li>
+<li>Improves read performance by reducing files to search</li>
+</ul>
+<h2 id="question-1-why-lsm-tree-has-better-write-speed-than-b-tree"><a class="header" href="#question-1-why-lsm-tree-has-better-write-speed-than-b-tree">Question 1: Why LSM Tree has better write speed than B-Tree</a></h2>
+<h3 id="b-tree-write-process"><a class="header" href="#b-tree-write-process">B-Tree Write Process</a></h3>
+<ul>
+<li>B-Tree stores data directly on disk in sorted order</li>
+<li>Every write requires finding correct position in tree</li>
+<li>May trigger node splits when nodes overflow</li>
+<li>Node split causes multiple disk writes</li>
+<li>Updates happen in-place requiring random disk seeks</li>
+<li>Random I/O is slow on disk</li>
+</ul>
+<h3 id="lsm-tree-write-process"><a class="header" href="#lsm-tree-write-process">LSM Tree Write Process</a></h3>
+<ul>
+<li>Writes go to in-memory Memtable first</li>
+<li>Memory writes are extremely fast</li>
+<li>WAL append is sequential disk write</li>
+<li>Sequential I/O is much faster than random I/O</li>
+<li>No immediate disk structure modification</li>
+<li>SSTable flush is one sequential bulk write</li>
+<li>No in-place updates ever</li>
+</ul>
+<h3 id="key-difference-summary"><a class="header" href="#key-difference-summary">Key Difference Summary</a></h3>
+<ul>
+<li>B-Tree does random writes to disk on every operation</li>
+<li>LSM Tree batches writes in memory then does sequential disk writes</li>
+<li>Sequential writes can be 100x faster than random writes on HDD</li>
+<li>LSM trades immediate disk consistency for write throughput</li>
+</ul>
+<h3 id="interview-one-liner"><a class="header" href="#interview-one-liner">Interview One-Liner</a></h3>
+<p>LSM Tree converts random writes into sequential writes by buffering in memory and
+flushing sorted batches, while B-Tree must perform random disk seeks for every write to maintain sorted structure.</p>
+<hr>
+<h2 id="question-2-why-hash-index-cannot-do-range-queries-but-b-tree-and-lsm-can"><a class="header" href="#question-2-why-hash-index-cannot-do-range-queries-but-b-tree-and-lsm-can">Question 2: Why Hash Index cannot do range queries but B-Tree and LSM can</a></h2>
+<h3 id="hash-index-structure"><a class="header" href="#hash-index-structure">Hash Index Structure</a></h3>
+<ul>
+<li>Keys stored based on hash function output</li>
+<li>Hash function distributes keys randomly across buckets</li>
+<li>Key “A” and key “B” may be in completely different locations</li>
+<li>No ordering relationship preserved</li>
+<li>To find keys between X and Y, must scan entire hashmap</li>
+<li>Full scan defeats purpose of index</li>
+</ul>
+<h3 id="b-tree-structure"><a class="header" href="#b-tree-structure">B-Tree Structure</a></h3>
+<ul>
+<li>Keys stored in sorted order within tree nodes</li>
+<li>Left subtree contains smaller keys</li>
+<li>Right subtree contains larger keys</li>
+<li>Leaf nodes often linked for sequential access</li>
+<li>Range query process
+<ul>
+<li>Find start key using tree traversal</li>
+<li>Follow leaf node links until end key</li>
+<li>All keys in range are adjacent</li>
+</ul>
+</li>
+</ul>
+<h3 id="lsm-tree-structure"><a class="header" href="#lsm-tree-structure">LSM Tree Structure</a></h3>
+<ul>
+<li>Memtable is sorted balanced tree</li>
+<li>Each SSTable is sorted by key</li>
+<li>Range query process
+<ul>
+<li>Scan range in Memtable</li>
+<li>Scan range in each SSTable</li>
+<li>Merge results from all sources</li>
+</ul>
+</li>
+<li>Sorting preserved at every level</li>
+</ul>
+<h3 id="core-insight"><a class="header" href="#core-insight">Core Insight</a></h3>
+<ul>
+<li>Range queries require data locality</li>
+<li>Nearby keys must be stored nearby</li>
+<li>Hash function destroys this locality</li>
+<li>Tree structures preserve key ordering</li>
+</ul>
+<h3 id="interview-one-liner-1"><a class="header" href="#interview-one-liner-1">Interview One-Liner</a></h3>
+<p>Hash functions deliberately scatter keys randomly for uniform distribution, destroying any ordering relationship.
+B-Trees and LSM Trees maintain sorted order, so adjacent keys are stored together, making range scans a simple sequential read.</p>
+<hr>
+<h2 id="question-3-comparison-of-all-three-for-range-queries"><a class="header" href="#question-3-comparison-of-all-three-for-range-queries">Question 3: Comparison of all three for range queries</a></h2>
+<h3 id="hash-index-range-query"><a class="header" href="#hash-index-range-query">Hash Index Range Query</a></h3>
+<ul>
+<li>Complexity is O(N) where N is total keys</li>
+<li>Must check every bucket</li>
+<li>No early termination possible</li>
+<li>Completely impractical for large datasets</li>
+</ul>
+<h3 id="b-tree-range-query"><a class="header" href="#b-tree-range-query">B-Tree Range Query</a></h3>
+<ul>
+<li>Find start key in O(logN)</li>
+<li>Traverse leaf nodes sequentially</li>
+<li>Total complexity O(logN + K) where K is result size</li>
+<li>Single structure to search</li>
+<li>Most efficient for range queries</li>
+</ul>
+<h3 id="lsm-tree-range-query"><a class="header" href="#lsm-tree-range-query">LSM Tree Range Query</a></h3>
+<ul>
+<li>Must check Memtable and all SSTables</li>
+<li>Each SSTable searched independently</li>
+<li>Results merged from multiple sources</li>
+<li>More I/O operations than B-Tree</li>
+<li>Complexity O(logN + K) per SSTable</li>
+<li>Compaction reduces SSTable count to improve this</li>
+</ul>
+<h3 id="why-b-tree-wins-for-range-queries"><a class="header" href="#why-b-tree-wins-for-range-queries">Why B-Tree wins for range queries</a></h3>
+<ul>
+<li>Data in single sorted structure</li>
+<li>One sequential scan after finding start</li>
+<li>No merge step required</li>
+<li>Leaf nodes often physically sequential on disk</li>
+</ul>
+<h3 id="why-lsm-tree-is-slower-for-range-queries"><a class="header" href="#why-lsm-tree-is-slower-for-range-queries">Why LSM Tree is slower for range queries</a></h3>
+<ul>
+<li>Data spread across multiple SSTables</li>
+<li>Same key range exists in multiple files</li>
+<li>Must read from all and merge</li>
+<li>Merge operation adds CPU overhead</li>
+<li>More disk seeks across files</li>
+</ul>
+<h3 id="interview-one-liner-2"><a class="header" href="#interview-one-liner-2">Interview One-Liner</a></h3>
+<p>B-Tree stores all data in one sorted structure allowing single sequential scan.
+LSM Tree spreads data across Memtable and multiple SSTables requiring parallel
+scans and merge operations, adding I/O and CPU overhead for range queries.</p>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="abstraction"><a class="header" href="#abstraction">Abstraction</a></h1>
 <p>Abstraction focuses on implementation hiding providing the user with
 a simple interface to interact with the object.User does not need to
 know internal working of the object just need to know the behaviour
@@ -11735,7 +12071,8 @@ if __name__ == "__main__":
     spc.accelerate()
     spc.stop()
 </code></pre>
-<div style="break-before: page; page-break-before: always;"></div><h1 id="encapsulation"><a class="header" href="#encapsulation">Encapsulation</a></h1>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="encapsulation"><a class="header" href="#encapsulation">Encapsulation</a></h1>
 <p>Encapsulation is about bundling data and methods to protect the data
 It deals with data security.
 In python we can use access modifier to do data security
@@ -11797,7 +12134,8 @@ if __name__ == "__main__":
     tc = TestChildClass(100)
     tc.test()
 </code></pre>
-<div style="break-before: page; page-break-before: always;"></div><h1 id="inheritance"><a class="header" href="#inheritance">Inheritance</a></h1>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="inheritance"><a class="header" href="#inheritance">Inheritance</a></h1>
 <p>In Inheritance a child class inherits the properties and methods
 of its parent class.Child class has access to all methods of
 the parent class and on the top of that they can have their own
@@ -11846,7 +12184,8 @@ if __name__ == "__main__":
     ec.start()
     ec.stop()
 </code></pre>
-<div style="break-before: page; page-break-before: always;"></div><h1 id="polymorphism"><a class="header" href="#polymorphism">Polymorphism</a></h1>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="polymorphism"><a class="header" href="#polymorphism">Polymorphism</a></h1>
 <p>Polymorphism means abilty to exists in different form
 We have mainly 2 types of polymorphism</p>
 <ul>
@@ -11919,14 +12258,15 @@ if __name__ == "__main__":
     ec.accelerate()
     ec.stop()
 </code></pre>
-<div style="break-before: page; page-break-before: always;"></div><h1 id="uml"><a class="header" href="#uml">UML</a></h1>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="uml"><a class="header" href="#uml">UML</a></h1>
 <h3 id="types-of-diagram-most-commonly-used"><a class="header" href="#types-of-diagram-most-commonly-used">Types of diagram (most commonly used)</a></h3>
 <ul>
 <li><strong>Structural</strong> (class diagrams represent classes and their relationships)</li>
 <li><strong>Behaviour</strong> (sequence diagrams show how different objects interact with each other)</li>
 </ul>
 <h2 id="class-diagram"><a class="header" href="#class-diagram">Class Diagram</a></h2>
-<p><img src="./class_diag.png" alt="Class_Diagram" /></p>
+<p><img src="class_diag.png" alt="Class_Diagram"></p>
 <ul>
 <li>User <code>+</code> for public member/method</li>
 <li>User <code>-</code> for private member/method</li>
@@ -11943,7 +12283,7 @@ if __name__ == "__main__":
 </ul>
 </li>
 </ul>
-<p><img src="./inheritance.png" alt="Inheritance" /></p>
+<p><img src="inheritance.png" alt="Inheritance"></p>
 </li>
 <li>
 <p><strong>Object Association (has-a/uses-a relationship)</strong></p>
@@ -11977,7 +12317,7 @@ cannot exist individually without the main object.</p>
 </ul>
 </li>
 </ul>
-<p><img src="./association.png" alt="Association" /></p>
+<p><img src="association.png" alt="Association"></p>
 </li>
 </ul>
 <h2 id="sequence-diagram"><a class="header" href="#sequence-diagram">Sequence Diagram</a></h2>
@@ -11985,7 +12325,7 @@ cannot exist individually without the main object.</p>
 <li><strong>Lifeline</strong> : Lifeline indicates the existence of an object over time during the interaction</li>
 <li><strong>Activation bar</strong> : Indicates the period during which an object is active</li>
 </ul>
-<p><img src="./activation_bar_lifeline.png" alt="SeqDiagBasic" /></p>
+<p><img src="activation_bar_lifeline.png" alt="SeqDiagBasic"></p>
 <blockquote>
 <p>Types of messages</p>
 </blockquote>
@@ -11993,17 +12333,17 @@ cannot exist individually without the main object.</p>
 <li><strong>Synchronous message</strong></li>
 <li><strong>Asynchronous message</strong></li>
 </ul>
-<p><img src="./message.png" alt="SeqDiagMessage1" /></p>
+<p><img src="message.png" alt="SeqDiagMessage1"></p>
 <ul>
 <li><strong>Create Msg</strong></li>
 <li><strong>Destroy Msg</strong></li>
 </ul>
-<p><img src="./create_destroy_msg.png" alt="SeqDiagMessage2" /></p>
+<p><img src="create_destroy_msg.png" alt="SeqDiagMessage2"></p>
 <ul>
 <li><strong>Lost Msg</strong></li>
 <li><strong>Found Msg</strong></li>
 </ul>
-<p><img src="./lost_found_msg.png" alt="SeqDiagMessage3" /></p>
+<p><img src="lost_found_msg.png" alt="SeqDiagMessage3"></p>
 <h3 id="basic-sequence-diagram-of-atm-transaction"><a class="header" href="#basic-sequence-diagram-of-atm-transaction">Basic Sequence Diagram of ATM transaction</a></h3>
 <ul>
 <li>User will insert card</li>
@@ -12023,10 +12363,10 @@ skinparam ParticipantPadding 20
 skinparam Shadowing false
 skinparam SequenceMessageAlign center
 skinparam participantNameAlignment top</p>
-<p>participant User as "ATM User"
-participant ATM as "ATM Machine"
-participant Transaction as "Transaction"
-participant Bank as "Bank Server"</p>
+<p>participant User as “ATM User”
+participant ATM as “ATM Machine”
+participant Transaction as “Transaction”
+participant Bank as “Bank Server”</p>
 <p>activate ATM
 activate User
 User -&gt; ATM : Insert Card
@@ -12069,7 +12409,8 @@ end</p>
 deactivate ATM
 deactivate User</p>
 <p>@enduml</p>
-<div style="break-before: page; page-break-before: always;"></div><h1 id="single-responsibility-principle"><a class="header" href="#single-responsibility-principle">Single Responsibility Principle</a></h1>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="single-responsibility-principle"><a class="header" href="#single-responsibility-principle">Single Responsibility Principle</a></h1>
 <p>SRP states that a class should do only one thing.
 It should have only one reason to change such that
 if in the future we need to add some feature we can
@@ -12141,7 +12482,8 @@ class PaymentGateway:
     def send_receipt(self, email):
         self.email_service.send_receipt(email)
 </code></pre>
-<div style="break-before: page; page-break-before: always;"></div><h1 id="open-close-principle"><a class="header" href="#open-close-principle">Open close principle</a></h1>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="open-close-principle"><a class="header" href="#open-close-principle">Open close principle</a></h1>
 <p>Open close principle states that a class should be Open
 for extension but close for modification.
 This means that you should be able to add new functionality to a class
@@ -12206,7 +12548,7 @@ class PaymentGateway:
 <p>Now, OCP is satisfied:</p>
 <ul>
 <li>The PaymentGateway class is open for extension because we can add new payment methods without changing its code.</li>
-<li>The PaymentGateway class is closed for modification because we don't need to change its existing code to add new functionality.</li>
+<li>The PaymentGateway class is closed for modification because we don’t need to change its existing code to add new functionality.</li>
 </ul>
 <pre><code class="language-py">from abc import ABC, abstractmethod
 
@@ -12264,7 +12606,8 @@ class PaymentGateway:
    def send_receipt(self, email):
        self.email_service.send_receipt(email)
 </code></pre>
-<div style="break-before: page; page-break-before: always;"></div><h1 id="liskov-substituition-principle"><a class="header" href="#liskov-substituition-principle">Liskov Substituition Principle</a></h1>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="liskov-substituition-principle"><a class="header" href="#liskov-substituition-principle">Liskov Substituition Principle</a></h1>
 <p>LSP states that we should be able to replace a base class
 with its child class easily without breaking any part of
 the system. A child class should always extend the features
@@ -12389,7 +12732,8 @@ class BankAccountClient:
         for account in self.withdrwable_accounts:
             account.withdraw()
 </code></pre>
-<div style="break-before: page; page-break-before: always;"></div><h1 id="lsp-signature-rule"><a class="header" href="#lsp-signature-rule">LSP Signature Rule</a></h1>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="lsp-signature-rule"><a class="header" href="#lsp-signature-rule">LSP Signature Rule</a></h1>
 <h3 id="method-argument-rule"><a class="header" href="#method-argument-rule">Method argument rule</a></h3>
 <p>When overriding methods in subclasses, the types of the method arguments must be the
 same or broader than those in the parent class (contravariance).
@@ -12580,7 +12924,8 @@ class CarefulExoticAnimalFeeder(AnimalFeeder):
             raise ValueError("Food cannot be empty")
         print(f"Feeding animal with {food}")
 </code></pre>
-<div style="break-before: page; page-break-before: always;"></div><h1 id="lsp-property-rule"><a class="header" href="#lsp-property-rule">LSP Property Rule</a></h1>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="lsp-property-rule"><a class="header" href="#lsp-property-rule">LSP Property Rule</a></h1>
 <h3 id="class-invariant-rule"><a class="header" href="#class-invariant-rule">Class Invariant Rule</a></h3>
 <p>A class invariant is a condition (or set of properties) that must
 always hold true for valid objects of that class.
@@ -12693,7 +13038,8 @@ class PremiumAccount(BankAccount):
         # but doesn't mess with balance history
         self.reward_points += amount // 10
 </code></pre>
-<div style="break-before: page; page-break-before: always;"></div><h1 id="lsp-method-rule"><a class="header" href="#lsp-method-rule">LSP Method Rule</a></h1>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="lsp-method-rule"><a class="header" href="#lsp-method-rule">LSP Method Rule</a></h1>
 <h3 id="pre-condition-rule"><a class="header" href="#pre-condition-rule">Pre condition rule</a></h3>
 <p>A precondition is something that must be true before a method can be safely called.
 When you override a method in a subclass:
@@ -12792,7 +13138,8 @@ class FunnyAccount(BankAccount):
         # Stronger guarantee: add bonus interest too
         self.balance += 10
 </code></pre>
-<div style="break-before: page; page-break-before: always;"></div><h1 id="interface-segregation-principle"><a class="header" href="#interface-segregation-principle">Interface Segregation Principle</a></h1>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="interface-segregation-principle"><a class="header" href="#interface-segregation-principle">Interface Segregation Principle</a></h1>
 <h3 id="isp"><a class="header" href="#isp">ISP</a></h3>
 <p>ISP states that we should not force our client to implement our interface
 Instead of having one general purpose interface we should have multiple
@@ -12880,7 +13227,8 @@ class Cube(ThreeDShape):
     def volume(self) -&gt; float:
         return self.side**3
 </code></pre>
-<div style="break-before: page; page-break-before: always;"></div><h1 id="dependency-inversion-principle"><a class="header" href="#dependency-inversion-principle">Dependency Inversion Principle</a></h1>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="dependency-inversion-principle"><a class="header" href="#dependency-inversion-principle">Dependency Inversion Principle</a></h1>
 <h3 id="dip"><a class="header" href="#dip">DIP</a></h3>
 <p>DIP states that high level modules and low level modules
 should interact with each other through an interface,
@@ -12944,14 +13292,16 @@ class Client:
     def save(self, data):
         self.db.save(data)
 </code></pre>
-<div style="break-before: page; page-break-before: always;"></div><h3 id="requirement"><a class="header" href="#requirement">Requirement</a></h3>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="1_design_google_doc"><a href="#1_design_google_doc" class="header">1_Design_Google_Doc</a></h1>
+<h3 id="requirement"><a class="header" href="#requirement">Requirement</a></h3>
 <ul>
 <li>User should able to add text,image</li>
 <li>Design in such a way user should able to other kinds of element</li>
 <li>Save the document to a db or file</li>
 </ul>
 <h3 id="uml-1"><a class="header" href="#uml-1">UML</a></h3>
-<p><img src="https://www.plantuml.com/plantuml/img/ZLHDQ-Cm4BthLmovrAMab3sQDZImBGHww9AzbM8czj28jQKWJSfss_tlbMn9iTtYH1UZcVVcusd6jvRHyBwfnHci-QqciCGirOiLzezKEpJOG5cZjKjc8pTxfbMfrLh-8xWQG-wrujRpuqguU3TJn_cN6yi6IuODMkeYv71NKqEAZz8nabjUfC7rzT2nMC2x07Skm92go6JdEJY0-2z4n_nDVpbWvi3kqladEQi6NoYHfByLE-Jj9FKCLcfBHZAgal8kBweg19FDBhGG5MW1bvSVYsJfa0FJCPqcb7uaOwLbSjMS4cKaU8yz9Rh5LyegPCmTm6dngcLrq77zw-54vBsiwIXqfB2FxWLkkGTz-trxIAjdtzZYlrXF6EYVkjotANpMUBch96jpbDsrcIB4sQAkQFTSjIlaAJpxSn02gwe8Y2nyqmP5NVhJM61TVndcOQ4fSwNBFFc2pJg06y7Xx1nAyTkJfHKQ5k3zxQ9aetKPmlpJ5goBa2aRlExIMbrAPAdLeJJOeeK6rLjit8haci_Jfa0EiuYS2J5gsWCJgqFEliFqfpx2nAtJrlr1Fm40" alt="image" /></p>
+<p><img src="https://www.plantuml.com/plantuml/img/ZLHDQ-Cm4BthLmovrAMab3sQDZImBGHww9AzbM8czj28jQKWJSfss_tlbMn9iTtYH1UZcVVcusd6jvRHyBwfnHci-QqciCGirOiLzezKEpJOG5cZjKjc8pTxfbMfrLh-8xWQG-wrujRpuqguU3TJn_cN6yi6IuODMkeYv71NKqEAZz8nabjUfC7rzT2nMC2x07Skm92go6JdEJY0-2z4n_nDVpbWvi3kqladEQi6NoYHfByLE-Jj9FKCLcfBHZAgal8kBweg19FDBhGG5MW1bvSVYsJfa0FJCPqcb7uaOwLbSjMS4cKaU8yz9Rh5LyegPCmTm6dngcLrq77zw-54vBsiwIXqfB2FxWLkkGTz-trxIAjdtzZYlrXF6EYVkjotANpMUBch96jpbDsrcIB4sQAkQFTSjIlaAJpxSn02gwe8Y2nyqmP5NVhJM61TVndcOQ4fSwNBFFc2pJg06y7Xx1nAyTkJfHKQ5k3zxQ9aetKPmlpJ5goBa2aRlExIMbrAPAdLeJJOeeK6rLjit8haci_Jfa0EiuYS2J5gsWCJgqFEliFqfpx2nAtJrlr1Fm40" alt="image"></p>
 <pre><code class="language-plantuml">@startuml
 ' Style settings
 skinparam classAttributeIconSize 0
@@ -13103,7 +13453,8 @@ if __name__ == "__main__":
     editor.add_image("path/to/image.jpg")
     editor.save()
 </code></pre>
-<div style="break-before: page; page-break-before: always;"></div><h1 id="strategy-pattern"><a class="header" href="#strategy-pattern">Strategy Pattern</a></h1>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="strategy-pattern"><a class="header" href="#strategy-pattern">Strategy Pattern</a></h1>
 <blockquote>
 <p>Defines a family of algorithm,encapsulates each one and makes them interchangeble.
 We can change the strategy at runtime</p>
@@ -13191,7 +13542,7 @@ flywithJet which in the long run will create a mess as for
 single behaviour(fly behaviour) we can multiple implementations
 and it will be a burden to maintain this.</p>
 <h3 id="inheritance-mess"><a class="header" href="#inheritance-mess">Inheritance Mess</a></h3>
-<p><img src="https://www.plantuml.com/plantuml/img/ZPFDJiCm48JlVegz0KAL44TKHKL25I2113tql8bDiU8unLw3qiAxanz8DaaBoN5cxFbMwomyeQEG6N42AogC0g-8jDruuLDjj-WmWyIWzzT4JiU1r5sIsvNUARWOHfQvfTgvv9RDfUAEmDYJmuIQGt0JaXJcyxuQHR0NK7xdu3zqTdfs1U-vbZ_IMy0a7MZjUQdzrc3Hsbz2D4LBKwmrlQwhwNulVp77W_UA_emzLHGL_VuWLfjxpEjaMJiX_836e9CyUNIWPoLl5KxCXZXMRbAqd9kcHtV5Fqas4Sncdr6zSC7OkTfICh7ZwOjDCzF6LUsAndsTDRo_v_2IpXY1zdTyW8G_lZ5Cpnq1TUznICGSiL1MbZ_oDm00" alt="Inheritance Mess" /></p>
+<p><img src="https://www.plantuml.com/plantuml/img/ZPFDJiCm48JlVegz0KAL44TKHKL25I2113tql8bDiU8unLw3qiAxanz8DaaBoN5cxFbMwomyeQEG6N42AogC0g-8jDruuLDjj-WmWyIWzzT4JiU1r5sIsvNUARWOHfQvfTgvv9RDfUAEmDYJmuIQGt0JaXJcyxuQHR0NK7xdu3zqTdfs1U-vbZ_IMy0a7MZjUQdzrc3Hsbz2D4LBKwmrlQwhwNulVp77W_UA_emzLHGL_VuWLfjxpEjaMJiX_836e9CyUNIWPoLl5KxCXZXMRbAqd9kcHtV5Fqas4Sncdr6zSC7OkTfICh7ZwOjDCzF6LUsAndsTDRo_v_2IpXY1zdTyW8G_lZ5Cpnq1TUznICGSiL1MbZ_oDm00" alt="Inheritance Mess"></p>
 <pre><code class="language-plantuml">@startuml
 ' Style settings
 skinparam classAttributeIconSize 0
@@ -13353,7 +13704,7 @@ if __name__ == "__main__":
     rd = RubberDuck(SwimBackwards(), NoFly(), QuackSqueak())
 </code></pre>
 <h3 id="uml-with-strategy-pattern-applied"><a class="header" href="#uml-with-strategy-pattern-applied">UML with Strategy Pattern applied</a></h3>
-<p><img src="https://www.plantuml.com/plantuml/img/ZPJBJiCm44NtynNUyL8an19LLQbG9P2e15bqxII6Md5iQezRXSU_uxe2_6YgP3dtZ6SySvsPGQhHTWBEI8czOCGmH2xV39YMotUgQKTgGOsvGzIyiiWUQYLB_i78TOeib4Ilt8IIL0qB5Q2LGKrhF2IHSiUxELlJBLTMayaabgTJyWd4VLV4EF3yufPi5M_W6-0_VQbqHyK8S4xhTaTrOmRPfBc5w4VrzYhwlA9BNd5Sh_RZ74K-CZpDBPKZXv2azMVhBZkg-SsUp8lv0vBHdaBBZMMq7KQJ_kvjtOvUTtxXWI9FL0YtO7zuKNnDVHbuiLN5T1ACsCkY2AoKIU4gCp4O58IbVi_ySrqg-dMcmM2M086xVUFHOu7OqaS0Y2peWT3H4FWk5mzco-CG6iFBiTKWTCCn7MPCDkwVymC0" alt="Strategy Pattern" /></p>
+<p><img src="https://www.plantuml.com/plantuml/img/ZPJBJiCm44NtynNUyL8an19LLQbG9P2e15bqxII6Md5iQezRXSU_uxe2_6YgP3dtZ6SySvsPGQhHTWBEI8czOCGmH2xV39YMotUgQKTgGOsvGzIyiiWUQYLB_i78TOeib4Ilt8IIL0qB5Q2LGKrhF2IHSiUxELlJBLTMayaabgTJyWd4VLV4EF3yufPi5M_W6-0_VQbqHyK8S4xhTaTrOmRPfBc5w4VrzYhwlA9BNd5Sh_RZ74K-CZpDBPKZXv2azMVhBZkg-SsUp8lv0vBHdaBBZMMq7KQJ_kvjtOvUTtxXWI9FL0YtO7zuKNnDVHbuiLN5T1ACsCkY2AoKIU4gCp4O58IbVi_ySrqg-dMcmM2M086xVUFHOu7OqaS0Y2peWT3H4FWk5mzco-CG6iFBiTKWTCCn7MPCDkwVymC0" alt="Strategy Pattern"></p>
 <pre><code class="language-plantuml">@startuml
 ' Style settings
 skinparam classAttributeIconSize 0
@@ -13429,7 +13780,8 @@ QuackSqueak --|&gt; QuackBehaviour
 
 @enduml
 </code></pre>
-<div style="break-before: page; page-break-before: always;"></div><h1 id="simple-factory"><a class="header" href="#simple-factory">Simple Factory</a></h1>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="simple-factory"><a class="header" href="#simple-factory">Simple Factory</a></h1>
 <blockquote>
 <p>Provides us a factory class which decides which concrete class to create
 Its not a design pattern but just a principle</p>
@@ -13680,7 +14032,7 @@ if __name__ == "__main__":
         print(f"\nError: {e}")
 </code></pre>
 <h3 id="standarduml"><a class="header" href="#standarduml">StandardUML</a></h3>
-<p><img src="https://www.plantuml.com/plantuml/img/RP3B2i8m44NtynMpKv62k7GXhOL2Tq8_G68wIB1DIZ9PrEg_6wgr3vpbkUToOMB7mhAlArXXmMr5w8XPwPi3TrUw4LRKA2lXNC9irTKpvTBeGZq8TqibCvhxP3-Dj2bfca3lujcQqalkNWkG1383foL8nquc91lRTe3XjYWj2QPBy_7McyDGWT3ukXWTVnI6JOoYvuY7uRyqdLE8IPVXVsy0" alt="SimpleFactory" /></p>
+<p><img src="https://www.plantuml.com/plantuml/img/RP3B2i8m44NtynMpKv62k7GXhOL2Tq8_G68wIB1DIZ9PrEg_6wgr3vpbkUToOMB7mhAlArXXmMr5w8XPwPi3TrUw4LRKA2lXNC9irTKpvTBeGZq8TqibCvhxP3-Dj2bfca3lujcQqalkNWkG1383foL8nquc91lRTe3XjYWj2QPBy_7McyDGWT3ukXWTVnI6JOoYvuY7uRyqdLE8IPVXVsy0" alt="SimpleFactory"></p>
 <pre><code class="language-plantuml">@startuml
 ' Style settings
 skinparam classAttributeIconSize 0
@@ -13710,7 +14062,7 @@ ProductC --|&gt; Product
 <p>Defines an interface for creating objects but allows subclass to decide
 which concrete class to instantiate</p>
 </blockquote>
-<h3 id="example-2"><a class="header" href="#example-2">Example</a></h3>
+<h3 id="example-1-1"><a class="header" href="#example-1-1">Example</a></h3>
 <p>Imagine now we want to create franchise of our store in NewYork and California,
 so we can just extend out Simple factory design and use factory method.But first
 lets understand the current scenario.Out pizza store more or less sells 4 variants
@@ -13975,7 +14327,7 @@ if __name__ == "__main__":
     cali_veggie_pizza = cali_store.create_order(PizzaType.Veggie)
 </code></pre>
 <h3 id="standarduml-1"><a class="header" href="#standarduml-1">StandardUML</a></h3>
-<p><img src="https://www.plantuml.com/plantuml/img/bPAn3e8m48RtFaKtDOP4EpeGw43YPi83c5eQquWjQOy1qNUt0O5I6RHRl_-xI-_In08pKDzBjC8vDAN0LW18TRN8tgIgc65tp4jcRGfWvAK6SUHQvV8Xy2vKCgsWIuWVALq8Fq6TYqz65pM7zXM0TE_Gd92Gq2-7agbHnZXeqxG8kxF5t0W6ubprudfp66fGM97-Nq9_AXb7mr7qZCTad6yHqsMR1ZOQ7j_ZpssWT4vzEPuslem9yhl4q_ANiTCJeGhtbzu0" alt="FactoryMethod" /></p>
+<p><img src="https://www.plantuml.com/plantuml/img/bPAn3e8m48RtFaKtDOP4EpeGw43YPi83c5eQquWjQOy1qNUt0O5I6RHRl_-xI-_In08pKDzBjC8vDAN0LW18TRN8tgIgc65tp4jcRGfWvAK6SUHQvV8Xy2vKCgsWIuWVALq8Fq6TYqz65pM7zXM0TE_Gd92Gq2-7agbHnZXeqxG8kxF5t0W6ubprudfp66fGM97-Nq9_AXb7mr7qZCTad6yHqsMR1ZOQ7j_ZpssWT4vzEPuslem9yhl4q_ANiTCJeGhtbzu0" alt="FactoryMethod"></p>
 <pre><code class="language-plantuml">@startuml
 ' Style settings
 skinparam classAttributeIconSize 0
@@ -14021,7 +14373,7 @@ FactoryB --&gt; ProductB2
 <blockquote>
 <p>Provides inteface for creating families of related object without specfying concrete classes</p>
 </blockquote>
-<h3 id="example-3"><a class="header" href="#example-3">Example</a></h3>
+<h3 id="example-2"><a class="header" href="#example-2">Example</a></h3>
 <p>Suppose in our pizza store ,different kind of pizza will have different ingredients as
 different regions will use different ingredients to make the pizza.</p>
 <pre><code class="language-py">from abc import ABC, abstractmethod
@@ -14274,7 +14626,7 @@ if __name__ == "__main__":
     cali_store.create_order(PizzaType.Veggie, "Cali Veggie Pizza")
 </code></pre>
 <h3 id="standarduml-2"><a class="header" href="#standarduml-2">StandardUML</a></h3>
-<p><img src="https://www.plantuml.com/plantuml/img/bPFDYi8m4CVlUOhSLbc4pHmz53i7OM-23o0n3Kkn9f9C3twzkqMjZKa3RcxvpVy3XcJXIJfgzmtxuciwDffxJLIRFy_yhZO7wUIUgqPwNnAvUjkI_bNMhEkJvZ-nP6aDtISGZeojT3XXTorVELkrYixN29H2TEmTGOe4f2f8mZ0DmpGCqp0CmvPIaNN7C-FT-URAQKbwStWe9zDvRsAne_o_1J-o3BlYizcbU8s6XOrp0HbznDcmlr43PWemKu19GR-X1txUUehlD1GNmJiPvv3X0Z9wO65l4RoTSGuPFXH4-gvWeKtL_R8R" alt="Abstract Factory" /></p>
+<p><img src="https://www.plantuml.com/plantuml/img/bPFDYi8m4CVlUOhSLbc4pHmz53i7OM-23o0n3Kkn9f9C3twzkqMjZKa3RcxvpVy3XcJXIJfgzmtxuciwDffxJLIRFy_yhZO7wUIUgqPwNnAvUjkI_bNMhEkJvZ-nP6aDtISGZeojT3XXTorVELkrYixN29H2TEmTGOe4f2f8mZ0DmpGCqp0CmvPIaNN7C-FT-URAQKbwStWe9zDvRsAne_o_1J-o3BlYizcbU8s6XOrp0HbznDcmlr43PWemKu19GR-X1txUUehlD1GNmJiPvv3X0Z9wO65l4RoTSGuPFXH4-gvWeKtL_R8R" alt="Abstract Factory"></p>
 <pre><code class="language-plantuml">@startuml
 ' Style settings
 skinparam classAttributeIconSize 0
@@ -14330,14 +14682,15 @@ FactoryB --&gt; ProductB22
 
 @enduml
 </code></pre>
-<div style="break-before: page; page-break-before: always;"></div><h1 id="singleton-pattern"><a class="header" href="#singleton-pattern">Singleton Pattern</a></h1>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="singleton-pattern"><a class="header" href="#singleton-pattern">Singleton Pattern</a></h1>
 <blockquote>
 <p>The Singleton Pattern ensures a class has only one instance, and provides a global point of access to it</p>
 </blockquote>
 <ul>
 <li>Used by logging,caching,database connections</li>
 </ul>
-<h3 id="example-4"><a class="header" href="#example-4">Example</a></h3>
+<h3 id="example-3"><a class="header" href="#example-3">Example</a></h3>
 <blockquote>
 <p>Way of creating Singleton in python</p>
 </blockquote>
@@ -14462,6 +14815,23 @@ func main() {
 	wg.Wait()
 }
 </code></pre>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="design-zomato"><a class="header" href="#design-zomato">Design zomato</a></h1>
+<h3 id="functional-requirements"><a class="header" href="#functional-requirements">Functional Requirements</a></h3>
+<ul>
+<li>User can search for restaurants based on location</li>
+<li>User can add items in cart.</li>
+<li>User can checkout and make payment.</li>
+<li>User should be notified once order places successfully.</li>
+</ul>
+<h3 id="non-functional-requirements"><a class="header" href="#non-functional-requirements">Non Functional Requirements</a></h3>
+<ul>
+<li>Each part of design should be scalable and modifiable.</li>
+</ul>
+<h3 id="uml-2"><a class="header" href="#uml-2">UML</a></h3>
+<pre><code class="language-plantuml">
+</code></pre>
+<h3 id="code-1"><a class="header" href="#code-1">Code</a></h3>
 
                     </main>
 
@@ -14480,6 +14850,11 @@ func main() {
 
         </div>
 
+        <template id=fa-eye><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M288 32c-80.8 0-145.5 36.8-192.6 80.6C48.6 156 17.3 208 2.5 243.7c-3.3 7.9-3.3 16.7 0 24.6C17.3 304 48.6 356 95.4 399.4C142.5 443.2 207.2 480 288 480s145.5-36.8 192.6-80.6c46.8-43.5 78.1-95.4 93-131.1c3.3-7.9 3.3-16.7 0-24.6c-14.9-35.7-46.2-87.7-93-131.1C433.5 68.8 368.8 32 288 32zM432 256c0 79.5-64.5 144-144 144s-144-64.5-144-144s64.5-144 144-144s144 64.5 144 144zM288 192c0 35.3-28.7 64-64 64c-11.5 0-22.3-3-31.6-8.4c-.2 2.8-.4 5.5-.4 8.4c0 53 43 96 96 96s96-43 96-96s-43-96-96-96c-2.8 0-5.6 .1-8.4 .4c5.3 9.3 8.4 20.1 8.4 31.6z"/></svg></span></template>
+        <template id=fa-eye-slash><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M38.8 5.1C28.4-3.1 13.3-1.2 5.1 9.2S-1.2 34.7 9.2 42.9l592 464c10.4 8.2 25.5 6.3 33.7-4.1s6.3-25.5-4.1-33.7L525.6 386.7c39.6-40.6 66.4-86.1 79.9-118.4c3.3-7.9 3.3-16.7 0-24.6c-14.9-35.7-46.2-87.7-93-131.1C465.5 68.8 400.8 32 320 32c-68.2 0-125 26.3-169.3 60.8L38.8 5.1zM223.1 149.5C248.6 126.2 282.7 112 320 112c79.5 0 144 64.5 144 144c0 24.9-6.3 48.3-17.4 68.7L408 294.5c5.2-11.8 8-24.8 8-38.5c0-53-43-96-96-96c-2.8 0-5.6 .1-8.4 .4c5.3 9.3 8.4 20.1 8.4 31.6c0 10.2-2.4 19.8-6.6 28.3l-90.3-70.8zm223.1 298L373 389.9c-16.4 6.5-34.3 10.1-53 10.1c-79.5 0-144-64.5-144-144c0-6.9 .5-13.6 1.4-20.2L83.1 161.5C60.3 191.2 44 220.8 34.5 243.7c-3.3 7.9-3.3 16.7 0 24.6c14.9 35.7 46.2 87.7 93 131.1C174.5 443.2 239.2 480 320 480c47.8 0 89.9-12.9 126.2-32.5z"/></svg></span></template>
+        <template id=fa-copy><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M502.6 70.63l-61.25-61.25C435.4 3.371 427.2 0 418.7 0H255.1c-35.35 0-64 28.66-64 64l.0195 256C192 355.4 220.7 384 256 384h192c35.2 0 64-28.8 64-64V93.25C512 84.77 508.6 76.63 502.6 70.63zM464 320c0 8.836-7.164 16-16 16H255.1c-8.838 0-16-7.164-16-16L239.1 64.13c0-8.836 7.164-16 16-16h128L384 96c0 17.67 14.33 32 32 32h47.1V320zM272 448c0 8.836-7.164 16-16 16H63.1c-8.838 0-16-7.164-16-16L47.98 192.1c0-8.836 7.164-16 16-16H160V128H63.99c-35.35 0-64 28.65-64 64l.0098 256C.002 483.3 28.66 512 64 512h192c35.2 0 64-28.8 64-64v-32h-47.1L272 448z"/></svg></span></template>
+        <template id=fa-play><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M73 39c-14.8-9.1-33.4-9.4-48.5-.9S0 62.6 0 80V432c0 17.4 9.4 33.4 24.5 41.9s33.7 8.1 48.5-.9L361 297c14.3-8.7 23-24.2 23-41s-8.7-32.2-23-41L73 39z"/></svg></span></template>
+        <template id=fa-clock-rotate-left><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M75 75L41 41C25.9 25.9 0 36.6 0 57.9V168c0 13.3 10.7 24 24 24H134.1c21.4 0 32.1-25.9 17-41l-30.8-30.8C155 85.5 203 64 256 64c106 0 192 86 192 192s-86 192-192 192c-40.8 0-78.6-12.7-109.7-34.4c-14.5-10.1-34.4-6.6-44.6 7.9s-6.6 34.4 7.9 44.6C151.2 495 201.7 512 256 512c141.4 0 256-114.6 256-256S397.4 0 256 0C185.3 0 121.3 28.7 75 75zm181 53c-13.3 0-24 10.7-24 24V256c0 6.4 2.5 12.5 7 17l72 72c9.4 9.4 24.6 9.4 33.9 0s9.4-24.6 0-33.9l-65-65V152c0-13.3-10.7-24-24-24z"/></svg></span></template>
 
 
 
@@ -14488,13 +14863,13 @@ func main() {
         </script>
 
 
-        <script src="elasticlunr.min.js"></script>
-        <script src="mark.min.js"></script>
-        <script src="searcher.js"></script>
+        <script src="elasticlunr-ef4e11c1.min.js"></script>
+        <script src="mark-09e88c2c.min.js"></script>
+        <script src="searcher-c2a407aa.js"></script>
 
-        <script src="clipboard.min.js"></script>
-        <script src="highlight.js"></script>
-        <script src="book.js"></script>
+        <script src="clipboard-1626706a.min.js"></script>
+        <script src="highlight-abc7f01d.js"></script>
+        <script src="book-a0b12cfe.js"></script>
 
         <!-- Custom JS scripts -->
 

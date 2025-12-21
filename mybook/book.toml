@@ -1,5 +1,4 @@
 [book]
+title = "Markdown Notes"
 authors = ["glowfi"]
 language = "en"
-src = "src"
-title = "Markdown Notes"
