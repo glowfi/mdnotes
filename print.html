@@ -36,7 +36,7 @@
             const path_to_root = "";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "searchindex-5f26ac60.js";
+            window.path_to_searchindex_js = "searchindex-1b550cdd.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="toc-fdf512c0.js"></script>
@@ -5669,6 +5669,7 @@ export const resolvers = {
 <li>DML (Works with data inside the database schema) : INSERT,UPDATE,DELETE,SELECT</li>
 <li>DCL (Works with authorization purposes) : GRANT , REVOKE</li>
 <li>TCL (Transcation realated) : COMMIT , ROLLBACK , SAVEPOINTS</li>
+<li>DQL (Data Query Language) : SELECT</li>
 </ul>
 <h3 id="create-table"><a class="header" href="#create-table">CREATE table</a></h3>
 <p>Link : https://www.postgresqltutorial.com/postgresql-tutorial/postgresql-create-table/</p>
@@ -5889,6 +5890,607 @@ WHERE
   a.diagnosis = 'Epilepsy'
 </code></pre>
 <p>Link : https://www.postgresqltutorial.com/postgresql-tutorial/postgresql-joins/</p>
+<h3 id="sql-cheatsheet"><a class="header" href="#sql-cheatsheet">SQL Cheatsheet</a></h3>
+<hr>
+<h2 id="table-operations"><a class="header" href="#table-operations">Table Operations</a></h2>
+<blockquote>
+<p>Create</p>
+</blockquote>
+<pre><code class="language-sql">CREATE TABLE products (
+    code INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+    prod_name VARCHAR(255) NOT NULL,
+    price NUMERIC(10,2) NOT NULL,
+    release_date TIMESTAMP WITHOUT TIME ZONE DEFAULT CURRENT_TIMESTAMP
+);
+
+--  DEFAULT NOW()
+--  DEFAULT CURRENT_TIMESTAMP
+
+-- TIMESTAMP WITHOUT TIME ZONE
+-- TIMESTAMP
+
+-- Composite primary key
+CREATE TABLE products (
+    code INT GENERATED ALWAYS AS IDENTITY,
+    prod_name VARCHAR(255) NOT NULL,
+    CONSTRAINT pk_prod PRIMARY KEY (code, prod_name)
+);
+</code></pre>
+<p>Note: <code>GENERATED ALWAYS AS IDENTITY</code> auto-generates values, no manual insert allowed</p>
+<blockquote>
+<p>Drop / Truncate</p>
+</blockquote>
+<pre><code class="language-sql">DROP TABLE products;
+TRUNCATE TABLE products;
+</code></pre>
+<blockquote>
+<p>Copy Table</p>
+</blockquote>
+<pre><code class="language-sql">CREATE TABLE prod_bkp AS (SELECT * FROM products WHERE 1=2);  -- structure only
+CREATE TABLE prod_bkp AS (SELECT * FROM products);            -- structure + data
+</code></pre>
+<hr>
+<h2 id="crud-operations"><a class="header" href="#crud-operations">CRUD Operations</a></h2>
+<blockquote>
+<p>Insert</p>
+</blockquote>
+<pre><code class="language-sql">INSERT INTO products(prod_name, price, release_date)
+VALUES ('name-1', 12.23, to_date('31-10-2025','dd-mm-yyyy'));
+
+INSERT INTO products(prod_name, price, release_date)
+VALUES ('name-2', 15.23, to_timestamp('31-12-2025 13:08:07','dd-mm-yyyy hh24:mi:ss'));
+</code></pre>
+<blockquote>
+<p>Update</p>
+</blockquote>
+<pre><code class="language-sql">UPDATE products SET prod_name='updated-1', price=51.23 WHERE code=1;
+</code></pre>
+<p>Note: Without <code>WHERE</code>, all rows will be updated</p>
+<blockquote>
+<p>Delete</p>
+</blockquote>
+<pre><code class="language-sql">DELETE FROM products WHERE code=1;
+</code></pre>
+<p>Note: Without <code>WHERE</code>, all rows will be deleted</p>
+<hr>
+<h2 id="alter-operations"><a class="header" href="#alter-operations">Alter Operations</a></h2>
+<pre><code class="language-sql">ALTER TABLE products RENAME TO test1;                             -- rename table
+ALTER TABLE test1 RENAME COLUMN price TO prize;                   -- rename column
+ALTER TABLE test1 ALTER COLUMN prize TYPE FLOAT;                  -- change data type
+ALTER TABLE test1 ALTER COLUMN prize SET NOT NULL;                -- add NOT NULL
+ALTER TABLE test1 ALTER COLUMN prize DROP NOT NULL;               -- drop NOT NULL
+ALTER TABLE products ADD CONSTRAINT uq_name UNIQUE (prod_name);   -- add constraint
+ALTER TABLE products DROP CONSTRAINT uq_name;                     -- drop constraint
+</code></pre>
+<p>Note: PostgreSQL columns are nullable by default</p>
+<hr>
+<h2 id="constraints-1"><a class="header" href="#constraints-1">Constraints</a></h2>
+<blockquote>
+<p>PRIMARY KEY</p>
+</blockquote>
+<pre><code class="language-sql">-- Inline
+CREATE TABLE products (
+    id INT PRIMARY KEY
+);
+
+-- Named
+CREATE TABLE products (
+    id INT,
+    code INT,
+    CONSTRAINT pk_products PRIMARY KEY (id, code)
+);
+</code></pre>
+<blockquote>
+<p>FOREIGN KEY</p>
+</blockquote>
+<pre><code class="language-sql">-- Inline
+CREATE TABLE orders (
+    id INT PRIMARY KEY,
+    product_id INT REFERENCES products(id)
+);
+
+-- Named with ON DELETE
+CREATE TABLE orders (
+    id INT PRIMARY KEY,
+    product_id INT,
+    CONSTRAINT fk_product FOREIGN KEY (product_id) REFERENCES products(id) ON DELETE CASCADE
+);
+</code></pre>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Option</th><th>Meaning</th></tr>
+</thead>
+<tbody>
+<tr><td><code>CASCADE</code></td><td>Delete child rows</td></tr>
+<tr><td><code>SET NULL</code></td><td>Set child column to NULL</td></tr>
+<tr><td><code>SET DEFAULT</code></td><td>Set child column to default value</td></tr>
+<tr><td><code>RESTRICT</code></td><td>Prevent deletion if child exists</td></tr>
+<tr><td><code>NO ACTION</code></td><td>Same as RESTRICT (default)</td></tr>
+</tbody>
+</table>
+</div>
+<blockquote>
+<p>NOT NULL</p>
+</blockquote>
+<pre><code class="language-sql">CREATE TABLE products (
+    prod_name VARCHAR(255) NOT NULL
+);
+</code></pre>
+<blockquote>
+<p>UNIQUE</p>
+</blockquote>
+<pre><code class="language-sql">-- Inline
+CREATE TABLE users (
+    email VARCHAR(255) UNIQUE
+);
+
+-- Named
+CREATE TABLE users (
+    email VARCHAR(255),
+    CONSTRAINT uq_email UNIQUE (email)
+);
+</code></pre>
+<blockquote>
+<p>CHECK</p>
+</blockquote>
+<pre><code class="language-sql">-- Inline
+CREATE TABLE products (
+    price NUMERIC(10,2) CHECK (price &gt; 0)
+);
+
+-- Named
+CREATE TABLE products (
+    price NUMERIC(10,2),
+    CONSTRAINT chk_price CHECK (price &gt; 0)
+);
+</code></pre>
+<blockquote>
+<p>DEFAULT</p>
+</blockquote>
+<pre><code class="language-sql">CREATE TABLE products (
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    status VARCHAR(20) DEFAULT 'active'
+);
+</code></pre>
+<hr>
+<h2 id="filtering--pattern-matching"><a class="header" href="#filtering--pattern-matching">Filtering &amp; Pattern Matching</a></h2>
+<blockquote>
+<p>LIKE / ILIKE</p>
+</blockquote>
+<pre><code class="language-sql">SELECT * FROM products WHERE prod_name LIKE '%name%';       -- case-sensitive
+SELECT * FROM products WHERE prod_name ILIKE '%NAME%';      -- case-insensitive
+SELECT * FROM products WHERE prod_name NOT LIKE '%name%';
+</code></pre>
+<p>Note: <code>%</code> = 0 or more characters, <code>_</code> = single character</p>
+<blockquote>
+<p>Regex Matching</p>
+</blockquote>
+<pre><code class="language-sql">SELECT * FROM products WHERE prod_name ~ '^name';    -- case-sensitive
+SELECT * FROM products WHERE prod_name ~* '^NAME';   -- case-insensitive
+SELECT * FROM products WHERE prod_name !~ '^name';   -- NOT match
+</code></pre>
+<blockquote>
+<p>BETWEEN / IN / NULL</p>
+</blockquote>
+<pre><code class="language-sql">SELECT * FROM products WHERE price BETWEEN 10 AND 50;
+SELECT * FROM products WHERE prod_name IN ('name-1', 'name-2');
+SELECT * FROM products WHERE prod_name NOT IN ('name-1', 'name-2');
+SELECT * FROM products WHERE release_date IS NULL;
+SELECT * FROM products WHERE release_date IS NOT NULL;
+</code></pre>
+<blockquote>
+<p>LOWER / UPPER</p>
+</blockquote>
+<pre><code class="language-sql">SELECT LOWER(prod_name), UPPER(prod_name) FROM products;
+SELECT * FROM products WHERE LOWER(prod_name) = 'name-1';
+</code></pre>
+<hr>
+<h2 id="date-operations"><a class="header" href="#date-operations">Date Operations</a></h2>
+<blockquote>
+<p>Insert with Date</p>
+</blockquote>
+<pre><code class="language-sql">INSERT INTO products(prod_name, price, release_date)
+VALUES ('name-1', 12.23, to_date('31-10-2025','dd-mm-yyyy'));
+
+INSERT INTO products(prod_name, price, release_date)
+VALUES ('name-2', 15.23, to_timestamp('31-12-2025 13:08:07','dd-mm-yyyy hh24:mi:ss'));
+</code></pre>
+<blockquote>
+<p>Filter by Date</p>
+</blockquote>
+<pre><code class="language-sql">SELECT * FROM products WHERE release_date BETWEEN '2025-01-01' AND '2025-12-31';
+SELECT * FROM products WHERE EXTRACT(YEAR FROM release_date) = 2025;
+SELECT * FROM products WHERE to_char(release_date, 'yyyy') = '2025';
+</code></pre>
+<blockquote>
+<p>Index</p>
+</blockquote>
+<pre><code class="language-sql">CREATE INDEX contacts_name
+ON contacts(name);
+</code></pre>
+<blockquote>
+<p>Case statements</p>
+</blockquote>
+<pre><code class="language-sql">SELECT product_name,
+CASE
+  WHEN price &lt; 10 THEN 'Low price product'
+  WHEN price &gt; 50 THEN 'High price product'
+ELSE
+  'Normal product'
+END
+FROM products;
+</code></pre>
+<blockquote>
+<p>Orders</p>
+</blockquote>
+<p>“Friendly Jaguars Wear Green Hats, Serve Delicious Orange Lunches”</p>
+<p>FROM
+JOIN / ON
+WHERE
+GROUP BY
+HAVING
+SELECT
+DISTINCT
+ORDER BY
+LIMIT / OFFSET</p>
+<p>Note:</p>
+<ul>
+<li>cannot drop a table which is being referred(used) by other table.</li>
+<li>First drop the child table which refers other tables</li>
+</ul>
+<blockquote>
+<p>Group By</p>
+</blockquote>
+<ul>
+<li>can only have agg func</li>
+<li>only columns inside group by</li>
+</ul>
+<p>Note : add conditions join to also include null values</p>
+<blockquote>
+<p>Case Study</p>
+</blockquote>
+<p>Below is sales data:</p>
+<pre><code class="language-sql">drop table if exists products;
+create table products
+(
+	id				    int generated always as identity primary key,
+	name			    varchar(100),
+	price			    float,
+	release_date 	date
+);
+insert into products
+values(default,'iPhone 15', 800, to_date('22-08-2023','dd-mm-yyyy'));
+insert into products
+values(default,'Macbook Pro', 2100, to_date('12-10-2022','dd-mm-yyyy'));
+insert into products
+values(default,'Apple Watch 9', 550, to_date('04-09-2022','dd-mm-yyyy'));
+insert into products
+values(default,'iPad', 400, to_date('25-08-2020','dd-mm-yyyy'));
+insert into products
+values(default,'AirPods', 420, to_date('30-03-2024','dd-mm-yyyy'));
+
+drop table if exists customers;
+create table customers
+(
+    id         int generated always as identity primary key,
+    name       varchar(100),
+    email      varchar(30)
+);
+insert into customers values(default,'Meghan Harley', 'mharley@demo.com');
+insert into customers values(default,'Rosa Chan', 'rchan@demo.com');
+insert into customers values(default,'Logan Short', 'lshort@demo.com');
+insert into customers values(default,'Zaria Duke', 'zduke@demo.com');
+
+drop table if exists employees;
+create table employees
+(
+    id         int generated always as identity primary key,
+    name       varchar(100)
+);
+insert into employees values(default,'Nina Kumari');
+insert into employees values(default,'Abrar Khan');
+insert into employees values(default,'Irene Costa');
+
+drop table if exists sales_order;
+create table sales_order
+(
+	order_id		  int generated always as identity primary key,
+	order_date	  date,
+	quantity		  int,
+	prod_id			  int references products(id),
+	status			  varchar(20),
+	customer_id		int references customers(id),
+	emp_id			  int,
+	constraint fk_so_emp foreign key (emp_id) references employees(id)
+);
+insert into sales_order
+values(default,to_date('01-01-2024','dd-mm-yyyy'),2,1,'Completed',1,1);
+insert into sales_order
+values(default,to_date('01-01-2024','dd-mm-yyyy'),3,1,'Pending',2,2);
+insert into sales_order
+values(default,to_date('02-01-2024','dd-mm-yyyy'),3,2,'Completed',3,2);
+insert into sales_order
+values(default,to_date('03-01-2024','dd-mm-yyyy'),3,3,'Completed',3,2);
+insert into sales_order
+values(default,to_date('04-01-2024','dd-mm-yyyy'),1,1,'Completed',3,2);
+insert into sales_order
+values(default,to_date('04-01-2024','dd-mm-yyyy'),1,3,'completed',2,1);
+insert into sales_order
+values(default,to_date('04-01-2024','dd-mm-yyyy'),1,2,'On Hold',2,1);
+insert into sales_order
+values(default,to_date('05-01-2024','dd-mm-yyyy'),4,2,'Rejected',1,2);
+insert into sales_order
+values(default,to_date('06-01-2024','dd-mm-yyyy'),5,5,'Completed',1,2);
+insert into sales_order
+values(default,to_date('06-01-2024','dd-mm-yyyy'),1,1,'Cancelled',1,1);
+insert into sales_order
+values(default,to_date('06-01-2024','dd-mm-yyyy'),1,1,'Pending',1,1);
+
+SELECT * FROM products;
+SELECT * FROM customers;
+SELECT * FROM employees;
+SELECT * FROM sales_order;
+
+select distinct status from sales_order;
+</code></pre>
+<ol>
+<li>Identify the total no of products sold</li>
+</ol>
+<pre><code class="language-sql">select sum(quantity) as total_products_sold from sales_order;
+</code></pre>
+<ol start="2">
+<li>Other than Completed, display the available delivery status’s</li>
+</ol>
+<pre><code class="language-sql">select distinct(status) from sales_order where status NOT ILIKE 'completed';
+</code></pre>
+<ol start="3">
+<li>Display the order id, order_date and product_name for all the completed orders.</li>
+</ol>
+<pre><code class="language-sql">select
+  *
+from
+  sales_order so
+  inner join products p on p.id = so.prod_id
+where
+  status ilike 'completed';
+</code></pre>
+<ol start="4">
+<li>Sort the above query to show the earliest orders at the top. Also, display the customer who purchased these orders.</li>
+</ol>
+<pre><code class="language-sql">select
+  so.order_id,
+  so.order_date,
+  p.name as product,
+  c.name as customer
+from
+  sales_order so
+  join products p on p.id = so.prod_id
+  join customers c on c.id = so.customer_id
+where
+  lower(so.status) = 'completed'
+order by
+  so.order_date;
+</code></pre>
+<ol start="5">
+<li>Display the total no of orders corresponding to each delivery status</li>
+</ol>
+<p>Note: Every column in SELECT must be either</p>
+<p>in the GROUP BY, or</p>
+<p>inside an aggregate function (MAX, SUM, AVG, etc.)</p>
+<pre><code class="language-sql">select status,count(*) from sales_order group by status;
+</code></pre>
+<ol start="6">
+<li>How many orders are still not completed for orders purchasing more than 1 item?</li>
+</ol>
+<pre><code class="language-sql">select
+  count(*)
+from
+  sales_order
+where
+  status ilike 'completed'
+  and quantity &gt; 1;
+</code></pre>
+<ol start="7">
+<li>Find the total number of orders corresponding to each delivery status by ignoring the case in the delivery status.</li>
+</ol>
+<pre><code class="language-sql">select
+  count(*),
+  lower(status)
+from
+  sales_order
+group by
+  lower(status)
+order by
+  count desc;
+</code></pre>
+<ol start="8">
+<li>Write a query to identify the total products purchased by each customer</li>
+</ol>
+<pre><code class="language-sql">select
+  c.name,
+  sum(so.quantity)
+from
+  sales_order so
+  inner join customers c on c.id = so.customer_id
+group by
+  c.name;
+</code></pre>
+<ol start="9">
+<li>Display the total sales and average sales done for each day.</li>
+</ol>
+<pre><code class="language-sql">select
+  sum(p.price * so.quantity) as total_sale,
+  avg(quantity * p.price) as avg_sales,
+  order_date
+from
+  sales_order so
+  inner join products p on so.prod_id = p.id
+group by
+  order_date
+order by
+  total_sale desc
+</code></pre>
+<ol start="10">
+<li>Display the customer name, employee name, and total sale amount of all orders which are either on hold or pending.</li>
+</ol>
+<pre><code class="language-sql">select
+  c.name as customer_name,
+  e.name as employee_name,
+  sum(p.price * so.quantity) as total_sales
+from
+  sales_order so
+  inner join customers c on c.id = so.customer_id
+  inner join employees e on e.id = so.emp_id
+  inner join products p on p.id = so.prod_id
+where
+  status = 'On Hold'
+  or status = 'Pending'
+group by
+  e.name,
+  c.name;
+</code></pre>
+<ol start="11">
+<li>Fetch all the orders which were neither completed/pending or were handled by the employee Abrar. Display employee name aswell</li>
+</ol>
+<pre><code class="language-sql">select
+  e.name,
+  so.*
+from
+  sales_order so
+  inner join employees e on so.emp_id = e.id
+where
+  lower(so.status) not in ('complete', 'pending')
+  or e.name ilike 'Abrar';
+</code></pre>
+<ol start="12">
+<li>Fetch the orders which cost more than 2000 but did not include the MacBook Pro. Print the total sale amount as well.</li>
+</ol>
+<pre><code class="language-sql">select
+  (p.price * so.quantity) as price,p.name
+from
+  sales_order so
+  inner join products p on p.id = so.prod_id
+where
+  p.name not ilike '%macbook%'
+</code></pre>
+<ol start="13">
+<li>Identify the customers who have not purchased any product yet.</li>
+</ol>
+<pre><code class="language-sql">select * from customers where customers.id not in (select sales_order.customer_id from sales_order);
+</code></pre>
+<ol start="14">
+<li>Write a query to identify the total products purchased by each customer.
+Return all customers irrespective of whether they have made a purchase or not.
+Sort the result with the highest no of orders at the top.</li>
+</ol>
+<pre><code class="language-sql">select
+  c.name,
+  coalesce(sum(so.quantity),0) as qty
+from
+  customers c
+  left join sales_order so on c.id = so.customer_id
+group by
+  c.name
+order by
+  qty desc;
+</code></pre>
+<ol start="15">
+<li>Corresponding to each employee, display the total sales they made of
+all the completed orders. Display total sales as 0 if an employee made no sales yet.</li>
+</ol>
+<pre><code class="language-sql">select
+  e.name,
+  coalesce(sum(p.price * so.quantity), 0) as total_sale
+from
+  sales_order so
+  inner join products p on p.id = so.prod_id
+  right join employees e on e.id = so.emp_id
+  and lower(so.status) = 'completed'
+group by
+  e.name
+order by
+  total_sale desc;
+</code></pre>
+<ol start="16">
+<li>Re-write the above query to display the total sales made by each employee
+corresponding to each customer. If an employee has not served a customer
+yet then display “-” under the customer.</li>
+</ol>
+<pre><code class="language-sql">select
+  coalesce(sum(so.quantity * p.price), 0) as total_sales,
+  coalesce(c.name, '-') as customer_name,
+  e.name as emp_name
+from
+  sales_order so
+  inner join products p on p.id = so.prod_id
+  inner join customers c on c.id = so.customer_id
+  right join employees e on e.id = so.emp_id and lower(so.status) = 'completed'
+group by
+  e.name,
+  c.name
+order by
+  total_sales desc;
+</code></pre>
+<ol start="17">
+<li>Re-write the above query to display only those records where the total sales are above 1000.</li>
+</ol>
+<pre><code class="language-sql">select
+  coalesce(sum(so.quantity * p.price), 0) as total_sales,
+  coalesce(c.name, '-') as customer_name,
+  e.name as emp_name
+from
+  sales_order so
+  inner join products p on p.id = so.prod_id
+  inner join customers c on c.id = so.customer_id
+  right join employees e on e.id = so.emp_id
+  and lower(so.status) = 'completed'
+group by
+  e.name,
+  c.name
+having
+  sum(so.quantity * p.price) &gt; 1000
+order by
+  total_sales desc;
+</code></pre>
+<ol start="18">
+<li>Identify employees who have served more than 2 customers.</li>
+</ol>
+<pre><code class="language-sql">select
+  e.name,
+  count(distinct (c.name)) as customer_served
+from
+  employees e
+  inner join sales_order so on so.emp_id = e.id
+  inner join customers c on c.id = so.customer_id
+group by
+  e.name
+having
+  count(distinct (c.name)) &gt; 2;
+</code></pre>
+<ol start="19">
+<li>Identify the customers who have purchased more than 5 products</li>
+</ol>
+<pre><code class="language-sql">select c.name,sum(so.quantity) as qty
+from customers c
+inner join sales_order so on so.customer_id=c.id
+group by c.name
+  having sum(so.quantity)&gt;5;
+</code></pre>
+<ol start="20">
+<li>Identify customers whose average purchase cost exceeds the average sale of all the orders.</li>
+</ol>
+<pre><code class="language-sql">select c.name,avg(so.quantity*p.price) as avg_cost
+from customers c
+inner join sales_order so on so.customer_id=c.id
+inner join products p on p.id=so.prod_id
+group by c.name
+having (avg(so.quantity*p.price))&gt;(
+  select avg(p.price*so.quantity)
+  from sales_order so
+  inner join products p on p.id=so.prod_id
+)
+</code></pre>
 <div style="break-before: page; page-break-before: always;"></div>
 <h1 id="sql-alchemy"><a class="header" href="#sql-alchemy">SQL Alchemy</a></h1>
 <h2 id="install-2"><a class="header" href="#install-2">Install</a></h2>
