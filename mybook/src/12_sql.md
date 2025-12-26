@@ -554,6 +554,11 @@ Note:
 - can only have agg func
 - only columns inside group by
 
+If a query contains an aggregate function, then every column in SELECT must be either
+
+- Aggregated (MAX, SUM, COUNT, …), or
+- Listed in GROUP BY
+
 Note : add conditions join to also include null values
 
 > Case Study
@@ -923,4 +928,479 @@ having (avg(so.quantity*p.price))>(
   from sales_order so
   inner join products p on p.id=so.prod_id
 )
+```
+
+# SQL Window Functions
+
+## 1. What Is a Window Function?
+
+A **window function** performs calculations across a set of rows that are **logically related to the current row**, while **preserving individual rows** in the result set.
+
+### Key Characteristics
+
+- Rows are **not collapsed** (unlike `GROUP BY`)
+- Row-level detail is retained
+- Results are computed over a logical **window of rows**
+
+### Conceptual Difference
+
+- `GROUP BY` → aggregates and **reduces rows**
+- Window functions → **retain rows** and add computed columns
+
+---
+
+## 2. General Syntax
+
+```sql
+window_function(expression)
+OVER (
+  PARTITION BY partition_column
+  ORDER BY order_column
+)
+```
+
+### Clauses Explained
+
+- **PARTITION BY**
+  Divides rows into logical groups (similar to `GROUP BY`, but without collapsing rows)
+
+- **ORDER BY**
+  Defines row ordering within each partition
+
+---
+
+## 3. Sample Table: `employees2`
+
+| emp_name | department | salary |
+| -------- | ---------- | ------ |
+| Alice    | IT         | 90000  |
+| Bob      | IT         | 80000  |
+| Carol    | IT         | 80000  |
+| David    | HR         | 70000  |
+| Eva      | HR         | 65000  |
+| Frank    | Sales      | 60000  |
+
+---
+
+## 4. ROW_NUMBER()
+
+### Definition
+
+Assigns a **unique sequential number** to each row within a partition based on the specified order.
+
+- No two rows share the same number
+- Ties are broken arbitrarily unless further ordering is specified
+
+### Example
+
+```sql
+SELECT
+  emp_name,
+  department,
+  salary,
+  ROW_NUMBER() OVER (
+    PARTITION BY department
+    ORDER BY salary DESC
+  ) AS row_num
+FROM employees2;
+```
+
+### Behavior (IT Department)
+
+| emp_name | salary | row_num |
+| -------- | ------ | ------- |
+| Alice    | 90000  | 1       |
+| Bob      | 80000  | 2       |
+| Carol    | 80000  | 3       |
+
+### Common Use Cases
+
+- Selecting a single top row per group
+- Deduplication
+
+---
+
+## 5. RANK()
+
+### Definition
+
+Assigns the same rank to rows with equal values and **leaves gaps** in the ranking sequence.
+
+### Example
+
+```sql
+SELECT
+  emp_name,
+  department,
+  salary,
+  RANK() OVER (
+    PARTITION BY department
+    ORDER BY salary DESC
+  ) AS rank
+FROM employees2;
+```
+
+### Behavior (IT Department)
+
+| emp_name | salary | rank |
+| -------- | ------ | ---- |
+| Alice    | 90000  | 1    |
+| Bob      | 80000  | 2    |
+| Carol    | 80000  | 2    |
+
+> The next rank would be **4** (rank 3 is skipped).
+
+### Use Cases
+
+- Competition-style ranking
+- Reports where rank gaps are meaningful
+
+---
+
+## 6. DENSE_RANK()
+
+### Definition
+
+Assigns the same rank to tied rows **without gaps** in the ranking sequence.
+
+### Example
+
+```sql
+SELECT
+  emp_name,
+  department,
+  salary,
+  DENSE_RANK() OVER (
+    PARTITION BY department
+    ORDER BY salary DESC
+  ) AS dense_rank
+FROM employees2;
+```
+
+### Behavior (IT Department)
+
+| emp_name | salary | dense_rank |
+| -------- | ------ | ---------- |
+| Alice    | 90000  | 1          |
+| Bob      | 80000  | 2          |
+| Carol    | 80000  | 2          |
+
+> The next rank would be **3**.
+
+### Use Cases
+
+- Finding Nth highest values
+- Rank reporting without gaps
+
+---
+
+## 7. LEAD()
+
+### Definition
+
+Returns a value from a **subsequent row** within the same partition.
+
+### Example
+
+```sql
+SELECT
+  emp_name,
+  department,
+  salary,
+  LEAD(salary) OVER (
+    PARTITION BY department
+    ORDER BY salary DESC
+  ) AS next_salary
+FROM employees2;
+```
+
+### Behavior (IT Department)
+
+| emp_name | salary | next_salary |
+| -------- | ------ | ----------- |
+| Alice    | 90000  | 80000       |
+| Bob      | 80000  | 80000       |
+| Carol    | 80000  | NULL        |
+
+### Use Cases
+
+- Row-to-row comparison
+- Trend analysis
+
+---
+
+## 8. LAG()
+
+### Definition
+
+Returns a value from a **previous row** within the same partition.
+
+### Example
+
+```sql
+SELECT
+  emp_name,
+  department,
+  salary,
+  LAG(salary, 1, NULL) OVER (
+    PARTITION BY department
+    ORDER BY salary DESC
+  ) AS previous_salary
+FROM employees2;
+```
+
+### Behavior (IT Department)
+
+| emp_name | salary | previous_salary |
+| -------- | ------ | --------------- |
+| Alice    | 90000  | NULL            |
+| Bob      | 80000  | 90000           |
+| Carol    | 80000  | 80000           |
+
+### Use Cases
+
+- Change detection
+- Sequential comparisons
+
+---
+
+## 9. Common Practical Queries
+
+### Highest-Paid Employee per Department
+
+```sql
+SELECT emp_name, department, salary
+FROM (
+  SELECT
+    emp_name,
+    department,
+    salary,
+    RANK() OVER (PARTITION BY department ORDER BY salary DESC) AS r
+  FROM employees2
+) t
+WHERE r = 1;
+```
+
+---
+
+### Second-Highest Salary per Department
+
+```sql
+SELECT emp_name, department, salary
+FROM (
+  SELECT
+    emp_name,
+    department,
+    salary,
+    DENSE_RANK() OVER (PARTITION BY department ORDER BY salary DESC) AS r
+  FROM employees2
+) t
+WHERE r = 2;
+```
+
+---
+
+## 10. Ranking Function Comparison
+
+| Function   | Preserves Rows | Handles Ties | Ranking Gaps | Typical Use         |
+| ---------- | -------------- | ------------ | ------------ | ------------------- |
+| ROW_NUMBER | Yes            | No           | No           | Pick one row        |
+| RANK       | Yes            | Yes          | Yes          | Competitive ranking |
+| DENSE_RANK | Yes            | Yes          | No           | Nth highest         |
+
+---
+
+## 11. FIRST_VALUE()
+
+### Definition
+
+Returns the **first value** in the ordered window frame for each partition.
+
+### Example
+
+```sql
+SELECT
+  emp_name,
+  department,
+  salary,
+  FIRST_VALUE(salary) OVER (
+    PARTITION BY department
+    ORDER BY salary DESC
+  ) AS highest_salary_in_dept
+FROM employees2;
+```
+
+### Behavior (IT Department)
+
+| emp_name | salary | highest_salary_in_dept |
+| -------- | ------ | ---------------------- |
+| Alice    | 90000  | 90000                  |
+| Bob      | 80000  | 90000                  |
+| Carol    | 80000  | 90000                  |
+
+### Use Case
+
+- Comparing each row against the group’s maximum value
+
+---
+
+## 12. LAST_VALUE()
+
+### Definition
+
+Returns the **last value in the window frame**.
+
+⚠️ **Important**
+`LAST_VALUE()` is **frame-sensitive**.
+By default, many databases use:
+
+```sql
+RANGE BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW
+```
+
+This often causes `LAST_VALUE()` to return the **current row’s value** instead of the actual last value.
+
+---
+
+### Incorrect (Default Frame)
+
+```sql
+LAST_VALUE(salary) OVER (
+  PARTITION BY department
+  ORDER BY salary DESC
+)
+```
+
+---
+
+### Correct Usage (Explicit Frame)
+
+```sql
+SELECT
+  emp_name,
+  department,
+  salary,
+  LAST_VALUE(salary) OVER (
+    PARTITION BY department
+    ORDER BY salary DESC
+    ROWS BETWEEN UNBOUNDED PRECEDING AND UNBOUNDED FOLLOWING
+  ) AS lowest_salary_in_dept
+FROM employees2;
+```
+
+### Behavior (IT Department)
+
+| emp_name | salary | lowest_salary_in_dept |
+| -------- | ------ | --------------------- |
+| Alice    | 90000  | 80000                 |
+| Bob      | 80000  | 80000                 |
+| Carol    | 80000  | 80000                 |
+
+---
+
+## 13. NTH_VALUE()
+
+### Definition
+
+Returns the value from the **N-th row** in the ordered window frame.
+
+Like `LAST_VALUE`, this function **requires an explicit frame**.
+
+### Example: Second-Highest Salary per Department
+
+```sql
+SELECT
+  emp_name,
+  department,
+  salary,
+  NTH_VALUE(salary, 2) OVER (
+    PARTITION BY department
+    ORDER BY salary DESC
+    ROWS BETWEEN UNBOUNDED PRECEDING AND UNBOUNDED FOLLOWING
+  ) AS second_highest_salary
+FROM employees2;
+```
+
+### Behavior (IT Department)
+
+| emp_name | salary | second_highest_salary |
+| -------- | ------ | --------------------- |
+| Alice    | 90000  | 80000                 |
+| Bob      | 80000  | 80000                 |
+| Carol    | 80000  | 80000                 |
+
+---
+
+## 14. Value Function Comparison
+
+| Function    | Returns     | Frame-Sensitive      | Typical Use          |
+| ----------- | ----------- | -------------------- | -------------------- |
+| FIRST_VALUE | First value | No (safe by default) | Max / earliest       |
+| LAST_VALUE  | Last value  | Yes                  | Min / latest         |
+| NTH_VALUE   | Nth value   | Yes                  | Nth highest / lowest |
+
+---
+
+## 15. Key Rules to Remember
+
+1. `FIRST_VALUE()` is usually safe without specifying a custom frame.
+2. `LAST_VALUE()` and `NTH_VALUE()` **require an explicit frame**:
+
+    ```sql
+    ROWS BETWEEN UNBOUNDED PRECEDING AND UNBOUNDED FOLLOWING
+    ```
+
+3. Window functions **do not reduce rows**.
+4. Execution order:
+   Window functions run after aggregation but before sorting and limiting
+
+    ```
+    FROM → WHERE → GROUP BY → HAVING → WINDOW FUNCTIONS → ORDER BY
+    ```
+
+> Window Function
+
+A window function calculates something using nearby rows, but still shows every row.
+
+It does not combine rows into one
+
+Each row keeps its identity
+
+The calculation “looks at” other related rows
+
+In one line
+
+Window function = calculate using other rows without losing the current row
+
+> Window Frame
+
+A window frame decides which rows a window function is allowed to look at for the current row.
+
+It limits the rows inside a partition
+
+It changes how far backward or forward the function can see
+
+In one line
+
+Window frame = how many rows the window function can see
+
+> CTE
+
+CTE (Common Table Expression) is a temporary named result set that you can use inside a query.
+
+```sql
+WITH dept_avg AS (
+    SELECT department, AVG(salary) AS avg_salary
+    FROM employees
+    GROUP BY department
+),
+high_paid AS (
+    SELECT emp_name, department, salary
+    FROM employees
+    WHERE salary > 70000
+)
+SELECT h.emp_name, h.department, d.avg_salary
+FROM high_paid h
+JOIN dept_avg d
+ON h.department = d.department;
 ```

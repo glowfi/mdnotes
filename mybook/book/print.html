@@ -36,7 +36,7 @@
             const path_to_root = "";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "searchindex-1b550cdd.js";
+            window.path_to_searchindex_js = "searchindex-33392256.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="toc-fdf512c0.js"></script>
@@ -6146,6 +6146,11 @@ LIMIT / OFFSET</p>
 <li>can only have agg func</li>
 <li>only columns inside group by</li>
 </ul>
+<p>If a query contains an aggregate function, then every column in SELECT must be either</p>
+<ul>
+<li>Aggregated (MAX, SUM, COUNT, …), or</li>
+<li>Listed in GROUP BY</li>
+</ul>
 <p>Note : add conditions join to also include null values</p>
 <blockquote>
 <p>Case Study</p>
@@ -6490,6 +6495,448 @@ having (avg(so.quantity*p.price))&gt;(
   from sales_order so
   inner join products p on p.id=so.prod_id
 )
+</code></pre>
+<h1 id="sql-window-functions"><a class="header" href="#sql-window-functions">SQL Window Functions</a></h1>
+<h2 id="1-what-is-a-window-function"><a class="header" href="#1-what-is-a-window-function">1. What Is a Window Function?</a></h2>
+<p>A <strong>window function</strong> performs calculations across a set of rows that are <strong>logically related to the current row</strong>, while <strong>preserving individual rows</strong> in the result set.</p>
+<h3 id="key-characteristics"><a class="header" href="#key-characteristics">Key Characteristics</a></h3>
+<ul>
+<li>Rows are <strong>not collapsed</strong> (unlike <code>GROUP BY</code>)</li>
+<li>Row-level detail is retained</li>
+<li>Results are computed over a logical <strong>window of rows</strong></li>
+</ul>
+<h3 id="conceptual-difference"><a class="header" href="#conceptual-difference">Conceptual Difference</a></h3>
+<ul>
+<li><code>GROUP BY</code> → aggregates and <strong>reduces rows</strong></li>
+<li>Window functions → <strong>retain rows</strong> and add computed columns</li>
+</ul>
+<hr>
+<h2 id="2-general-syntax"><a class="header" href="#2-general-syntax">2. General Syntax</a></h2>
+<pre><code class="language-sql">window_function(expression)
+OVER (
+  PARTITION BY partition_column
+  ORDER BY order_column
+)
+</code></pre>
+<h3 id="clauses-explained"><a class="header" href="#clauses-explained">Clauses Explained</a></h3>
+<ul>
+<li>
+<p><strong>PARTITION BY</strong>
+Divides rows into logical groups (similar to <code>GROUP BY</code>, but without collapsing rows)</p>
+</li>
+<li>
+<p><strong>ORDER BY</strong>
+Defines row ordering within each partition</p>
+</li>
+</ul>
+<hr>
+<h2 id="3-sample-table-employees2"><a class="header" href="#3-sample-table-employees2">3. Sample Table: <code>employees2</code></a></h2>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>emp_name</th><th>department</th><th>salary</th></tr>
+</thead>
+<tbody>
+<tr><td>Alice</td><td>IT</td><td>90000</td></tr>
+<tr><td>Bob</td><td>IT</td><td>80000</td></tr>
+<tr><td>Carol</td><td>IT</td><td>80000</td></tr>
+<tr><td>David</td><td>HR</td><td>70000</td></tr>
+<tr><td>Eva</td><td>HR</td><td>65000</td></tr>
+<tr><td>Frank</td><td>Sales</td><td>60000</td></tr>
+</tbody>
+</table>
+</div>
+<hr>
+<h2 id="4-row_number"><a class="header" href="#4-row_number">4. ROW_NUMBER()</a></h2>
+<h3 id="definition"><a class="header" href="#definition">Definition</a></h3>
+<p>Assigns a <strong>unique sequential number</strong> to each row within a partition based on the specified order.</p>
+<ul>
+<li>No two rows share the same number</li>
+<li>Ties are broken arbitrarily unless further ordering is specified</li>
+</ul>
+<h3 id="example"><a class="header" href="#example">Example</a></h3>
+<pre><code class="language-sql">SELECT
+  emp_name,
+  department,
+  salary,
+  ROW_NUMBER() OVER (
+    PARTITION BY department
+    ORDER BY salary DESC
+  ) AS row_num
+FROM employees2;
+</code></pre>
+<h3 id="behavior-it-department"><a class="header" href="#behavior-it-department">Behavior (IT Department)</a></h3>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>emp_name</th><th>salary</th><th>row_num</th></tr>
+</thead>
+<tbody>
+<tr><td>Alice</td><td>90000</td><td>1</td></tr>
+<tr><td>Bob</td><td>80000</td><td>2</td></tr>
+<tr><td>Carol</td><td>80000</td><td>3</td></tr>
+</tbody>
+</table>
+</div>
+<h3 id="common-use-cases"><a class="header" href="#common-use-cases">Common Use Cases</a></h3>
+<ul>
+<li>Selecting a single top row per group</li>
+<li>Deduplication</li>
+</ul>
+<hr>
+<h2 id="5-rank"><a class="header" href="#5-rank">5. RANK()</a></h2>
+<h3 id="definition-1"><a class="header" href="#definition-1">Definition</a></h3>
+<p>Assigns the same rank to rows with equal values and <strong>leaves gaps</strong> in the ranking sequence.</p>
+<h3 id="example-1"><a class="header" href="#example-1">Example</a></h3>
+<pre><code class="language-sql">SELECT
+  emp_name,
+  department,
+  salary,
+  RANK() OVER (
+    PARTITION BY department
+    ORDER BY salary DESC
+  ) AS rank
+FROM employees2;
+</code></pre>
+<h3 id="behavior-it-department-1"><a class="header" href="#behavior-it-department-1">Behavior (IT Department)</a></h3>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>emp_name</th><th>salary</th><th>rank</th></tr>
+</thead>
+<tbody>
+<tr><td>Alice</td><td>90000</td><td>1</td></tr>
+<tr><td>Bob</td><td>80000</td><td>2</td></tr>
+<tr><td>Carol</td><td>80000</td><td>2</td></tr>
+</tbody>
+</table>
+</div>
+<blockquote>
+<p>The next rank would be <strong>4</strong> (rank 3 is skipped).</p>
+</blockquote>
+<h3 id="use-cases"><a class="header" href="#use-cases">Use Cases</a></h3>
+<ul>
+<li>Competition-style ranking</li>
+<li>Reports where rank gaps are meaningful</li>
+</ul>
+<hr>
+<h2 id="6-dense_rank"><a class="header" href="#6-dense_rank">6. DENSE_RANK()</a></h2>
+<h3 id="definition-2"><a class="header" href="#definition-2">Definition</a></h3>
+<p>Assigns the same rank to tied rows <strong>without gaps</strong> in the ranking sequence.</p>
+<h3 id="example-2"><a class="header" href="#example-2">Example</a></h3>
+<pre><code class="language-sql">SELECT
+  emp_name,
+  department,
+  salary,
+  DENSE_RANK() OVER (
+    PARTITION BY department
+    ORDER BY salary DESC
+  ) AS dense_rank
+FROM employees2;
+</code></pre>
+<h3 id="behavior-it-department-2"><a class="header" href="#behavior-it-department-2">Behavior (IT Department)</a></h3>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>emp_name</th><th>salary</th><th>dense_rank</th></tr>
+</thead>
+<tbody>
+<tr><td>Alice</td><td>90000</td><td>1</td></tr>
+<tr><td>Bob</td><td>80000</td><td>2</td></tr>
+<tr><td>Carol</td><td>80000</td><td>2</td></tr>
+</tbody>
+</table>
+</div>
+<blockquote>
+<p>The next rank would be <strong>3</strong>.</p>
+</blockquote>
+<h3 id="use-cases-1"><a class="header" href="#use-cases-1">Use Cases</a></h3>
+<ul>
+<li>Finding Nth highest values</li>
+<li>Rank reporting without gaps</li>
+</ul>
+<hr>
+<h2 id="7-lead"><a class="header" href="#7-lead">7. LEAD()</a></h2>
+<h3 id="definition-3"><a class="header" href="#definition-3">Definition</a></h3>
+<p>Returns a value from a <strong>subsequent row</strong> within the same partition.</p>
+<h3 id="example-3"><a class="header" href="#example-3">Example</a></h3>
+<pre><code class="language-sql">SELECT
+  emp_name,
+  department,
+  salary,
+  LEAD(salary) OVER (
+    PARTITION BY department
+    ORDER BY salary DESC
+  ) AS next_salary
+FROM employees2;
+</code></pre>
+<h3 id="behavior-it-department-3"><a class="header" href="#behavior-it-department-3">Behavior (IT Department)</a></h3>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>emp_name</th><th>salary</th><th>next_salary</th></tr>
+</thead>
+<tbody>
+<tr><td>Alice</td><td>90000</td><td>80000</td></tr>
+<tr><td>Bob</td><td>80000</td><td>80000</td></tr>
+<tr><td>Carol</td><td>80000</td><td>NULL</td></tr>
+</tbody>
+</table>
+</div>
+<h3 id="use-cases-2"><a class="header" href="#use-cases-2">Use Cases</a></h3>
+<ul>
+<li>Row-to-row comparison</li>
+<li>Trend analysis</li>
+</ul>
+<hr>
+<h2 id="8-lag"><a class="header" href="#8-lag">8. LAG()</a></h2>
+<h3 id="definition-4"><a class="header" href="#definition-4">Definition</a></h3>
+<p>Returns a value from a <strong>previous row</strong> within the same partition.</p>
+<h3 id="example-4"><a class="header" href="#example-4">Example</a></h3>
+<pre><code class="language-sql">SELECT
+  emp_name,
+  department,
+  salary,
+  LAG(salary, 1, NULL) OVER (
+    PARTITION BY department
+    ORDER BY salary DESC
+  ) AS previous_salary
+FROM employees2;
+</code></pre>
+<h3 id="behavior-it-department-4"><a class="header" href="#behavior-it-department-4">Behavior (IT Department)</a></h3>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>emp_name</th><th>salary</th><th>previous_salary</th></tr>
+</thead>
+<tbody>
+<tr><td>Alice</td><td>90000</td><td>NULL</td></tr>
+<tr><td>Bob</td><td>80000</td><td>90000</td></tr>
+<tr><td>Carol</td><td>80000</td><td>80000</td></tr>
+</tbody>
+</table>
+</div>
+<h3 id="use-cases-3"><a class="header" href="#use-cases-3">Use Cases</a></h3>
+<ul>
+<li>Change detection</li>
+<li>Sequential comparisons</li>
+</ul>
+<hr>
+<h2 id="9-common-practical-queries"><a class="header" href="#9-common-practical-queries">9. Common Practical Queries</a></h2>
+<h3 id="highest-paid-employee-per-department"><a class="header" href="#highest-paid-employee-per-department">Highest-Paid Employee per Department</a></h3>
+<pre><code class="language-sql">SELECT emp_name, department, salary
+FROM (
+  SELECT
+    emp_name,
+    department,
+    salary,
+    RANK() OVER (PARTITION BY department ORDER BY salary DESC) AS r
+  FROM employees2
+) t
+WHERE r = 1;
+</code></pre>
+<hr>
+<h3 id="second-highest-salary-per-department"><a class="header" href="#second-highest-salary-per-department">Second-Highest Salary per Department</a></h3>
+<pre><code class="language-sql">SELECT emp_name, department, salary
+FROM (
+  SELECT
+    emp_name,
+    department,
+    salary,
+    DENSE_RANK() OVER (PARTITION BY department ORDER BY salary DESC) AS r
+  FROM employees2
+) t
+WHERE r = 2;
+</code></pre>
+<hr>
+<h2 id="10-ranking-function-comparison"><a class="header" href="#10-ranking-function-comparison">10. Ranking Function Comparison</a></h2>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Function</th><th>Preserves Rows</th><th>Handles Ties</th><th>Ranking Gaps</th><th>Typical Use</th></tr>
+</thead>
+<tbody>
+<tr><td>ROW_NUMBER</td><td>Yes</td><td>No</td><td>No</td><td>Pick one row</td></tr>
+<tr><td>RANK</td><td>Yes</td><td>Yes</td><td>Yes</td><td>Competitive ranking</td></tr>
+<tr><td>DENSE_RANK</td><td>Yes</td><td>Yes</td><td>No</td><td>Nth highest</td></tr>
+</tbody>
+</table>
+</div>
+<hr>
+<h2 id="11-first_value"><a class="header" href="#11-first_value">11. FIRST_VALUE()</a></h2>
+<h3 id="definition-5"><a class="header" href="#definition-5">Definition</a></h3>
+<p>Returns the <strong>first value</strong> in the ordered window frame for each partition.</p>
+<h3 id="example-5"><a class="header" href="#example-5">Example</a></h3>
+<pre><code class="language-sql">SELECT
+  emp_name,
+  department,
+  salary,
+  FIRST_VALUE(salary) OVER (
+    PARTITION BY department
+    ORDER BY salary DESC
+  ) AS highest_salary_in_dept
+FROM employees2;
+</code></pre>
+<h3 id="behavior-it-department-5"><a class="header" href="#behavior-it-department-5">Behavior (IT Department)</a></h3>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>emp_name</th><th>salary</th><th>highest_salary_in_dept</th></tr>
+</thead>
+<tbody>
+<tr><td>Alice</td><td>90000</td><td>90000</td></tr>
+<tr><td>Bob</td><td>80000</td><td>90000</td></tr>
+<tr><td>Carol</td><td>80000</td><td>90000</td></tr>
+</tbody>
+</table>
+</div>
+<h3 id="use-case"><a class="header" href="#use-case">Use Case</a></h3>
+<ul>
+<li>Comparing each row against the group’s maximum value</li>
+</ul>
+<hr>
+<h2 id="12-last_value"><a class="header" href="#12-last_value">12. LAST_VALUE()</a></h2>
+<h3 id="definition-6"><a class="header" href="#definition-6">Definition</a></h3>
+<p>Returns the <strong>last value in the window frame</strong>.</p>
+<p>⚠️ <strong>Important</strong>
+<code>LAST_VALUE()</code> is <strong>frame-sensitive</strong>.
+By default, many databases use:</p>
+<pre><code class="language-sql">RANGE BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW
+</code></pre>
+<p>This often causes <code>LAST_VALUE()</code> to return the <strong>current row’s value</strong> instead of the actual last value.</p>
+<hr>
+<h3 id="incorrect-default-frame"><a class="header" href="#incorrect-default-frame">Incorrect (Default Frame)</a></h3>
+<pre><code class="language-sql">LAST_VALUE(salary) OVER (
+  PARTITION BY department
+  ORDER BY salary DESC
+)
+</code></pre>
+<hr>
+<h3 id="correct-usage-explicit-frame"><a class="header" href="#correct-usage-explicit-frame">Correct Usage (Explicit Frame)</a></h3>
+<pre><code class="language-sql">SELECT
+  emp_name,
+  department,
+  salary,
+  LAST_VALUE(salary) OVER (
+    PARTITION BY department
+    ORDER BY salary DESC
+    ROWS BETWEEN UNBOUNDED PRECEDING AND UNBOUNDED FOLLOWING
+  ) AS lowest_salary_in_dept
+FROM employees2;
+</code></pre>
+<h3 id="behavior-it-department-6"><a class="header" href="#behavior-it-department-6">Behavior (IT Department)</a></h3>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>emp_name</th><th>salary</th><th>lowest_salary_in_dept</th></tr>
+</thead>
+<tbody>
+<tr><td>Alice</td><td>90000</td><td>80000</td></tr>
+<tr><td>Bob</td><td>80000</td><td>80000</td></tr>
+<tr><td>Carol</td><td>80000</td><td>80000</td></tr>
+</tbody>
+</table>
+</div>
+<hr>
+<h2 id="13-nth_value"><a class="header" href="#13-nth_value">13. NTH_VALUE()</a></h2>
+<h3 id="definition-7"><a class="header" href="#definition-7">Definition</a></h3>
+<p>Returns the value from the <strong>N-th row</strong> in the ordered window frame.</p>
+<p>Like <code>LAST_VALUE</code>, this function <strong>requires an explicit frame</strong>.</p>
+<h3 id="example-second-highest-salary-per-department"><a class="header" href="#example-second-highest-salary-per-department">Example: Second-Highest Salary per Department</a></h3>
+<pre><code class="language-sql">SELECT
+  emp_name,
+  department,
+  salary,
+  NTH_VALUE(salary, 2) OVER (
+    PARTITION BY department
+    ORDER BY salary DESC
+    ROWS BETWEEN UNBOUNDED PRECEDING AND UNBOUNDED FOLLOWING
+  ) AS second_highest_salary
+FROM employees2;
+</code></pre>
+<h3 id="behavior-it-department-7"><a class="header" href="#behavior-it-department-7">Behavior (IT Department)</a></h3>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>emp_name</th><th>salary</th><th>second_highest_salary</th></tr>
+</thead>
+<tbody>
+<tr><td>Alice</td><td>90000</td><td>80000</td></tr>
+<tr><td>Bob</td><td>80000</td><td>80000</td></tr>
+<tr><td>Carol</td><td>80000</td><td>80000</td></tr>
+</tbody>
+</table>
+</div>
+<hr>
+<h2 id="14-value-function-comparison"><a class="header" href="#14-value-function-comparison">14. Value Function Comparison</a></h2>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Function</th><th>Returns</th><th>Frame-Sensitive</th><th>Typical Use</th></tr>
+</thead>
+<tbody>
+<tr><td>FIRST_VALUE</td><td>First value</td><td>No (safe by default)</td><td>Max / earliest</td></tr>
+<tr><td>LAST_VALUE</td><td>Last value</td><td>Yes</td><td>Min / latest</td></tr>
+<tr><td>NTH_VALUE</td><td>Nth value</td><td>Yes</td><td>Nth highest / lowest</td></tr>
+</tbody>
+</table>
+</div>
+<hr>
+<h2 id="15-key-rules-to-remember"><a class="header" href="#15-key-rules-to-remember">15. Key Rules to Remember</a></h2>
+<ol>
+<li>
+<p><code>FIRST_VALUE()</code> is usually safe without specifying a custom frame.</p>
+</li>
+<li>
+<p><code>LAST_VALUE()</code> and <code>NTH_VALUE()</code> <strong>require an explicit frame</strong>:</p>
+<pre><code class="language-sql">ROWS BETWEEN UNBOUNDED PRECEDING AND UNBOUNDED FOLLOWING
+</code></pre>
+</li>
+<li>
+<p>Window functions <strong>do not reduce rows</strong>.</p>
+</li>
+<li>
+<p>Execution order:
+Window functions run after aggregation but before sorting and limiting</p>
+<pre><code>FROM → WHERE → GROUP BY → HAVING → WINDOW FUNCTIONS → ORDER BY
+</code></pre>
+</li>
+</ol>
+<blockquote>
+<p>Window Function</p>
+</blockquote>
+<p>A window function calculates something using nearby rows, but still shows every row.</p>
+<p>It does not combine rows into one</p>
+<p>Each row keeps its identity</p>
+<p>The calculation “looks at” other related rows</p>
+<p>In one line</p>
+<p>Window function = calculate using other rows without losing the current row</p>
+<blockquote>
+<p>Window Frame</p>
+</blockquote>
+<p>A window frame decides which rows a window function is allowed to look at for the current row.</p>
+<p>It limits the rows inside a partition</p>
+<p>It changes how far backward or forward the function can see</p>
+<p>In one line</p>
+<p>Window frame = how many rows the window function can see</p>
+<blockquote>
+<p>CTE</p>
+</blockquote>
+<p>CTE (Common Table Expression) is a temporary named result set that you can use inside a query.</p>
+<pre><code class="language-sql">WITH dept_avg AS (
+    SELECT department, AVG(salary) AS avg_salary
+    FROM employees
+    GROUP BY department
+),
+high_paid AS (
+    SELECT emp_name, department, salary
+    FROM employees
+    WHERE salary &gt; 70000
+)
+SELECT h.emp_name, h.department, d.avg_salary
+FROM high_paid h
+JOIN dept_avg d
+ON h.department = d.department;
 </code></pre>
 <div style="break-before: page; page-break-before: always;"></div>
 <h1 id="sql-alchemy"><a class="header" href="#sql-alchemy">SQL Alchemy</a></h1>
@@ -14061,7 +14508,7 @@ if __name__ == "__main__":
 <p>Defines a family of algorithm,encapsulates each one and makes them interchangeble.
 We can change the strategy at runtime</p>
 </blockquote>
-<h3 id="example"><a class="header" href="#example">Example</a></h3>
+<h3 id="example-6"><a class="header" href="#example-6">Example</a></h3>
 <p>Imagine this scenario we are a company making duck simulator app.
 We have a following code setup below.We have a duck abstract
 class which gets inherited by different kinds of duck.Currently
@@ -14388,7 +14835,7 @@ QuackSqueak --|&gt; QuackBehaviour
 <p>Provides us a factory class which decides which concrete class to create
 Its not a design pattern but just a principle</p>
 </blockquote>
-<h3 id="example-1"><a class="header" href="#example-1">Example</a></h3>
+<h3 id="example-7"><a class="header" href="#example-7">Example</a></h3>
 <p>Imagine we have a pizza store which on getting an order of pizza of
 specfic type starts preparing the pizza and does the other jobs like
 baking,cutting,boxing,etc.</p>
@@ -14975,7 +15422,7 @@ FactoryB --&gt; ProductB2
 <blockquote>
 <p>Provides inteface for creating families of related object without specfying concrete classes</p>
 </blockquote>
-<h3 id="example-2"><a class="header" href="#example-2">Example</a></h3>
+<h3 id="example-2-1"><a class="header" href="#example-2-1">Example</a></h3>
 <p>Suppose in our pizza store ,different kind of pizza will have different ingredients as
 different regions will use different ingredients to make the pizza.</p>
 <pre><code class="language-py">from abc import ABC, abstractmethod
@@ -15292,7 +15739,7 @@ FactoryB --&gt; ProductB22
 <ul>
 <li>Used by logging,caching,database connections</li>
 </ul>
-<h3 id="example-3"><a class="header" href="#example-3">Example</a></h3>
+<h3 id="example-8"><a class="header" href="#example-8">Example</a></h3>
 <blockquote>
 <p>Way of creating Singleton in python</p>
 </blockquote>
