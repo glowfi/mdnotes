@@ -36,7 +36,7 @@
             const path_to_root = "";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "searchindex-9f148338.js";
+            window.path_to_searchindex_js = "searchindex-b380d360.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="toc-e136f13d.js"></script>
@@ -14582,6 +14582,632 @@ kubectl port-forward deploy/my-api 8080:8080 -n my-app
 <ul>
 <li>https://kubernetes.io/docs/tasks/access-application-cluster/port-forward-access-application-cluster/</li>
 </ul>
+<h1 id="-persistent-volume--persistent-volume-claim"><a class="header" href="#-persistent-volume--persistent-volume-claim">💾 PERSISTENT VOLUME &amp; PERSISTENT VOLUME CLAIM</a></h1>
+<h2 id="definition-10"><a class="header" href="#definition-10">Definition</a></h2>
+<blockquote>
+<p><strong>PersistentVolume (PV)</strong>: A piece of storage in the cluster provisioned by an admin or dynamically.
+Think of it as a <strong>physical hard drive</strong> available in the cluster.</p>
+</blockquote>
+<blockquote>
+<p><strong>PersistentVolumeClaim (PVC)</strong>: A request for storage by a user. Think of it as a <strong>ticket/request</strong> to use a specific amount of storage.</p>
+</blockquote>
+<blockquote>
+<p><strong>StorageClass</strong>: Defines <strong>how</strong> storage is provisioned (fast SSD, slow HDD, cloud provider specific).
+Think of it as <strong>storage tiers/types</strong>.</p>
+</blockquote>
+<p><strong>How they work together:</strong></p>
+<pre><code>[StorageClass]          [PersistentVolume]          [PersistentVolumeClaim]          [Pod]
+ (defines type)    --&gt;   (actual storage)     &lt;--    (request for storage)     &lt;--  (uses storage)
+
+     SSD-fast             100Gi SSD disk              "I need 10Gi SSD"           mounts /data
+     HDD-slow             500Gi HDD disk              "I need 50Gi HDD"           mounts /backup
+</code></pre>
+<p><strong>Real-world analogy:</strong></p>
+<ul>
+<li><strong>StorageClass</strong> = Types of apartments (luxury, standard, economy)</li>
+<li><strong>PersistentVolume</strong> = Actual apartment units available</li>
+<li><strong>PersistentVolumeClaim</strong> = Your rental application for an apartment</li>
+<li><strong>Pod</strong> = You living in the apartment</li>
+</ul>
+<hr>
+<h2 id="101-storageclass"><a class="header" href="#101-storageclass">10.1 StorageClass</a></h2>
+<h3 id="definition-11"><a class="header" href="#definition-11">Definition</a></h3>
+<blockquote>
+<p>Defines the <strong>type/tier of storage</strong> and how it should be provisioned. Different cloud providers have different storage classes.</p>
+</blockquote>
+<h3 id="yaml-template-4"><a class="header" href="#yaml-template-4">YAML Template</a></h3>
+<pre><code class="language-yaml">apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+    name: fast-ssd # ⚠️ IMPORTANT: Name used in PVC
+    annotations:
+        storageclass.kubernetes.io/is-default-class: 'true' # Make default
+spec:
+    provisioner: kubernetes.io/aws-ebs # ⚠️ CRITICAL: Cloud provider specific
+
+    parameters: # ⚠️ Provider-specific parameters
+        type: gp3 # AWS: gp2, gp3, io1, io2
+        fsType: ext4
+        encrypted: 'true'
+
+    reclaimPolicy: Delete # ⚠️ IMPORTANT: Delete | Retain
+
+    volumeBindingMode: WaitForFirstConsumer # ⚠️ RECOMMENDED: Immediate | WaitForFirstConsumer
+
+    allowVolumeExpansion: true # ⚠️ Allow PVC resize
+
+    mountOptions: # Optional mount options
+        - debug
+</code></pre>
+<h3 id="common-provisioners"><a class="header" href="#common-provisioners">Common Provisioners</a></h3>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Cloud Provider</th><th>Provisioner</th><th>Common Types</th></tr>
+</thead>
+<tbody>
+<tr><td>AWS EBS</td><td><code>kubernetes.io/aws-ebs</code></td><td>gp2, gp3, io1, io2</td></tr>
+<tr><td>AWS EFS</td><td><code>efs.csi.aws.com</code></td><td>(shared filesystem)</td></tr>
+<tr><td>GCP PD</td><td><code>kubernetes.io/gce-pd</code></td><td>pd-standard, pd-ssd</td></tr>
+<tr><td>Azure Disk</td><td><code>kubernetes.io/azure-disk</code></td><td>Standard_LRS, Premium_LRS</td></tr>
+<tr><td>Azure File</td><td><code>kubernetes.io/azure-file</code></td><td>(shared filesystem)</td></tr>
+<tr><td>Local</td><td><code>kubernetes.io/no-provisioner</code></td><td>(manual provisioning)</td></tr>
+<tr><td>NFS</td><td><code>nfs.csi.k8s.io</code></td><td>(shared filesystem)</td></tr>
+</tbody>
+</table>
+</div>
+<h3 id="reclaim-policies"><a class="header" href="#reclaim-policies">Reclaim Policies</a></h3>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Policy</th><th>Behavior</th></tr>
+</thead>
+<tbody>
+<tr><td><code>Delete</code></td><td>PV deleted when PVC is deleted (default for dynamic)</td></tr>
+<tr><td><code>Retain</code></td><td>PV kept when PVC deleted, manual cleanup needed</td></tr>
+<tr><td><code>Recycle</code></td><td>(Deprecated) Basic scrub and reuse</td></tr>
+</tbody>
+</table>
+</div>
+<hr>
+<h2 id="102-persistentvolume-pv"><a class="header" href="#102-persistentvolume-pv">10.2 PersistentVolume (PV)</a></h2>
+<h3 id="definition-12"><a class="header" href="#definition-12">Definition</a></h3>
+<blockquote>
+<p>The <strong>actual storage resource</strong> in the cluster. Can be provisioned manually (static) or automatically via StorageClass (dynamic).</p>
+</blockquote>
+<h3 id="yaml-template---static-provisioning"><a class="header" href="#yaml-template---static-provisioning">YAML Template - Static Provisioning</a></h3>
+<pre><code class="language-yaml">apiVersion: v1
+kind: PersistentVolume
+metadata:
+    name: my-pv # ⚠️ IMPORTANT: PV name (cluster-wide)
+    labels:
+        type: local
+        environment: prod
+spec:
+    capacity:
+        storage: 100Gi # ⚠️ CRITICAL: Storage size
+
+    volumeMode: Filesystem # Filesystem | Block
+
+    accessModes: # ⚠️ CRITICAL: How it can be mounted
+        - ReadWriteOnce # RWO: Single node read-write
+        # - ReadOnlyMany               # ROX: Multiple nodes read-only
+        # - ReadWriteMany              # RWX: Multiple nodes read-write
+        # - ReadWriteOncePod           # RWOP: Single pod read-write (K8s 1.22+)
+
+    persistentVolumeReclaimPolicy: Retain # ⚠️ IMPORTANT: Delete | Retain
+
+    storageClassName: fast-ssd # ⚠️ IMPORTANT: Must match PVC
+
+    # ===== STORAGE BACKEND (choose one) =====
+
+    # Local storage
+    hostPath:
+        path: /mnt/data
+        type: DirectoryOrCreate # Directory | DirectoryOrCreate | File | etc.
+
+    # Or NFS
+    # nfs:
+    #     server: nfs-server.example.com
+    #     path: /exports/data
+
+    # Or AWS EBS
+    # awsElasticBlockStore:
+    #     volumeID: vol-0123456789abcdef0
+    #     fsType: ext4
+
+    # Or GCP PD
+    # gcePersistentDisk:
+    #     pdName: my-disk
+    #     fsType: ext4
+
+    nodeAffinity: # ⚠️ For local volumes - which node
+        required:
+            nodeSelectorTerms:
+                - matchExpressions:
+                      - key: kubernetes.io/hostname
+                        operator: In
+                        values:
+                            - worker-node-1
+</code></pre>
+<h3 id="access-modes-explained"><a class="header" href="#access-modes-explained">Access Modes Explained</a></h3>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Mode</th><th>Abbreviation</th><th>Description</th><th>Use Case</th></tr>
+</thead>
+<tbody>
+<tr><td><code>ReadWriteOnce</code></td><td>RWO</td><td>Single node can mount read-write</td><td>Databases, single pod apps</td></tr>
+<tr><td><code>ReadOnlyMany</code></td><td>ROX</td><td>Multiple nodes can mount read-only</td><td>Shared config, static assets</td></tr>
+<tr><td><code>ReadWriteMany</code></td><td>RWX</td><td>Multiple nodes can mount read-write</td><td>Shared uploads, CMS</td></tr>
+<tr><td><code>ReadWriteOncePod</code></td><td>RWOP</td><td>Single pod can mount read-write</td><td>Strict single-pod access</td></tr>
+</tbody>
+</table>
+</div>
+<h3 id="-access-mode-support-by-storage-type"><a class="header" href="#-access-mode-support-by-storage-type">⚠️ Access Mode Support by Storage Type</a></h3>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Storage Type</th><th>RWO</th><th>ROX</th><th>RWX</th></tr>
+</thead>
+<tbody>
+<tr><td>AWS EBS</td><td>✅</td><td>❌</td><td>❌</td></tr>
+<tr><td>AWS EFS</td><td>✅</td><td>✅</td><td>✅</td></tr>
+<tr><td>GCP PD</td><td>✅</td><td>❌</td><td>❌</td></tr>
+<tr><td>Azure Disk</td><td>✅</td><td>❌</td><td>❌</td></tr>
+<tr><td>Azure File</td><td>✅</td><td>✅</td><td>✅</td></tr>
+<tr><td>NFS</td><td>✅</td><td>✅</td><td>✅</td></tr>
+<tr><td>hostPath</td><td>✅</td><td>❌</td><td>❌</td></tr>
+</tbody>
+</table>
+</div>
+<hr>
+<h2 id="103-persistentvolumeclaim-pvc"><a class="header" href="#103-persistentvolumeclaim-pvc">10.3 PersistentVolumeClaim (PVC)</a></h2>
+<h3 id="definition-13"><a class="header" href="#definition-13">Definition</a></h3>
+<blockquote>
+<p>A <strong>request for storage</strong> by a user/pod. Kubernetes finds a matching PV or dynamically provisions one.</p>
+</blockquote>
+<h3 id="yaml-template-5"><a class="header" href="#yaml-template-5">YAML Template</a></h3>
+<pre><code class="language-yaml">apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+    name: my-pvc # ⚠️ IMPORTANT: PVC name (used in pod)
+    namespace: my-app-dev # ⚠️ IMPORTANT: Namespace-scoped
+    labels:
+        app: my-app
+spec:
+    accessModes:
+        - ReadWriteOnce # ⚠️ CRITICAL: Must match/be subset of PV
+
+    storageClassName:
+        fast-ssd # ⚠️ CRITICAL: StorageClass to use
+        # Empty string "" = use default
+        # Omit = use cluster default
+
+    resources:
+        requests:
+            storage: 10Gi # ⚠️ CRITICAL: Requested size
+
+    # Optional: Select specific PV by label
+    selector:
+        matchLabels:
+            type: local
+            environment: prod
+
+    # Optional: Specify exact PV name
+    # volumeName: my-pv
+
+    volumeMode: Filesystem # Filesystem | Block
+</code></pre>
+<h3 id="dynamic-vs-static-provisioning"><a class="header" href="#dynamic-vs-static-provisioning">Dynamic vs Static Provisioning</a></h3>
+<pre><code>STATIC PROVISIONING (Admin creates PV first):
+┌──────────────┐     ┌─────────────────┐     ┌─────────────────┐
+│ Admin creates│ --&gt; │ PVC requests    │ --&gt; │ K8s binds PVC   │
+│ PV manually  │     │ matching storage│     │ to existing PV  │
+└──────────────┘     └─────────────────┘     └─────────────────┘
+
+DYNAMIC PROVISIONING (StorageClass auto-creates PV):
+┌─────────────────┐     ┌─────────────────┐     ┌─────────────────┐
+│ PVC requests    │ --&gt; │ StorageClass    │ --&gt; │ PV auto-created │
+│ with SC name    │     │ provisions PV   │     │ and bound       │
+└─────────────────┘     └─────────────────┘     └─────────────────┘
+</code></pre>
+<hr>
+<h2 id="104-using-pvc-in-poddeployment"><a class="header" href="#104-using-pvc-in-poddeployment">10.4 Using PVC in Pod/Deployment</a></h2>
+<h3 id="pod-with-pvc"><a class="header" href="#pod-with-pvc">Pod with PVC</a></h3>
+<pre><code class="language-yaml">apiVersion: v1
+kind: Pod
+metadata:
+    name: my-pod
+    namespace: my-app-dev
+spec:
+    containers:
+        - name: my-app
+          image: nginx:1.21
+
+          volumeMounts:
+              - name: data-volume # ⚠️ Must match volumes[].name
+                mountPath: /usr/share/nginx/html # ⚠️ Where to mount
+                readOnly: false
+                subPath: html # Optional: Mount subdirectory only
+
+    volumes:
+        - name: data-volume # ⚠️ Volume name
+          persistentVolumeClaim:
+              claimName: my-pvc # ⚠️ CRITICAL: PVC name
+              readOnly: false
+</code></pre>
+<h3 id="deployment-with-pvc"><a class="header" href="#deployment-with-pvc">Deployment with PVC</a></h3>
+<pre><code class="language-yaml">apiVersion: apps/v1
+kind: Deployment
+metadata:
+    name: my-app
+    namespace: my-app-dev
+spec:
+    replicas: 1 # ⚠️ With RWO, usually 1 replica
+    selector:
+        matchLabels:
+            app: my-app
+    template:
+        metadata:
+            labels:
+                app: my-app
+        spec:
+            containers:
+                - name: my-app
+                  image: postgres:14
+
+                  volumeMounts:
+                      - name: postgres-data
+                        mountPath: /var/lib/postgresql/data
+                        subPath: pgdata # ⚠️ Avoid "lost+found" issues
+
+                  env:
+                      - name: PGDATA
+                        value: /var/lib/postgresql/data/pgdata
+
+            volumes:
+                - name: postgres-data
+                  persistentVolumeClaim:
+                      claimName: postgres-pvc
+</code></pre>
+<hr>
+<h2 id="105-statefulset-with-volumeclaimtemplate"><a class="header" href="#105-statefulset-with-volumeclaimtemplate">10.5 StatefulSet with VolumeClaimTemplate</a></h2>
+<h3 id="definition-14"><a class="header" href="#definition-14">Definition</a></h3>
+<blockquote>
+<p>For <strong>stateful applications</strong> (databases, caches) where each pod needs its own dedicated storage.</p>
+</blockquote>
+<pre><code class="language-yaml">apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+    name: mysql
+    namespace: database
+spec:
+    serviceName: mysql-headless # ⚠️ Required: Headless service name
+    replicas: 3
+
+    selector:
+        matchLabels:
+            app: mysql
+
+    template:
+        metadata:
+            labels:
+                app: mysql
+        spec:
+            containers:
+                - name: mysql
+                  image: mysql:8.0
+
+                  volumeMounts:
+                      - name: data # ⚠️ Matches volumeClaimTemplates[].name
+                        mountPath: /var/lib/mysql
+
+                  env:
+                      - name: MYSQL_ROOT_PASSWORD
+                        valueFrom:
+                            secretKeyRef:
+                                name: mysql-secret
+                                key: root-password
+
+    # ⚠️ CRITICAL: Creates PVC for each pod automatically
+    volumeClaimTemplates:
+        - metadata:
+              name: data # ⚠️ Creates: data-mysql-0, data-mysql-1, etc.
+          spec:
+              accessModes:
+                  - ReadWriteOnce
+              storageClassName: fast-ssd
+              resources:
+                  requests:
+                      storage: 50Gi
+
+---
+# Required headless service for StatefulSet
+apiVersion: v1
+kind: Service
+metadata:
+    name: mysql-headless
+    namespace: database
+spec:
+    clusterIP: None # ⚠️ Headless service
+    selector:
+        app: mysql
+    ports:
+        - port: 3306
+</code></pre>
+<p><strong>What happens:</strong></p>
+<pre><code>StatefulSet: mysql (replicas: 3)
+    │
+    ├── Pod: mysql-0  --&gt;  PVC: data-mysql-0  --&gt;  PV: pv-xxx-001
+    ├── Pod: mysql-1  --&gt;  PVC: data-mysql-1  --&gt;  PV: pv-xxx-002
+    └── Pod: mysql-2  --&gt;  PVC: data-mysql-2  --&gt;  PV: pv-xxx-003
+</code></pre>
+<hr>
+<h2 id="106-expanding-pvc-resize"><a class="header" href="#106-expanding-pvc-resize">10.6 Expanding PVC (Resize)</a></h2>
+<h3 id="prerequisites"><a class="header" href="#prerequisites">Prerequisites</a></h3>
+<pre><code class="language-yaml"># StorageClass must have:
+allowVolumeExpansion: true
+</code></pre>
+<h3 id="resize-pvc"><a class="header" href="#resize-pvc">Resize PVC</a></h3>
+<pre><code class="language-bash"># Edit PVC and increase storage
+kubectl edit pvc my-pvc -n my-app-dev
+
+# Or patch
+kubectl patch pvc my-pvc -n my-app-dev -p '{"spec":{"resources":{"requests":{"storage":"20Gi"}}}}'
+</code></pre>
+<p><strong>⚠️ Note:</strong></p>
+<ul>
+<li>Can only <strong>increase</strong> size, never decrease</li>
+<li>Some storage types require pod restart</li>
+<li>File system resize happens automatically (usually)</li>
+</ul>
+<hr>
+<h2 id="quick-commands-10"><a class="header" href="#quick-commands-10">Quick Commands</a></h2>
+<pre><code class="language-bash"># ===== STORAGE CLASS =====
+# List storage classes
+kubectl get storageclass
+kubectl get sc
+
+# Describe storage class
+kubectl describe sc fast-ssd
+
+# Get default storage class
+kubectl get sc -o jsonpath='{.items[?(@.metadata.annotations.storageclass\.kubernetes\.io/is-default-class=="true")].metadata.name}'
+
+# ===== PERSISTENT VOLUME =====
+# List PVs (cluster-wide)
+kubectl get pv
+
+# Describe PV
+kubectl describe pv my-pv
+
+# Delete PV
+kubectl delete pv my-pv
+
+# ===== PERSISTENT VOLUME CLAIM =====
+# List PVCs
+kubectl get pvc -n my-app-dev
+
+# Describe PVC (check binding status)
+kubectl describe pvc my-pvc -n my-app-dev
+
+# Delete PVC
+kubectl delete pvc my-pvc -n my-app-dev
+
+# ===== DEBUGGING =====
+# Check PVC events
+kubectl describe pvc my-pvc -n my-app-dev | grep -A 10 Events
+
+# Check PV bound to PVC
+kubectl get pvc my-pvc -n my-app-dev -o jsonpath='{.spec.volumeName}'
+
+# Check what's using a PVC
+kubectl get pods -n my-app-dev -o json | jq '.items[] | select(.spec.volumes[].persistentVolumeClaim.claimName=="my-pvc") | .metadata.name'
+</code></pre>
+<hr>
+<h2 id="pvpvc-states"><a class="header" href="#pvpvc-states">PV/PVC States</a></h2>
+<h3 id="pv-states"><a class="header" href="#pv-states">PV States</a></h3>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>State</th><th>Meaning</th></tr>
+</thead>
+<tbody>
+<tr><td><code>Available</code></td><td>Free, not bound to any PVC</td></tr>
+<tr><td><code>Bound</code></td><td>Bound to a PVC</td></tr>
+<tr><td><code>Released</code></td><td>PVC deleted, but resource not reclaimed</td></tr>
+<tr><td><code>Failed</code></td><td>Automatic reclamation failed</td></tr>
+</tbody>
+</table>
+</div>
+<h3 id="pvc-states"><a class="header" href="#pvc-states">PVC States</a></h3>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>State</th><th>Meaning</th></tr>
+</thead>
+<tbody>
+<tr><td><code>Pending</code></td><td>Waiting for PV to be available/created</td></tr>
+<tr><td><code>Bound</code></td><td>Successfully bound to a PV</td></tr>
+<tr><td><code>Lost</code></td><td>Bound PV no longer exists</td></tr>
+</tbody>
+</table>
+</div>
+<hr>
+<h2 id="-consequences-of-wrong-configuration-9"><a class="header" href="#-consequences-of-wrong-configuration-9">⚠️ Consequences of Wrong Configuration</a></h2>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Mistake</th><th>Consequence</th></tr>
+</thead>
+<tbody>
+<tr><td>PVC <code>storageClassName</code> doesn’t match</td><td>PVC stays <code>Pending</code> forever</td></tr>
+<tr><td>PVC requests more than PV capacity</td><td>PVC stays <code>Pending</code></td></tr>
+<tr><td>AccessMode mismatch (PVC vs PV)</td><td>PVC stays <code>Pending</code></td></tr>
+<tr><td><code>ReclaimPolicy: Delete</code> + production data</td><td><strong>Data permanently lost when PVC deleted</strong></td></tr>
+<tr><td>RWO with multiple replicas</td><td>Pods fail to schedule, stuck in <code>Pending</code></td></tr>
+<tr><td>Missing <code>subPath</code> for databases</td><td>“lost+found” errors, DB fails to start</td></tr>
+<tr><td>Deleting PVC before pod</td><td>Pod crashes with volume errors</td></tr>
+<tr><td>Wrong <code>volumeName</code> in PVC</td><td>PVC binds to wrong/non-existent PV</td></tr>
+<tr><td>No StorageClass in cluster</td><td>Dynamic provisioning fails</td></tr>
+<tr><td><code>WaitForFirstConsumer</code> + no pod scheduled</td><td>PV not provisioned until pod is scheduled</td></tr>
+</tbody>
+</table>
+</div>
+<hr>
+<h2 id="-best-practices"><a class="header" href="#-best-practices">💡 Best Practices</a></h2>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Practice</th><th>Reason</th></tr>
+</thead>
+<tbody>
+<tr><td>Use <code>Retain</code> for production databases</td><td>Prevents accidental data loss</td></tr>
+<tr><td>Use <code>WaitForFirstConsumer</code> binding mode</td><td>Ensures PV created in correct zone</td></tr>
+<tr><td>Set <code>allowVolumeExpansion: true</code></td><td>Allows future resize without recreation</td></tr>
+<tr><td>Use <code>subPath</code> for database mounts</td><td>Avoids “lost+found” directory issues</td></tr>
+<tr><td>Use StatefulSet for stateful apps</td><td>Each pod gets its own PVC</td></tr>
+<tr><td>Label PVs for static provisioning</td><td>Easier PVC-to-PV matching</td></tr>
+<tr><td>Monitor PVC usage</td><td>Prevent “disk full” outages</td></tr>
+<tr><td>Use appropriate access modes</td><td>RWX only when truly needed (slower)</td></tr>
+</tbody>
+</table>
+</div>
+<hr>
+<h2 id="complete-example-postgresql-with-persistent-storage"><a class="header" href="#complete-example-postgresql-with-persistent-storage">Complete Example: PostgreSQL with Persistent Storage</a></h2>
+<pre><code class="language-yaml"># 1. StorageClass (if not using default)
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+    name: database-storage
+provisioner: kubernetes.io/aws-ebs
+parameters:
+    type: gp3
+    encrypted: 'true'
+reclaimPolicy: Retain
+volumeBindingMode: WaitForFirstConsumer
+allowVolumeExpansion: true
+
+---
+# 2. PVC
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+    name: postgres-pvc
+    namespace: database
+spec:
+    accessModes:
+        - ReadWriteOnce
+    storageClassName: database-storage
+    resources:
+        requests:
+            storage: 50Gi
+
+---
+# 3. Secret for password
+apiVersion: v1
+kind: Secret
+metadata:
+    name: postgres-secret
+    namespace: database
+type: Opaque
+stringData:
+    postgres-password: mysecretpassword
+
+---
+# 4. Deployment
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+    name: postgres
+    namespace: database
+spec:
+    replicas: 1
+    selector:
+        matchLabels:
+            app: postgres
+    template:
+        metadata:
+            labels:
+                app: postgres
+        spec:
+            containers:
+                - name: postgres
+                  image: postgres:15
+                  ports:
+                      - containerPort: 5432
+
+                  env:
+                      - name: POSTGRES_PASSWORD
+                        valueFrom:
+                            secretKeyRef:
+                                name: postgres-secret
+                                key: postgres-password
+                      - name: PGDATA
+                        value: /var/lib/postgresql/data/pgdata
+
+                  volumeMounts:
+                      - name: postgres-storage
+                        mountPath: /var/lib/postgresql/data
+                        subPath: pgdata
+
+                  resources:
+                      requests:
+                          memory: '256Mi'
+                          cpu: '250m'
+                      limits:
+                          memory: '512Mi'
+                          cpu: '500m'
+
+                  livenessProbe:
+                      exec:
+                          command:
+                              - pg_isready
+                              - -U
+                              - postgres
+                      initialDelaySeconds: 30
+                      periodSeconds: 10
+
+                  readinessProbe:
+                      exec:
+                          command:
+                              - pg_isready
+                              - -U
+                              - postgres
+                      initialDelaySeconds: 5
+                      periodSeconds: 5
+
+            volumes:
+                - name: postgres-storage
+                  persistentVolumeClaim:
+                      claimName: postgres-pvc
+
+---
+# 5. Service
+apiVersion: v1
+kind: Service
+metadata:
+    name: postgres
+    namespace: database
+spec:
+    type: ClusterIP
+    selector:
+        app: postgres
+    ports:
+        - port: 5432
+          targetPort: 5432
+</code></pre>
+<hr>
+<h2 id="-documentation-10"><a class="header" href="#-documentation-10">📚 Documentation</a></h2>
+<ul>
+<li>https://kubernetes.io/docs/concepts/storage/persistent-volumes/</li>
+<li>https://kubernetes.io/docs/concepts/storage/storage-classes/</li>
+<li>https://kubernetes.io/docs/concepts/storage/volume-pvc-datasource/</li>
+<li>https://kubernetes.io/docs/tasks/configure-pod-container/configure-persistent-volume-storage/</li>
+</ul>
+<hr>
+<p><strong>Added this section as #10 in your cheatsheet. Ready for more questions!</strong> 🎯</p>
 <div style="break-before: page; page-break-before: always;"></div>
 <h1 id="disk-fundamentals"><a class="header" href="#disk-fundamentals">Disk Fundamentals</a></h1>
 <ul>
