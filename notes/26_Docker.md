@@ -1029,4 +1029,795 @@ docker run --env-file .env myapp
 
 ---
 
-Happy Dockerizing! 🐳
+# 🎨 Container Design Patterns
+
+> 📖 **Kubernetes Patterns Reference:** https://kubernetes.io/docs/concepts/workloads/pods/#how-pods-manage-multiple-containers
+> 📖 **Multi-Container Patterns:** https://kubernetes.io/blog/2015/06/the-distributed-system-toolkit-patterns/
+
+These patterns are commonly used in Docker Compose and Kubernetes to design multi-container applications.
+
+---
+
+## 1️⃣ Sidecar Pattern
+
+> **Purpose:** Extend or enhance the main container without modifying it.
+
+The sidecar runs alongside the main container, sharing the same resources (volumes, network).
+
+```
+┌──────────────────────────────────────────────────┐
+│                   Pod/Service                    │
+│                                                  │
+│   ┌─────────────────┐   ┌─────────────────┐      │
+│   │                 │   │                 │      │
+│   │    Main App     │   │    Sidecar      │      │
+│   │                 │◄─►│   (Logs/        │      │
+│   │                 │   │   Metrics)      │      │
+│   │                 │   │                 │      │
+│   └────────┬────────┘   └────────┬────────┘      │
+│            │                     │               │
+│            └──────────┬──────────┘               │
+│                       │                          │
+│               Shared Volume                      │
+│                                                  │
+└──────────────────────────────────────────────────┘
+```
+
+**Use Cases:**
+
+- Log shipping (Fluentd, Filebeat)
+- Metrics collection (Prometheus exporter)
+- Security scanning
+- Configuration reloading
+
+**Docker Compose Example:**
+
+```yaml
+version: '3.8'
+
+services:
+    # ============ Main Application ============
+    app:
+        build: .
+        volumes:
+            - app_logs:/var/log/app
+        ports:
+            - '8000:8000'
+
+    # ============ Sidecar: Log Shipper ============
+    log-shipper:
+        image: fluent/fluentd:v1.16-1
+        volumes:
+            - app_logs:/var/log/app:ro
+            - ./fluentd.conf:/fluentd/etc/fluent.conf
+        depends_on:
+            - app
+
+volumes:
+    app_logs:
+```
+
+**Another Example: Nginx + Metrics Sidecar**
+
+```yaml
+version: '3.8'
+
+services:
+    # Main web server
+    nginx:
+        image: nginx:alpine
+        ports:
+            - '80:80'
+        volumes:
+            - nginx_status:/var/run/nginx
+
+    # Sidecar: Prometheus exporter
+    nginx-exporter:
+        image: nginx/nginx-prometheus-exporter:0.11
+        command:
+            - '-nginx.scrape-uri=http://nginx:80/stub_status'
+        ports:
+            - '9113:9113'
+        depends_on:
+            - nginx
+
+volumes:
+    nginx_status:
+```
+
+---
+
+## 2️⃣ Adapter Pattern
+
+> **Purpose:** Standardize or transform output from the main container.
+
+The adapter translates the main app's output to a standard format that external systems expect.
+
+```
+┌───────────────────────────────────────────────────────────────┐
+│                        Pod/Service                            │
+│                                                               │
+│   ┌─────────────────┐   ┌─────────────────┐                   │
+│   │                 │   │                 │                   │
+│   │    Main App     │──►│    Adapter      │──► Standard       │
+│   │                 │   │   (Transform)   │    Output         │
+│   │   (Custom       │   │                 │                   │
+│   │    Output)      │   │                 │                   │
+│   │                 │   │                 │                   │
+│   └─────────────────┘   └─────────────────┘                   │
+│                                                               │
+└───────────────────────────────────────────────────────────────┘
+```
+
+**Use Cases:**
+
+- Converting logs to JSON format
+- Transforming metrics to Prometheus format
+- Normalizing API responses
+- Protocol translation
+
+**Docker Compose Example: Log Format Adapter**
+
+```yaml
+version: '3.8'
+
+services:
+    # ============ Main App (Custom Log Format) ============
+    app:
+        build: .
+        volumes:
+            - app_logs:/var/log/app
+
+    # ============ Adapter: Convert to JSON ============
+    log-adapter:
+        build:
+            context: ./adapter
+            dockerfile: Dockerfile
+        volumes:
+            - app_logs:/var/log/app:ro
+            - json_logs:/var/log/json
+        environment:
+            - INPUT_PATH=/var/log/app/app.log
+            - OUTPUT_PATH=/var/log/json/app.json
+
+    # ============ Log Collector (Expects JSON) ============
+    log-collector:
+        image: fluent/fluentd:v1.16-1
+        volumes:
+            - json_logs:/var/log/json:ro
+
+volumes:
+    app_logs:
+    json_logs:
+```
+
+**Adapter Dockerfile:**
+
+```dockerfile
+FROM python:3.11-slim
+
+WORKDIR /app
+
+COPY adapter.py .
+
+CMD ["python", "adapter.py"]
+```
+
+**adapter.py:**
+
+```python
+import json
+import os
+import time
+
+INPUT_PATH = os.environ.get('INPUT_PATH', '/var/log/app/app.log')
+OUTPUT_PATH = os.environ.get('OUTPUT_PATH', '/var/log/json/app.json')
+
+def transform_log(line):
+    """Convert custom log format to JSON"""
+    parts = line.strip().split(' | ')
+    return json.dumps({
+        "timestamp": parts[0] if len(parts) > 0 else "",
+        "level": parts[1] if len(parts) > 1 else "",
+        "message": parts[2] if len(parts) > 2 else line
+    })
+
+while True:
+    try:
+        with open(INPUT_PATH, 'r') as infile:
+            with open(OUTPUT_PATH, 'a') as outfile:
+                for line in infile:
+                    outfile.write(transform_log(line) + '\n')
+    except FileNotFoundError:
+        pass
+    time.sleep(1)
+```
+
+---
+
+## 3️⃣ Ambassador Pattern
+
+> **Purpose:** Proxy connections to external services.
+
+The ambassador acts as a proxy, simplifying how the main app connects to external services.
+
+```
+┌───────────────────────────────────────────────────────────────┐
+│                        Pod/Service                            │
+│                                                               │
+│   ┌─────────────────┐   ┌─────────────────┐   ┌────────────┐  │
+│   │                 │   │                 │   │            │  │
+│   │    Main App     │──►│   Ambassador    │──►│  External  │  │
+│   │                 │   │    (Proxy)      │   │  Service   │  │
+│   │                 │   │                 │   │  (DB/API)  │  │
+│   │                 │   │                 │   │            │  │
+│   └─────────────────┘   └─────────────────┘   └────────────┘  │
+│                                                               │
+│     localhost:5432         Handles:             Remote DB     │
+│                         - Connection pool                     │
+│                         - Retry logic                         │
+│                         - TLS termination                     │
+│                                                               │
+└───────────────────────────────────────────────────────────────┘
+```
+
+**Use Cases:**
+
+- Database connection pooling (PgBouncer)
+- Service discovery
+- TLS/SSL termination
+- Rate limiting
+- Circuit breaker
+
+**Docker Compose Example: Database Ambassador**
+
+```yaml
+version: '3.8'
+
+services:
+    # ============ Main Application ============
+    app:
+        build: .
+        environment:
+            # App connects to ambassador, not directly to DB
+            - DATABASE_URL=postgresql://user:pass@pgbouncer:5432/mydb
+        depends_on:
+            - pgbouncer
+
+    # ============ Ambassador: Connection Pooler ============
+    pgbouncer:
+        image: edoburu/pgbouncer:1.21.0
+        environment:
+            - DATABASE_URL=postgresql://user:pass@db:5432/mydb
+            - POOL_MODE=transaction
+            - MAX_CLIENT_CONN=100
+            - DEFAULT_POOL_SIZE=20
+        depends_on:
+            - db
+
+    # ============ External Database ============
+    db:
+        image: postgres:15-alpine
+        environment:
+            - POSTGRES_USER=user
+            - POSTGRES_PASSWORD=pass
+            - POSTGRES_DB=mydb
+        volumes:
+            - postgres_data:/var/lib/postgresql/data
+
+volumes:
+    postgres_data:
+```
+
+**Another Example: Redis Ambassador with HAProxy**
+
+```yaml
+version: '3.8'
+
+services:
+    app:
+        build: .
+        environment:
+            # Connect through ambassador
+            - REDIS_URL=redis://redis-ambassador:6379
+
+    # Ambassador handles failover
+    redis-ambassador:
+        image: haproxy:2.8-alpine
+        volumes:
+            - ./haproxy.cfg:/usr/local/etc/haproxy/haproxy.cfg:ro
+        depends_on:
+            - redis-master
+            - redis-replica
+
+    redis-master:
+        image: redis:7-alpine
+
+    redis-replica:
+        image: redis:7-alpine
+        command: redis-server --replicaof redis-master 6379
+```
+
+---
+
+## 4️⃣ Init Container Pattern
+
+> **Purpose:** Run setup tasks before the main container starts.
+
+Init containers run to completion before the main app starts. Used for initialization tasks.
+
+```
+┌───────────────────────────────────────────────────────────────┐
+│                      Startup Sequence                         │
+│                                                               │
+│   ┌───────────┐   ┌───────────┐   ┌───────────────────────┐   │
+│   │           │   │           │   │                       │   │
+│   │  Init 1   │──►│  Init 2   │──►│   Main Container      │   │
+│   │ (migrate) │   │  (wait)   │   │       (app)           │   │
+│   │           │   │           │   │                       │   │
+│   └───────────┘   └───────────┘   └───────────────────────┘   │
+│                                                               │
+│    Completes       Completes           Runs                   │
+│    & exits         & exits          continuously              │
+│                                                               │
+└───────────────────────────────────────────────────────────────┘
+```
+
+**Use Cases:**
+
+- Database migrations
+- Wait for dependencies
+- Download configuration
+- Set up permissions
+- Seed data
+
+**Docker Compose Example:**
+
+```yaml
+version: '3.8'
+
+services:
+    # ============ Init: Wait for DB ============
+    init-wait-db:
+        image: postgres:15-alpine
+        command: >
+            sh -c "
+              until pg_isready -h db -U user; do
+                echo 'Waiting for database...';
+                sleep 2;
+              done;
+              echo 'Database is ready!'
+            "
+        depends_on:
+            - db
+
+    # ============ Init: Run Migrations ============
+    init-migrate:
+        build: .
+        command: python manage.py migrate
+        environment:
+            - DATABASE_URL=postgresql://user:pass@db:5432/mydb
+        depends_on:
+            init-wait-db:
+                condition: service_completed_successfully
+
+    # ============ Init: Seed Data ============
+    init-seed:
+        build: .
+        command: python manage.py seed
+        environment:
+            - DATABASE_URL=postgresql://user:pass@db:5432/mydb
+        depends_on:
+            init-migrate:
+                condition: service_completed_successfully
+
+    # ============ Main Application ============
+    app:
+        build: .
+        ports:
+            - '8000:8000'
+        environment:
+            - DATABASE_URL=postgresql://user:pass@db:5432/mydb
+        depends_on:
+            init-seed:
+                condition: service_completed_successfully
+
+    # ============ Database ============
+    db:
+        image: postgres:15-alpine
+        environment:
+            - POSTGRES_USER=user
+            - POSTGRES_PASSWORD=pass
+            - POSTGRES_DB=mydb
+        volumes:
+            - postgres_data:/var/lib/postgresql/data
+        healthcheck:
+            test: ['CMD-SHELL', 'pg_isready -U user -d mydb']
+            interval: 5s
+            timeout: 5s
+            retries: 5
+
+volumes:
+    postgres_data:
+```
+
+**Simple Init with Shell Script:**
+
+```yaml
+version: '3.8'
+
+services:
+    init:
+        image: busybox
+        volumes:
+            - shared_config:/config
+        command: >
+            sh -c "
+              echo 'Downloading config...';
+              wget -O /config/app.conf https://example.com/config;
+              echo 'Setting permissions...';
+              chmod 644 /config/app.conf;
+              echo 'Init complete!'
+            "
+
+    app:
+        build: .
+        volumes:
+            - shared_config:/app/config:ro
+        depends_on:
+            init:
+                condition: service_completed_successfully
+
+volumes:
+    shared_config:
+```
+
+---
+
+## 5️⃣ Work Queue Pattern
+
+> **Purpose:** Distribute tasks across multiple worker containers.
+
+A queue holds tasks that multiple workers process concurrently.
+
+```
+┌───────────────────────────────────────────────────────────────┐
+│                      Work Queue Pattern                       │
+│                                                               │
+│   ┌─────────────┐   ┌─────────────────┐   ┌────────────────┐  │
+│   │             │   │                 │   │                │  │
+│   │  Producer   │──►│     Queue       │◄──│   Worker 1     │  │
+│   │   (API)     │   │                 │◄──│   Worker 2     │  │
+│   │             │   │  (Redis/        │◄──│   Worker 3     │  │
+│   │             │   │   RabbitMQ)     │   │                │  │
+│   └─────────────┘   └─────────────────┘   └────────────────┘  │
+│                                                               │
+│    Adds tasks         Holds tasks         Process tasks       │
+│    to queue          until picked         concurrently        │
+│                                                               │
+└───────────────────────────────────────────────────────────────┘
+```
+
+**Use Cases:**
+
+- Background job processing
+- Email sending
+- Image/video processing
+- Report generation
+- Data pipelines
+
+**Docker Compose Example: Celery Workers**
+
+```yaml
+version: '3.8'
+
+services:
+    # ============ Web API (Producer) ============
+    web:
+        build: .
+        command: gunicorn --bind 0.0.0.0:8000 app:app
+        ports:
+            - '8000:8000'
+        environment:
+            - CELERY_BROKER_URL=redis://redis:6379/0
+            - CELERY_RESULT_BACKEND=redis://redis:6379/0
+        depends_on:
+            - redis
+
+    # ============ Celery Workers ============
+    worker:
+        build: .
+        command: celery -A tasks worker --loglevel=info
+        environment:
+            - CELERY_BROKER_URL=redis://redis:6379/0
+            - CELERY_RESULT_BACKEND=redis://redis:6379/0
+        depends_on:
+            - redis
+        deploy:
+            replicas: 3
+
+    # ============ Celery Beat (Scheduler) ============
+    beat:
+        build: .
+        command: celery -A tasks beat --loglevel=info
+        environment:
+            - CELERY_BROKER_URL=redis://redis:6379/0
+        depends_on:
+            - redis
+
+    # ============ Message Queue ============
+    redis:
+        image: redis:7-alpine
+        volumes:
+            - redis_data:/data
+
+    # ============ Monitoring (Flower) ============
+    flower:
+        build: .
+        command: celery -A tasks flower --port=5555
+        ports:
+            - '5555:5555'
+        environment:
+            - CELERY_BROKER_URL=redis://redis:6379/0
+        depends_on:
+            - redis
+
+volumes:
+    redis_data:
+```
+
+**tasks.py (Celery Tasks):**
+
+```python
+from celery import Celery
+
+app = Celery('tasks')
+app.config_from_object({
+    'broker_url': 'redis://redis:6379/0',
+    'result_backend': 'redis://redis:6379/0'
+})
+
+@app.task
+def process_image(image_id):
+    """Long-running image processing task"""
+    # Processing logic here
+    return f"Processed image {image_id}"
+
+@app.task
+def send_email(to, subject, body):
+    """Email sending task"""
+    # Email logic here
+    return f"Email sent to {to}"
+```
+
+**RabbitMQ Example:**
+
+```yaml
+version: '3.8'
+
+services:
+    web:
+        build: .
+        ports:
+            - '8000:8000'
+        environment:
+            - RABBITMQ_URL=amqp://user:pass@rabbitmq:5672/
+        depends_on:
+            rabbitmq:
+                condition: service_healthy
+
+    worker:
+        build: .
+        command: python worker.py
+        environment:
+            - RABBITMQ_URL=amqp://user:pass@rabbitmq:5672/
+        depends_on:
+            rabbitmq:
+                condition: service_healthy
+        deploy:
+            replicas: 5
+
+    rabbitmq:
+        image: rabbitmq:3-management-alpine
+        environment:
+            - RABBITMQ_DEFAULT_USER=user
+            - RABBITMQ_DEFAULT_PASS=pass
+        ports:
+            - '5672:5672'
+            - '15672:15672'
+        volumes:
+            - rabbitmq_data:/var/lib/rabbitmq
+        healthcheck:
+            test: ['CMD', 'rabbitmq-diagnostics', 'check_running']
+            interval: 10s
+            timeout: 5s
+            retries: 5
+
+volumes:
+    rabbitmq_data:
+```
+
+---
+
+## 📊 Pattern Comparison
+
+| Pattern        | Purpose           | Lifecycle        | Example               |
+| -------------- | ----------------- | ---------------- | --------------------- |
+| **Sidecar**    | Extend main app   | Runs alongside   | Log shipping, metrics |
+| **Adapter**    | Transform output  | Runs alongside   | Format conversion     |
+| **Ambassador** | Proxy connections | Runs alongside   | DB pooling            |
+| **Init**       | Setup before main | Runs once, exits | Migrations            |
+| **Work Queue** | Distribute tasks  | Multiple workers | Background jobs       |
+
+---
+
+## 🎯 When to Use Each Pattern
+
+```
+Need to run setup before app starts?
+└─► YES ──► Init Pattern
+
+Need to enhance app without modifying it?
+└─► YES ──► Sidecar Pattern
+
+Need to transform app output to standard format?
+└─► YES ──► Adapter Pattern
+
+Need to simplify external service connections?
+└─► YES ──► Ambassador Pattern
+
+Need to process tasks asynchronously?
+└─► YES ──► Work Queue Pattern
+```
+
+---
+
+## 🔗 Combined Patterns Example
+
+Real-world applications often combine multiple patterns:
+
+```yaml
+version: '3.8'
+
+services:
+    # ===== Init Containers =====
+    init-wait:
+        image: busybox
+        command: >
+            sh -c "
+              echo 'Waiting for services...';
+              sleep 5;
+              echo 'Ready!'
+            "
+
+    init-migrate:
+        build: .
+        command: python manage.py migrate
+        depends_on:
+            init-wait:
+                condition: service_completed_successfully
+            db:
+                condition: service_healthy
+
+    # ===== Main Application =====
+    app:
+        build: .
+        ports:
+            - '8000:8000'
+        environment:
+            - DATABASE_URL=postgresql://user:pass@pgbouncer:5432/mydb
+        depends_on:
+            init-migrate:
+                condition: service_completed_successfully
+        volumes:
+            - app_logs:/var/log/app
+
+    # ===== Sidecar: Log Shipper =====
+    log-shipper:
+        image: fluent/fluentd:v1.16-1
+        volumes:
+            - app_logs:/var/log/app:ro
+        depends_on:
+            - app
+
+    # ===== Sidecar: Metrics Exporter =====
+    metrics-exporter:
+        image: prom/statsd-exporter
+        ports:
+            - '9102:9102'
+        depends_on:
+            - app
+
+    # ===== Ambassador: DB Connection Pool =====
+    pgbouncer:
+        image: edoburu/pgbouncer:1.21.0
+        environment:
+            - DATABASE_URL=postgresql://user:pass@db:5432/mydb
+            - POOL_MODE=transaction
+        depends_on:
+            - db
+
+    # ===== Work Queue: Background Workers =====
+    worker:
+        build: .
+        command: celery -A tasks worker --loglevel=info
+        environment:
+            - CELERY_BROKER_URL=redis://redis:6379/0
+        depends_on:
+            - redis
+        deploy:
+            replicas: 3
+
+    # ===== Infrastructure =====
+    db:
+        image: postgres:15-alpine
+        environment:
+            - POSTGRES_USER=user
+            - POSTGRES_PASSWORD=pass
+            - POSTGRES_DB=mydb
+        volumes:
+            - postgres_data:/var/lib/postgresql/data
+        healthcheck:
+            test: ['CMD-SHELL', 'pg_isready -U user']
+            interval: 5s
+            timeout: 5s
+            retries: 5
+
+    redis:
+        image: redis:7-alpine
+        volumes:
+            - redis_data:/data
+
+volumes:
+    app_logs:
+    postgres_data:
+    redis_data:
+```
+
+**Architecture Diagram:**
+
+```
+┌─────────────────────────────────────────────────────────────────────┐
+│                         Application Stack                           │
+│                                                                     │
+│  ┌─────────────────────────────────────────────────────────────┐    │
+│  │                     Init Phase                               │    │
+│  │   [init-wait] ──► [init-migrate] ──► Ready                   │    │
+│  └─────────────────────────────────────────────────────────────┘    │
+│                              │                                      │
+│                              ▼                                      │
+│  ┌─────────────────────────────────────────────────────────────┐    │
+│  │                     Runtime Phase                            │    │
+│  │                                                              │    │
+│  │   ┌─────────┐   ┌─────────┐   ┌─────────┐                    │    │
+│  │   │   App   │   │  Log    │   │ Metrics │   ◄── Sidecars     │    │
+│  │   │         │   │ Shipper │   │Exporter │                    │    │
+│  │   └────┬────┘   └─────────┘   └─────────┘                    │    │
+│  │        │                                                     │    │
+│  │        ▼                                                     │    │
+│  │   ┌─────────┐                                                │    │
+│  │   │PgBouncer│   ◄── Ambassador                               │    │
+│  │   └────┬────┘                                                │    │
+│  │        │                                                     │    │
+│  │        ▼                                                     │    │
+│  │   ┌─────────┐   ┌─────────┐   ┌─────────┐                    │    │
+│  │   │   DB    │   │  Redis  │   │ Workers │   ◄── Work Queue   │    │
+│  │   │         │   │         │   │ (1,2,3) │                    │    │
+│  │   └─────────┘   └─────────┘   └─────────┘                    │    │
+│  │                                                              │    │
+│  └─────────────────────────────────────────────────────────────┘    │
+│                                                                     │
+└─────────────────────────────────────────────────────────────────────┘
+```
+
+---
+
+## 📖 Additional Resources
+
+| Resource                        | Link                                                                        |
+| ------------------------------- | --------------------------------------------------------------------------- |
+| Kubernetes Multi-Container Pods | https://kubernetes.io/docs/concepts/workloads/pods/                         |
+| Distributed System Patterns     | https://kubernetes.io/blog/2015/06/the-distributed-system-toolkit-patterns/ |
+| Sidecar Pattern                 | https://learn.microsoft.com/en-us/azure/architecture/patterns/sidecar       |
+| Ambassador Pattern              | https://learn.microsoft.com/en-us/azure/architecture/patterns/ambassador    |
+| Docker Compose Docs             | https://docs.docker.com/compose/                                            |
