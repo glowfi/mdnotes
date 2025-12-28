@@ -4,7 +4,7 @@
 
 ### Definition
 
-> A **virtual cluster** inside your Kubernetes cluster. Think of it like **folders** on your computer to organize files.
+> Namespaces provide a mechanism for isolating groups of resources within a single cluster.
 
 ### YAML Template
 
