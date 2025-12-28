@@ -26,6 +26,7 @@
 - [23_React_Query](./23_React_Query.md)
 - [24_Monorepo](./24_Monorepo.md)
 - [25_Golang](./25_Golang.md)
+- [26_Kubernetes](./26_Kubernetes.md)
 - [1_Indexes](./1_Indexes.md)
 - [1_Abstraction](./1_Abstraction.md)
 - [2_Encapsulation](./2_Encapsulation.md)

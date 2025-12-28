@@ -1,0 +1,1936 @@
+<!DOCTYPE HTML>
+<html lang="en" class="light sidebar-visible" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>26_Kubernetes - Markdown Notes</title>
+
+
+        <!-- Custom HTML head -->
+
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="favicon-de23e50b.svg">
+        <link rel="shortcut icon" href="favicon-8114d1fc.png">
+        <link rel="stylesheet" href="css/variables-8adf115d.css">
+        <link rel="stylesheet" href="css/general-2459343d.css">
+        <link rel="stylesheet" href="css/chrome-ae938929.css">
+        <link rel="stylesheet" href="css/print-9e4910d8.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="fonts/fonts-9644e21d.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" id="mdbook-highlight-css" href="highlight-493f70e1.css">
+        <link rel="stylesheet" id="mdbook-tomorrow-night-css" href="tomorrow-night-4c0ae647.css">
+        <link rel="stylesheet" id="mdbook-ayu-highlight-css" href="ayu-highlight-3fdfc3ac.css">
+
+        <!-- Custom theme stylesheets -->
+
+
+        <!-- Provide site root and default themes to javascript -->
+        <script>
+            const path_to_root = "";
+            const default_light_theme = "light";
+            const default_dark_theme = "navy";
+            window.path_to_searchindex_js = "searchindex-ec2f6db7.js";
+        </script>
+        <!-- Start loading toc.js asap -->
+        <script src="toc-e136f13d.js"></script>
+    </head>
+    <body>
+    <div id="mdbook-help-container">
+        <div id="mdbook-help-popup">
+            <h2 class="mdbook-help-title">Keyboard shortcuts</h2>
+            <div>
+                <p>Press <kbd>←</kbd> or <kbd>→</kbd> to navigate between chapters</p>
+                <p>Press <kbd>S</kbd> or <kbd>/</kbd> to search in the book</p>
+                <p>Press <kbd>?</kbd> to show this help</p>
+                <p>Press <kbd>Esc</kbd> to hide this help</p>
+            </div>
+        </div>
+    </div>
+    <div id="mdbook-body-container">
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                let theme = localStorage.getItem('mdbook-theme');
+                let sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            const default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? default_dark_theme : default_light_theme;
+            let theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            const html = document.documentElement;
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add("js");
+        </script>
+
+        <input type="checkbox" id="mdbook-sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            let sidebar = null;
+            const sidebar_toggle = document.getElementById("mdbook-sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+                sidebar_toggle.checked = false;
+            }
+            if (sidebar === 'visible') {
+                sidebar_toggle.checked = true;
+            } else {
+                html.classList.remove('sidebar-visible');
+            }
+        </script>
+
+        <nav id="mdbook-sidebar" class="sidebar" aria-label="Table of contents">
+            <!-- populated by js -->
+            <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
+            <noscript>
+                <iframe class="sidebar-iframe-outer" src="toc.html"></iframe>
+            </noscript>
+            <div id="mdbook-sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <div id="mdbook-page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="mdbook-menu-bar-hover-placeholder"></div>
+                <div id="mdbook-menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="mdbook-sidebar-toggle" class="icon-button" for="mdbook-sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="mdbook-sidebar">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M0 96C0 78.3 14.3 64 32 64H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32C14.3 128 0 113.7 0 96zM0 256c0-17.7 14.3-32 32-32H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32c-17.7 0-32-14.3-32-32zM448 416c0 17.7-14.3 32-32 32H32c-17.7 0-32-14.3-32-32s14.3-32 32-32H416c17.7 0 32 14.3 32 32z"/></svg></span>
+                        </label>
+                        <button id="mdbook-theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="mdbook-theme-list">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M371.3 367.1c27.3-3.9 51.9-19.4 67.2-42.9L600.2 74.1c12.6-19.5 9.4-45.3-7.6-61.2S549.7-4.4 531.1 9.6L294.4 187.2c-24 18-38.2 46.1-38.4 76.1L371.3 367.1zm-19.6 25.4l-116-104.4C175.9 290.3 128 339.6 128 400c0 3.9 .2 7.8 .6 11.6c1.8 17.5-10.2 36.4-27.8 36.4H96c-17.7 0-32 14.3-32 32s14.3 32 32 32H240c61.9 0 112-50.1 112-112c0-2.5-.1-5-.2-7.5z"/></svg></span>
+                        </button>
+                        <ul id="mdbook-theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-default_theme">Auto</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-ayu">Ayu</button></li>
+                        </ul>
+                        <button id="mdbook-search-toggle" class="icon-button" type="button" title="Search (`/`)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="/ s" aria-controls="mdbook-searchbar">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M416 208c0 45.9-14.9 88.3-40 122.7L502.6 457.4c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L330.7 376c-34.4 25.2-76.8 40-122.7 40C93.1 416 0 322.9 0 208S93.1 0 208 0S416 93.1 416 208zM208 352c79.5 0 144-64.5 144-144s-64.5-144-144-144S64 128.5 64 208s64.5 144 144 144z"/></svg></span>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">Markdown Notes</h1>
+
+                    <div class="right-buttons">
+                        <a href="print.html" title="Print this book" aria-label="Print this book">
+                            <span class=fa-svg id="print-button"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M128 0C92.7 0 64 28.7 64 64v96h64V64H354.7L384 93.3V160h64V93.3c0-17-6.7-33.3-18.7-45.3L400 18.7C388 6.7 371.7 0 354.7 0H128zM384 352v32 64H128V384 368 352H384zm64 32h32c17.7 0 32-14.3 32-32V256c0-35.3-28.7-64-64-64H64c-35.3 0-64 28.7-64 64v96c0 17.7 14.3 32 32 32H64v64c0 35.3 28.7 64 64 64H384c35.3 0 64-28.7 64-64V384zm-16-88c-13.3 0-24-10.7-24-24s10.7-24 24-24s24 10.7 24 24s-10.7 24-24 24z"/></svg></span>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="mdbook-search-wrapper" class="hidden">
+                    <form id="mdbook-searchbar-outer" class="searchbar-outer">
+                        <div class="search-wrapper">
+                            <input type="search" id="mdbook-searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="mdbook-searchresults-outer" aria-describedby="searchresults-header">
+                            <div class="spinner-wrapper">
+                                <span class=fa-svg id="fa-spin"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M304 48c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zm0 416c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zM48 304c26.5 0 48-21.5 48-48s-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48zm464-48c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zM142.9 437c18.7-18.7 18.7-49.1 0-67.9s-49.1-18.7-67.9 0s-18.7 49.1 0 67.9s49.1 18.7 67.9 0zm0-294.2c18.7-18.7 18.7-49.1 0-67.9S93.7 56.2 75 75s-18.7 49.1 0 67.9s49.1 18.7 67.9 0zM369.1 437c18.7 18.7 49.1 18.7 67.9 0s18.7-49.1 0-67.9s-49.1-18.7-67.9 0s-18.7 49.1 0 67.9z"/></svg></span>
+                            </div>
+                        </div>
+                    </form>
+                    <div id="mdbook-searchresults-outer" class="searchresults-outer hidden">
+                        <div id="mdbook-searchresults-header" class="searchresults-header"></div>
+                        <ul id="mdbook-searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('mdbook-sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('mdbook-sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#mdbook-sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="mdbook-content" class="content">
+                    <main>
+                        <h1 id="-kubernetes-cheatsheet"><a class="header" href="#-kubernetes-cheatsheet">🎯 Kubernetes Cheatsheet</a></h1>
+<h2 id="1--namespace"><a class="header" href="#1--namespace">1. 📁 NAMESPACE</a></h2>
+<h3 id="definition"><a class="header" href="#definition">Definition</a></h3>
+<blockquote>
+<p>A <strong>virtual cluster</strong> inside your Kubernetes cluster. Think of it like <strong>folders</strong> on your computer to organize files.</p>
+</blockquote>
+<h3 id="yaml-template"><a class="header" href="#yaml-template">YAML Template</a></h3>
+<pre><code class="language-yaml">apiVersion: v1
+kind: Namespace
+metadata:
+    name: my-app-dev # ⚠️ IMPORTANT: Use lowercase, no spaces
+    labels:
+        environment: dev # Optional: helps in filtering
+</code></pre>
+<h3 id="quick-commands"><a class="header" href="#quick-commands">Quick Commands</a></h3>
+<pre><code class="language-bash"># Create namespace
+kubectl create namespace my-app-dev
+
+# List namespaces
+kubectl get namespaces
+
+# Set default namespace for context
+kubectl config set-context --current --namespace=my-app-dev
+
+# Delete namespace (⚠️ DELETES EVERYTHING INSIDE!)
+kubectl delete namespace my-app-dev
+</code></pre>
+<h3 id="-consequences-of-wrong-configuration"><a class="header" href="#-consequences-of-wrong-configuration">⚠️ Consequences of Wrong Configuration</a></h3>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Mistake</th><th>Consequence</th></tr>
+</thead>
+<tbody>
+<tr><td>Deleting namespace</td><td><strong>ALL resources inside are deleted permanently</strong></td></tr>
+<tr><td>Wrong namespace in commands</td><td>Resources created in wrong place, confusion</td></tr>
+<tr><td>No namespace specified</td><td>Goes to <code>default</code> namespace</td></tr>
+</tbody>
+</table>
+</div>
+<h3 id="-documentation"><a class="header" href="#-documentation">📚 Documentation</a></h3>
+<ul>
+<li>https://kubernetes.io/docs/concepts/overview/working-with-objects/namespaces/</li>
+</ul>
+<hr>
+<h2 id="2--pod"><a class="header" href="#2--pod">2. 🫛 POD</a></h2>
+<h3 id="definition-1"><a class="header" href="#definition-1">Definition</a></h3>
+<blockquote>
+<p>The <strong>smallest deployable unit</strong> in Kubernetes. A pod wraps one or more containers. Think of it as a <strong>wrapper/box</strong> for your container.</p>
+</blockquote>
+<h3 id="yaml-template-1"><a class="header" href="#yaml-template-1">YAML Template</a></h3>
+<pre><code class="language-yaml">apiVersion: v1
+kind: Pod
+metadata:
+    name: my-pod # ⚠️ IMPORTANT: Unique name in namespace
+    namespace: my-app-dev # ⚠️ IMPORTANT: Specify or uses 'default'
+    labels:
+        app: my-app # ⚠️ CRITICAL: Used by Services to find pods
+        version: v1
+spec:
+    containers:
+        - name: my-container # ⚠️ IMPORTANT: Container name
+          image: nginx:1.21 # ⚠️ CRITICAL: Image name and tag
+          ports:
+              - containerPort: 80 # ⚠️ IMPORTANT: Port your app listens on
+          resources: # ⚠️ RECOMMENDED: Set limits
+              requests:
+                  memory: '64Mi'
+                  cpu: '250m'
+              limits:
+                  memory: '128Mi'
+                  cpu: '500m'
+    restartPolicy: Always # Always | OnFailure | Never
+</code></pre>
+<h3 id="quick-commands-1"><a class="header" href="#quick-commands-1">Quick Commands</a></h3>
+<pre><code class="language-bash"># Create pod
+kubectl apply -f pod.yaml
+
+# List pods
+kubectl get pods -n my-app-dev
+
+# Describe pod (see events, errors)
+kubectl describe pod my-pod -n my-app-dev
+
+# Get pod logs
+kubectl logs my-pod -n my-app-dev
+
+# Execute command in pod
+kubectl exec -it my-pod -n my-app-dev -- /bin/bash
+
+# Delete pod
+kubectl delete pod my-pod -n my-app-dev
+</code></pre>
+<h3 id="-consequences-of-wrong-configuration-1"><a class="header" href="#-consequences-of-wrong-configuration-1">⚠️ Consequences of Wrong Configuration</a></h3>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Mistake</th><th>Consequence</th></tr>
+</thead>
+<tbody>
+<tr><td>Wrong image name/tag</td><td><code>ImagePullBackOff</code> error, pod won’t start</td></tr>
+<tr><td>Wrong containerPort</td><td>App unreachable, connection refused</td></tr>
+<tr><td>No resource limits</td><td>Pod can consume all node resources, crash other pods</td></tr>
+<tr><td>Missing labels</td><td>Services can’t find the pod</td></tr>
+<tr><td>Wrong namespace</td><td>Pod created in wrong namespace</td></tr>
+</tbody>
+</table>
+</div>
+<h3 id="-documentation-1"><a class="header" href="#-documentation-1">📚 Documentation</a></h3>
+<ul>
+<li>https://kubernetes.io/docs/concepts/workloads/pods/</li>
+</ul>
+<hr>
+<h2 id="3--deployment"><a class="header" href="#3--deployment">3. 🚀 DEPLOYMENT</a></h2>
+<h3 id="definition-2"><a class="header" href="#definition-2">Definition</a></h3>
+<blockquote>
+<p>Manages <strong>multiple copies (replicas)</strong> of your pod and handles <strong>updates/rollbacks</strong>. Think of it as a
+<strong>pod manager</strong> that ensures your desired number of pods are always running.</p>
+</blockquote>
+<h3 id="yaml-template-2"><a class="header" href="#yaml-template-2">YAML Template</a></h3>
+<pre><code class="language-yaml">apiVersion: apps/v1
+kind: Deployment
+metadata:
+    name: my-deployment
+    namespace: my-app-dev
+    labels:
+        app: my-app
+spec:
+    replicas: 3 # ⚠️ IMPORTANT: Number of pod copies
+
+    selector: # ⚠️ CRITICAL: Must match template labels
+        matchLabels:
+            app: my-app
+
+    strategy: # ⚠️ IMPORTANT: How updates happen
+        type: RollingUpdate # RollingUpdate | Recreate
+        rollingUpdate:
+            maxSurge: 1 # Extra pods during update
+            maxUnavailable: 0 # Pods that can be unavailable
+
+    template: # ⚠️ CRITICAL: Pod template
+        metadata:
+            labels:
+                app: my-app # ⚠️ MUST match selector.matchLabels
+        spec:
+            containers:
+                - name: my-app
+                  image: nginx:1.21 # ⚠️ CRITICAL: Your app image
+                  ports:
+                      - containerPort: 80
+                  resources:
+                      requests:
+                          memory: '64Mi'
+                          cpu: '250m'
+                      limits:
+                          memory: '128Mi'
+                          cpu: '500m'
+
+                  livenessProbe: # ⚠️ RECOMMENDED: Restart if unhealthy
+                      httpGet:
+                          path: /health
+                          port: 80
+                      initialDelaySeconds: 30
+                      periodSeconds: 10
+
+                  readinessProbe: # ⚠️ RECOMMENDED: Traffic only when ready
+                      httpGet:
+                          path: /ready
+                          port: 80
+                      initialDelaySeconds: 5
+                      periodSeconds: 5
+</code></pre>
+<h3 id="quick-commands-2"><a class="header" href="#quick-commands-2">Quick Commands</a></h3>
+<pre><code class="language-bash"># Create/Update deployment
+kubectl apply -f deployment.yaml
+
+# List deployments
+kubectl get deployments -n my-app-dev
+
+# Watch deployment status
+kubectl rollout status deployment/my-deployment -n my-app-dev
+
+# Scale deployment
+kubectl scale deployment my-deployment --replicas=5 -n my-app-dev
+
+# Update image (triggers rolling update)
+kubectl set image deployment/my-deployment my-app=nginx:1.22 -n my-app-dev
+
+# Rollback to previous version
+kubectl rollout undo deployment/my-deployment -n my-app-dev
+
+# See rollout history
+kubectl rollout history deployment/my-deployment -n my-app-dev
+
+# Delete deployment
+kubectl delete deployment my-deployment -n my-app-dev
+</code></pre>
+<h3 id="-consequences-of-wrong-configuration-2"><a class="header" href="#-consequences-of-wrong-configuration-2">⚠️ Consequences of Wrong Configuration</a></h3>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Mistake</th><th>Consequence</th></tr>
+</thead>
+<tbody>
+<tr><td><code>selector.matchLabels</code> ≠ <code>template.labels</code></td><td>Deployment won’t find its pods, error</td></tr>
+<tr><td><code>replicas: 0</code></td><td>No pods running, app is down</td></tr>
+<tr><td>Wrong liveness probe</td><td>Pods keep restarting (CrashLoopBackOff)</td></tr>
+<tr><td>Wrong readiness probe</td><td>No traffic sent to pods</td></tr>
+<tr><td>No resource limits</td><td>Resource starvation</td></tr>
+<tr><td><code>strategy: Recreate</code></td><td>Downtime during updates</td></tr>
+</tbody>
+</table>
+</div>
+<h3 id="-documentation-2"><a class="header" href="#-documentation-2">📚 Documentation</a></h3>
+<ul>
+<li>https://kubernetes.io/docs/concepts/workloads/controllers/deployment/</li>
+</ul>
+<hr>
+<h2 id="4--services"><a class="header" href="#4--services">4. 🌐 SERVICES</a></h2>
+<h3 id="definition-3"><a class="header" href="#definition-3">Definition</a></h3>
+<blockquote>
+<p>A <strong>stable network endpoint</strong> to access your pods. Pods can die and restart with new IPs,
+but Service IP stays the same. Think of it as a <strong>load balancer + DNS name</strong> for your pods.</p>
+</blockquote>
+<hr>
+<h3 id="41-clusterip-default"><a class="header" href="#41-clusterip-default">4.1 ClusterIP (Default)</a></h3>
+<p><strong>What it does:</strong>
+Creates an internal IP address that’s <strong>only accessible from within the cluster</strong>. Other pods can
+reach your service, but nothing outside the cluster can.</p>
+<p><strong>How it works:</strong></p>
+<pre><code>[Pod A] --&gt; [ClusterIP: 10.96.50.100] --&gt; [Your Pod B]
+              (internal IP)
+</code></pre>
+<p><strong>Real-world analogy:</strong>
+Like an internal office phone extension - employees can call each other, but external clients can’t dial extensions directly.</p>
+<p><strong>When to use:</strong></p>
+<ul>
+<li>Backend services (databases, caches, internal APIs)</li>
+<li>Microservice-to-microservice communication</li>
+<li>Services that should NOT be exposed externally</li>
+</ul>
+<pre><code class="language-yaml">apiVersion: v1
+kind: Service
+metadata:
+    name: my-service-clusterip
+    namespace: my-app-dev
+spec:
+    type: ClusterIP # ⚠️ Default type (can omit)
+
+    selector: # ⚠️ CRITICAL: Must match pod labels
+        app: my-app
+
+    ports:
+        - name: http # ⚠️ RECOMMENDED: Name your ports
+          protocol: TCP
+          port: 80 # ⚠️ IMPORTANT: Service port (what you call)
+          targetPort: 80 # ⚠️ IMPORTANT: Pod port (where it goes)
+</code></pre>
+<p><strong>Access within cluster:</strong></p>
+<pre><code class="language-bash"># From another pod
+curl http://my-service-clusterip.my-app-dev.svc.cluster.local:80
+
+# Short form (same namespace)
+curl http://my-service-clusterip:80
+</code></pre>
+<hr>
+<h3 id="42-nodeport"><a class="header" href="#42-nodeport">4.2 NodePort</a></h3>
+<p><strong>What it does:</strong>
+Opens a <strong>specific port (30000-32767) on every node</strong> in your cluster. External
+traffic hitting any node’s IP on that port gets routed to your pods.</p>
+<p><strong>How it works:</strong></p>
+<pre><code>[External User] --&gt; [Any Node IP:30080] --&gt; [ClusterIP] --&gt; [Your Pods]
+                         ↓
+                    Node1:30080
+                    Node2:30080  (same port on ALL nodes)
+                    Node3:30080
+</code></pre>
+<p><strong>Real-world analogy:</strong>
+Like having the same extension number work at every office branch - call any branch at extension 30080, and you’ll reach the same department.</p>
+<p><strong>When to use:</strong></p>
+<ul>
+<li>Development/testing environments</li>
+<li>On-premise clusters without cloud load balancers</li>
+<li>When you need quick external access without Ingress setup</li>
+</ul>
+<p><strong>⚠️ Limitations:</strong></p>
+<ul>
+<li>Port range restricted to 30000-32767</li>
+<li>Need to know node IPs</li>
+<li>If a node goes down, that IP stops working (no automatic failover)</li>
+</ul>
+<pre><code class="language-yaml">apiVersion: v1
+kind: Service
+metadata:
+    name: my-service-nodeport
+    namespace: my-app-dev
+spec:
+    type: NodePort # ⚠️ IMPORTANT: Exposes on node
+
+    selector:
+        app: my-app
+
+    ports:
+        - name: http
+          protocol: TCP
+          port: 80 # ClusterIP port
+          targetPort: 80 # Pod port
+          nodePort: 30080 # ⚠️ IMPORTANT: 30000-32767 range
+</code></pre>
+<p><strong>Access:</strong></p>
+<pre><code class="language-bash"># From outside cluster
+curl http://&lt;NODE-IP&gt;:30080
+</code></pre>
+<hr>
+<h3 id="43-loadbalancer"><a class="header" href="#43-loadbalancer">4.3 LoadBalancer</a></h3>
+<p><strong>What it does:</strong>
+Provisions an <strong>external load balancer from your cloud provider</strong> (AWS ELB, GCP LB, Azure LB).
+You get a single external IP/DNS that distributes traffic across your nodes.</p>
+<p><strong>How it works:</strong></p>
+<pre><code>[External User] --&gt; [Cloud LB: 52.1.2.3] --&gt; [NodePort] --&gt; [ClusterIP] --&gt; [Pods]
+                    (external IP)              (auto-created)  (auto-created)
+</code></pre>
+<p><strong>Real-world analogy:</strong>
+Like a company’s main phone number with a receptionist - one public number that
+routes calls to the right department, handles busy lines, and keeps working even if one office is closed.</p>
+<p><strong>When to use:</strong></p>
+<ul>
+<li>Production workloads in cloud environments</li>
+<li>When you need a stable external IP</li>
+<li>High-availability requirements</li>
+</ul>
+<pre><code class="language-yaml">apiVersion: v1
+kind: Service
+metadata:
+    name: my-service-lb
+    namespace: my-app-dev
+    annotations: # ⚠️ Cloud-specific annotations
+        # AWS example:
+        service.beta.kubernetes.io/aws-load-balancer-type: 'nlb'
+spec:
+    type: LoadBalancer # ⚠️ IMPORTANT: Creates cloud LB
+
+    selector:
+        app: my-app
+
+    ports:
+        - name: http
+          protocol: TCP
+          port: 80
+          targetPort: 80
+</code></pre>
+<p><strong>Access:</strong></p>
+<pre><code class="language-bash"># Get external IP
+kubectl get svc my-service-lb -n my-app-dev
+
+# Access via external IP
+curl http://&lt;EXTERNAL-IP&gt;:80
+</code></pre>
+<hr>
+<h3 id="quick-commands-3"><a class="header" href="#quick-commands-3">Quick Commands</a></h3>
+<pre><code class="language-bash"># Create service
+kubectl apply -f service.yaml
+
+# List services
+kubectl get svc -n my-app-dev
+
+# Describe service (see endpoints)
+kubectl describe svc my-service -n my-app-dev
+
+# Get endpoints (pods behind service)
+kubectl get endpoints my-service -n my-app-dev
+
+# Delete service
+kubectl delete svc my-service -n my-app-dev
+</code></pre>
+<h3 id="-consequences-of-wrong-configuration-3"><a class="header" href="#-consequences-of-wrong-configuration-3">⚠️ Consequences of Wrong Configuration</a></h3>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Mistake</th><th>Consequence</th></tr>
+</thead>
+<tbody>
+<tr><td><code>selector</code> doesn’t match pod labels</td><td>Service has no endpoints, connection refused</td></tr>
+<tr><td>Wrong <code>targetPort</code></td><td>Traffic sent to wrong port on pod</td></tr>
+<tr><td><code>nodePort</code> outside 30000-32767</td><td>Error, service won’t create</td></tr>
+<tr><td>LoadBalancer without cloud provider</td><td>Stays in “Pending” state forever</td></tr>
+<tr><td>Missing port name (multi-port)</td><td>Ambiguous port reference</td></tr>
+</tbody>
+</table>
+</div>
+<h3 id="service-type-comparison"><a class="header" href="#service-type-comparison">Service Type Comparison</a></h3>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Type</th><th>Access</th><th>Use Case</th></tr>
+</thead>
+<tbody>
+<tr><td>ClusterIP</td><td>Internal only</td><td>Microservice-to-microservice</td></tr>
+<tr><td>NodePort</td><td>Node IP:30000+</td><td>Dev/testing, on-prem</td></tr>
+<tr><td>LoadBalancer</td><td>External IP</td><td>Production, cloud</td></tr>
+</tbody>
+</table>
+</div>
+<h3 id="-documentation-3"><a class="header" href="#-documentation-3">📚 Documentation</a></h3>
+<ul>
+<li>https://kubernetes.io/docs/concepts/services-networking/service/</li>
+</ul>
+<hr>
+<h2 id="5--configmaps--secrets"><a class="header" href="#5--configmaps--secrets">5. ⚙️ CONFIGMAPS &amp; SECRETS</a></h2>
+<h3 id="definition-4"><a class="header" href="#definition-4">Definition</a></h3>
+<blockquote>
+<p><strong>ConfigMap</strong>: Store non-sensitive configuration data (settings, config files).
+<strong>Secret</strong>: Store sensitive data (passwords, tokens, keys) - base64 encoded.</p>
+</blockquote>
+<p>Think of them as <strong>external configuration</strong> that you inject into pods.</p>
+<hr>
+<h3 id="51-configmap---environment-variables"><a class="header" href="#51-configmap---environment-variables">5.1 ConfigMap - Environment Variables</a></h3>
+<pre><code class="language-yaml">apiVersion: v1
+kind: ConfigMap
+metadata:
+    name: my-config
+    namespace: my-app-dev
+data: # ⚠️ Key-value pairs
+    DATABASE_HOST: 'mysql.database.svc'
+    DATABASE_PORT: '3306'
+    LOG_LEVEL: 'info'
+</code></pre>
+<p><strong>Use in Deployment:</strong></p>
+<pre><code class="language-yaml">spec:
+    containers:
+        - name: my-app
+          image: my-app:v1
+
+          # Option 1: Single env var
+          env:
+              - name: DB_HOST
+                valueFrom:
+                    configMapKeyRef:
+                        name: my-config # ⚠️ ConfigMap name
+                        key: DATABASE_HOST # ⚠️ Key from ConfigMap
+
+          # Option 2: All keys as env vars
+          envFrom:
+              - configMapRef:
+                    name: my-config # ⚠️ All keys become env vars
+</code></pre>
+<hr>
+<h3 id="52-configmap---file-based"><a class="header" href="#52-configmap---file-based">5.2 ConfigMap - File Based</a></h3>
+<pre><code class="language-yaml">apiVersion: v1
+kind: ConfigMap
+metadata:
+    name: my-config-file
+    namespace: my-app-dev
+data:
+    nginx.conf: | # ⚠️ File name as key
+        server {
+            listen 80;
+            server_name localhost;
+            location / {
+                root /usr/share/nginx/html;
+            }
+        }
+
+    app.properties: |
+        database.url=jdbc:mysql://localhost:3306/mydb
+        cache.enabled=true
+</code></pre>
+<p><strong>Mount as Volume:</strong></p>
+<pre><code class="language-yaml">spec:
+    containers:
+        - name: my-app
+          image: nginx:1.21
+          volumeMounts:
+              - name: config-volume
+                mountPath: /etc/nginx/conf.d # ⚠️ Where files appear
+                readOnly: true
+
+    volumes:
+        - name: config-volume
+          configMap:
+              name: my-config-file # ⚠️ ConfigMap name
+</code></pre>
+<hr>
+<h3 id="53-secret---environment-variables"><a class="header" href="#53-secret---environment-variables">5.3 Secret - Environment Variables</a></h3>
+<pre><code class="language-yaml">apiVersion: v1
+kind: Secret
+metadata:
+    name: my-secret
+    namespace: my-app-dev
+type: Opaque # ⚠️ Generic secret type
+data: # ⚠️ Base64 encoded values
+    DB_PASSWORD: cGFzc3dvcmQxMjM= # echo -n "password123" | base64
+    API_KEY: c2VjcmV0a2V5MTIz
+
+# Or use stringData (plain text, auto-encoded)
+stringData: # ⚠️ Plain text (easier)
+    DB_PASSWORD: password123
+    API_KEY: secretkey123
+</code></pre>
+<p><strong>Use in Deployment:</strong></p>
+<pre><code class="language-yaml">spec:
+    containers:
+        - name: my-app
+          image: my-app:v1
+
+          env:
+              - name: DATABASE_PASSWORD
+                valueFrom:
+                    secretKeyRef:
+                        name: my-secret # ⚠️ Secret name
+                        key: DB_PASSWORD # ⚠️ Key from Secret
+
+          # Or all secrets as env vars
+          envFrom:
+              - secretRef:
+                    name: my-secret
+</code></pre>
+<hr>
+<h3 id="54-secret---file-based"><a class="header" href="#54-secret---file-based">5.4 Secret - File Based</a></h3>
+<pre><code class="language-yaml">apiVersion: v1
+kind: Secret
+metadata:
+    name: tls-secret
+    namespace: my-app-dev
+type: kubernetes.io/tls # ⚠️ TLS secret type
+data:
+    tls.crt: &lt;base64-encoded-cert&gt;
+    tls.key: &lt;base64-encoded-key&gt;
+</code></pre>
+<p><strong>Mount as Volume:</strong></p>
+<pre><code class="language-yaml">spec:
+    containers:
+        - name: my-app
+          image: my-app:v1
+          volumeMounts:
+              - name: secret-volume
+                mountPath: /etc/ssl/certs # ⚠️ Where files appear
+                readOnly: true
+
+    volumes:
+        - name: secret-volume
+          secret:
+              secretName: tls-secret # ⚠️ Secret name
+</code></pre>
+<hr>
+<h3 id="quick-commands-4"><a class="header" href="#quick-commands-4">Quick Commands</a></h3>
+<pre><code class="language-bash"># Create ConfigMap from literal
+kubectl create configmap my-config \
+  --from-literal=KEY1=value1 \
+  --from-literal=KEY2=value2 \
+  -n my-app-dev
+
+# Create ConfigMap from file
+kubectl create configmap my-config \
+  --from-file=config.properties \
+  -n my-app-dev
+
+# Create Secret from literal
+kubectl create secret generic my-secret \
+  --from-literal=password=secret123 \
+  -n my-app-dev
+
+# Create Secret from file
+kubectl create secret generic my-secret \
+  --from-file=credentials.json \
+  -n my-app-dev
+
+# Create TLS Secret
+kubectl create secret tls tls-secret \
+  --cert=path/to/tls.crt \
+  --key=path/to/tls.key \
+  -n my-app-dev
+
+# View ConfigMap
+kubectl get configmap my-config -o yaml -n my-app-dev
+
+# View Secret (decoded)
+kubectl get secret my-secret -o jsonpath='{.data.password}' | base64 -d
+</code></pre>
+<h3 id="-consequences-of-wrong-configuration-4"><a class="header" href="#-consequences-of-wrong-configuration-4">⚠️ Consequences of Wrong Configuration</a></h3>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Mistake</th><th>Consequence</th></tr>
+</thead>
+<tbody>
+<tr><td>Wrong ConfigMap/Secret name in pod</td><td>Pod fails to start, <code>CreateContainerConfigError</code></td></tr>
+<tr><td>Wrong key name</td><td>Env var not set or file missing</td></tr>
+<tr><td>Secret not base64 encoded (in <code>data</code>)</td><td>Invalid secret, pod error</td></tr>
+<tr><td>ConfigMap/Secret in different namespace</td><td>Not found, pod fails</td></tr>
+<tr><td>Updating ConfigMap (env-based)</td><td><strong>Pods don’t auto-update</strong>, need restart</td></tr>
+<tr><td>Updating ConfigMap (volume-based)</td><td>Auto-updates (with delay), no restart needed</td></tr>
+</tbody>
+</table>
+</div>
+<h3 id="-documentation-4"><a class="header" href="#-documentation-4">📚 Documentation</a></h3>
+<ul>
+<li>https://kubernetes.io/docs/concepts/configuration/configmap/</li>
+<li>https://kubernetes.io/docs/concepts/configuration/secret/</li>
+</ul>
+<hr>
+<h2 id="6--ingress"><a class="header" href="#6--ingress">6. 🚪 INGRESS</a></h2>
+<h3 id="definition-5"><a class="header" href="#definition-5">Definition</a></h3>
+<blockquote>
+<p><strong>HTTP/HTTPS router</strong> that routes external traffic to your services based on hostname or path. Think of it as a <strong>smart reverse proxy</strong> with SSL termination.</p>
+</blockquote>
+<blockquote>
+<p>⚠️ <strong>Requires an Ingress Controller</strong> (nginx, traefik, etc.) installed in cluster!</p>
+</blockquote>
+<h3 id="yaml-template-3"><a class="header" href="#yaml-template-3">YAML Template</a></h3>
+<pre><code class="language-yaml">apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+    name: my-ingress
+    namespace: my-app-dev
+    annotations: # ⚠️ Controller-specific settings
+        # For NGINX Ingress Controller
+        nginx.ingress.kubernetes.io/rewrite-target: /
+        nginx.ingress.kubernetes.io/ssl-redirect: 'true'
+
+        # Rate limiting
+        nginx.ingress.kubernetes.io/limit-rps: '10'
+
+        # For cert-manager (auto TLS)
+        cert-manager.io/cluster-issuer: 'letsencrypt-prod'
+
+spec:
+    ingressClassName: nginx # ⚠️ IMPORTANT: Which controller to use
+
+    tls: # ⚠️ HTTPS configuration
+        - hosts:
+              - myapp.example.com
+              - api.example.com
+          secretName: tls-secret # ⚠️ TLS cert secret
+
+    rules:
+        # Host-based routing
+        - host: myapp.example.com # ⚠️ IMPORTANT: Domain name
+          http:
+              paths:
+                  - path: / # ⚠️ URL path
+                    pathType: Prefix # Prefix | Exact | ImplementationSpecific
+                    backend:
+                        service:
+                            name: frontend-service # ⚠️ CRITICAL: Service name
+                            port:
+                                number: 80 # ⚠️ CRITICAL: Service port
+
+        # Path-based routing
+        - host: api.example.com
+          http:
+              paths:
+                  - path: /v1
+                    pathType: Prefix
+                    backend:
+                        service:
+                            name: api-v1-service
+                            port:
+                                number: 80
+
+                  - path: /v2
+                    pathType: Prefix
+                    backend:
+                        service:
+                            name: api-v2-service
+                            port:
+                                number: 80
+</code></pre>
+<h3 id="quick-commands-5"><a class="header" href="#quick-commands-5">Quick Commands</a></h3>
+<pre><code class="language-bash"># Install NGINX Ingress Controller (if not installed)
+kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/controller-v1.8.1/deploy/static/provider/cloud/deploy.yaml
+
+# Create ingress
+kubectl apply -f ingress.yaml
+
+# List ingresses
+kubectl get ingress -n my-app-dev
+
+# Describe ingress
+kubectl describe ingress my-ingress -n my-app-dev
+
+# Get ingress controller external IP
+kubectl get svc -n ingress-nginx
+
+# Delete ingress
+kubectl delete ingress my-ingress -n my-app-dev
+</code></pre>
+<h3 id="-consequences-of-wrong-configuration-5"><a class="header" href="#-consequences-of-wrong-configuration-5">⚠️ Consequences of Wrong Configuration</a></h3>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Mistake</th><th>Consequence</th></tr>
+</thead>
+<tbody>
+<tr><td>No Ingress Controller installed</td><td>Ingress does nothing</td></tr>
+<tr><td>Wrong <code>ingressClassName</code></td><td>Ingress ignored by controller</td></tr>
+<tr><td>Wrong service name</td><td>502 Bad Gateway</td></tr>
+<tr><td>Wrong service port</td><td>502 Bad Gateway</td></tr>
+<tr><td>Service in different namespace</td><td>Not found, 503 error</td></tr>
+<tr><td>Wrong TLS secret name</td><td>HTTPS fails, SSL error</td></tr>
+<tr><td>Invalid host (no DNS)</td><td>Cannot reach the site</td></tr>
+</tbody>
+</table>
+</div>
+<h3 id="-documentation-5"><a class="header" href="#-documentation-5">📚 Documentation</a></h3>
+<ul>
+<li>https://kubernetes.io/docs/concepts/services-networking/ingress/</li>
+<li>https://kubernetes.github.io/ingress-nginx/</li>
+</ul>
+<hr>
+<h2 id="7--helm"><a class="header" href="#7--helm">7. ⎈ HELM</a></h2>
+<h3 id="definition-6"><a class="header" href="#definition-6">Definition</a></h3>
+<blockquote>
+<p><strong>Package manager for Kubernetes</strong> - like apt/yum for Linux. Uses <strong>Charts</strong> (pre-configured templates) to install complex applications. Think of it as <strong>installing apps with one command</strong>.</p>
+</blockquote>
+<h3 id="directory-structure"><a class="header" href="#directory-structure">Directory Structure</a></h3>
+<pre><code>my-chart/
+├── Chart.yaml          # Chart metadata
+├── values.yaml         # Default configuration
+├── charts/             # Dependencies
+└── templates/          # Kubernetes YAML templates
+    ├── deployment.yaml
+    ├── service.yaml
+    ├── ingress.yaml
+    ├── configmap.yaml
+    ├── _helpers.tpl    # Template helpers
+    └── NOTES.txt       # Post-install notes
+</code></pre>
+<h3 id="chartyaml"><a class="header" href="#chartyaml">Chart.yaml</a></h3>
+<pre><code class="language-yaml">apiVersion: v2 # ⚠️ v2 for Helm 3
+name: my-app # ⚠️ IMPORTANT: Chart name
+description: My application chart
+type: application # application | library
+version: 1.0.0 # ⚠️ IMPORTANT: Chart version
+appVersion: '1.0.0' # App version (displayed)
+
+dependencies: # Optional: Sub-charts
+    - name: postgresql
+      version: '12.1.0'
+      repository: 'https://charts.bitnami.com/bitnami'
+      condition: postgresql.enabled
+</code></pre>
+<h3 id="valuesyaml"><a class="header" href="#valuesyaml">values.yaml</a></h3>
+<pre><code class="language-yaml"># ⚠️ These values can be overridden during install
+replicaCount: 3
+
+image:
+    repository: nginx
+    tag: '1.21'
+    pullPolicy: IfNotPresent
+
+service:
+    type: ClusterIP
+    port: 80
+
+ingress:
+    enabled: true
+    className: nginx
+    host: myapp.example.com
+
+resources:
+    limits:
+        cpu: 500m
+        memory: 128Mi
+    requests:
+        cpu: 250m
+        memory: 64Mi
+
+# Feature flags
+postgresql:
+    enabled: true
+</code></pre>
+<h3 id="templatesdeploymentyaml-example"><a class="header" href="#templatesdeploymentyaml-example">templates/deployment.yaml (Example)</a></h3>
+<pre><code class="language-yaml">apiVersion: apps/v1
+kind: Deployment
+metadata:
+    name: { { include "my-app.fullname" . } } # ⚠️ Helm templating
+    labels: { { - include "my-app.labels" . | nindent 4 } }
+spec:
+    replicas: { { .Values.replicaCount } } # ⚠️ From values.yaml
+    selector:
+        matchLabels: { { - include "my-app.selectorLabels" . | nindent 6 } }
+    template:
+        metadata:
+            labels: { { - include "my-app.selectorLabels" . | nindent 8 } }
+        spec:
+            containers:
+                - name: { { .Chart.Name } }
+                  image: '{{ .Values.image.repository }}:{{ .Values.image.tag }}'
+                  imagePullPolicy: { { .Values.image.pullPolicy } }
+                  ports:
+                      - containerPort: 80
+                  resources: { { - toYaml .Values.resources | nindent 12 } }
+</code></pre>
+<h3 id="quick-commands-6"><a class="header" href="#quick-commands-6">Quick Commands</a></h3>
+<pre><code class="language-bash"># ===== REPO MANAGEMENT =====
+# Add repository
+helm repo add bitnami https://charts.bitnami.com/bitnami
+
+# Update repositories
+helm repo update
+
+# Search charts
+helm search repo nginx
+
+# ===== INSTALL/UPGRADE =====
+# Install chart
+helm install my-release bitnami/nginx -n my-namespace
+
+# Install with custom values
+helm install my-release bitnami/nginx \
+  -f custom-values.yaml \
+  -n my-namespace
+
+# Install with inline values
+helm install my-release bitnami/nginx \
+  --set replicaCount=3 \
+  --set service.type=LoadBalancer \
+  -n my-namespace
+
+# Upgrade release
+helm upgrade my-release bitnami/nginx \
+  -f updated-values.yaml \
+  -n my-namespace
+
+# Install or upgrade (if exists)
+helm upgrade --install my-release bitnami/nginx \
+  -f values.yaml \
+  -n my-namespace
+
+# ===== INSPECT =====
+# List releases
+helm list -n my-namespace
+
+# Get release status
+helm status my-release -n my-namespace
+
+# Get values used
+helm get values my-release -n my-namespace
+
+# Get all manifests
+helm get manifest my-release -n my-namespace
+
+# Show chart values
+helm show values bitnami/nginx
+
+# ===== ROLLBACK =====
+# List history
+helm history my-release -n my-namespace
+
+# Rollback to previous
+helm rollback my-release -n my-namespace
+
+# Rollback to specific revision
+helm rollback my-release 2 -n my-namespace
+
+# ===== DELETE =====
+# Uninstall
+helm uninstall my-release -n my-namespace
+
+# ===== DEVELOPMENT =====
+# Create new chart
+helm create my-chart
+
+# Lint chart
+helm lint ./my-chart
+
+# Dry-run (preview what will be created)
+helm install my-release ./my-chart --dry-run --debug
+
+# Template locally (see rendered YAML)
+helm template my-release ./my-chart -f values.yaml
+</code></pre>
+<h3 id="-consequences-of-wrong-configuration-6"><a class="header" href="#-consequences-of-wrong-configuration-6">⚠️ Consequences of Wrong Configuration</a></h3>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Mistake</th><th>Consequence</th></tr>
+</thead>
+<tbody>
+<tr><td>Wrong values.yaml syntax</td><td>Helm install fails</td></tr>
+<tr><td>Template syntax error</td><td><code>helm install</code> fails with error</td></tr>
+<tr><td>Missing required values</td><td>Empty/null values, app misconfigured</td></tr>
+<tr><td>Wrong chart version</td><td>Incompatible features, errors</td></tr>
+<tr><td>No <code>--namespace</code> flag</td><td>Installs in default namespace</td></tr>
+<tr><td>Deleting release</td><td>All resources deleted</td></tr>
+</tbody>
+</table>
+</div>
+<h3 id="-documentation-6"><a class="header" href="#-documentation-6">📚 Documentation</a></h3>
+<ul>
+<li>https://helm.sh/docs/</li>
+<li>https://artifacthub.io/ (Find charts)</li>
+</ul>
+<hr>
+<h2 id="8--kustomize"><a class="header" href="#8--kustomize">8. 🔧 KUSTOMIZE</a></h2>
+<h3 id="definition-7"><a class="header" href="#definition-7">Definition</a></h3>
+<blockquote>
+<p><strong>Kustomize</strong> lets you customize Kubernetes YAML files <strong>without modifying the originals</strong>.
+You define a “base” configuration and then create “overlays” that patch specific values for different environments.</p>
+</blockquote>
+<p><strong>The Problem It Solves:</strong></p>
+<p>Without Kustomize, you’d either:</p>
+<ol>
+<li>Copy-paste YAML files for each environment (dev, staging, prod) → maintenance nightmare</li>
+<li>Use complex templating with placeholders → harder to read and validate</li>
+</ol>
+<p><strong>Kustomize Approach:</strong></p>
+<pre><code>Base YAML (shared)     +     Overlay (env-specific patches)     =     Final YAML
+───────────────────          ────────────────────────────            ────────────
+replicas: 1                  replicas: 5                             replicas: 5
+image: app:latest            image: app:v1.2.3                       image: app:v1.2.3
+memory: 64Mi                 memory: 512Mi                           memory: 512Mi
+</code></pre>
+<p><strong>Key Concepts:</strong></p>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Term</th><th>Meaning</th></tr>
+</thead>
+<tbody>
+<tr><td><strong>Base</strong></td><td>Original YAML files - the “template” that’s shared across environments</td></tr>
+<tr><td><strong>Overlay</strong></td><td>Environment-specific folder that references base and applies patches</td></tr>
+<tr><td><strong>Patch</strong></td><td>A partial YAML that specifies only what to change</td></tr>
+<tr><td><strong>Kustomization</strong></td><td>The <code>kustomization.yaml</code> file that tells Kustomize what to include and how to modify</td></tr>
+</tbody>
+</table>
+</div>
+<p><strong>How it works mentally:</strong></p>
+<pre><code>1. Start with base/deployment.yaml (replicas: 1)
+2. Apply overlays/prod/patch.yaml (replicas: 5)
+3. Kustomize MERGES them → final deployment has replicas: 5
+4. Everything else from base stays unchanged
+</code></pre>
+<p><strong>Real-world analogy:</strong>
+Like a restaurant franchise - there’s a base menu (same across all locations), but each location can add local specials or adjust prices (overlays) without rewriting the entire menu.</p>
+<h3 id="directory-structure-1"><a class="header" href="#directory-structure-1">Directory Structure</a></h3>
+<pre><code>my-app/
+├── base/                       # ⚠️ Base configuration (shared)
+│   ├── kustomization.yaml
+│   ├── deployment.yaml
+│   ├── service.yaml
+│   └── configmap.yaml
+│
+└── overlays/                   # ⚠️ Environment-specific changes
+    ├── dev/
+    │   ├── kustomization.yaml
+    │   ├── replica-patch.yaml
+    │   └── configmap.yaml
+    │
+    ├── staging/
+    │   ├── kustomization.yaml
+    │   └── namespace.yaml
+    │
+    └── prod/
+        ├── kustomization.yaml
+        ├── replica-patch.yaml
+        └── resources-patch.yaml
+</code></pre>
+<h3 id="basekustomizationyaml"><a class="header" href="#basekustomizationyaml">base/kustomization.yaml</a></h3>
+<pre><code class="language-yaml">apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+# ⚠️ Resources to include
+resources:
+    - deployment.yaml
+    - service.yaml
+    - configmap.yaml
+
+# Common labels added to all resources
+commonLabels:
+    app: my-app
+
+# Common annotations
+commonAnnotations:
+    managed-by: kustomize
+# Namespace (optional in base)
+# namespace: my-app
+</code></pre>
+<h3 id="basedeploymentyaml"><a class="header" href="#basedeploymentyaml">base/deployment.yaml</a></h3>
+<pre><code class="language-yaml">apiVersion: apps/v1
+kind: Deployment
+metadata:
+    name: my-app
+spec:
+    replicas: 1 # Base replica count
+    selector:
+        matchLabels:
+            app: my-app
+    template:
+        metadata:
+            labels:
+                app: my-app
+        spec:
+            containers:
+                - name: my-app
+                  image: my-app:latest
+                  ports:
+                      - containerPort: 80
+                  resources:
+                      requests:
+                          memory: '64Mi'
+                          cpu: '100m'
+</code></pre>
+<h3 id="overlaysprodkustomizationyaml"><a class="header" href="#overlaysprodkustomizationyaml">overlays/prod/kustomization.yaml</a></h3>
+<pre><code class="language-yaml">apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+# ⚠️ Reference base configuration
+resources:
+    - ../../base
+
+# ⚠️ Set namespace for all resources
+namespace: production
+
+# ⚠️ Prefix/Suffix for resource names
+namePrefix: prod-
+# nameSuffix: -v1
+
+# ⚠️ Image overrides
+images:
+    - name: my-app
+      newName: my-registry/my-app
+      newTag: v1.2.3
+
+# ⚠️ Patches to modify resources
+patches:
+    # Inline patch
+    - patch: |-
+          - op: replace
+            path: /spec/replicas
+            value: 5
+      target:
+          kind: Deployment
+          name: my-app
+
+    # File-based patch
+    - path: resources-patch.yaml
+      target:
+          kind: Deployment
+          name: my-app
+
+# ⚠️ Strategic merge patch
+patchesStrategicMerge:
+    - replica-patch.yaml
+
+# ⚠️ ConfigMap generator
+configMapGenerator:
+    - name: my-config
+      literals:
+          - ENVIRONMENT=production
+          - LOG_LEVEL=warn
+      files:
+          - config.properties
+
+# ⚠️ Secret generator
+secretGenerator:
+    - name: my-secret
+      literals:
+          - password=prodpassword123
+</code></pre>
+<h3 id="overlaysprodreplica-patchyaml"><a class="header" href="#overlaysprodreplica-patchyaml">overlays/prod/replica-patch.yaml</a></h3>
+<pre><code class="language-yaml">apiVersion: apps/v1
+kind: Deployment
+metadata:
+    name: my-app # ⚠️ Must match base resource name
+spec:
+    replicas: 5 # ⚠️ Override replicas
+</code></pre>
+<h3 id="overlaysprodresources-patchyaml"><a class="header" href="#overlaysprodresources-patchyaml">overlays/prod/resources-patch.yaml</a></h3>
+<pre><code class="language-yaml">apiVersion: apps/v1
+kind: Deployment
+metadata:
+    name: my-app
+spec:
+    template:
+        spec:
+            containers:
+                - name: my-app # ⚠️ Must match container name
+                  resources:
+                      requests:
+                          memory: '256Mi'
+                          cpu: '500m'
+                      limits:
+                          memory: '512Mi'
+                          cpu: '1000m'
+</code></pre>
+<h3 id="quick-commands-7"><a class="header" href="#quick-commands-7">Quick Commands</a></h3>
+<pre><code class="language-bash"># ===== BUILD &amp; PREVIEW =====
+# Build/Preview kustomization (see rendered YAML)
+kubectl kustomize overlays/prod
+
+# Or using kustomize directly
+kustomize build overlays/prod
+
+# ===== APPLY =====
+# Apply kustomization
+kubectl apply -k overlays/prod
+
+# Apply with dry-run
+kubectl apply -k overlays/prod --dry-run=client
+
+# ===== DELETE =====
+# Delete all resources from kustomization
+kubectl delete -k overlays/prod
+
+# ===== DEVELOPMENT =====
+# Edit kustomization
+kustomize edit add resource new-resource.yaml
+kustomize edit set image my-app=my-app:v2.0.0
+kustomize edit set namespace production
+
+# Validate
+kustomize build overlays/prod | kubectl apply --dry-run=server -f -
+</code></pre>
+<h3 id="-consequences-of-wrong-configuration-7"><a class="header" href="#-consequences-of-wrong-configuration-7">⚠️ Consequences of Wrong Configuration</a></h3>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Mistake</th><th>Consequence</th></tr>
+</thead>
+<tbody>
+<tr><td>Wrong path in <code>resources</code></td><td><code>kustomize build</code> fails</td></tr>
+<tr><td>Patch target doesn’t match</td><td>Patch not applied, silent failure</td></tr>
+<tr><td>Wrong patch syntax</td><td>Build fails</td></tr>
+<tr><td>Missing base reference</td><td>Empty output</td></tr>
+<tr><td>Conflicting patches</td><td>Unpredictable results</td></tr>
+</tbody>
+</table>
+</div>
+<h3 id="helm-vs-kustomize-comparison"><a class="header" href="#helm-vs-kustomize-comparison">Helm vs Kustomize Comparison</a></h3>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Feature</th><th>Helm</th><th>Kustomize</th></tr>
+</thead>
+<tbody>
+<tr><td>Templating</td><td>Yes (Go templates)</td><td>No (patches only)</td></tr>
+<tr><td>Package management</td><td>Yes</td><td>No</td></tr>
+<tr><td>Complexity</td><td>Higher</td><td>Lower</td></tr>
+<tr><td>Learning curve</td><td>Steeper</td><td>Gentler</td></tr>
+<tr><td>Rollback</td><td>Built-in</td><td>Manual</td></tr>
+<tr><td>Best for</td><td>Complex apps</td><td>Environment overlays</td></tr>
+</tbody>
+</table>
+</div>
+<h3 id="-documentation-7"><a class="header" href="#-documentation-7">📚 Documentation</a></h3>
+<ul>
+<li>https://kustomize.io/</li>
+<li>https://kubernetes.io/docs/tasks/manage-kubernetes-objects/kustomization/</li>
+</ul>
+<hr>
+<h2 id="9--argocd"><a class="header" href="#9--argocd">9. 🔄 ARGOCD</a></h2>
+<h3 id="definition-8"><a class="header" href="#definition-8">Definition</a></h3>
+<blockquote>
+<p><strong>GitOps continuous delivery</strong> tool. Automatically syncs your Kubernetes cluster state with Git repository.
+Think of it as <strong>automated deployment from Git</strong> - Git is the source of truth.</p>
+</blockquote>
+<h3 id="installation-using-helm"><a class="header" href="#installation-using-helm">Installation (using Helm)</a></h3>
+<pre><code class="language-bash"># Add ArgoCD Helm repo
+helm repo add argo https://argoproj.github.io/argo-helm
+helm repo update
+
+# Install ArgoCD
+helm install argocd argo/argo-cd \
+  --namespace argocd \
+  --create-namespace \
+  --set server.service.type=LoadBalancer
+
+# Get initial admin password
+kubectl -n argocd get secret argocd-initial-admin-secret \
+  -o jsonpath="{.data.password}" | base64 -d
+
+# Access UI
+kubectl get svc argocd-server -n argocd
+</code></pre>
+<hr>
+<h3 id="91-application---helm-based"><a class="header" href="#91-application---helm-based">9.1 Application - Helm Based</a></h3>
+<pre><code class="language-yaml">apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+    name: my-app-helm
+    namespace: argocd # ⚠️ Always in argocd namespace
+    finalizers:
+        - resources-finalizer.argocd.argoproj.io
+spec:
+    project: default # ⚠️ IMPORTANT: ArgoCD project
+
+    source:
+        # ===== HELM FROM GIT REPO =====
+        repoURL: https://github.com/myorg/my-app.git
+        targetRevision: main # ⚠️ IMPORTANT: Branch/tag/commit
+        path: helm/my-chart # ⚠️ IMPORTANT: Path to chart in repo
+
+        helm:
+            # Values file from repo
+            valueFiles:
+                - values.yaml
+                - values-prod.yaml # ⚠️ Multiple values files
+
+            # Inline value overrides
+            values: |
+                replicaCount: 3
+                image:
+                  tag: v1.2.3
+
+            # Or individual parameters
+            parameters:
+                - name: image.tag
+                  value: v1.2.3
+                - name: service.type
+                  value: LoadBalancer
+
+    # ===== OR HELM FROM HELM REPO =====
+    # source:
+    #   repoURL: https://charts.bitnami.com/bitnami
+    #   chart: nginx
+    #   targetRevision: 15.1.0     # Chart version
+    #   helm:
+    #     values: |
+    #       replicaCount: 2
+
+    destination:
+        server: https://kubernetes.default.svc # ⚠️ Cluster URL
+        namespace: production # ⚠️ IMPORTANT: Target namespace
+
+    syncPolicy:
+        automated: # ⚠️ Enable auto-sync
+            prune: true # Delete resources not in Git
+            selfHeal: true # Revert manual changes
+            allowEmpty: false # Prevent sync if source is empty
+
+        syncOptions:
+            - CreateNamespace=true # Create namespace if not exists
+            - PruneLast=true # Prune after sync
+            - ApplyOutOfSyncOnly=true # Only apply changed resources
+
+        retry:
+            limit: 5 # Retry attempts
+            backoff:
+                duration: 5s
+                factor: 2
+                maxDuration: 3m
+</code></pre>
+<hr>
+<h3 id="92-application---gitkustomize-based"><a class="header" href="#92-application---gitkustomize-based">9.2 Application - Git/Kustomize Based</a></h3>
+<pre><code class="language-yaml">apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+    name: my-app-kustomize
+    namespace: argocd
+spec:
+    project: default
+
+    source:
+        repoURL: https://github.com/myorg/my-app.git
+        targetRevision: main
+        path: kustomize/overlays/prod # ⚠️ Path to kustomization.yaml
+
+        # Optional: Kustomize-specific options
+        kustomize:
+            images: # Override images
+                - my-app=my-registry/my-app:v1.2.3
+            namePrefix: prod- # Add prefix
+            commonLabels:
+                environment: production
+
+    destination:
+        server: https://kubernetes.default.svc
+        namespace: production
+
+    syncPolicy:
+        automated:
+            prune: true
+            selfHeal: true
+        syncOptions:
+            - CreateNamespace=true
+</code></pre>
+<hr>
+<h3 id="93-application---plain-yaml-directory"><a class="header" href="#93-application---plain-yaml-directory">9.3 Application - Plain YAML (Directory)</a></h3>
+<pre><code class="language-yaml">apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+    name: my-app-plain
+    namespace: argocd
+spec:
+    project: default
+
+    source:
+        repoURL: https://github.com/myorg/my-app.git
+        targetRevision: main
+        path: kubernetes/ # ⚠️ Directory with YAML files
+
+        directory:
+            recurse: true # Include subdirectories
+            exclude: '*.md' # Exclude patterns
+
+    destination:
+        server: https://kubernetes.default.svc
+        namespace: production
+
+    syncPolicy:
+        automated:
+            prune: true
+            selfHeal: true
+</code></pre>
+<hr>
+<h3 id="94-applicationset-multiple-apps"><a class="header" href="#94-applicationset-multiple-apps">9.4 ApplicationSet (Multiple Apps)</a></h3>
+<pre><code class="language-yaml">apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+    name: my-apps
+    namespace: argocd
+spec:
+    generators:
+        # Generate app for each environment
+        - list:
+              elements:
+                  - env: dev
+                    namespace: development
+                    branch: develop
+                  - env: staging
+                    namespace: staging
+                    branch: main
+                  - env: prod
+                    namespace: production
+                    branch: main
+
+    template:
+        metadata:
+            name: 'my-app-{{env}}' # ⚠️ Templated name
+        spec:
+            project: default
+            source:
+                repoURL: https://github.com/myorg/my-app.git
+                targetRevision: '{{branch}}'
+                path: 'kustomize/overlays/{{env}}'
+            destination:
+                server: https://kubernetes.default.svc
+                namespace: '{{namespace}}'
+            syncPolicy:
+                automated:
+                    prune: true
+                    selfHeal: true
+</code></pre>
+<h3 id="95-multiple-sources-helm--values-from-different-repos"><a class="header" href="#95-multiple-sources-helm--values-from-different-repos">9.5 Multiple Sources (Helm + Values from Different Repos)</a></h3>
+<p>Use when your Helm chart is in one repo but values files are in another (common in GitOps setups where infra team owns charts, app team owns configs).</p>
+<pre><code class="language-yaml">apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+    name: my-app-multi-source
+    namespace: argocd
+spec:
+    project: default
+
+    # ⚠️ MULTIPLE SOURCES - requires ArgoCD 2.6+
+    sources:
+        # Source 1: Helm chart from Helm repository
+        - repoURL: https://charts.bitnami.com/bitnami
+          chart: nginx
+          targetRevision: 15.1.0
+          helm:
+              valueFiles:
+                  # ⚠️ Reference values from another source using $name
+                  - $values/environments/prod/values.yaml
+                  - $values/environments/prod/secrets.yaml
+
+        # Source 2: Values files from Git repo (named "values")
+        - repoURL: https://github.com/myorg/app-config.git
+          targetRevision: main
+          ref: values # ⚠️ This name is used as $values above
+
+    destination:
+        server: https://kubernetes.default.svc
+        namespace: production
+
+    syncPolicy:
+        automated:
+            prune: true
+            selfHeal: true
+</code></pre>
+<p><strong>What’s happening:</strong></p>
+<ol>
+<li>ArgoCD fetches the Helm chart from Bitnami</li>
+<li>ArgoCD fetches values files from your Git repo</li>
+<li><code>$values</code> references the source with <code>ref: values</code></li>
+<li>Helm chart is rendered using values from Git repo</li>
+</ol>
+<hr>
+<h3 id="96-values-file-locations---all-options"><a class="header" href="#96-values-file-locations---all-options">9.6 Values File Locations - All Options</a></h3>
+<pre><code class="language-yaml">apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+    name: my-app-values-examples
+    namespace: argocd
+spec:
+    project: default
+
+    source:
+        repoURL: https://github.com/myorg/my-app.git
+        targetRevision: main
+        path: helm/my-chart
+
+        helm:
+            # ═══════════════════════════════════════════════════════
+            # OPTION 1: Values file from SAME repo (relative to path)
+            # ═══════════════════════════════════════════════════════
+            valueFiles:
+                - values.yaml # helm/my-chart/values.yaml
+                - ../common/values-shared.yaml # helm/common/values-shared.yaml
+                - environments/prod.yaml # helm/my-chart/environments/prod.yaml
+
+            # ═══════════════════════════════════════════════════════
+            # OPTION 2: Inline values (directly in Application spec)
+            # ═══════════════════════════════════════════════════════
+            values: |
+                replicaCount: 3
+                image:
+                  repository: my-registry/my-app
+                  tag: v1.2.3
+                ingress:
+                  enabled: true
+                  host: myapp.example.com
+
+                # Complex nested values
+                resources:
+                  limits:
+                    cpu: 500m
+                    memory: 256Mi
+
+            # ═══════════════════════════════════════════════════════
+            # OPTION 3: Individual parameters (override specific keys)
+            # ═══════════════════════════════════════════════════════
+            parameters:
+                - name: image.tag
+                  value: v1.2.3
+                - name: replicaCount
+                  value: '5' # ⚠️ Must be string
+                - name: ingress.enabled
+                  value: 'true' # ⚠️ Must be string
+
+    destination:
+        server: https://kubernetes.default.svc
+        namespace: production
+</code></pre>
+<hr>
+<h3 id="97-multiple-sources---chart-from-git--external-values"><a class="header" href="#97-multiple-sources---chart-from-git--external-values">9.7 Multiple Sources - Chart from Git + External Values</a></h3>
+<p>Common pattern: Your team’s Helm chart in Git, with environment values also in Git but different path/branch.</p>
+<pre><code class="language-yaml">apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+    name: my-app-git-chart
+    namespace: argocd
+spec:
+    project: default
+
+    sources:
+        # Source 1: Helm chart from Git repository
+        - repoURL: https://github.com/myorg/helm-charts.git
+          targetRevision: main
+          path: charts/my-app # Path to Chart.yaml
+          helm:
+              valueFiles:
+                  - values.yaml # Default values from chart repo
+                  - $configRepo/prod/values.yaml # From config repo
+                  - $configRepo/prod/secrets.yaml # From config repo
+
+        # Source 2: Configuration repository
+        - repoURL: https://github.com/myorg/app-configurations.git
+          targetRevision: main
+          ref: configRepo # ⚠️ Referenced as $configRepo above
+
+    destination:
+        server: https://kubernetes.default.svc
+        namespace: production
+</code></pre>
+<hr>
+<h3 id="98-multiple-sources---combining-kustomize--helm"><a class="header" href="#98-multiple-sources---combining-kustomize--helm">9.8 Multiple Sources - Combining Kustomize + Helm</a></h3>
+<p>When you need to apply Kustomize patches on top of a Helm chart.</p>
+<pre><code class="language-yaml">apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+    name: my-app-helm-kustomize
+    namespace: argocd
+spec:
+    project: default
+
+    sources:
+        # Source 1: Base Helm chart
+        - repoURL: https://charts.bitnami.com/bitnami
+          chart: postgresql
+          targetRevision: 12.1.0
+          helm:
+              releaseName: my-postgres
+              valueFiles:
+                  - $values/base-values.yaml
+
+        # Source 2: Values + Kustomize patches
+        - repoURL: https://github.com/myorg/db-config.git
+          targetRevision: main
+          ref: values
+
+        # Source 3: Additional Kustomize resources to add
+        - repoURL: https://github.com/myorg/db-config.git
+          targetRevision: main
+          path: additional-resources/prod # Extra ConfigMaps, Secrets, etc.
+
+    destination:
+        server: https://kubernetes.default.svc
+        namespace: database
+</code></pre>
+<hr>
+<h3 id="values-precedence-when-multiple-sources"><a class="header" href="#values-precedence-when-multiple-sources">Values Precedence (When Multiple Sources)</a></h3>
+<p>When the same key appears in multiple places, later values override earlier ones:</p>
+<pre><code>1. Chart's default values.yaml        (lowest priority)
+2. First valueFiles entry             ↓
+3. Second valueFiles entry            ↓
+4. Inline 'values:' block             ↓
+5. 'parameters:' entries              (highest priority)
+</code></pre>
+<p><strong>Example:</strong></p>
+<pre><code class="language-yaml">helm:
+    valueFiles:
+        - values.yaml # replicaCount: 1
+        - values-prod.yaml # replicaCount: 3  ← overrides
+    values: |
+        replicaCount: 5         # ← overrides again
+    parameters:
+        - name: replicaCount
+          value: '10' # ← final value = 10
+</code></pre>
+<hr>
+<h3 id="-multiple-sources---common-mistakes"><a class="header" href="#-multiple-sources---common-mistakes">⚠️ Multiple Sources - Common Mistakes</a></h3>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Mistake</th><th>Error/Consequence</th></tr>
+</thead>
+<tbody>
+<tr><td>Missing <code>ref:</code> in source</td><td>Cannot use <code>$refName</code> in valueFiles</td></tr>
+<tr><td>Wrong <code>$ref</code> name</td><td>“source with ref ‘xxx’ not found”</td></tr>
+<tr><td>Using <code>source:</code> with <code>sources:</code></td><td>Invalid spec, use one or the other</td></tr>
+<tr><td>ArgoCD version &lt; 2.6</td><td>Multiple sources not supported</td></tr>
+<tr><td>Wrong path in valueFiles</td><td>Values file not found, sync fails</td></tr>
+</tbody>
+</table>
+</div>
+<hr>
+<h3 id="quick-commands-8"><a class="header" href="#quick-commands-8">Quick Commands</a></h3>
+<pre><code class="language-bash"># ===== ARGOCD CLI =====
+# Install CLI
+brew install argocd  # macOS
+# Or download from GitHub releases
+
+# Login
+argocd login &lt;ARGOCD_SERVER&gt; --username admin --password &lt;PASSWORD&gt;
+
+# ===== APPLICATION MANAGEMENT =====
+# List applications
+argocd app list
+
+# Get app details
+argocd app get my-app
+
+# Sync application (manual deploy)
+argocd app sync my-app
+
+# Sync with prune
+argocd app sync my-app --prune
+
+# Force sync (bypass hooks)
+argocd app sync my-app --force
+
+# Rollback
+argocd app rollback my-app &lt;REVISION&gt;
+
+# View app history
+argocd app history my-app
+
+# Delete application
+argocd app delete my-app
+
+# Delete app AND resources
+argocd app delete my-app --cascade
+
+# ===== USING KUBECTL =====
+# Create application
+kubectl apply -f application.yaml
+
+# List applications
+kubectl get applications -n argocd
+
+# Describe application
+kubectl describe application my-app -n argocd
+
+# View sync status
+kubectl get applications my-app -n argocd -o jsonpath='{.status.sync.status}'
+</code></pre>
+<h3 id="-consequences-of-wrong-configuration-8"><a class="header" href="#-consequences-of-wrong-configuration-8">⚠️ Consequences of Wrong Configuration</a></h3>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Mistake</th><th>Consequence</th></tr>
+</thead>
+<tbody>
+<tr><td>Wrong <code>repoURL</code></td><td>Sync fails, can’t access repo</td></tr>
+<tr><td>Wrong <code>path</code></td><td>“path does not exist” error</td></tr>
+<tr><td>Wrong <code>targetRevision</code></td><td>Deploys wrong version</td></tr>
+<tr><td><code>prune: true</code> accidentally</td><td>Deletes resources not in Git</td></tr>
+<tr><td><code>selfHeal: true</code> + manual changes</td><td>Changes reverted automatically</td></tr>
+<tr><td>Wrong destination namespace</td><td>Resources in wrong namespace</td></tr>
+<tr><td>No <code>CreateNamespace=true</code></td><td>Fails if namespace doesn’t exist</td></tr>
+<tr><td>Deleting Application with <code>--cascade</code></td><td><strong>Deletes all deployed resources</strong></td></tr>
+</tbody>
+</table>
+</div>
+<h3 id="argocd-sync-states"><a class="header" href="#argocd-sync-states">ArgoCD Sync States</a></h3>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Status</th><th>Meaning</th></tr>
+</thead>
+<tbody>
+<tr><td>Synced</td><td>Cluster matches Git</td></tr>
+<tr><td>OutOfSync</td><td>Cluster differs from Git</td></tr>
+<tr><td>Unknown</td><td>Can’t determine state</td></tr>
+<tr><td>Progressing</td><td>Sync in progress</td></tr>
+<tr><td>Degraded</td><td>Resources unhealthy</td></tr>
+</tbody>
+</table>
+</div>
+<h3 id="-documentation-8"><a class="header" href="#-documentation-8">📚 Documentation</a></h3>
+<ul>
+<li>https://argo-cd.readthedocs.io/</li>
+<li>https://github.com/argoproj/argo-cd</li>
+</ul>
+<hr>
+<h2 id="-quick-reference-card"><a class="header" href="#-quick-reference-card">🎯 Quick Reference Card</a></h2>
+<h3 id="resource-creation-order"><a class="header" href="#resource-creation-order">Resource Creation Order</a></h3>
+<pre><code>1. Namespace
+2. ConfigMaps/Secrets
+3. Deployments
+4. Services
+5. Ingress
+</code></pre>
+<h3 id="essential-commands"><a class="header" href="#essential-commands">Essential Commands</a></h3>
+<pre><code class="language-bash"># Get all resources
+kubectl get all -n &lt;namespace&gt;
+
+# Watch resources
+kubectl get pods -w -n &lt;namespace&gt;
+
+# Debug pod
+kubectl describe pod &lt;pod-name&gt; -n &lt;namespace&gt;
+kubectl logs &lt;pod-name&gt; -n &lt;namespace&gt;
+kubectl exec -it &lt;pod-name&gt; -n &lt;namespace&gt; -- /bin/sh
+
+# Apply all YAML in directory
+kubectl apply -f ./manifests/ -n &lt;namespace&gt;
+
+# Delete all resources
+kubectl delete all --all -n &lt;namespace&gt;
+</code></pre>
+<h3 id="most-common-errors--fixes"><a class="header" href="#most-common-errors--fixes">Most Common Errors &amp; Fixes</a></h3>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Error</th><th>Cause</th><th>Fix</th></tr>
+</thead>
+<tbody>
+<tr><td><code>ImagePullBackOff</code></td><td>Wrong image name/tag</td><td>Check image name, registry auth</td></tr>
+<tr><td><code>CrashLoopBackOff</code></td><td>App crashing</td><td>Check logs: <code>kubectl logs</code></td></tr>
+<tr><td><code>Pending</code> (Pod)</td><td>No resources/scheduling</td><td>Check events, node resources</td></tr>
+<tr><td><code>CreateContainerConfigError</code></td><td>Missing ConfigMap/Secret</td><td>Create missing ConfigMap/Secret</td></tr>
+<tr><td><code>Connection refused</code></td><td>Wrong port/service</td><td>Check ports, service selector</td></tr>
+<tr><td><code>502 Bad Gateway</code></td><td>Service can’t reach pod</td><td>Check selectors, endpoints</td></tr>
+</tbody>
+</table>
+</div>
+<hr>
+<h2 id="-all-documentation-links"><a class="header" href="#-all-documentation-links">📚 All Documentation Links</a></h2>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Resource</th><th>Link</th></tr>
+</thead>
+<tbody>
+<tr><td>Kubernetes Docs</td><td>https://kubernetes.io/docs/</td></tr>
+<tr><td>Namespace</td><td>https://kubernetes.io/docs/concepts/overview/working-with-objects/namespaces/</td></tr>
+<tr><td>Pods</td><td>https://kubernetes.io/docs/concepts/workloads/pods/</td></tr>
+<tr><td>Deployments</td><td>https://kubernetes.io/docs/concepts/workloads/controllers/deployment/</td></tr>
+<tr><td>Services</td><td>https://kubernetes.io/docs/concepts/services-networking/service/</td></tr>
+<tr><td>ConfigMaps</td><td>https://kubernetes.io/docs/concepts/configuration/configmap/</td></tr>
+<tr><td>Secrets</td><td>https://kubernetes.io/docs/concepts/configuration/secret/</td></tr>
+<tr><td>Ingress</td><td>https://kubernetes.io/docs/concepts/services-networking/ingress/</td></tr>
+<tr><td>Helm</td><td>https://helm.sh/docs/</td></tr>
+<tr><td>Helm Charts Hub</td><td>https://artifacthub.io/</td></tr>
+<tr><td>Kustomize</td><td>https://kustomize.io/</td></tr>
+<tr><td>ArgoCD</td><td>https://argo-cd.readthedocs.io/</td></tr>
+</tbody>
+</table>
+</div>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="25_Golang.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
+                            </a>
+
+                            <a rel="next prefetch" href="1_Indexes.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="25_Golang.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
+                    </a>
+
+                    <a rel="next prefetch" href="1_Indexes.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
+                    </a>
+            </nav>
+
+        </div>
+
+        <template id=fa-eye><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M288 32c-80.8 0-145.5 36.8-192.6 80.6C48.6 156 17.3 208 2.5 243.7c-3.3 7.9-3.3 16.7 0 24.6C17.3 304 48.6 356 95.4 399.4C142.5 443.2 207.2 480 288 480s145.5-36.8 192.6-80.6c46.8-43.5 78.1-95.4 93-131.1c3.3-7.9 3.3-16.7 0-24.6c-14.9-35.7-46.2-87.7-93-131.1C433.5 68.8 368.8 32 288 32zM432 256c0 79.5-64.5 144-144 144s-144-64.5-144-144s64.5-144 144-144s144 64.5 144 144zM288 192c0 35.3-28.7 64-64 64c-11.5 0-22.3-3-31.6-8.4c-.2 2.8-.4 5.5-.4 8.4c0 53 43 96 96 96s96-43 96-96s-43-96-96-96c-2.8 0-5.6 .1-8.4 .4c5.3 9.3 8.4 20.1 8.4 31.6z"/></svg></span></template>
+        <template id=fa-eye-slash><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M38.8 5.1C28.4-3.1 13.3-1.2 5.1 9.2S-1.2 34.7 9.2 42.9l592 464c10.4 8.2 25.5 6.3 33.7-4.1s6.3-25.5-4.1-33.7L525.6 386.7c39.6-40.6 66.4-86.1 79.9-118.4c3.3-7.9 3.3-16.7 0-24.6c-14.9-35.7-46.2-87.7-93-131.1C465.5 68.8 400.8 32 320 32c-68.2 0-125 26.3-169.3 60.8L38.8 5.1zM223.1 149.5C248.6 126.2 282.7 112 320 112c79.5 0 144 64.5 144 144c0 24.9-6.3 48.3-17.4 68.7L408 294.5c5.2-11.8 8-24.8 8-38.5c0-53-43-96-96-96c-2.8 0-5.6 .1-8.4 .4c5.3 9.3 8.4 20.1 8.4 31.6c0 10.2-2.4 19.8-6.6 28.3l-90.3-70.8zm223.1 298L373 389.9c-16.4 6.5-34.3 10.1-53 10.1c-79.5 0-144-64.5-144-144c0-6.9 .5-13.6 1.4-20.2L83.1 161.5C60.3 191.2 44 220.8 34.5 243.7c-3.3 7.9-3.3 16.7 0 24.6c14.9 35.7 46.2 87.7 93 131.1C174.5 443.2 239.2 480 320 480c47.8 0 89.9-12.9 126.2-32.5z"/></svg></span></template>
+        <template id=fa-copy><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M502.6 70.63l-61.25-61.25C435.4 3.371 427.2 0 418.7 0H255.1c-35.35 0-64 28.66-64 64l.0195 256C192 355.4 220.7 384 256 384h192c35.2 0 64-28.8 64-64V93.25C512 84.77 508.6 76.63 502.6 70.63zM464 320c0 8.836-7.164 16-16 16H255.1c-8.838 0-16-7.164-16-16L239.1 64.13c0-8.836 7.164-16 16-16h128L384 96c0 17.67 14.33 32 32 32h47.1V320zM272 448c0 8.836-7.164 16-16 16H63.1c-8.838 0-16-7.164-16-16L47.98 192.1c0-8.836 7.164-16 16-16H160V128H63.99c-35.35 0-64 28.65-64 64l.0098 256C.002 483.3 28.66 512 64 512h192c35.2 0 64-28.8 64-64v-32h-47.1L272 448z"/></svg></span></template>
+        <template id=fa-play><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M73 39c-14.8-9.1-33.4-9.4-48.5-.9S0 62.6 0 80V432c0 17.4 9.4 33.4 24.5 41.9s33.7 8.1 48.5-.9L361 297c14.3-8.7 23-24.2 23-41s-8.7-32.2-23-41L73 39z"/></svg></span></template>
+        <template id=fa-clock-rotate-left><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M75 75L41 41C25.9 25.9 0 36.6 0 57.9V168c0 13.3 10.7 24 24 24H134.1c21.4 0 32.1-25.9 17-41l-30.8-30.8C155 85.5 203 64 256 64c106 0 192 86 192 192s-86 192-192 192c-40.8 0-78.6-12.7-109.7-34.4c-14.5-10.1-34.4-6.6-44.6 7.9s-6.6 34.4 7.9 44.6C151.2 495 201.7 512 256 512c141.4 0 256-114.6 256-256S397.4 0 256 0C185.3 0 121.3 28.7 75 75zm181 53c-13.3 0-24 10.7-24 24V256c0 6.4 2.5 12.5 7 17l72 72c9.4 9.4 24.6 9.4 33.9 0s9.4-24.6 0-33.9l-65-65V152c0-13.3-10.7-24-24-24z"/></svg></span></template>
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="elasticlunr-ef4e11c1.min.js"></script>
+        <script src="mark-09e88c2c.min.js"></script>
+        <script src="searcher-c2a407aa.js"></script>
+
+        <script src="clipboard-1626706a.min.js"></script>
+        <script src="highlight-abc7f01d.js"></script>
+        <script src="book-a0b12cfe.js"></script>
+
+        <!-- Custom JS scripts -->
+
+
+
+    </div>
+    </body>
+</html>
