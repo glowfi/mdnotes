@@ -36,7 +36,7 @@
             const path_to_root = "";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "searchindex-ec2f6db7.js";
+            window.path_to_searchindex_js = "searchindex-9f148338.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="toc-e136f13d.js"></script>
@@ -12805,7 +12805,7 @@ func DecodeJson() {
 <h2 id="1--namespace"><a class="header" href="#1--namespace">1. 📁 NAMESPACE</a></h2>
 <h3 id="definition-8"><a class="header" href="#definition-8">Definition</a></h3>
 <blockquote>
-<p>A <strong>virtual cluster</strong> inside your Kubernetes cluster. Think of it like <strong>folders</strong> on your computer to organize files.</p>
+<p>Namespaces provide a mechanism for isolating groups of resources within a single cluster.</p>
 </blockquote>
 <h3 id="yaml-template"><a class="header" href="#yaml-template">YAML Template</a></h3>
 <pre><code class="language-yaml">apiVersion: v1
@@ -14503,6 +14503,85 @@ kubectl delete all --all -n &lt;namespace&gt;
 </tbody>
 </table>
 </div>
+<h1 id="-port-forward"><a class="header" href="#-port-forward">🔌 PORT FORWARD</a></h1>
+<h3 id="definition-9"><a class="header" href="#definition-9">Definition</a></h3>
+<blockquote>
+<p><strong>Temporary tunnel</strong> from your local machine to a pod, service, or deployment inside the cluster. Think of it as a <strong>direct phone line</strong> to a resource that’s otherwise unreachable from outside.</p>
+</blockquote>
+<h3 id="quick-commands-9"><a class="header" href="#quick-commands-9">Quick Commands</a></h3>
+<pre><code class="language-bash"># Forward to pod
+kubectl port-forward pod/my-pod 8080:80 -n my-namespace
+
+# Forward to service
+kubectl port-forward svc/my-service 8080:80 -n my-namespace
+
+# Forward to deployment
+kubectl port-forward deploy/my-deployment 8080:80 -n my-namespace
+
+# Listen on all interfaces (accessible from other machines)
+kubectl port-forward svc/my-service 8080:80 --address 0.0.0.0 -n my-namespace
+
+# Multiple ports
+kubectl port-forward pod/my-pod 8080:80 8443:443 -n my-namespace
+
+# Run in background
+kubectl port-forward svc/my-service 8080:80 -n my-namespace &amp;
+</code></pre>
+<h3 id="common-use-cases-1"><a class="header" href="#common-use-cases-1">Common Use Cases</a></h3>
+<pre><code class="language-bash"># Database access
+kubectl port-forward svc/postgres 5432:5432 -n database
+# → psql -h localhost -p 5432
+
+# Redis access
+kubectl port-forward svc/redis 6379:6379 -n cache
+# → redis-cli -h localhost
+
+# Internal dashboards
+kubectl port-forward svc/grafana 3000:3000 -n monitoring
+# → http://localhost:3000
+
+# ArgoCD UI
+kubectl port-forward svc/argocd-server 8080:443 -n argocd
+# → https://localhost:8080
+
+# Debug API
+kubectl port-forward deploy/my-api 8080:8080 -n my-app
+# → curl http://localhost:8080/health
+</code></pre>
+<h3 id="-consequences-of-wrong-usage"><a class="header" href="#-consequences-of-wrong-usage">⚠️ Consequences of Wrong Usage</a></h3>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Mistake</th><th>Consequence</th></tr>
+</thead>
+<tbody>
+<tr><td>Wrong port number</td><td>Connection refused</td></tr>
+<tr><td>Wrong resource name</td><td>“not found” error</td></tr>
+<tr><td>Closing terminal</td><td>Port forward stops immediately</td></tr>
+<tr><td>Using for production traffic</td><td>Unreliable, single connection only</td></tr>
+<tr><td>Forgetting namespace</td><td>Tries default namespace, resource not found</td></tr>
+<tr><td>Port already in use locally</td><td>“bind: address already in use” error</td></tr>
+</tbody>
+</table>
+</div>
+<h3 id="-key-points"><a class="header" href="#-key-points">💡 Key Points</a></h3>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Point</th><th>Explanation</th></tr>
+</thead>
+<tbody>
+<tr><td><strong>Temporary</strong></td><td>Stops when terminal closes or Ctrl+C</td></tr>
+<tr><td><strong>Local only</strong></td><td>Default binds to 127.0.0.1 only</td></tr>
+<tr><td><strong>Single pod</strong></td><td>Even with service, connects to ONE pod</td></tr>
+<tr><td><strong>Dev/Debug only</strong></td><td>Not meant for production traffic</td></tr>
+</tbody>
+</table>
+</div>
+<h3 id="-documentation-9"><a class="header" href="#-documentation-9">📚 Documentation</a></h3>
+<ul>
+<li>https://kubernetes.io/docs/tasks/access-application-cluster/port-forward-access-application-cluster/</li>
+</ul>
 <div style="break-before: page; page-break-before: always;"></div>
 <h1 id="disk-fundamentals"><a class="header" href="#disk-fundamentals">Disk Fundamentals</a></h1>
 <ul>
