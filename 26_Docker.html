@@ -3,7 +3,7 @@
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>24_Monorepo - Markdown Notes</title>
+        <title>26_Docker - Markdown Notes</title>
 
 
         <!-- Custom HTML head -->
@@ -174,522 +174,764 @@
 
                 <div id="mdbook-content" class="content">
                     <main>
-                        <h3 id="monorepo-setup"><a class="header" href="#monorepo-setup">Monorepo setup</a></h3>
-<pre><code class="language-sh">mkdir monorepo
-cd monorepo
-bun init -y
-mkdir apps libs
-rm -rf index.ts
+                        <h1 id="-docker-complete-cheatsheet-for-beginners"><a class="header" href="#-docker-complete-cheatsheet-for-beginners">🐳 Docker Complete Cheatsheet for Beginners</a></h1>
+<h2 id="-basic-docker-commands"><a class="header" href="#-basic-docker-commands">📦 Basic Docker Commands</a></h2>
+<h3 id="images"><a class="header" href="#images">Images</a></h3>
+<pre><code class="language-bash"># List images
+docker images
 
-cd apps
-mkdir web
-cd web
-bunx create-next-app@latest .
-cd ../..
+# Pull image from Docker Hub
+docker pull python:3.11
 
-cd apps
-mkdir server
-cd server
-bun init -y
-bun add express cors dotenv
-bun add -D @types/express @types/cors
-cd ../..
+# Build image from Dockerfile
+docker build -t myapp .
 
-### Add these to package.json [server]
-  "workspaces": [
-    "apps/*",
-    "libs/*"
-  ]
+# Build with custom Dockerfile
+docker build -f Dockerfile.prod -t myapp .
 
+# Remove image
+docker rmi myapp
 
+# Remove all unused images
+docker image prune -a
 
-    "private": true,
+# Tag image
+docker tag myapp myapp:v1.0
 
-    "scripts": {
-        "format": "prettier  '{apps,libs}/**/*.{ts,tsx,js,json}' --ignore-path .gitignore",
-        "format:check": "bun format --check",
-        "format:write": "bun format --write",
-        "build": "bun nx run-many -t build",
-        "lint": "bun nx run-many -t lint",
-        "validate": "bun run format:write &amp;&amp; bun run lint &amp;&amp; bun run build &amp;&amp; cd libs/db/;bun run prisma generate",
-        "prepare": "husky"
-    },
-
+# Push to registry
+docker push username/myapp:v1.0
 </code></pre>
-<h3 id="server-code"><a class="header" href="#server-code">Server Code</a></h3>
-<blockquote>
-<p>src/index.ts</p>
-</blockquote>
-<pre><code class="language-ts">import express from 'express';
-import cors from 'cors';
-import 'dotenv/config';
+<h3 id="containers"><a class="header" href="#containers">Containers</a></h3>
+<pre><code class="language-bash"># Run container
+docker run myapp
 
-const app = express();
-app.use(express.json());
-app.use(cors());
+# Run with port mapping
+docker run -p 8000:8000 myapp
 
-app.get('/', (_, res) =&gt; {
-    return res.json({ msg: 'Hello World!' }).status(200);
-});
+# Run in background (detached)
+docker run -d myapp
 
-app.listen(process.env.SERVER_PORT, () =&gt; {
-    console.log(`Listening on http://localhost:${process.env.SERVER_PORT} ...`);
-});
+# Run with name
+docker run --name my-container myapp
+
+# Run interactively
+docker run -it myapp bash
+
+# Run with environment variables
+docker run -e PORT=3000 -e DEBUG=true myapp
+
+# Run with volume mount
+docker run -v $(pwd):/app myapp
+
+# Run and remove after exit
+docker run --rm myapp
+
+# List running containers
+docker ps
+
+# List all containers (including stopped)
+docker ps -a
+
+# Stop container
+docker stop my-container
+
+# Start stopped container
+docker start my-container
+
+# Restart container
+docker restart my-container
+
+# Remove container
+docker rm my-container
+
+# Remove running container (force)
+docker rm -f my-container
+
+# Remove all stopped containers
+docker container prune
 </code></pre>
-<h3 id="web-code"><a class="header" href="#web-code">Web Code</a></h3>
-<p>Delete the template nextjs code and start server and check</p>
-<h3 id="validation-code"><a class="header" href="#validation-code">Validation Code</a></h3>
-<h3 id="install-nx-to-root"><a class="header" href="#install-nx-to-root">Install nx to root</a></h3>
-<pre><code class="language-sh">### Add these to root package.json
-bunx nx@latest init
+<h3 id="logs--debugging"><a class="header" href="#logs--debugging">Logs &amp; Debugging</a></h3>
+<pre><code class="language-bash"># View logs
+docker logs my-container
 
-dev, build [order]
-build, lint [cache]
-next,dist,build [output]
+# Follow logs (live)
+docker logs -f my-container
 
-bun nx run-many -t build
+# Show last 100 lines
+docker logs --tail 100 my-container
+
+# Execute command in running container
+docker exec -it my-container bash
+
+# View container details
+docker inspect my-container
+
+# View container resource usage
+docker stats
+
+# View container processes
+docker top my-container
 </code></pre>
-<h3 id="add-prettier-to-root"><a class="header" href="#add-prettier-to-root">Add prettier to root</a></h3>
-<pre><code class="language-sh">
-### Install
+<h3 id="cleanup"><a class="header" href="#cleanup">Cleanup</a></h3>
+<pre><code class="language-bash"># Remove all stopped containers
+docker container prune
 
-bun add -D prettier
+# Remove all unused images
+docker image prune -a
 
-### package.json
-    "scripts": {
-        "format": "prettier  '{apps,libs}/**/*.{ts,tsx,js,json}' --ignore-path .gitignore",
-        "format:check": "bun format --check",
-        "format:write": "bun format --write",
-        "build": "bun nx run-many -t build",
-        "lint": "bun nx run-many -t lint"
-    },
+# Remove all unused volumes
+docker volume prune
+
+# Remove all unused networks
+docker network prune
+
+# Remove EVERYTHING unused
+docker system prune -a
+
+# View disk usage
+docker system df
 </code></pre>
-<h3 id="add-husky--lint-staged"><a class="header" href="#add-husky--lint-staged">Add Husky &amp; lint-staged</a></h3>
-<pre><code class="language-sh">bunx husky init;
-bun add --dev husky;
-bun install
+<hr>
+<h2 id="-dockerfile-reference"><a class="header" href="#-dockerfile-reference">📝 Dockerfile Reference</a></h2>
+<h3 id="basic-instructions"><a class="header" href="#basic-instructions">Basic Instructions</a></h3>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Instruction</th><th>Purpose</th><th>Example</th></tr>
+</thead>
+<tbody>
+<tr><td><code>FROM</code></td><td>Base image</td><td><code>FROM python:3.11-slim</code></td></tr>
+<tr><td><code>WORKDIR</code></td><td>Set working directory</td><td><code>WORKDIR /app</code></td></tr>
+<tr><td><code>COPY</code></td><td>Copy files</td><td><code>COPY . .</code></td></tr>
+<tr><td><code>ADD</code></td><td>Copy files (supports URLs, tar)</td><td><code>ADD app.tar.gz /app</code></td></tr>
+<tr><td><code>RUN</code></td><td>Execute command</td><td><code>RUN pip install flask</code></td></tr>
+<tr><td><code>ENV</code></td><td>Set environment variable</td><td><code>ENV PORT=8000</code></td></tr>
+<tr><td><code>ARG</code></td><td>Build-time variable</td><td><code>ARG VERSION=1.0</code></td></tr>
+<tr><td><code>EXPOSE</code></td><td>Document port</td><td><code>EXPOSE 8000</code></td></tr>
+<tr><td><code>CMD</code></td><td>Default command</td><td><code>CMD ["python", "app.py"]</code></td></tr>
+<tr><td><code>ENTRYPOINT</code></td><td>Fixed command</td><td><code>ENTRYPOINT ["python"]</code></td></tr>
+<tr><td><code>VOLUME</code></td><td>Create mount point</td><td><code>VOLUME /data</code></td></tr>
+<tr><td><code>USER</code></td><td>Set user</td><td><code>USER appuser</code></td></tr>
+<tr><td><code>LABEL</code></td><td>Add metadata</td><td><code>LABEL version="1.0"</code></td></tr>
+</tbody>
+</table>
+</div>
+<hr>
+<h2 id="-dockerfile-examples"><a class="header" href="#-dockerfile-examples">📄 Dockerfile Examples</a></h2>
+<h3 id="python-single-stage"><a class="header" href="#python-single-stage">Python (Single Stage)</a></h3>
+<pre><code class="language-dockerfile">FROM python:3.11-slim
 
-### Add to pre-commit
-bun run lint-staged
+ENV PYTHONDONTWRITEBYTECODE=1
+ENV PYTHONUNBUFFERED=1
 
+WORKDIR /app
 
-bun add -D lint-staged
-touch .lintstagedrc
-echo "{
-'{apps,libs}/**/*.{ts,tsx,js,json}':'bun run validate',
-}" &gt; .lintstagedrc
+# Install dependencies first (caching)
+COPY requirements.txt .
+RUN pip install --upgrade pip &amp;&amp; \
+    pip install --no-cache-dir -r requirements.txt
+
+# Copy application code
+COPY . .
+
+EXPOSE 8000
+
+CMD ["python", "app.py"]
 </code></pre>
-<h3 id="add-prisma"><a class="header" href="#add-prisma">Add prisma</a></h3>
-<pre><code class="language-sh"># change name package.json
+<h3 id="python-with-virtual-environment"><a class="header" href="#python-with-virtual-environment">Python with Virtual Environment</a></h3>
+<pre><code class="language-dockerfile">FROM python:3.11-slim
 
-bun add -D prisma
-bun add @prisma/client
-bunx prisma init --datasource-provider postgresql
+ENV PYTHONDONTWRITEBYTECODE=1
+ENV PYTHONUNBUFFERED=1
 
-bunx prisma generate
-bunx prisma migrate dev --name "Initial Migration"
+WORKDIR /app
 
-ALTER DATABASE template1 REFRESH COLLATION VERSION;
+# Create and activate virtual environment
+RUN python -m venv /opt/venv
+ENV PATH="/opt/venv/bin:$PATH"
+
+COPY requirements.txt .
+RUN pip install --upgrade pip &amp;&amp; \
+    pip install --no-cache-dir -r requirements.txt
+
+COPY . .
+
+EXPOSE 8000
+
+CMD ["python", "app.py"]
 </code></pre>
-<pre><code class="language-env">DATABASE_URL="postgresql://postgres:@localhost:5432/authdb?schema=public"
+<h3 id="nodejs-single-stage"><a class="header" href="#nodejs-single-stage">Node.js (Single Stage)</a></h3>
+<pre><code class="language-dockerfile">FROM node:20-alpine
+
+WORKDIR /app
+
+# Install dependencies first (caching)
+COPY package*.json ./
+RUN npm ci --only=production
+
+COPY . .
+
+EXPOSE 3000
+
+CMD ["node", "server.js"]
 </code></pre>
-<pre><code class="language-prisma">// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
+<h3 id="go-single-stage"><a class="header" href="#go-single-stage">Go (Single Stage)</a></h3>
+<pre><code class="language-dockerfile">FROM golang:1.21-alpine
 
-// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
-// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+WORKDIR /app
 
-generator client {
-  provider = "prisma-client-js"
-}
+COPY go.mod go.sum ./
+RUN go mod download
 
-datasource db {
-  provider = "postgresql"
-  url      = env("DATABASE_URL")
-}
+COPY . .
 
+RUN go build -o main .
 
-model User {
-    uid          String        @id
-    createdAt    DateTime      @default(now())
-    updatedAt    DateTime      @updatedAt
-    name         String?
-    image        String?
-    Credentials  Credentials?
-    AuthProvider AuthProvider?
-    Admin        Admin?
-    Manager      Manager?
-}
+EXPOSE 8080
 
-model Admin {
-    uid  String @id
-    user User   @relation(fields: [uid], references: [uid])
-}
-
-model Manager {
-    uid  String @id
-    user User   @relation(fields: [uid], references: [uid])
-}
-
-model Credentials {
-    uid          String   @id
-    email        String   @unique
-    user         User     @relation(fields: [uid], references: [uid])
-    passwordHash String
-    createdAt    DateTime @default(now())
-    updatedAt    DateTime @updatedAt
-}
-
-model AuthProvider {
-    uid String @id
-    type AuthProviderType
-    user User             @relation(fields: [uid], references: [uid])
-}
-
-enum AuthProviderType {
-    GOOGLE
-    CREDENTIALS
-}
+CMD ["./main"]
 </code></pre>
-<blockquote>
-<p>libs/db/index.ts</p>
-</blockquote>
-<pre><code class="language-ts">import { PrismaClient } from '@prisma/client';
+<hr>
+<h2 id="-multi-stage-builds"><a class="header" href="#-multi-stage-builds">🏗️ Multi-Stage Builds</a></h2>
+<h3 id="why-multi-stage"><a class="header" href="#why-multi-stage">Why Multi-Stage?</a></h3>
+<ul>
+<li>✅ Smaller final image</li>
+<li>✅ No build tools in production</li>
+<li>✅ Better security</li>
+<li>✅ Faster deployments</li>
+</ul>
+<h3 id="python-multi-stage"><a class="header" href="#python-multi-stage">Python Multi-Stage</a></h3>
+<pre><code class="language-dockerfile"># ============ Build Stage ============
+FROM python:3.11-slim AS builder
 
-const globalForPrisma = globalThis as unknown as {
-    prisma: PrismaClient | undefined;
-};
+WORKDIR /app
 
-export const prisma =
-    globalForPrisma.prisma ??
-    new PrismaClient({
-        log:
-            process.env.NODE_ENV === 'development'
-                ? ['query', 'error', 'warn']
-                : ['error']
-    });
+RUN python -m venv /opt/venv
+ENV PATH="/opt/venv/bin:$PATH"
 
-if (process.env.NODE_ENV !== 'production') globalForPrisma.prisma = prisma;
+COPY requirements.txt .
+RUN pip install --upgrade pip &amp;&amp; \
+    pip install --no-cache-dir -r requirements.txt
+
+# ============ Production Stage ============
+FROM python:3.11-slim
+
+WORKDIR /app
+
+# Copy virtual environment from builder
+COPY --from=builder /opt/venv /opt/venv
+ENV PATH="/opt/venv/bin:$PATH"
+
+# Create non-root user
+RUN useradd --create-home appuser
+USER appuser
+
+COPY --chown=appuser:appuser . .
+
+EXPOSE 8000
+
+CMD ["gunicorn", "--bind", "0.0.0.0:8000", "app:app"]
 </code></pre>
-<blockquote>
-<p>libs/db/types.ts</p>
-</blockquote>
-<pre><code class="language-ts">export * from '@prisma/client';
+<h3 id="nodejs-multi-stage"><a class="header" href="#nodejs-multi-stage">Node.js Multi-Stage</a></h3>
+<pre><code class="language-dockerfile"># ============ Build Stage ============
+FROM node:20-alpine AS builder
+
+WORKDIR /app
+
+COPY package*.json ./
+RUN npm ci
+
+COPY . .
+RUN npm run build
+
+# ============ Production Stage ============
+FROM node:20-alpine
+
+WORKDIR /app
+
+COPY package*.json ./
+RUN npm ci --only=production
+
+# Copy built files from builder
+COPY --from=builder /app/dist ./dist
+
+USER node
+
+EXPOSE 3000
+
+CMD ["node", "dist/server.js"]
 </code></pre>
-<h3 id="trpc-setup"><a class="header" href="#trpc-setup">TRPC Setup</a></h3>
-<pre><code class="language-sh">
-# change name package.json
+<h3 id="go-multi-stage-tiny-image"><a class="header" href="#go-multi-stage-tiny-image">Go Multi-Stage (Tiny Image!)</a></h3>
+<pre><code class="language-dockerfile"># ============ Build Stage ============
+FROM golang:1.21-alpine AS builder
 
+WORKDIR /app
 
-cd libs
-mkdir trpc-server trpc-client
-cd trpc-server
-bun add @trpc/server
-cd ../..
-"@monorepo/db": "workspace:^"
+COPY go.mod go.sum ./
+RUN go mod download
+
+COPY . .
+
+# Build static binary
+RUN CGO_ENABLED=0 GOOS=linux go build -o main .
+
+# ============ Production Stage ============
+FROM scratch
+
+# Copy only the binary
+COPY --from=builder /app/main /main
+
+EXPOSE 8080
+
+ENTRYPOINT ["/main"]
 </code></pre>
-<blockquote>
-<p>libs/trpc-server/index.ts</p>
-</blockquote>
-<pre><code class="language-ts">import { createExpressMiddleware } from '@trpc/server/adapters/express';
-import { appRouter } from './routers';
+<h3 id="react-multi-stage-with-nginx"><a class="header" href="#react-multi-stage-with-nginx">React Multi-Stage (with Nginx)</a></h3>
+<pre><code class="language-dockerfile"># ============ Build Stage ============
+FROM node:20-alpine AS builder
 
-export const trpcExpress = createExpressMiddleware({
-    router: appRouter
-});
+WORKDIR /app
+
+COPY package*.json ./
+RUN npm ci
+
+COPY . .
+RUN npm run build
+
+# ============ Production Stage ============
+FROM nginx:alpine
+
+COPY --from=builder /app/build /usr/share/nginx/html
+
+EXPOSE 80
+
+CMD ["nginx", "-g", "daemon off;"]
 </code></pre>
-<blockquote>
-<p>libs/trpc-server/trpc.ts</p>
-</blockquote>
-<pre><code class="language-ts">import { initTRPC } from '@trpc/server';
+<hr>
+<h2 id="-docker-compose"><a class="header" href="#-docker-compose">🐙 Docker Compose</a></h2>
+<h3 id="basic-commands"><a class="header" href="#basic-commands">Basic Commands</a></h3>
+<pre><code class="language-bash"># Start services
+docker compose up
 
-const t = initTRPC.create();
+# Start in background
+docker compose up -d
 
-export const router = t.router;
-export const publicProcedure = t.procedure;
+# Build and start
+docker compose up --build
+
+# Stop services
+docker compose down
+
+# Stop and remove volumes
+docker compose down -v
+
+# View logs
+docker compose logs
+
+# Follow logs
+docker compose logs -f
+
+# View logs for specific service
+docker compose logs app
+
+# List running services
+docker compose ps
+
+# Execute command in service
+docker compose exec app bash
+
+# Restart services
+docker compose restart
+
+# Stop services (without removing)
+docker compose stop
+
+# Start stopped services
+docker compose start
+
+# Build images
+docker compose build
+
+# Pull images
+docker compose pull
 </code></pre>
-<blockquote>
-<p>libs/trpc-server/routers/index.ts</p>
-</blockquote>
-<pre><code class="language-ts">import type { inferRouterOutputs } from '@trpc/server';
-import { router } from '../trpc';
-import { authRoutes } from './auth';
+<h3 id="basic-docker-composeyml"><a class="header" href="#basic-docker-composeyml">Basic docker-compose.yml</a></h3>
+<pre><code class="language-yaml">version: '3.8'
 
-export const appRouter = router({
-    auth: authRoutes
-});
-
-export type AppRouter = typeof appRouter;
-export type AppRouterType = inferRouterOutputs&lt;AppRouter&gt;;
+services:
+    app:
+        build: .
+        ports:
+            - '8000:8000'
+        environment:
+            - DEBUG=true
 </code></pre>
-<blockquote>
-<p>libs/trpc-server/routers/auth.ts</p>
-</blockquote>
-<pre><code class="language-ts">import { publicProcedure, router } from '../trpc';
-import { prisma } from '@monorepo/db';
+<h3 id="full-example-app--database--redis"><a class="header" href="#full-example-app--database--redis">Full Example (App + Database + Redis)</a></h3>
+<pre><code class="language-yaml">version: '3.8'
 
-export const authRoutes = router({
-    users: publicProcedure.query(() =&gt; {
-        return prisma.user.findMany({});
-    })
-});
+services:
+    # ============ Web Application ============
+    app:
+        build:
+            context: .
+            dockerfile: Dockerfile
+        ports:
+            - '8000:8000'
+        environment:
+            - DATABASE_URL=postgresql://user:password@db:5432/mydb
+            - REDIS_URL=redis://redis:6379
+        depends_on:
+            - db
+            - redis
+        volumes:
+            - .:/app # For development
+        restart: unless-stopped
+
+    # ============ PostgreSQL Database ============
+    db:
+        image: postgres:15-alpine
+        environment:
+            - POSTGRES_USER=user
+            - POSTGRES_PASSWORD=password
+            - POSTGRES_DB=mydb
+        volumes:
+            - postgres_data:/var/lib/postgresql/data
+        ports:
+            - '5432:5432'
+        restart: unless-stopped
+
+    # ============ Redis Cache ============
+    redis:
+        image: redis:7-alpine
+        ports:
+            - '6379:6379'
+        volumes:
+            - redis_data:/data
+        restart: unless-stopped
+
+# ============ Named Volumes ============
+volumes:
+    postgres_data:
+    redis_data:
 </code></pre>
-<p>Add ExpressMiddleware</p>
-<pre><code class="language-ts">// TRPC Middleware
-app.use('/trpc', trpcExpress);
+<h3 id="with-environment-file"><a class="header" href="#with-environment-file">With Environment File</a></h3>
+<pre><code class="language-yaml">version: '3.8'
 
-// Add dependencies
-"dependencies": {
-        "@monorepo/trpc-server": "workspace:^"
-    },
+services:
+    app:
+        build: .
+        ports:
+            - '8000:8000'
+        env_file:
+            - .env
 </code></pre>
-<h3 id="trpc-in-react-client--server"><a class="header" href="#trpc-in-react-client--server">TRPC in react client &amp; server</a></h3>
-<pre><code class="language-sh">bun add @tanstack/react-query@4.36.1 @trpc/client @trpc/react-query react
-bun add dotenv
-bun add -D @types/dotenv
+<p><strong>.env file:</strong></p>
+<pre><code>DATABASE_URL=postgresql://user:pass@db:5432/mydb
+SECRET_KEY=mysecretkey
+DEBUG=false
 </code></pre>
-<blockquote>
-<p>src/libs/trcp-client/src/client.ts</p>
-</blockquote>
-<pre><code class="language-ts">import type { AppRouter } from '@monorepo/trpc-server/routers';
-import { createTRPCReact } from '@trpc/react-query';
+<h3 id="multiple-compose-files"><a class="header" href="#multiple-compose-files">Multiple Compose Files</a></h3>
+<pre><code class="language-bash"># Development
+docker compose -f docker-compose.yml -f docker-compose.dev.yml up
 
-export const trpcClient = createTRPCReact&lt;AppRouter&gt;();
+# Production
+docker compose -f docker-compose.yml -f docker-compose.prod.yml up
 </code></pre>
-<blockquote>
-<p>src/libs/trcp-client/src/index.ts</p>
-</blockquote>
-<pre><code class="language-ts">import type { AppRouter } from '@monorepo/trpc-server/routers';
-import { createTRPCProxyClient, httpBatchLink } from '@trpc/client';
-import 'dotenv/config';
+<p><strong>docker-compose.yml (base):</strong></p>
+<pre><code class="language-yaml">version: '3.8'
 
-export const trpc = createTRPCProxyClient&lt;AppRouter&gt;({
-    links: [
-        httpBatchLink({
-            url: process.env.SERVER_URL as string
-        })
-    ]
-});
+services:
+    app:
+        build: .
+        environment:
+            - DATABASE_URL=postgresql://user:pass@db:5432/mydb
 </code></pre>
-<blockquote>
-<p>src/libs/trcp-client/src/Provider.tsx</p>
-</blockquote>
-<pre><code class="language-tsx">'use client';
+<p><strong>docker-compose.dev.yml:</strong></p>
+<pre><code class="language-yaml">version: '3.8'
 
-import { trpcClient as trpc } from './client';
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import { httpBatchLink } from '@trpc/client';
-
-import React, { useState } from 'react';
-
-export const Provider = ({ children }: { children: React.ReactNode }) =&gt; {
-    const [queryClient] = useState(() =&gt; new QueryClient());
-    const [trpcClient] = useState(() =&gt;
-        trpc.createClient({
-            links: [
-                httpBatchLink({
-                    url: process.env.SERVER_URL as string
-                })
-            ]
-        })
-    );
-
-    return (
-        &lt;trpc.Provider client={trpcClient} queryClient={queryClient}&gt;
-            &lt;QueryClientProvider client={queryClient}&gt;
-                {children}
-            &lt;/QueryClientProvider&gt;
-        &lt;/trpc.Provider&gt;
-    );
-};
+services:
+    app:
+        volumes:
+            - .:/app
+        environment:
+            - DEBUG=true
+        ports:
+            - '8000:8000'
 </code></pre>
-<h3 id="add-to-web"><a class="header" href="#add-to-web">Add to web</a></h3>
-<pre><code class="language-sh">"dependencies": {
-        "@monorepo/trpc-client": "workspace:^"
-    },
-&lt;Provider&gt;{children}&lt;/Provider&gt;
+<p><strong>docker-compose.prod.yml:</strong></p>
+<pre><code class="language-yaml">version: '3.8'
 
-env: {
-        SERVER_URL: process.env.SERVER_URL
-    }
+services:
+    app:
+        environment:
+            - DEBUG=false
+        restart: always
 </code></pre>
-<h3 id="authn-and-authz"><a class="header" href="#authn-and-authz">AuthN and AuthZ</a></h3>
-<p>Add context</p>
-<blockquote>
-<p>libs/trpc-server/context.ts</p>
-</blockquote>
-<pre><code class="language-ts">import type { CreateExpressContextOptions } from '@trpc/server/adapters/express';
+<h3 id="health-checks"><a class="header" href="#health-checks">Health Checks</a></h3>
+<pre><code class="language-yaml">version: '3.8'
 
-export const createTRPCContext = ({
-    req,
-    res
-}: CreateExpressContextOptions) =&gt; {
-    const header = req.headers.authorization;
-    const token = header?.split(' ')[1];
-    return { req, res, token };
-};
+services:
+    app:
+        build: .
+        ports:
+            - '8000:8000'
+        healthcheck:
+            test: ['CMD', 'curl', '-f', 'http://localhost:8000/health']
+            interval: 30s
+            timeout: 10s
+            retries: 3
+            start_period: 40s
 
-export type TRPCContext = Awaited&lt;ReturnType&lt;typeof createTRPCContext&gt;&gt;;
+    db:
+        image: postgres:15-alpine
+        healthcheck:
+            test: ['CMD-SHELL', 'pg_isready -U user -d mydb']
+            interval: 10s
+            timeout: 5s
+            retries: 5
 </code></pre>
-<blockquote>
-<p>libs/trpc-server/index.ts</p>
-</blockquote>
-<pre><code class="language-ts">import { createExpressMiddleware } from '@trpc/server/adapters/express';
-import { appRouter } from './routers';
-import { createTRPCContext } from './context';
+<hr>
+<h2 id="-networking"><a class="header" href="#-networking">🌐 Networking</a></h2>
+<h3 id="network-commands"><a class="header" href="#network-commands">Network Commands</a></h3>
+<pre><code class="language-bash"># List networks
+docker network ls
 
-export const trpcExpress = createExpressMiddleware({
-    router: appRouter,
-    createContext: createTRPCContext
-});
+# Create network
+docker network create mynetwork
+
+# Run container on network
+docker run --network mynetwork myapp
+
+# Connect container to network
+docker network connect mynetwork my-container
+
+# Disconnect from network
+docker network disconnect mynetwork my-container
+
+# Inspect network
+docker network inspect mynetwork
+
+# Remove network
+docker network rm mynetwork
 </code></pre>
-<blockquote>
-<p>libs/trpc-server/trpc.ts</p>
-</blockquote>
-<pre><code class="language-ts">import { initTRPC } from '@trpc/server';
-import type { TRPCContext } from './context';
+<h3 id="compose-networks"><a class="header" href="#compose-networks">Compose Networks</a></h3>
+<pre><code class="language-yaml">version: '3.8'
 
-const t = initTRPC.context&lt;TRPCContext&gt;().create();
+services:
+    frontend:
+        build: ./frontend
+        networks:
+            - frontend-network
 
-export const router = t.router;
-export const publicProcedure = t.procedure;
+    backend:
+        build: ./backend
+        networks:
+            - frontend-network
+            - backend-network
+
+    db:
+        image: postgres:15
+        networks:
+            - backend-network
+
+networks:
+    frontend-network:
+    backend-network:
 </code></pre>
-<p>Add Middleware</p>
-<pre><code class="language-sh">bun add jsonwebtoken
-bun add -D @types/jsonwebtoken
+<hr>
+<h2 id="-volumes"><a class="header" href="#-volumes">💾 Volumes</a></h2>
+<h3 id="volume-commands"><a class="header" href="#volume-commands">Volume Commands</a></h3>
+<pre><code class="language-bash"># List volumes
+docker volume ls
+
+# Create volume
+docker volume create myvolume
+
+# Run with volume
+docker run -v myvolume:/data myapp
+
+# Bind mount (host directory)
+docker run -v $(pwd)/data:/app/data myapp
+
+# Read-only mount
+docker run -v $(pwd)/config:/app/config:ro myapp
+
+# Inspect volume
+docker volume inspect myvolume
+
+# Remove volume
+docker volume rm myvolume
+
+# Remove unused volumes
+docker volume prune
 </code></pre>
-<blockquote>
-<p>libs/trpc-server/middleware.ts</p>
-</blockquote>
-<pre><code class="language-ts">import { TRPCError } from '@trpc/server';
-import { verify, type JwtPayload } from 'jsonwebtoken';
-import { t } from './trpc';
-import type { Role } from './types';
-import { authorizeUser } from './utils';
+<h3 id="volume-types"><a class="header" href="#volume-types">Volume Types</a></h3>
+<pre><code class="language-yaml">version: '3.8'
 
-export const isAuthed = (...roles: Role[]) =&gt;
-    t.middleware(async (opts) =&gt; {
-        const { token } = opts.ctx;
-        if (!token) {
-            throw new TRPCError({
-                code: 'FORBIDDEN',
-                message: 'Token not found.'
-            });
-        }
+services:
+    app:
+        build: .
+        volumes:
+            # Named volume
+            - app_data:/app/data
 
-        let uid;
+            # Bind mount
+            - ./src:/app/src
 
-        try {
-            const user = verify(token, process.env.NEXTAUTH_SECRET || '');
-            uid = (user as JwtPayload).uid;
-        } catch (error) {
-            throw new TRPCError({
-                code: 'FORBIDDEN',
-                message: 'Invalid token.'
-            });
-        }
+            # Read-only bind mount
+            - ./config:/app/config:ro
 
-        await authorizeUser(uid, roles);
-
-        return opts.next({ ...opts, ctx: { ...opts.ctx, uid } });
-    });
+volumes:
+    app_data:
 </code></pre>
-<blockquote>
-<p>libs/trpc-server/utils.ts</p>
-</blockquote>
-<pre><code class="language-ts">import { prisma } from '@monorepo/db';
-import { TRPCError } from '@trpc/server';
-import type { Role } from './types';
+<hr>
+<h2 id="-dockerignore"><a class="header" href="#-dockerignore">📁 .dockerignore</a></h2>
+<pre><code># Git
+.git
+.gitignore
 
-export const getUserRoles = async (uid: string): Promise&lt;Role[]&gt; =&gt; {
-    const [adminExists, managerExists] = await Promise.all([
-        prisma.admin.findUnique({ where: { uid } }),
-        prisma.manager.findUnique({ where: { uid } })
-    ]);
+# Python
+__pycache__
+*.pyc
+*.pyo
+venv/
+.env
 
-    const roles: Role[] = [];
-    if (adminExists) roles.push('admin');
-    if (managerExists) roles.push('manager');
+# Node
+node_modules/
+npm-debug.log
 
-    return roles;
-};
+# IDE
+.vscode/
+.idea/
 
-export const authorizeUser = async (
-    uid: string,
-    roles: Role[]
-): Promise&lt;void&gt; =&gt; {
-    if (!roles || roles.length === 0) {
-        return; // No specific roles required, access is granted
-    }
+# OS
+.DS_Store
+Thumbs.db
 
-    const userRoles = await getUserRoles(uid);
+# Docker
+Dockerfile*
+docker-compose*
 
-    if (!userRoles.some((role) =&gt; roles.includes(role))) {
-        throw new TRPCError({
-            code: 'FORBIDDEN',
-            message: 'User does not have the required role(s).'
-        });
-    }
-};
+# Docs
+README.md
+docs/
 
-export const checkRowLevelPermission = async (
-    uid: string,
-    allowedUids: string | string[],
-    allowedRoles: Role[] = ['admin']
-) =&gt; {
-    const userRoles = await getUserRoles(uid);
-
-    if (userRoles?.some((role) =&gt; allowedRoles.includes(role))) {
-        return true;
-    }
-
-    const uids =
-        typeof allowedUids === 'string'
-            ? [allowedUids]
-            : allowedUids.filter(Boolean);
-
-    if (!uids.includes(uid)) {
-        throw new TRPCError({
-            code: 'FORBIDDEN',
-            message: 'You are not allowed to do this action.'
-        });
-    }
-};
+# Tests
+tests/
+*.test.js
 </code></pre>
-<blockquote>
-<p>libs/trpc-server/types.ts</p>
-</blockquote>
-<pre><code class="language-ts">export type Role = 'admin' | 'manager';
-</code></pre>
-<blockquote>
-<p>trpc.ts</p>
-</blockquote>
-<pre><code class="language-ts">import { initTRPC } from '@trpc/server';
-import type { TRPCContext } from './context';
-import { isAuthed } from './middleware';
-import type { Role } from './types';
+<hr>
+<h2 id="-best-practices"><a class="header" href="#-best-practices">🔧 Best Practices</a></h2>
+<h3 id="dockerfile"><a class="header" href="#dockerfile">Dockerfile</a></h3>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>✅ Do</th><th>❌ Don’t</th></tr>
+</thead>
+<tbody>
+<tr><td>Use specific image tags</td><td>Use <code>latest</code> tag</td></tr>
+<tr><td>Use <code>.dockerignore</code></td><td>Copy unnecessary files</td></tr>
+<tr><td>Order by change frequency</td><td>Random instruction order</td></tr>
+<tr><td>Combine RUN commands</td><td>Multiple RUN for one task</td></tr>
+<tr><td>Use multi-stage builds</td><td>Include build tools in prod</td></tr>
+<tr><td>Run as non-root user</td><td>Run as root</td></tr>
+<tr><td>Use <code>COPY</code> over <code>ADD</code></td><td>Use <code>ADD</code> unless needed</td></tr>
+</tbody>
+</table>
+</div>
+<h3 id="layer-caching-order"><a class="header" href="#layer-caching-order">Layer Caching Order</a></h3>
+<pre><code class="language-dockerfile"># 1. Base image (rarely changes)
+FROM python:3.11-slim
 
-export const t = initTRPC.context&lt;TRPCContext&gt;().create();
+# 2. System dependencies (rarely changes)
+RUN apt-get update &amp;&amp; apt-get install -y curl
 
-export const router = t.router;
-export const publicProcedure = t.procedure;
-// export const privateProcedure = t.procedure.use(isAuthed());
-export const privateProcedure = (...roles: Role[]) =&gt;
-    t.procedure.use(isAuthed(...roles));
+# 3. App dependencies (sometimes changes)
+COPY requirements.txt .
+RUN pip install -r requirements.txt
+
+# 4. Application code (frequently changes)
+COPY . .
+
+# 5. Runtime config
+CMD ["python", "app.py"]
 </code></pre>
-<p>Test by passing headers</p>
-<pre><code>t.procedure.use(isAuthed("")).query()
+<hr>
+<h2 id="-quick-reference-card"><a class="header" href="#-quick-reference-card">🚀 Quick Reference Card</a></h2>
+<h3 id="most-used-commands"><a class="header" href="#most-used-commands">Most Used Commands</a></h3>
+<pre><code class="language-bash"># Build
+docker build -t myapp .
+
+# Run
+docker run -d -p 8000:8000 --name myapp myapp
+
+# Logs
+docker logs -f myapp
+
+# Shell access
+docker exec -it myapp bash
+
+# Stop &amp; Remove
+docker stop myapp &amp;&amp; docker rm myapp
+
+# Compose up
+docker compose up -d --build
+
+# Compose down
+docker compose down -v
+
+# Cleanup
+docker system prune -a
 </code></pre>
+<h3 id="port-mapping"><a class="header" href="#port-mapping">Port Mapping</a></h3>
+<pre><code>-p HOST:CONTAINER
+
+-p 8000:8000     # localhost:8000 → container:8000
+-p 3000:8000     # localhost:3000 → container:8000
+-p 127.0.0.1:8000:8000  # Only localhost
+</code></pre>
+<h3 id="environment-variables"><a class="header" href="#environment-variables">Environment Variables</a></h3>
+<pre><code class="language-bash"># Single variable
+docker run -e MY_VAR=value myapp
+
+# Multiple variables
+docker run -e VAR1=a -e VAR2=b myapp
+
+# From file
+docker run --env-file .env myapp
+</code></pre>
+<hr>
+<h2 id="-image-size-comparison"><a class="header" href="#-image-size-comparison">📊 Image Size Comparison</a></h2>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Base Image</th><th>Size</th></tr>
+</thead>
+<tbody>
+<tr><td><code>python:3.11</code></td><td>~900MB</td></tr>
+<tr><td><code>python:3.11-slim</code></td><td>~120MB</td></tr>
+<tr><td><code>python:3.11-alpine</code></td><td>~50MB</td></tr>
+<tr><td><code>node:20</code></td><td>~1GB</td></tr>
+<tr><td><code>node:20-slim</code></td><td>~200MB</td></tr>
+<tr><td><code>node:20-alpine</code></td><td>~130MB</td></tr>
+<tr><td><code>golang:1.21</code></td><td>~800MB</td></tr>
+<tr><td><code>golang:1.21-alpine</code></td><td>~250MB</td></tr>
+<tr><td><code>scratch</code></td><td>0MB</td></tr>
+</tbody>
+</table>
+</div>
+<hr>
+<p>Happy Dockerizing! 🐳</p>
 
                     </main>
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
-                            <a rel="prev" href="23_React_Query.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                            <a rel="prev" href="25_Golang.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                                 <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
                             </a>
 
-                            <a rel="next prefetch" href="25_Golang.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                            <a rel="next prefetch" href="27_Kubernetes.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                                 <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
                             </a>
 
@@ -699,11 +941,11 @@ export const privateProcedure = (...roles: Role[]) =&gt;
             </div>
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
-                    <a rel="prev" href="23_React_Query.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                    <a rel="prev" href="25_Golang.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                         <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
                     </a>
 
-                    <a rel="next prefetch" href="25_Golang.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                    <a rel="next prefetch" href="27_Kubernetes.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                         <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
                     </a>
             </nav>

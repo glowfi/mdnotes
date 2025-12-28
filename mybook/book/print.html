@@ -36,10 +36,10 @@
             const path_to_root = "";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "searchindex-b380d360.js";
+            window.path_to_searchindex_js = "searchindex-a9c7eecf.js";
         </script>
         <!-- Start loading toc.js asap -->
-        <script src="toc-e136f13d.js"></script>
+        <script src="toc-3a843a61.js"></script>
     </head>
     <body>
     <div id="mdbook-help-container">
@@ -12801,6 +12801,755 @@ func DecodeJson() {
 }
 </code></pre>
 <div style="break-before: page; page-break-before: always;"></div>
+<h1 id="-docker-complete-cheatsheet-for-beginners"><a class="header" href="#-docker-complete-cheatsheet-for-beginners">🐳 Docker Complete Cheatsheet for Beginners</a></h1>
+<h2 id="-basic-docker-commands"><a class="header" href="#-basic-docker-commands">📦 Basic Docker Commands</a></h2>
+<h3 id="images"><a class="header" href="#images">Images</a></h3>
+<pre><code class="language-bash"># List images
+docker images
+
+# Pull image from Docker Hub
+docker pull python:3.11
+
+# Build image from Dockerfile
+docker build -t myapp .
+
+# Build with custom Dockerfile
+docker build -f Dockerfile.prod -t myapp .
+
+# Remove image
+docker rmi myapp
+
+# Remove all unused images
+docker image prune -a
+
+# Tag image
+docker tag myapp myapp:v1.0
+
+# Push to registry
+docker push username/myapp:v1.0
+</code></pre>
+<h3 id="containers"><a class="header" href="#containers">Containers</a></h3>
+<pre><code class="language-bash"># Run container
+docker run myapp
+
+# Run with port mapping
+docker run -p 8000:8000 myapp
+
+# Run in background (detached)
+docker run -d myapp
+
+# Run with name
+docker run --name my-container myapp
+
+# Run interactively
+docker run -it myapp bash
+
+# Run with environment variables
+docker run -e PORT=3000 -e DEBUG=true myapp
+
+# Run with volume mount
+docker run -v $(pwd):/app myapp
+
+# Run and remove after exit
+docker run --rm myapp
+
+# List running containers
+docker ps
+
+# List all containers (including stopped)
+docker ps -a
+
+# Stop container
+docker stop my-container
+
+# Start stopped container
+docker start my-container
+
+# Restart container
+docker restart my-container
+
+# Remove container
+docker rm my-container
+
+# Remove running container (force)
+docker rm -f my-container
+
+# Remove all stopped containers
+docker container prune
+</code></pre>
+<h3 id="logs--debugging"><a class="header" href="#logs--debugging">Logs &amp; Debugging</a></h3>
+<pre><code class="language-bash"># View logs
+docker logs my-container
+
+# Follow logs (live)
+docker logs -f my-container
+
+# Show last 100 lines
+docker logs --tail 100 my-container
+
+# Execute command in running container
+docker exec -it my-container bash
+
+# View container details
+docker inspect my-container
+
+# View container resource usage
+docker stats
+
+# View container processes
+docker top my-container
+</code></pre>
+<h3 id="cleanup"><a class="header" href="#cleanup">Cleanup</a></h3>
+<pre><code class="language-bash"># Remove all stopped containers
+docker container prune
+
+# Remove all unused images
+docker image prune -a
+
+# Remove all unused volumes
+docker volume prune
+
+# Remove all unused networks
+docker network prune
+
+# Remove EVERYTHING unused
+docker system prune -a
+
+# View disk usage
+docker system df
+</code></pre>
+<hr>
+<h2 id="-dockerfile-reference"><a class="header" href="#-dockerfile-reference">📝 Dockerfile Reference</a></h2>
+<h3 id="basic-instructions"><a class="header" href="#basic-instructions">Basic Instructions</a></h3>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Instruction</th><th>Purpose</th><th>Example</th></tr>
+</thead>
+<tbody>
+<tr><td><code>FROM</code></td><td>Base image</td><td><code>FROM python:3.11-slim</code></td></tr>
+<tr><td><code>WORKDIR</code></td><td>Set working directory</td><td><code>WORKDIR /app</code></td></tr>
+<tr><td><code>COPY</code></td><td>Copy files</td><td><code>COPY . .</code></td></tr>
+<tr><td><code>ADD</code></td><td>Copy files (supports URLs, tar)</td><td><code>ADD app.tar.gz /app</code></td></tr>
+<tr><td><code>RUN</code></td><td>Execute command</td><td><code>RUN pip install flask</code></td></tr>
+<tr><td><code>ENV</code></td><td>Set environment variable</td><td><code>ENV PORT=8000</code></td></tr>
+<tr><td><code>ARG</code></td><td>Build-time variable</td><td><code>ARG VERSION=1.0</code></td></tr>
+<tr><td><code>EXPOSE</code></td><td>Document port</td><td><code>EXPOSE 8000</code></td></tr>
+<tr><td><code>CMD</code></td><td>Default command</td><td><code>CMD ["python", "app.py"]</code></td></tr>
+<tr><td><code>ENTRYPOINT</code></td><td>Fixed command</td><td><code>ENTRYPOINT ["python"]</code></td></tr>
+<tr><td><code>VOLUME</code></td><td>Create mount point</td><td><code>VOLUME /data</code></td></tr>
+<tr><td><code>USER</code></td><td>Set user</td><td><code>USER appuser</code></td></tr>
+<tr><td><code>LABEL</code></td><td>Add metadata</td><td><code>LABEL version="1.0"</code></td></tr>
+</tbody>
+</table>
+</div>
+<hr>
+<h2 id="-dockerfile-examples"><a class="header" href="#-dockerfile-examples">📄 Dockerfile Examples</a></h2>
+<h3 id="python-single-stage"><a class="header" href="#python-single-stage">Python (Single Stage)</a></h3>
+<pre><code class="language-dockerfile">FROM python:3.11-slim
+
+ENV PYTHONDONTWRITEBYTECODE=1
+ENV PYTHONUNBUFFERED=1
+
+WORKDIR /app
+
+# Install dependencies first (caching)
+COPY requirements.txt .
+RUN pip install --upgrade pip &amp;&amp; \
+    pip install --no-cache-dir -r requirements.txt
+
+# Copy application code
+COPY . .
+
+EXPOSE 8000
+
+CMD ["python", "app.py"]
+</code></pre>
+<h3 id="python-with-virtual-environment"><a class="header" href="#python-with-virtual-environment">Python with Virtual Environment</a></h3>
+<pre><code class="language-dockerfile">FROM python:3.11-slim
+
+ENV PYTHONDONTWRITEBYTECODE=1
+ENV PYTHONUNBUFFERED=1
+
+WORKDIR /app
+
+# Create and activate virtual environment
+RUN python -m venv /opt/venv
+ENV PATH="/opt/venv/bin:$PATH"
+
+COPY requirements.txt .
+RUN pip install --upgrade pip &amp;&amp; \
+    pip install --no-cache-dir -r requirements.txt
+
+COPY . .
+
+EXPOSE 8000
+
+CMD ["python", "app.py"]
+</code></pre>
+<h3 id="nodejs-single-stage"><a class="header" href="#nodejs-single-stage">Node.js (Single Stage)</a></h3>
+<pre><code class="language-dockerfile">FROM node:20-alpine
+
+WORKDIR /app
+
+# Install dependencies first (caching)
+COPY package*.json ./
+RUN npm ci --only=production
+
+COPY . .
+
+EXPOSE 3000
+
+CMD ["node", "server.js"]
+</code></pre>
+<h3 id="go-single-stage"><a class="header" href="#go-single-stage">Go (Single Stage)</a></h3>
+<pre><code class="language-dockerfile">FROM golang:1.21-alpine
+
+WORKDIR /app
+
+COPY go.mod go.sum ./
+RUN go mod download
+
+COPY . .
+
+RUN go build -o main .
+
+EXPOSE 8080
+
+CMD ["./main"]
+</code></pre>
+<hr>
+<h2 id="-multi-stage-builds"><a class="header" href="#-multi-stage-builds">🏗️ Multi-Stage Builds</a></h2>
+<h3 id="why-multi-stage"><a class="header" href="#why-multi-stage">Why Multi-Stage?</a></h3>
+<ul>
+<li>✅ Smaller final image</li>
+<li>✅ No build tools in production</li>
+<li>✅ Better security</li>
+<li>✅ Faster deployments</li>
+</ul>
+<h3 id="python-multi-stage"><a class="header" href="#python-multi-stage">Python Multi-Stage</a></h3>
+<pre><code class="language-dockerfile"># ============ Build Stage ============
+FROM python:3.11-slim AS builder
+
+WORKDIR /app
+
+RUN python -m venv /opt/venv
+ENV PATH="/opt/venv/bin:$PATH"
+
+COPY requirements.txt .
+RUN pip install --upgrade pip &amp;&amp; \
+    pip install --no-cache-dir -r requirements.txt
+
+# ============ Production Stage ============
+FROM python:3.11-slim
+
+WORKDIR /app
+
+# Copy virtual environment from builder
+COPY --from=builder /opt/venv /opt/venv
+ENV PATH="/opt/venv/bin:$PATH"
+
+# Create non-root user
+RUN useradd --create-home appuser
+USER appuser
+
+COPY --chown=appuser:appuser . .
+
+EXPOSE 8000
+
+CMD ["gunicorn", "--bind", "0.0.0.0:8000", "app:app"]
+</code></pre>
+<h3 id="nodejs-multi-stage"><a class="header" href="#nodejs-multi-stage">Node.js Multi-Stage</a></h3>
+<pre><code class="language-dockerfile"># ============ Build Stage ============
+FROM node:20-alpine AS builder
+
+WORKDIR /app
+
+COPY package*.json ./
+RUN npm ci
+
+COPY . .
+RUN npm run build
+
+# ============ Production Stage ============
+FROM node:20-alpine
+
+WORKDIR /app
+
+COPY package*.json ./
+RUN npm ci --only=production
+
+# Copy built files from builder
+COPY --from=builder /app/dist ./dist
+
+USER node
+
+EXPOSE 3000
+
+CMD ["node", "dist/server.js"]
+</code></pre>
+<h3 id="go-multi-stage-tiny-image"><a class="header" href="#go-multi-stage-tiny-image">Go Multi-Stage (Tiny Image!)</a></h3>
+<pre><code class="language-dockerfile"># ============ Build Stage ============
+FROM golang:1.21-alpine AS builder
+
+WORKDIR /app
+
+COPY go.mod go.sum ./
+RUN go mod download
+
+COPY . .
+
+# Build static binary
+RUN CGO_ENABLED=0 GOOS=linux go build -o main .
+
+# ============ Production Stage ============
+FROM scratch
+
+# Copy only the binary
+COPY --from=builder /app/main /main
+
+EXPOSE 8080
+
+ENTRYPOINT ["/main"]
+</code></pre>
+<h3 id="react-multi-stage-with-nginx"><a class="header" href="#react-multi-stage-with-nginx">React Multi-Stage (with Nginx)</a></h3>
+<pre><code class="language-dockerfile"># ============ Build Stage ============
+FROM node:20-alpine AS builder
+
+WORKDIR /app
+
+COPY package*.json ./
+RUN npm ci
+
+COPY . .
+RUN npm run build
+
+# ============ Production Stage ============
+FROM nginx:alpine
+
+COPY --from=builder /app/build /usr/share/nginx/html
+
+EXPOSE 80
+
+CMD ["nginx", "-g", "daemon off;"]
+</code></pre>
+<hr>
+<h2 id="-docker-compose"><a class="header" href="#-docker-compose">🐙 Docker Compose</a></h2>
+<h3 id="basic-commands"><a class="header" href="#basic-commands">Basic Commands</a></h3>
+<pre><code class="language-bash"># Start services
+docker compose up
+
+# Start in background
+docker compose up -d
+
+# Build and start
+docker compose up --build
+
+# Stop services
+docker compose down
+
+# Stop and remove volumes
+docker compose down -v
+
+# View logs
+docker compose logs
+
+# Follow logs
+docker compose logs -f
+
+# View logs for specific service
+docker compose logs app
+
+# List running services
+docker compose ps
+
+# Execute command in service
+docker compose exec app bash
+
+# Restart services
+docker compose restart
+
+# Stop services (without removing)
+docker compose stop
+
+# Start stopped services
+docker compose start
+
+# Build images
+docker compose build
+
+# Pull images
+docker compose pull
+</code></pre>
+<h3 id="basic-docker-composeyml"><a class="header" href="#basic-docker-composeyml">Basic docker-compose.yml</a></h3>
+<pre><code class="language-yaml">version: '3.8'
+
+services:
+    app:
+        build: .
+        ports:
+            - '8000:8000'
+        environment:
+            - DEBUG=true
+</code></pre>
+<h3 id="full-example-app--database--redis"><a class="header" href="#full-example-app--database--redis">Full Example (App + Database + Redis)</a></h3>
+<pre><code class="language-yaml">version: '3.8'
+
+services:
+    # ============ Web Application ============
+    app:
+        build:
+            context: .
+            dockerfile: Dockerfile
+        ports:
+            - '8000:8000'
+        environment:
+            - DATABASE_URL=postgresql://user:password@db:5432/mydb
+            - REDIS_URL=redis://redis:6379
+        depends_on:
+            - db
+            - redis
+        volumes:
+            - .:/app # For development
+        restart: unless-stopped
+
+    # ============ PostgreSQL Database ============
+    db:
+        image: postgres:15-alpine
+        environment:
+            - POSTGRES_USER=user
+            - POSTGRES_PASSWORD=password
+            - POSTGRES_DB=mydb
+        volumes:
+            - postgres_data:/var/lib/postgresql/data
+        ports:
+            - '5432:5432'
+        restart: unless-stopped
+
+    # ============ Redis Cache ============
+    redis:
+        image: redis:7-alpine
+        ports:
+            - '6379:6379'
+        volumes:
+            - redis_data:/data
+        restart: unless-stopped
+
+# ============ Named Volumes ============
+volumes:
+    postgres_data:
+    redis_data:
+</code></pre>
+<h3 id="with-environment-file"><a class="header" href="#with-environment-file">With Environment File</a></h3>
+<pre><code class="language-yaml">version: '3.8'
+
+services:
+    app:
+        build: .
+        ports:
+            - '8000:8000'
+        env_file:
+            - .env
+</code></pre>
+<p><strong>.env file:</strong></p>
+<pre><code>DATABASE_URL=postgresql://user:pass@db:5432/mydb
+SECRET_KEY=mysecretkey
+DEBUG=false
+</code></pre>
+<h3 id="multiple-compose-files"><a class="header" href="#multiple-compose-files">Multiple Compose Files</a></h3>
+<pre><code class="language-bash"># Development
+docker compose -f docker-compose.yml -f docker-compose.dev.yml up
+
+# Production
+docker compose -f docker-compose.yml -f docker-compose.prod.yml up
+</code></pre>
+<p><strong>docker-compose.yml (base):</strong></p>
+<pre><code class="language-yaml">version: '3.8'
+
+services:
+    app:
+        build: .
+        environment:
+            - DATABASE_URL=postgresql://user:pass@db:5432/mydb
+</code></pre>
+<p><strong>docker-compose.dev.yml:</strong></p>
+<pre><code class="language-yaml">version: '3.8'
+
+services:
+    app:
+        volumes:
+            - .:/app
+        environment:
+            - DEBUG=true
+        ports:
+            - '8000:8000'
+</code></pre>
+<p><strong>docker-compose.prod.yml:</strong></p>
+<pre><code class="language-yaml">version: '3.8'
+
+services:
+    app:
+        environment:
+            - DEBUG=false
+        restart: always
+</code></pre>
+<h3 id="health-checks"><a class="header" href="#health-checks">Health Checks</a></h3>
+<pre><code class="language-yaml">version: '3.8'
+
+services:
+    app:
+        build: .
+        ports:
+            - '8000:8000'
+        healthcheck:
+            test: ['CMD', 'curl', '-f', 'http://localhost:8000/health']
+            interval: 30s
+            timeout: 10s
+            retries: 3
+            start_period: 40s
+
+    db:
+        image: postgres:15-alpine
+        healthcheck:
+            test: ['CMD-SHELL', 'pg_isready -U user -d mydb']
+            interval: 10s
+            timeout: 5s
+            retries: 5
+</code></pre>
+<hr>
+<h2 id="-networking"><a class="header" href="#-networking">🌐 Networking</a></h2>
+<h3 id="network-commands"><a class="header" href="#network-commands">Network Commands</a></h3>
+<pre><code class="language-bash"># List networks
+docker network ls
+
+# Create network
+docker network create mynetwork
+
+# Run container on network
+docker run --network mynetwork myapp
+
+# Connect container to network
+docker network connect mynetwork my-container
+
+# Disconnect from network
+docker network disconnect mynetwork my-container
+
+# Inspect network
+docker network inspect mynetwork
+
+# Remove network
+docker network rm mynetwork
+</code></pre>
+<h3 id="compose-networks"><a class="header" href="#compose-networks">Compose Networks</a></h3>
+<pre><code class="language-yaml">version: '3.8'
+
+services:
+    frontend:
+        build: ./frontend
+        networks:
+            - frontend-network
+
+    backend:
+        build: ./backend
+        networks:
+            - frontend-network
+            - backend-network
+
+    db:
+        image: postgres:15
+        networks:
+            - backend-network
+
+networks:
+    frontend-network:
+    backend-network:
+</code></pre>
+<hr>
+<h2 id="-volumes"><a class="header" href="#-volumes">💾 Volumes</a></h2>
+<h3 id="volume-commands"><a class="header" href="#volume-commands">Volume Commands</a></h3>
+<pre><code class="language-bash"># List volumes
+docker volume ls
+
+# Create volume
+docker volume create myvolume
+
+# Run with volume
+docker run -v myvolume:/data myapp
+
+# Bind mount (host directory)
+docker run -v $(pwd)/data:/app/data myapp
+
+# Read-only mount
+docker run -v $(pwd)/config:/app/config:ro myapp
+
+# Inspect volume
+docker volume inspect myvolume
+
+# Remove volume
+docker volume rm myvolume
+
+# Remove unused volumes
+docker volume prune
+</code></pre>
+<h3 id="volume-types"><a class="header" href="#volume-types">Volume Types</a></h3>
+<pre><code class="language-yaml">version: '3.8'
+
+services:
+    app:
+        build: .
+        volumes:
+            # Named volume
+            - app_data:/app/data
+
+            # Bind mount
+            - ./src:/app/src
+
+            # Read-only bind mount
+            - ./config:/app/config:ro
+
+volumes:
+    app_data:
+</code></pre>
+<hr>
+<h2 id="-dockerignore"><a class="header" href="#-dockerignore">📁 .dockerignore</a></h2>
+<pre><code># Git
+.git
+.gitignore
+
+# Python
+__pycache__
+*.pyc
+*.pyo
+venv/
+.env
+
+# Node
+node_modules/
+npm-debug.log
+
+# IDE
+.vscode/
+.idea/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Docker
+Dockerfile*
+docker-compose*
+
+# Docs
+README.md
+docs/
+
+# Tests
+tests/
+*.test.js
+</code></pre>
+<hr>
+<h2 id="-best-practices"><a class="header" href="#-best-practices">🔧 Best Practices</a></h2>
+<h3 id="dockerfile"><a class="header" href="#dockerfile">Dockerfile</a></h3>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>✅ Do</th><th>❌ Don’t</th></tr>
+</thead>
+<tbody>
+<tr><td>Use specific image tags</td><td>Use <code>latest</code> tag</td></tr>
+<tr><td>Use <code>.dockerignore</code></td><td>Copy unnecessary files</td></tr>
+<tr><td>Order by change frequency</td><td>Random instruction order</td></tr>
+<tr><td>Combine RUN commands</td><td>Multiple RUN for one task</td></tr>
+<tr><td>Use multi-stage builds</td><td>Include build tools in prod</td></tr>
+<tr><td>Run as non-root user</td><td>Run as root</td></tr>
+<tr><td>Use <code>COPY</code> over <code>ADD</code></td><td>Use <code>ADD</code> unless needed</td></tr>
+</tbody>
+</table>
+</div>
+<h3 id="layer-caching-order"><a class="header" href="#layer-caching-order">Layer Caching Order</a></h3>
+<pre><code class="language-dockerfile"># 1. Base image (rarely changes)
+FROM python:3.11-slim
+
+# 2. System dependencies (rarely changes)
+RUN apt-get update &amp;&amp; apt-get install -y curl
+
+# 3. App dependencies (sometimes changes)
+COPY requirements.txt .
+RUN pip install -r requirements.txt
+
+# 4. Application code (frequently changes)
+COPY . .
+
+# 5. Runtime config
+CMD ["python", "app.py"]
+</code></pre>
+<hr>
+<h2 id="-quick-reference-card"><a class="header" href="#-quick-reference-card">🚀 Quick Reference Card</a></h2>
+<h3 id="most-used-commands"><a class="header" href="#most-used-commands">Most Used Commands</a></h3>
+<pre><code class="language-bash"># Build
+docker build -t myapp .
+
+# Run
+docker run -d -p 8000:8000 --name myapp myapp
+
+# Logs
+docker logs -f myapp
+
+# Shell access
+docker exec -it myapp bash
+
+# Stop &amp; Remove
+docker stop myapp &amp;&amp; docker rm myapp
+
+# Compose up
+docker compose up -d --build
+
+# Compose down
+docker compose down -v
+
+# Cleanup
+docker system prune -a
+</code></pre>
+<h3 id="port-mapping"><a class="header" href="#port-mapping">Port Mapping</a></h3>
+<pre><code>-p HOST:CONTAINER
+
+-p 8000:8000     # localhost:8000 → container:8000
+-p 3000:8000     # localhost:3000 → container:8000
+-p 127.0.0.1:8000:8000  # Only localhost
+</code></pre>
+<h3 id="environment-variables"><a class="header" href="#environment-variables">Environment Variables</a></h3>
+<pre><code class="language-bash"># Single variable
+docker run -e MY_VAR=value myapp
+
+# Multiple variables
+docker run -e VAR1=a -e VAR2=b myapp
+
+# From file
+docker run --env-file .env myapp
+</code></pre>
+<hr>
+<h2 id="-image-size-comparison"><a class="header" href="#-image-size-comparison">📊 Image Size Comparison</a></h2>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Base Image</th><th>Size</th></tr>
+</thead>
+<tbody>
+<tr><td><code>python:3.11</code></td><td>~900MB</td></tr>
+<tr><td><code>python:3.11-slim</code></td><td>~120MB</td></tr>
+<tr><td><code>python:3.11-alpine</code></td><td>~50MB</td></tr>
+<tr><td><code>node:20</code></td><td>~1GB</td></tr>
+<tr><td><code>node:20-slim</code></td><td>~200MB</td></tr>
+<tr><td><code>node:20-alpine</code></td><td>~130MB</td></tr>
+<tr><td><code>golang:1.21</code></td><td>~800MB</td></tr>
+<tr><td><code>golang:1.21-alpine</code></td><td>~250MB</td></tr>
+<tr><td><code>scratch</code></td><td>0MB</td></tr>
+</tbody>
+</table>
+</div>
+<hr>
+<p>Happy Dockerizing! 🐳</p>
+<div style="break-before: page; page-break-before: always;"></div>
 <h1 id="-kubernetes-cheatsheet"><a class="header" href="#-kubernetes-cheatsheet">🎯 Kubernetes Cheatsheet</a></h1>
 <h2 id="1--namespace"><a class="header" href="#1--namespace">1. 📁 NAMESPACE</a></h2>
 <h3 id="definition-8"><a class="header" href="#definition-8">Definition</a></h3>
@@ -14438,7 +15187,7 @@ kubectl get applications my-app -n argocd -o jsonpath='{.status.sync.status}'
 <li>https://github.com/argoproj/argo-cd</li>
 </ul>
 <hr>
-<h2 id="-quick-reference-card"><a class="header" href="#-quick-reference-card">🎯 Quick Reference Card</a></h2>
+<h2 id="-quick-reference-card-1"><a class="header" href="#-quick-reference-card-1">🎯 Quick Reference Card</a></h2>
 <h3 id="resource-creation-order"><a class="header" href="#resource-creation-order">Resource Creation Order</a></h3>
 <pre><code>1. Namespace
 2. ConfigMaps/Secrets
@@ -15056,7 +15805,7 @@ kubectl get pods -n my-app-dev -o json | jq '.items[] | select(.spec.volumes[].p
 </table>
 </div>
 <hr>
-<h2 id="-best-practices"><a class="header" href="#-best-practices">💡 Best Practices</a></h2>
+<h2 id="-best-practices-1"><a class="header" href="#-best-practices-1">💡 Best Practices</a></h2>
 <div class="table-wrapper">
 <table>
 <thead>
