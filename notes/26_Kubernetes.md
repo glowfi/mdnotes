@@ -1836,3 +1836,79 @@ kubectl delete all --all -n <namespace>
 | Helm Charts Hub | https://artifacthub.io/                                                       |
 | Kustomize       | https://kustomize.io/                                                         |
 | ArgoCD          | https://argo-cd.readthedocs.io/                                               |
+
+# 🔌 PORT FORWARD
+
+### Definition
+
+> **Temporary tunnel** from your local machine to a pod, service, or deployment inside the cluster. Think of it as a **direct phone line** to a resource that's otherwise unreachable from outside.
+
+### Quick Commands
+
+```bash
+# Forward to pod
+kubectl port-forward pod/my-pod 8080:80 -n my-namespace
+
+# Forward to service
+kubectl port-forward svc/my-service 8080:80 -n my-namespace
+
+# Forward to deployment
+kubectl port-forward deploy/my-deployment 8080:80 -n my-namespace
+
+# Listen on all interfaces (accessible from other machines)
+kubectl port-forward svc/my-service 8080:80 --address 0.0.0.0 -n my-namespace
+
+# Multiple ports
+kubectl port-forward pod/my-pod 8080:80 8443:443 -n my-namespace
+
+# Run in background
+kubectl port-forward svc/my-service 8080:80 -n my-namespace &
+```
+
+### Common Use Cases
+
+```bash
+# Database access
+kubectl port-forward svc/postgres 5432:5432 -n database
+# → psql -h localhost -p 5432
+
+# Redis access
+kubectl port-forward svc/redis 6379:6379 -n cache
+# → redis-cli -h localhost
+
+# Internal dashboards
+kubectl port-forward svc/grafana 3000:3000 -n monitoring
+# → http://localhost:3000
+
+# ArgoCD UI
+kubectl port-forward svc/argocd-server 8080:443 -n argocd
+# → https://localhost:8080
+
+# Debug API
+kubectl port-forward deploy/my-api 8080:8080 -n my-app
+# → curl http://localhost:8080/health
+```
+
+### ⚠️ Consequences of Wrong Usage
+
+| Mistake                      | Consequence                                 |
+| ---------------------------- | ------------------------------------------- |
+| Wrong port number            | Connection refused                          |
+| Wrong resource name          | "not found" error                           |
+| Closing terminal             | Port forward stops immediately              |
+| Using for production traffic | Unreliable, single connection only          |
+| Forgetting namespace         | Tries default namespace, resource not found |
+| Port already in use locally  | "bind: address already in use" error        |
+
+### 💡 Key Points
+
+| Point              | Explanation                            |
+| ------------------ | -------------------------------------- |
+| **Temporary**      | Stops when terminal closes or Ctrl+C   |
+| **Local only**     | Default binds to 127.0.0.1 only        |
+| **Single pod**     | Even with service, connects to ONE pod |
+| **Dev/Debug only** | Not meant for production traffic       |
+
+### 📚 Documentation
+
+- https://kubernetes.io/docs/tasks/access-application-cluster/port-forward-access-application-cluster/
