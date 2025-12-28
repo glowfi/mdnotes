@@ -1,8 +1,27 @@
 # 🐳 Docker Complete Cheatsheet for Beginners
 
+---
+
+## 📚 Official Documentation Links
+
+| Resource             | Link                                                                      |
+| -------------------- | ------------------------------------------------------------------------- |
+| Docker Documentation | https://docs.docker.com/                                                  |
+| Dockerfile Reference | https://docs.docker.com/reference/dockerfile/                             |
+| Docker CLI Reference | https://docs.docker.com/reference/cli/docker/                             |
+| Docker Compose       | https://docs.docker.com/compose/                                          |
+| Docker Hub           | https://hub.docker.com/                                                   |
+| Best Practices       | https://docs.docker.com/develop/develop-images/dockerfile_best-practices/ |
+
+---
+
 ## 📦 Basic Docker Commands
 
+> 📖 **Docs:** https://docs.docker.com/reference/cli/docker/
+
 ### Images
+
+> 📖 **Docs:** https://docs.docker.com/reference/cli/docker/image/
 
 ```bash
 # List images
@@ -31,6 +50,8 @@ docker push username/myapp:v1.0
 ```
 
 ### Containers
+
+> 📖 **Docs:** https://docs.docker.com/reference/cli/docker/container/
 
 ```bash
 # Run container
@@ -84,6 +105,8 @@ docker container prune
 
 ### Logs & Debugging
 
+> 📖 **Docs:** https://docs.docker.com/reference/cli/docker/container/logs/
+
 ```bash
 # View logs
 docker logs my-container
@@ -109,6 +132,8 @@ docker top my-container
 
 ### Cleanup
 
+> 📖 **Docs:** https://docs.docker.com/reference/cli/docker/system/prune/
+
 ```bash
 # Remove all stopped containers
 docker container prune
@@ -133,29 +158,36 @@ docker system df
 
 ## 📝 Dockerfile Reference
 
+> 📖 **Docs:** https://docs.docker.com/reference/dockerfile/
+
 ### Basic Instructions
 
-| Instruction  | Purpose                         | Example                    |
-| ------------ | ------------------------------- | -------------------------- |
-| `FROM`       | Base image                      | `FROM python:3.11-slim`    |
-| `WORKDIR`    | Set working directory           | `WORKDIR /app`             |
-| `COPY`       | Copy files                      | `COPY . .`                 |
-| `ADD`        | Copy files (supports URLs, tar) | `ADD app.tar.gz /app`      |
-| `RUN`        | Execute command                 | `RUN pip install flask`    |
-| `ENV`        | Set environment variable        | `ENV PORT=8000`            |
-| `ARG`        | Build-time variable             | `ARG VERSION=1.0`          |
-| `EXPOSE`     | Document port                   | `EXPOSE 8000`              |
-| `CMD`        | Default command                 | `CMD ["python", "app.py"]` |
-| `ENTRYPOINT` | Fixed command                   | `ENTRYPOINT ["python"]`    |
-| `VOLUME`     | Create mount point              | `VOLUME /data`             |
-| `USER`       | Set user                        | `USER appuser`             |
-| `LABEL`      | Add metadata                    | `LABEL version="1.0"`      |
+| Instruction   | Purpose                         | Example                                     | Docs                                                              |
+| ------------- | ------------------------------- | ------------------------------------------- | ----------------------------------------------------------------- |
+| `FROM`        | Base image                      | `FROM python:3.11-slim`                     | [Link](https://docs.docker.com/reference/dockerfile/#from)        |
+| `WORKDIR`     | Set working directory           | `WORKDIR /app`                              | [Link](https://docs.docker.com/reference/dockerfile/#workdir)     |
+| `COPY`        | Copy files                      | `COPY . .`                                  | [Link](https://docs.docker.com/reference/dockerfile/#copy)        |
+| `ADD`         | Copy files (supports URLs, tar) | `ADD app.tar.gz /app`                       | [Link](https://docs.docker.com/reference/dockerfile/#add)         |
+| `RUN`         | Execute command                 | `RUN pip install flask`                     | [Link](https://docs.docker.com/reference/dockerfile/#run)         |
+| `ENV`         | Set environment variable        | `ENV PORT=8000`                             | [Link](https://docs.docker.com/reference/dockerfile/#env)         |
+| `ARG`         | Build-time variable             | `ARG VERSION=1.0`                           | [Link](https://docs.docker.com/reference/dockerfile/#arg)         |
+| `EXPOSE`      | Document port                   | `EXPOSE 8000`                               | [Link](https://docs.docker.com/reference/dockerfile/#expose)      |
+| `CMD`         | Default command                 | `CMD ["python", "app.py"]`                  | [Link](https://docs.docker.com/reference/dockerfile/#cmd)         |
+| `ENTRYPOINT`  | Fixed command                   | `ENTRYPOINT ["python"]`                     | [Link](https://docs.docker.com/reference/dockerfile/#entrypoint)  |
+| `VOLUME`      | Create mount point              | `VOLUME /data`                              | [Link](https://docs.docker.com/reference/dockerfile/#volume)      |
+| `USER`        | Set user                        | `USER appuser`                              | [Link](https://docs.docker.com/reference/dockerfile/#user)        |
+| `LABEL`       | Add metadata                    | `LABEL version="1.0"`                       | [Link](https://docs.docker.com/reference/dockerfile/#label)       |
+| `HEALTHCHECK` | Container health check          | `HEALTHCHECK CMD curl -f http://localhost/` | [Link](https://docs.docker.com/reference/dockerfile/#healthcheck) |
+| `SHELL`       | Change default shell            | `SHELL ["/bin/bash", "-c"]`                 | [Link](https://docs.docker.com/reference/dockerfile/#shell)       |
+| `STOPSIGNAL`  | Set stop signal                 | `STOPSIGNAL SIGTERM`                        | [Link](https://docs.docker.com/reference/dockerfile/#stopsignal)  |
 
 ---
 
 ## 📄 Dockerfile Examples
 
 ### Python (Single Stage)
+
+> 📖 **Docs:** https://hub.docker.com/_/python
 
 ```dockerfile
 FROM python:3.11-slim
@@ -205,6 +237,8 @@ CMD ["python", "app.py"]
 
 ### Node.js (Single Stage)
 
+> 📖 **Docs:** https://hub.docker.com/_/node
+
 ```dockerfile
 FROM node:20-alpine
 
@@ -222,6 +256,8 @@ CMD ["node", "server.js"]
 ```
 
 ### Go (Single Stage)
+
+> 📖 **Docs:** https://hub.docker.com/_/golang
 
 ```dockerfile
 FROM golang:1.21-alpine
@@ -243,6 +279,8 @@ CMD ["./main"]
 ---
 
 ## 🏗️ Multi-Stage Builds
+
+> 📖 **Docs:** https://docs.docker.com/build/building/multi-stage/
 
 ### Why Multi-Stage?
 
@@ -347,6 +385,8 @@ ENTRYPOINT ["/main"]
 
 ### React Multi-Stage (with Nginx)
 
+> 📖 **Nginx Docs:** https://hub.docker.com/_/nginx
+
 ```dockerfile
 # ============ Build Stage ============
 FROM node:20-alpine AS builder
@@ -373,7 +413,12 @@ CMD ["nginx", "-g", "daemon off;"]
 
 ## 🐙 Docker Compose
 
+> 📖 **Docs:** https://docs.docker.com/compose/
+> 📖 **Compose File Reference:** https://docs.docker.com/compose/compose-file/
+
 ### Basic Commands
+
+> 📖 **CLI Reference:** https://docs.docker.com/reference/cli/docker/compose/
 
 ```bash
 # Start services
@@ -438,6 +483,9 @@ services:
 
 ### Full Example (App + Database + Redis)
 
+> 📖 **PostgreSQL:** https://hub.docker.com/_/postgres
+> 📖 **Redis:** https://hub.docker.com/_/redis
+
 ```yaml
 version: '3.8'
 
@@ -489,6 +537,8 @@ volumes:
 
 ### With Environment File
 
+> 📖 **Docs:** https://docs.docker.com/compose/environment-variables/
+
 ```yaml
 version: '3.8'
 
@@ -510,6 +560,8 @@ DEBUG=false
 ```
 
 ### Multiple Compose Files
+
+> 📖 **Docs:** https://docs.docker.com/compose/multiple-compose-files/
 
 ```bash
 # Development
@@ -560,6 +612,8 @@ services:
 
 ### Health Checks
 
+> 📖 **Docs:** https://docs.docker.com/compose/compose-file/05-services/#healthcheck
+
 ```yaml
 version: '3.8'
 
@@ -584,11 +638,43 @@ services:
             retries: 5
 ```
 
+### Depends On with Conditions
+
+> 📖 **Docs:** https://docs.docker.com/compose/compose-file/05-services/#depends_on
+
+```yaml
+version: '3.8'
+
+services:
+    app:
+        build: .
+        depends_on:
+            db:
+                condition: service_healthy
+            redis:
+                condition: service_started
+
+    db:
+        image: postgres:15-alpine
+        healthcheck:
+            test: ['CMD-SHELL', 'pg_isready']
+            interval: 5s
+            timeout: 5s
+            retries: 5
+
+    redis:
+        image: redis:7-alpine
+```
+
 ---
 
 ## 🌐 Networking
 
+> 📖 **Docs:** https://docs.docker.com/network/
+
 ### Network Commands
+
+> 📖 **CLI Docs:** https://docs.docker.com/reference/cli/docker/network/
 
 ```bash
 # List networks
@@ -613,7 +699,20 @@ docker network inspect mynetwork
 docker network rm mynetwork
 ```
 
+### Network Drivers
+
+> 📖 **Docs:** https://docs.docker.com/network/drivers/
+
+| Driver    | Description                                  |
+| --------- | -------------------------------------------- |
+| `bridge`  | Default. Containers on same host communicate |
+| `host`    | Container uses host's network directly       |
+| `none`    | No networking                                |
+| `overlay` | Multi-host networking (Swarm)                |
+
 ### Compose Networks
+
+> 📖 **Docs:** https://docs.docker.com/compose/networking/
 
 ```yaml
 version: '3.8'
@@ -644,7 +743,11 @@ networks:
 
 ## 💾 Volumes
 
+> 📖 **Docs:** https://docs.docker.com/storage/volumes/
+
 ### Volume Commands
+
+> 📖 **CLI Docs:** https://docs.docker.com/reference/cli/docker/volume/
 
 ```bash
 # List volumes
@@ -674,6 +777,18 @@ docker volume prune
 
 ### Volume Types
 
+> 📖 **Docs:** https://docs.docker.com/storage/
+
+| Type         | Syntax              | Use Case        |
+| ------------ | ------------------- | --------------- |
+| Named Volume | `-v myvolume:/data` | Persistent data |
+| Bind Mount   | `-v $(pwd):/app`    | Development     |
+| tmpfs        | `--tmpfs /temp`     | Temporary data  |
+
+### Compose Volumes
+
+> 📖 **Docs:** https://docs.docker.com/compose/compose-file/07-volumes/
+
 ```yaml
 version: '3.8'
 
@@ -697,6 +812,8 @@ volumes:
 ---
 
 ## 📁 .dockerignore
+
+> 📖 **Docs:** https://docs.docker.com/reference/dockerfile/#dockerignore-file
 
 ```
 # Git
@@ -737,7 +854,52 @@ tests/
 
 ---
 
+## 🔒 Security Best Practices
+
+> 📖 **Docs:** https://docs.docker.com/develop/security-best-practices/
+
+### Run as Non-Root User
+
+> 📖 **USER Docs:** https://docs.docker.com/reference/dockerfile/#user
+
+```dockerfile
+# Create user
+RUN useradd --create-home appuser
+
+# Switch to user
+USER appuser
+
+# Copy files with correct ownership
+COPY --chown=appuser:appuser . .
+```
+
+### Use Specific Image Tags
+
+```dockerfile
+# ❌ Bad
+FROM python:latest
+
+# ✅ Good
+FROM python:3.11.6-slim-bookworm
+```
+
+### Scan for Vulnerabilities
+
+> 📖 **Docker Scout Docs:** https://docs.docker.com/scout/
+
+```bash
+# Scan image
+docker scout cves myapp
+
+# Quick overview
+docker scout quickview myapp
+```
+
+---
+
 ## 🔧 Best Practices
+
+> 📖 **Docs:** https://docs.docker.com/develop/develop-images/dockerfile_best-practices/
 
 ### Dockerfile
 
@@ -752,6 +914,8 @@ tests/
 | Use `COPY` over `ADD`     | Use `ADD` unless needed     |
 
 ### Layer Caching Order
+
+> 📖 **Docs:** https://docs.docker.com/build/cache/
 
 ```dockerfile
 # 1. Base image (rarely changes)
@@ -805,6 +969,8 @@ docker system prune -a
 
 ### Port Mapping
 
+> 📖 **Docs:** https://docs.docker.com/reference/cli/docker/container/run/#publish
+
 ```
 -p HOST:CONTAINER
 
@@ -814,6 +980,8 @@ docker system prune -a
 ```
 
 ### Environment Variables
+
+> 📖 **Docs:** https://docs.docker.com/reference/cli/docker/container/run/#env
 
 ```bash
 # Single variable
@@ -830,17 +998,34 @@ docker run --env-file .env myapp
 
 ## 📊 Image Size Comparison
 
-| Base Image           | Size   |
-| -------------------- | ------ |
-| `python:3.11`        | ~900MB |
-| `python:3.11-slim`   | ~120MB |
-| `python:3.11-alpine` | ~50MB  |
-| `node:20`            | ~1GB   |
-| `node:20-slim`       | ~200MB |
-| `node:20-alpine`     | ~130MB |
-| `golang:1.21`        | ~800MB |
-| `golang:1.21-alpine` | ~250MB |
-| `scratch`            | 0MB    |
+| Base Image           | Size   | Docs                                     |
+| -------------------- | ------ | ---------------------------------------- |
+| `python:3.11`        | ~900MB | [Link](https://hub.docker.com/_/python)  |
+| `python:3.11-slim`   | ~120MB | [Link](https://hub.docker.com/_/python)  |
+| `python:3.11-alpine` | ~50MB  | [Link](https://hub.docker.com/_/python)  |
+| `node:20`            | ~1GB   | [Link](https://hub.docker.com/_/node)    |
+| `node:20-slim`       | ~200MB | [Link](https://hub.docker.com/_/node)    |
+| `node:20-alpine`     | ~130MB | [Link](https://hub.docker.com/_/node)    |
+| `golang:1.21`        | ~800MB | [Link](https://hub.docker.com/_/golang)  |
+| `golang:1.21-alpine` | ~250MB | [Link](https://hub.docker.com/_/golang)  |
+| `nginx:alpine`       | ~40MB  | [Link](https://hub.docker.com/_/nginx)   |
+| `scratch`            | 0MB    | [Link](https://hub.docker.com/_/scratch) |
+
+---
+
+## 📖 Additional Resources
+
+| Resource               | Link                                          |
+| ---------------------- | --------------------------------------------- |
+| Docker Getting Started | https://docs.docker.com/get-started/          |
+| Docker Samples         | https://docs.docker.com/samples/              |
+| Dockerfile Reference   | https://docs.docker.com/reference/dockerfile/ |
+| Compose File Reference | https://docs.docker.com/compose/compose-file/ |
+| Docker CLI Reference   | https://docs.docker.com/reference/cli/docker/ |
+| Awesome Docker         | https://github.com/veggiemonk/awesome-docker  |
+| Docker Labs            | https://github.com/docker/labs                |
+| Play with Docker       | https://labs.play-with-docker.com/            |
+| Docker Curriculum      | https://docker-curriculum.com/                |
 
 ---
 
